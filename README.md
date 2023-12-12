@@ -1,16 +1,16 @@
-# elibrary
+# elibrary_mobile
 
-A new Flutter project.
+## Installation
+To get started with the project, please follow these steps:
+1. Clone the repository to your local machine.
+2. Open the project in your preferred IDE (e.g., Android Studio, Visual Studio Code).
+3. Run the following command `flutter pub get` to install the required dependencies.
 
-## Getting Started
+## Usage
+Build and run the project using the Flutter SDK and your preferred IDE or by running the `flutter run` command in the terminal.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contributor
+- [Sarfaraz Ahmed](https://bitbucket.org/sarfaraz007/)
+- [Tushar Imran](https://bitbucket.org/Tushar118/)
+- [Kaywchang Marma](https://bitbucket.org/kaywchang/)
+- [Abir Rahman](https://bitbucket.org/abir1h/)
