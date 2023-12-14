@@ -24,10 +24,10 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Image.asset(
-              //   ImageAssets.icLogo,
-              //   height: size.h64,
-              // ),
+              Image.asset(
+                ImageAssets.icLogo,
+                height: size.h64,
+              ),
               SizedBox(height: size.h32 + size.h6),
               Text(
                 "Welcome To CLMS",

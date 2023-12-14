@@ -1,0 +1,10 @@
+<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="download">
+<mask id="mask0_521_761" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
+<rect id="Bounding box" x="0.0332031" width="24.9665" height="24" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_521_761)">
+<path id="download_2" d="M12.4843 16L7.28295 11L8.73934 9.55L11.4441 12.15V4H13.5246V12.15L16.2293 9.55L17.6857 11L12.4843 16ZM6.24267 20C5.67051 20 5.18072 19.8042 4.77327 19.4125C4.36583 19.0208 4.16211 18.55 4.16211 18V15H6.24267V18H18.726V15H20.8066V18C20.8066 18.55 20.6029 19.0208 20.1954 19.4125C19.788 19.8042 19.2982 20 18.726 20H6.24267Z" fill="#006A4E"/>
+</g>
+</g>
+</svg>
