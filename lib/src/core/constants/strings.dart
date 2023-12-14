@@ -6,6 +6,8 @@ class StringData {
   static const String userRoleKey = "userRoleKey";
   static const String userPermissionKey = "userPermissionKey";
 
+  static const String appNameText = "E-Library";
+
   static const String fontFamilyPoppins = 'Poppins';
   static const String fontFamilyRoboto = 'Roboto';
   static const String fontFamilyInter = 'Inter';

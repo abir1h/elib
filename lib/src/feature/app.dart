@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import '../core/constants/strings.dart';
 import '../core/routes/app_routes.dart';
@@ -26,19 +27,20 @@ class Application extends StatelessWidget with AppTheme {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
-            title: 'eLibrary',
+          return GetMaterialApp(
+            title: 'CLMS',
             debugShowCheckedModeBanner: false,
+            useInheritedMediaQuery: true,
             theme: ThemeData(
                 colorScheme: ColorScheme.fromSwatch()
                     .copyWith(primary: clr.appPrimaryColorGreen),
                 scaffoldBackgroundColor: clr.scaffoldBackgroundColor,
                 dividerColor: Colors.transparent,
-                fontFamily: StringData.fontFamilyPoppins,
-                canvasColor: Colors.transparent),
+                fontFamily: StringData.fontFamilyPoppins,canvasColor: Colors.transparent
+
+            ),
             initialRoute: AppRoutes.splash,
-            onGenerateRoute: RouterGenerator.generateRoute,
-            home: const SplashScreen(),
+            getPages: AppPages.pages,
           );
         });
   }
