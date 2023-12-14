@@ -32,8 +32,6 @@ class _RootScreenState extends State<RootScreen>
   List<Widget> pages = [
     Container(),
     Container(),
-    Container(),
-    Container(),
 
   ];
   @override
@@ -143,7 +141,7 @@ class _RootScreenState extends State<RootScreen>
             ),
             label: label(e: en.homeText, b: bn.homeText),
           ),
-          BottomNavigationBarItem(
+/*          BottomNavigationBarItem(
             icon: Icon(
               Icons.auto_stories,
               size: size.r24,
@@ -156,7 +154,7 @@ class _RootScreenState extends State<RootScreen>
               size: size.r24,
             ),
             label: label(e: en.notesText, b: bn.notesText),
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(
               CupertinoIcons.profile_circled,
