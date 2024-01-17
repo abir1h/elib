@@ -317,44 +317,44 @@ class _FaderState extends State<Fader> with SingleTickerProviderStateMixin {
     );
   }
 }
-
-class ActionResult<T> {
-  late Status status;
-  late String message;
-  late T? data;
-  ActionResult({required this.status, required this.message, this.data});
-
-  ActionResult.fromServerResponse(
-      {required ServerResponse response,
-      required T Function(dynamic data) generateData}) {
-    // status = _StatusExtensionMap.state(response.status);
-    message = response.message;
-    data = status == Status.success ? generateData(response.data) : null;
-  }
-
-  ActionResult.error({String msg = "Request failed! Unknown error occurred."}) {
-    status = Status.error;
-    message = msg;
-  }
-}
-
-enum Status {
-  success,
-  warning,
-  error,
-  empty,
-}
-
-extension _StatusExtensionMap on Status {
-  static const _valueMap = {
-    Status.error: 0,
-    Status.success: 1,
-    Status.warning: 2,
-    Status.empty: 3,
-  };
-
-  int get value => _valueMap[this] ?? 0;
-  static Status state(int value) =>
-      _valueMap.keys.firstWhere((element) => element.value == value,
-          orElse: () => Status.error);
-}
+//
+// class ActionResult<T> {
+//   late Status status;
+//   late String message;
+//   late T? data;
+//   ActionResult({required this.status, required this.message, this.data});
+//
+//   ActionResult.fromServerResponse(
+//       {required ServerResponse response,
+//       required T Function(dynamic data) generateData}) {
+//     // status = _StatusExtensionMap.state(response.status);
+//     message = response.message;
+//     data = status == Status.success ? generateData(response.data) : null;
+//   }
+//
+//   ActionResult.error({String msg = "Request failed! Unknown error occurred."}) {
+//     status = Status.error;
+//     message = msg;
+//   }
+// }
+//
+// enum Status {
+//   success,
+//   warning,
+//   error,
+//   empty,
+// }
+//
+// extension _StatusExtensionMap on Status {
+//   static const _valueMap = {
+//     Status.error: 0,
+//     Status.success: 1,
+//     Status.warning: 2,
+//     Status.empty: 3,
+//   };
+//
+//   int get value => _valueMap[this] ?? 0;
+//   static Status state(int value) =>
+//       _valueMap.keys.firstWhere((element) => element.value == value,
+//           orElse: () => Status.error);
+// }
