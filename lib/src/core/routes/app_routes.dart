@@ -1,78 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../feature/authentication/presentation/bindings/authentication_binding.dart';
-import '../../feature/authentication/presentation/screens/authentication_screen.dart';
-import '../../feature/landing/presentation/bindings/landing_binding.dart';
-import '../../feature/landing/presentation/screens/landing_screen.dart';
-import '../../feature/root/presentation/binding/root_binding.dart';
+import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/root/presentation/screens/root_screen.dart';
-import '../../feature/splash/bindings/splash_binding.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
-class AppRoutes {
-  AppRoutes._();
-
+class AppRoute {
+  AppRoute._();
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-  static const String splash = '/splash';
+  static const String splashScreen = '/splash';
   static const String authenticate = '/authenticate';
   static const String landing = '/landing';
   static const String bottomNav = '/bottomNav';
 }
 
-class AppPages {
-  AppPages._();
+mixin RouteGenerator {
+  static Route<dynamic> generate(RouteSettings setting) {
+    return FadeInOutRouteBuilder(
+        builder: (context) {
+      switch (setting.name) {
+      ///StartUp
+        case AppRoute.splashScreen:return const SplashScreen();
+      ///Default Screen
+        default:return const SplashScreen();
 
-  static final pages = [
-    GetPage(
-      name: AppRoutes.splash,
-      page: () => const SplashScreen(),
-      binding: SplashBinding(),
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: AppRoutes.authenticate,
-      page: () => const AuthenticationScreen(),
-      binding: AuthenticationBinding(),
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: AppRoutes.landing,
-      page: () => const LandingScreen(),
-      binding: LandingBinding(),
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: AppRoutes.bottomNav,
-      page: () => const RootScreen(),
-      binding: RootBinding(),
-      transition: Transition.rightToLeft,
-    ),
-  ];
-}
+      }});}}
 
-class RouterGenerator {
-  RouterGenerator._();
 
-  static Route<String>? generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case AppRoutes.splash:
-        return MaterialPageRoute(
-          builder: (context) => const SplashScreen(),
-        );
-      default:
-        return _errorRoute();
-    }
-  }
 
-  static Route<String> _errorRoute() {
-    return MaterialPageRoute(builder: (context) {
-      return const Scaffold(
-        body: Center(
-          child: Text('Page not found'),
+
+
+///This defines the animation of routing one page to another
+class FadeInOutRouteBuilder extends PageRouteBuilder {
+  final WidgetBuilder builder;
+  FadeInOutRouteBuilder({required this.builder}) : super(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+    return builder(context);
+  }, transitionsBuilder: (BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return FadeTransition(
+      opacity: Tween<double>(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(
+        CurvedAnimation(
+          parent: animation,
+          curve: const Interval(
+            0.50,
+            1.00,
+            curve: Curves.linear,
+          ),
         ),
-      );
-    });
-  }
+      ),
+      child: child,
+    );
+  });
 }

@@ -1,8 +1,5 @@
-import 'package:elibrary/src/feature/splash/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
@@ -15,7 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with AppTheme {
-  final SplashController splashController = Get.put(SplashController());
 
 
   @override

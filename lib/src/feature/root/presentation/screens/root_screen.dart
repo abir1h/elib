@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
 import '../../../../core/common_widgets/custom_app_bar.dart';
 import '../../../../core/common_widgets/drawer_widget.dart';
 import '../../../../core/constants/language.dart';
@@ -32,7 +30,6 @@ class _RootScreenState extends State<RootScreen>
   List<Widget> pages = [
     Container(),
     Container(),
-
   ];
   @override
   void initState() {
@@ -43,9 +40,7 @@ class _RootScreenState extends State<RootScreen>
   }
 
   setPage() {
-    final args = Get.arguments ?? 0;
-    print(args);
-    _currentPageIndex = args;
+
   }
 
   @override

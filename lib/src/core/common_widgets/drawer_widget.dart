@@ -1,14 +1,11 @@
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../constants/language.dart';
 import '../service/notifier/app_events_notifier.dart';
 import 'custom_dialog_widget.dart';
 import 'custom_switch_button.dart';
 import '../utility/app_label.dart';
-import '../../feature/landing/presentation/controllers/landing_controller.dart';
 import '../constants/common_imports.dart';
 
 class DrawerWidget extends StatefulWidget {
