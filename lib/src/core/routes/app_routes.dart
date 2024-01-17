@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../feature/authentication/presentation/bindings/authentication_binding.dart';
+import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/landing/presentation/bindings/landing_binding.dart';
 import '../../feature/landing/presentation/screens/landing_screen.dart';
 import '../../feature/root/presentation/binding/root_binding.dart';
@@ -14,9 +16,9 @@ class AppRoutes {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   static const String splash = '/splash';
+  static const String authenticate = '/authenticate';
   static const String landing = '/landing';
   static const String bottomNav = '/bottomNav';
-
 }
 
 class AppPages {
@@ -29,25 +31,26 @@ class AppPages {
       binding: SplashBinding(),
       transition: Transition.rightToLeft,
     ),
-
+    GetPage(
+      name: AppRoutes.authenticate,
+      page: () => const AuthenticationScreen(),
+      binding: AuthenticationBinding(),
+      transition: Transition.rightToLeft,
+    ),
     GetPage(
       name: AppRoutes.landing,
       page: () => const LandingScreen(),
       binding: LandingBinding(),
       transition: Transition.rightToLeft,
     ),
-
-
     GetPage(
       name: AppRoutes.bottomNav,
       page: () => const RootScreen(),
       binding: RootBinding(),
       transition: Transition.rightToLeft,
     ),
-
   ];
 }
-
 
 class RouterGenerator {
   RouterGenerator._();
