@@ -22,4 +22,23 @@ class BookRepositoryImp extends BookRepository {
                 .map((e) => e.toBookDataEntity)
                 .toList());
   }
+
+  @override
+  Future<ResponseEntity> getBookDetails(int bookId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.getBookDetailsAction(bookId));
+    return ResponseModelToEntityMapper<BookDataEntity, BookDataModel>()
+        .toEntityFromModel(
+            responseModel, (BookDataModel model) => model.toBookDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> saveBook(int bookId, int status) async{
+    // ResponseModel responseModel =
+    // (await bookRemoteDataSource.saveBookAction(bookId, status));
+    // return ResponseModelToEntityMapper<ResponseEntity, ResponseModel>()
+    //     .toEntityFromModel(
+    // responseModel, (ResponseModel model) => model.toBookDataEntity);
+    throw UnimplementedError();
+  }
 }

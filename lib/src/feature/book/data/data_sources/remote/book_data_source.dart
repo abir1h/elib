@@ -5,6 +5,8 @@ import '../../../../shared/data/models/response_model.dart';
 
 abstract class BookRemoteDataSource {
   Future<ResponseModel> getBooksAction();
+  Future<ResponseModel> getBookDetailsAction(int bookId);
+  Future<ResponseModel> saveBookAction(int bookId, int status);
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -16,4 +18,27 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
         responseJson, (dynamic json) => BookDataModel.listFromJson(json));
     return responseModel;
   }
+
+  @override
+  Future<ResponseModel> getBookDetailsAction(int bookId) async {
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.getBookDetails}/$bookId");
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => BookDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> saveBookAction(int bookId, int status) async{
+    Map<String, dynamic> data = {
+      "book_id": bookId,
+      "status": status
+    };
+    final responseJson = await Server.instance
+        .postRequest(url: ApiCredential.saveBook, postData: data);
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => null);
+    return responseModel;
+  }
+
 }
