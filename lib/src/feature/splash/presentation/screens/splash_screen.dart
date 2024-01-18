@@ -24,7 +24,6 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme {
 
   _callMethod() async{
     if(mounted){
-
     }
   }
 
