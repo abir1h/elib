@@ -1,3 +1,6 @@
+import 'package:elibrary/src/feature/category/data/data_sources/remote/category_data_source.dart';
+import 'package:elibrary/src/feature/category/data/models/category_data_model.dart';
+import 'package:elibrary/src/feature/shared/data/models/response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_theme.dart';
@@ -13,6 +16,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> with AppTheme {
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _callMethod();
+  }
+
+  _callMethod() async{
+    if(mounted){
+      CategoryRemoteDataSourceImp categoryRemoteDataSourceImp = CategoryRemoteDataSourceImp();
+      List<CategoryDataModel> categoryDataModel = await categoryRemoteDataSourceImp.getCategoriesActio();
+      print(categoryDataModel.first.id);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

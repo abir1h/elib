@@ -1,8 +1,8 @@
 class ApiCredential {
   const ApiCredential._();
 
-  static String baseUrl = "https://auth-hsep.bacbonx.com/api/dev";
+  static String baseUrl = "http://103.209.40.89:82/api/elib/mobile/mobile-app";
   static String apiKey = "";
 
-  static String userLogin = "/login";
+  static String getCategories = "/category";
 }

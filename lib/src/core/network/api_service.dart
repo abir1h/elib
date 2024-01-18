@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../utility/log.dart';
+import '../constants/common_imports.dart';
 import 'app_exceptions.dart';
 
 class Server{
@@ -19,7 +19,7 @@ class Server{
   final StreamController<String> _sessionExpireStreamController = StreamController.broadcast();
   Stream<String> get onUnauthorizedRequest => _sessionExpireStreamController.stream;
 
-  static String get host => ""; //TODO must check is HOST url active for production build
+  static String get host => ApiCredential.baseUrl; //TODO must check is HOST url active for production build
 
 
 
@@ -27,7 +27,7 @@ class Server{
     try {
       var body = json.encode(postData);
       var response = await _client.post(
-        Uri.parse("$host/api/$url"),
+        Uri.parse(host + url),
         headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer "},
         body: utf8.encode(body),
       );
@@ -45,10 +45,10 @@ class Server{
     }
   }
 
-  Future<dynamic> getRequest({required String url,String? token}) async {
+  Future<dynamic> getRequest({required String url}) async {
     try {
       var response = await _client.get(
-          Uri.parse("$host/api/$url"),
+          Uri.parse(host + url),
           headers: {"Accept": "application/json", "Content-Type":"application/json", "Authorization": "Bearer "}
       );
       debugPrint("REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");

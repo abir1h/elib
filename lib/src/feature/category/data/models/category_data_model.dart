@@ -32,7 +32,7 @@ class CategoryDataModel {
         createdAt: json["created_at"] ?? "",
         updatedAt: json["updated_at"] ?? "",
         deletedAt: json["deleted_at"] ?? "",
-        books:  List<BookDataModel>.from((json["books"]??[]).map((x) => BookDataModel.fromJson(x))),
+        books:  json["books"] != null ? List<BookDataModel>.from((json["books"]).map((x) => BookDataModel.fromJson(x))) : [],
       );
 
   Map<String, dynamic> toJson() => {
