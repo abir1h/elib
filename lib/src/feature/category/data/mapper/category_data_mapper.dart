@@ -1,6 +1,6 @@
-import 'book_data_mapper.dart';
-import '../models/book_data_model.dart';
-import '../../domain/entities/book_data_entity.dart';
+import '../../../book/data/mapper/book_data_mapper.dart';
+import '../../../book/data/models/book_data_model.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
 import '../models/category_data_model.dart';
 import '../../domain/entities/category_data_entity.dart';
 

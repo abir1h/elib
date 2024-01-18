@@ -1,4 +1,5 @@
-import 'book_link_data_enitity.dart';
+import 'category_link_data_enitity.dart';
+
 import 'category_data_entity.dart';
 
 class CategoryBookDataEntity {
@@ -13,7 +14,7 @@ class CategoryBookDataEntity {
   final String prevPageUrl;
   final int to;
   final int total;
-  final List<BookLinkDataEntity> links;
+  final List<CategoryLinkDataEntity> links;
   final List<CategoryDataEntity> categoryDataModel;
 
   CategoryBookDataEntity({

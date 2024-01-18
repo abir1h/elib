@@ -1,4 +1,4 @@
-import 'book_data_entity.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
 
 class CategoryDataEntity {
   final int id;

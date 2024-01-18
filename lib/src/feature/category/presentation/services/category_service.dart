@@ -12,4 +12,8 @@ mixin class CategoryService {
   Future<ResponseEntity> getCategories() async {
     return _categoryUseCase.getCategoriesUseCase();
   }
+
+  Future<ResponseEntity> getCategoryWithBook() async {
+    return _categoryUseCase.getCategoryWithBookUseCase();
+  }
 }

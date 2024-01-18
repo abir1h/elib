@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
+import '../../../category/presentation/services/category_service.dart';
+import '../../../book/presentation/services/book_service.dart';
+import '../../../shared/domain/entities/response_entity.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,13 +15,17 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with AppTheme {
+class _SplashScreenState extends State<SplashScreen> with AppTheme, CategoryService, BookService {
 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _callMethod();
+  }
+
+  _callMethod() async{
   }
 
   @override
