@@ -24,7 +24,7 @@ class BookDataModel {
   final String updatedAt;
   final String deletedAt;
   final String author;
-  final List<CategoryDataModel> category;
+  final CategoryDataModel? category;
 
   const BookDataModel({
     required this.id,
@@ -71,8 +71,9 @@ class BookDataModel {
       updatedAt: json["updated_at"] ?? "",
       deletedAt: json["deleted_at"] ?? "",
       author: json["author"] ?? '',
-      category: List<CategoryDataModel>.from(
-          (json["category"] ?? []).map((x) => CategoryDataModel.fromJson(x))));
+      category: json['category'] != null
+          ? CategoryDataModel.fromJson(json['category'])
+          : null);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -95,7 +96,7 @@ class BookDataModel {
         "updated_at": updatedAt,
         "deleted_at": deletedAt,
         "author": author,
-        "category": List<dynamic>.from(category.map((x) => x.toJson())),
+        "category": category?.toJson(),
       };
   static List<BookDataModel> listFromJson(List<dynamic> json) {
     return json.isNotEmpty

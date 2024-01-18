@@ -22,7 +22,7 @@ class BookDataEntity {
   final String updatedAt;
   final String deletedAt;
   final String author;
-  final List<CategoryDataEntity> category;
+  final CategoryDataEntity? category;
   BookDataEntity({
     required this.id,
     required this.adminId,

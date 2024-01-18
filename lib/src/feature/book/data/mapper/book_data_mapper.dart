@@ -35,9 +35,7 @@ class _BookDataModelToEntityMapper
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
         author: entity.author,
-        category: List<CategoryDataEntity>.from(entity.category)
-            .map((entity) => entity.toCategoryDataModel)
-            .toList());
+        category: entity.category?.toCategoryDataModel);
   }
 
   @override
@@ -63,9 +61,9 @@ class _BookDataModelToEntityMapper
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
         author: model.author,
-        category: List<CategoryDataModel>.from(model.category)
-            .map((model) => model.toCategoryDataEntity)
-            .toList());
+        category: model.category,,
+        
+       
   }
 }
 
