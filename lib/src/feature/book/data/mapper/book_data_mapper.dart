@@ -1,7 +1,7 @@
-import 'category_data_mapper.dart';
-import '../models/category_data_model.dart';
-import '../../domain/entities/category_data_entity.dart';
+import 'package:elibrary/src/feature/category/data/mapper/category_data_mapper.dart';
 
+import '../../../category/data/models/category_data_model.dart';
+import '../../../category/domain/entities/category_data_entity.dart';
 import '../models/book_data_model.dart';
 import '../../domain/entities/book_data_entity.dart';
 

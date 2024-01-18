@@ -1,6 +1,5 @@
 import 'package:elibrary/src/feature/category/domain/entities/category_data_entity.dart';
 
-import '../../data/models/category_data_model.dart';
 
 class BookDataEntity {
   final int id;

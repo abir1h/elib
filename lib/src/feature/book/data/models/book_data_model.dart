@@ -1,5 +1,6 @@
-import 'category_data_model.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../category/data/models/category_data_model.dart';
 
 @immutable
 class BookDataModel {
@@ -96,4 +97,10 @@ class BookDataModel {
         "author": author,
         "category": List<dynamic>.from(category.map((x) => x.toJson())),
       };
+  static List<BookDataModel> listFromJson(List<dynamic> json) {
+    return json.isNotEmpty
+        ? List.castFrom<dynamic, BookDataModel>(
+            json.map((x) => BookDataModel.fromJson(x)).toList())
+        : [];
+  }
 }
