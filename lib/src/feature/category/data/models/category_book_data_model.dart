@@ -1,5 +1,5 @@
-import 'package:elibrary/src/feature/home/data/models/book_link_model.dart';
-import 'package:elibrary/src/feature/home/data/models/category_model.dart';
+import 'book_link_data_model.dart';
+import 'category_data_model.dart';
 
 class CategoryBookDataModel {
   final int currentPage;

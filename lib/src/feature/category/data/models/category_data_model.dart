@@ -1,4 +1,4 @@
-import 'book_model.dart';
+import '../../../category/data/models/book_data_model.dart';
 
 class CategoryDataModel {
   final int id;
