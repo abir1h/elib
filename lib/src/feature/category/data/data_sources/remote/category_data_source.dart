@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';
@@ -12,18 +10,12 @@ abstract class CategoryRemoteDataSource {
 class CategoryRemoteDataSourceImp extends CategoryRemoteDataSource {
 
   @override
-  Future<List<CategoryDataModel>> getCategoriesActio() async{
+  Future<ResponseModel> getCategoriesAction() async{
     final responseJson = await Server.instance.getRequest(url: ApiCredential.getCategories);
-    List<CategoryDataModel> responseModel = CategoryDataModel.listFromJson(jsonDecode(responseJson["data"]));
-    // ResponseModel responseModel = ResponseModel.fromJson(
-    //     json.decode(responseJson),
-    //         (dynamic json) => CategoryDataModel.listFromJson(json));
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson,
+            (dynamic json) => CategoryDataModel.listFromJson(json));
     return responseModel;
   }
 
-  @override
-  Future<ResponseModel> getCategoriesAction() {
-    // TODO: implement getCategoriesAction
-    throw UnimplementedError();
-  }
 }

@@ -55,11 +55,13 @@ class Server{
       return _returnResponse(response);
     }
     on SocketException catch(_){
-      return '{"message": "Request failed! Check internet connection.", "error": "Error message"}';
+      dynamic response = {"message": "Request failed! Check internet connection.", "error": "Error message"};
+      return response;
     }
     on Exception catch(_)
     {
-      return '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}';
+      dynamic response = {"message": "Request failed! Unknown error occurred.", "error": "Error message"};
+      return response;
     }
   }
 
@@ -73,28 +75,23 @@ class Server{
     appPrint("------------------------------");
     switch (response.statusCode) {
       case 200:
-        var responseJson = jsonEncode(response.body);
-        return responseJson;
+        return json.decode(response.body);
       case 201:
-        var responseJson = jsonEncode(response.body);
-        return responseJson;
+        return json.decode(response.body);
       case 204:
-        var responseJson = {'status_code': 204};
-        return responseJson;
+        return json.decode(response.body);
       case 400:
-        var responseJson = jsonEncode(response.body);
-        return responseJson;
+        return json.decode(response.body);
       case 401:
-        var responseJson = jsonEncode(response.body);
-        return responseJson;
+        return json.decode(response.body);
       case 403:
         throw UnauthorisedException(response.body);
       case 404:
-        var responseJson = jsonEncode(response.body);
-        return responseJson;
+        return json.decode(response.body);
       case 422:
-        throw ValidationException(response.body);
+        return json.decode(response.body);
       case 500:
+        return json.decode(response.body);
       default:
         throw FetchDataException(
             'Error occured while Communication with Server with StatusCode : ${response.statusCode}');

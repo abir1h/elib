@@ -20,7 +20,8 @@ class CategoryDataModel {
       required this.createdAt,
       required this.updatedAt,
       required this.deletedAt,
-      required this.books});
+      required this.books
+      });
 
   factory CategoryDataModel.fromJson(Map<String, dynamic> json) =>
       CategoryDataModel(
