@@ -19,12 +19,6 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _callMethod();
-  }
-
-  _callMethod() async{
-    if(mounted){
-    }
   }
 
   @override

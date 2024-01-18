@@ -1,3 +1,4 @@
+import '../mapper/category_data_mapper.dart';
 import '../../../shared/data/mapper/response_mapper.dart';
 import '../../../shared/data/models/response_model.dart';
 import '../../domain/entities/category_data_entity.dart';
@@ -10,18 +11,17 @@ class CategoryRepositoryImp extends CategoryRepository {
   final CategoryRemoteDataSource categoryRemoteDataSource;
   CategoryRepositoryImp({required this.categoryRemoteDataSource});
 
-  // @override
-  // Future<ResponseEntity> getCategories() async{
-  //   ResponseModel responseModel =
-  //   (await categoryRemoteDataSource.getCategoriesAction());
-  //   return ResponseModelToEntityMapper<CategoryDataEntity, CategoryDataModel>()
-  //       .toEntityFromModel(
-  //   responseModel, (CategoryDataModel model) => model.toAuthDataEntity);
-  // }
-
   @override
-  Future<ResponseEntity> getCategories() async{
-    throw UnimplementedError();
+  Future<ResponseEntity> getCategories() async {
+    ResponseModel responseModel =
+        (await categoryRemoteDataSource.getCategoriesAction());
+    return ResponseModelToEntityMapper<List<CategoryDataEntity>,
+            List<CategoryDataModel>>()
+        .toEntityFromModel(
+            responseModel,
+            (List<CategoryDataModel> models) =>
+                List<CategoryDataModel>.from(models)
+                    .map((e) => e.toCategoryDataEntity)
+                    .toList());
   }
-
 }

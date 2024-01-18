@@ -1,15 +1,15 @@
-import 'package:elibrary/src/feature/category/data/models/category_data_model.dart';
-
-import '../../domain/entities/category_book_data_entity.dart';
+import 'book_data_mapper.dart';
+import '../models/book_data_model.dart';
+import '../../domain/entities/book_data_entity.dart';
+import '../models/category_data_model.dart';
 import '../../domain/entities/category_data_entity.dart';
-import '../models/category_book_data_model.dart';
 
 abstract class CategoryDataMapper<M, E> {
   M fromEntityToModel(E entity);
   E toEntityFromModel(M model);
 }
 
-class  _CategoryDataModelToEntityMapper
+class _CategoryDataModelToEntityMapper
     extends CategoryDataMapper<CategoryDataModel, CategoryDataEntity> {
   @override
   CategoryDataModel fromEntityToModel(CategoryDataEntity entity) {
@@ -22,7 +22,9 @@ class  _CategoryDataModelToEntityMapper
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
-        books: entity.books);
+        books: List<BookDataEntity>.from(entity.books)
+            .map((entity) => entity.toBookDataModel)
+            .toList());
   }
 
   @override
@@ -36,16 +38,18 @@ class  _CategoryDataModelToEntityMapper
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
-        books: model.books);
+        books: List<BookDataModel>.from(model.books)
+            .map((model) => model.toBookDataEntity)
+            .toList());
   }
 }
 
 extension CategoryDataModelExt on CategoryDataModel {
   CategoryDataEntity get toCategoryDataEntity =>
-       _CategoryDataModelToEntityMapper().toEntityFromModel(this);
+      _CategoryDataModelToEntityMapper().toEntityFromModel(this);
 }
 
 extension CategoryDataEntityExt on CategoryDataEntity {
   CategoryDataModel get toCategoryDataModel =>
-       _CategoryDataModelToEntityMapper().fromEntityToModel(this);
+      _CategoryDataModelToEntityMapper().fromEntityToModel(this);
 }
