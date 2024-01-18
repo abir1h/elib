@@ -1,3 +1,7 @@
+import 'package:elibrary/src/feature/category/domain/entities/category_data_entity.dart';
+
+import '../../data/models/category_data_model.dart';
+
 class BookDataEntity {
   final int id;
   final int adminId;
@@ -18,7 +22,8 @@ class BookDataEntity {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-
+  final String author;
+  final List<CategoryDataEntity> category;
   BookDataEntity({
     required this.id,
     required this.adminId,
@@ -39,5 +44,7 @@ class BookDataEntity {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
+    required this.author,
+    required this.category,
   });
 }

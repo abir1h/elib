@@ -1,3 +1,7 @@
+import 'category_data_mapper.dart';
+import '../models/category_data_model.dart';
+import '../../domain/entities/category_data_entity.dart';
+
 import '../models/book_data_model.dart';
 import '../../domain/entities/book_data_entity.dart';
 
@@ -29,7 +33,11 @@ class _BookDataModelToEntityMapper
         status: entity.status,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
-        deletedAt: entity.deletedAt);
+        deletedAt: entity.deletedAt,
+        author: entity.author,
+        category: List<CategoryDataEntity>.from(entity.category)
+            .map((entity) => entity.toCategoryDataModel)
+            .toList());
   }
 
   @override
@@ -53,7 +61,11 @@ class _BookDataModelToEntityMapper
         status: model.status,
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
-        deletedAt: model.deletedAt);
+        deletedAt: model.deletedAt,
+        author: model.author,
+        category: List<CategoryDataModel>.from(model.category)
+            .map((model) => model.toCategoryDataEntity)
+            .toList());
   }
 }
 

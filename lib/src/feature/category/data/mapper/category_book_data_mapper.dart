@@ -1,9 +1,9 @@
-import 'package:elibrary/src/feature/category/data/mapper/book_link_data_mapper.dart';
-import 'package:elibrary/src/feature/category/data/mapper/category_data_mapper.dart';
-import 'package:elibrary/src/feature/category/data/models/book_link_data_model.dart';
-import 'package:elibrary/src/feature/category/data/models/category_data_model.dart';
-import 'package:elibrary/src/feature/category/domain/entities/book_link_data_enitity.dart';
-import 'package:elibrary/src/feature/category/domain/entities/category_data_entity.dart';
+import "book_link_data_mapper.dart";
+import 'category_data_mapper.dart';
+import '../models/book_link_data_model.dart';
+import '../models/category_data_model.dart';
+import '../../domain/entities/book_link_data_enitity.dart';
+import '../../domain/entities/category_data_entity.dart';
 
 import '../../domain/entities/category_book_data_entity.dart';
 import '../models/category_book_data_model.dart';

@@ -1,5 +1,4 @@
 import 'book_link_data_enitity.dart';
-
 import 'category_data_entity.dart';
 
 class CategoryBookDataEntity {
