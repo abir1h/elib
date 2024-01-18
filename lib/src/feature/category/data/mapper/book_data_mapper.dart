@@ -1,5 +1,5 @@
-import 'package:elibrary/src/feature/category/data/models/book_data_model.dart';
-import 'package:elibrary/src/feature/category/domain/entities/book_data_entity.dart';
+import '../models/book_data_model.dart';
+import '../../domain/entities/book_data_entity.dart';
 
 abstract class BookDataMapper<M, E> {
   M fromEntityToModel(E entity);
@@ -18,25 +18,25 @@ class _BookDataModelToEntityMapper
         titleEn: entity.titleEn,
         titleBn: entity.titleBn,
         slug: entity.slug,
-        descriptionEn:entity. descriptionEn,
-        descriptionBn:entity. descriptionBn,
-        coverImage:entity. coverImage,
+        descriptionEn: entity.descriptionEn,
+        descriptionBn: entity.descriptionBn,
+        coverImage: entity.coverImage,
         bookFile: entity.bookFile,
-        externalLink:entity.externalLink,
+        externalLink: entity.externalLink,
         totalPages: entity.totalPages,
         totalChapters: entity.totalChapters,
         isGenerateBook: entity.isGenerateBook,
         status: entity.status,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
-        deletedAt:entity. deletedAt);
+        deletedAt: entity.deletedAt);
   }
 
   @override
   BookDataEntity toEntityFromModel(BookDataModel model) {
     return BookDataEntity(
         id: model.id,
-        adminId:model. adminId,
+        adminId: model.adminId,
         categoryId: model.categoryId,
         authorId: model.authorId,
         titleEn: model.titleEn,
@@ -44,16 +44,16 @@ class _BookDataModelToEntityMapper
         slug: model.slug,
         descriptionEn: model.descriptionEn,
         descriptionBn: model.descriptionBn,
-        coverImage:model.coverImage,
+        coverImage: model.coverImage,
         bookFile: model.bookFile,
-        externalLink:model. externalLink,
+        externalLink: model.externalLink,
         totalPages: model.totalPages,
         totalChapters: model.totalChapters,
-        isGenerateBook:model. isGenerateBook,
+        isGenerateBook: model.isGenerateBook,
         status: model.status,
-        createdAt:model. createdAt,
-        updatedAt:model. updatedAt,
-        deletedAt:model. deletedAt);
+        createdAt: model.createdAt,
+        updatedAt: model.updatedAt,
+        deletedAt: model.deletedAt);
   }
 }
 
@@ -63,6 +63,6 @@ extension BookDataModelExt on BookDataModel {
 }
 
 extension BookDataEntityExt on BookDataEntity {
-  BookDataModel get toAuthDataModel =>
+  BookDataModel get toBookDataModel =>
       _BookDataModelToEntityMapper().fromEntityToModel(this);
 }

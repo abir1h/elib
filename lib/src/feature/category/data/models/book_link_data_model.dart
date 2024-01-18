@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 class BookLinkDataModel {
   final String url;
   final String label;

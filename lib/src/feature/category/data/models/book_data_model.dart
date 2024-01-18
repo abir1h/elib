@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 class BookDataModel {
   final int id;
   final int adminId;
