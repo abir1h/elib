@@ -34,21 +34,21 @@ class CategoryBookDataModel {
 
   factory CategoryBookDataModel.fromJson(Map<String, dynamic> json) =>
       CategoryBookDataModel(
-        currentPage: json["current_page"],
+        currentPage: json["current_page"] ?? -1,
+        firstPageUrl: json["first_page_url"] ?? "",
+        from: json["from"] ?? -1,
+        lastPage: json["last_page"] ?? -1,
+        lastPageUrl: json["last_page_url"] ?? "",
+        nextPageUrl: json["next_page_url"] ?? "",
+        path: json["path"] ?? "",
+        perPage: json["per_page"] ?? -1,
+        prevPageUrl: json["prev_page_url"] ?? "",
+        to: json["to"] ?? -1,
+        total: json["total"] ?? -1,
+        links: List<BookLinkDataModel>.from(
+            (json["links"] ?? []).map((x) => BookLinkDataModel.fromJson(x))),
         categoryDataModel: List<CategoryDataModel>.from(
             (json["data"] ?? []).map((x) => CategoryDataModel.fromJson(x))),
-        firstPageUrl: json["first_page_url"],
-        from: json["from"],
-        lastPage: json["last_page"],
-        lastPageUrl: json["last_page_url"],
-        links: List<BookLinkDataModel>.from(
-            (json["links"] ?? '').map((x) => BookLinkDataModel.fromJson(x))),
-        nextPageUrl: json["next_page_url"],
-        path: json["path"],
-        perPage: json["per_page"],
-        prevPageUrl: json["prev_page_url"],
-        to: json["to"],
-        total: json["total"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -66,6 +66,4 @@ class CategoryBookDataModel {
         "to": to,
         "total": total,
       };
-
-
 }

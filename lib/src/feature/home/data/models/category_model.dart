@@ -24,11 +24,11 @@ class CategoryDataModel {
 
   factory CategoryDataModel.fromJson(Map<String, dynamic> json) =>
       CategoryDataModel(
-        id: json["id"] ?? 0,
+        id: json["id"] ?? -1,
         nameEn: json["name_en"] ?? "",
         nameBn: json["name_bn"] ?? "",
         image: json["image"] ?? "",
-        status: json["status"] ?? 0,
+        status: json["status"] ?? -1,
         createdAt: json["created_at"] ?? "",
         updatedAt: json["updated_at"] ?? "",
         deletedAt: json["deleted_at"] ?? "",

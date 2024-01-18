@@ -13,7 +13,7 @@ class BookLinkDataModel {
       BookLinkDataModel(
         url: json["url"] ?? "",
         label: json["label"] ?? "",
-        active: json["active"] ?? "",
+        active: json["active"] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
