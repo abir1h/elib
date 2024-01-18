@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
+
 import 'book_link_data_model.dart';
 import 'category_data_model.dart';
-
+@immutable
 class CategoryBookDataModel {
   final int currentPage;
   final String firstPageUrl;

@@ -1,5 +1,7 @@
-import '../../../category/data/models/book_data_model.dart';
+import 'package:flutter/foundation.dart';
 
+import '../../../category/data/models/book_data_model.dart';
+@immutable
 class CategoryDataModel {
   final int id;
   final String nameEn;
