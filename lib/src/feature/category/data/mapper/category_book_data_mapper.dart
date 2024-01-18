@@ -1,13 +1,13 @@
 import '../../domain/entities/category_book_data_entity.dart';
 import '../models/category_book_data_model.dart';
 
-abstract class CategoryCategoryBookDataMapper<M, E> {
+abstract class CategoryBookDataMapper<M, E> {
   M fromEntityToModel(E entity);
   E toEntityFromModel(M model);
 }
 
 class _CategoryBookDataModelToEntityMapper
-    extends CategoryCategoryBookDataMapper<CategoryBookDataModel,
+    extends CategoryBookDataMapper<CategoryBookDataModel,
         CategoryBookDataEntity> {
   @override
   CategoryBookDataModel fromEntityToModel(CategoryBookDataEntity entity) {
