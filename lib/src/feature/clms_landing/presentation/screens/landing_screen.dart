@@ -1,4 +1,5 @@
 import 'package:elibrary/src/core/constants/language.dart';
+import 'package:elibrary/src/feature/clms_landing/presentation/services/landing_service.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../../core/config/app_event_widget.dart';
@@ -14,7 +15,7 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> with AppTheme,Language{
+class _LandingScreenState extends State<LandingScreen> with AppTheme,Language,LandingService{
 
   ///Service configurations
   @override
@@ -80,7 +81,7 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme,Language{
                 leftChild: ModuleCardWidget(
                   image: ImageAssets.imgModule3,
                   text: label(e: en.eLibrary, b: bn.eLibrary),
-                  onTap: (){}
+                  onTap: onNavigateToELibraryScreen
                 ),
                 rightChild: ModuleCardWidget(
                   image: ImageAssets.imgModule4,
@@ -102,6 +103,11 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme,Language{
             ],
           ),
         ));
+  }
+
+  @override
+  void navigateToELibraryScreen() {
+    Navigator.of(context).pushNamedAndRemoveUntil(AppRoute.baseScreen, (x)=> false);
   }
 
   ///Push Notification Section

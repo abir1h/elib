@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../services/splash_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,20 +14,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with AppTheme {
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _callMethod();
-  }
-
-  _callMethod() async{
-    if(mounted){
-    }
-  }
+class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashService{
 
   @override
   Widget build(BuildContext context) {
@@ -56,5 +45,11 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme {
         ),
       ),
     );
+  }
+
+  @override
+  void navigateToLandingScreen() {
+    Navigator.of(context).pushNamedAndRemoveUntil(AppRoute.landingScreen, (x)=> false);
+
   }
 }
