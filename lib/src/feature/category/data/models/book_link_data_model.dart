@@ -6,7 +6,7 @@ class BookLinkDataModel {
   final String label;
   final bool active;
 
-  BookLinkDataModel({
+  const BookLinkDataModel({
     required this.url,
     required this.label,
     required this.active,

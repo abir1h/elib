@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../../../category/data/models/book_data_model.dart';
+
 @immutable
 class CategoryDataModel {
   final int id;
@@ -13,7 +14,7 @@ class CategoryDataModel {
   final String deletedAt;
   final List<BookDataModel> books;
 
-  CategoryDataModel(
+  const CategoryDataModel(
       {required this.id,
       required this.nameEn,
       required this.nameBn,

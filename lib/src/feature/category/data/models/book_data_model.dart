@@ -22,7 +22,7 @@ class BookDataModel {
   final String updatedAt;
   final String deletedAt;
 
-  BookDataModel({
+  const BookDataModel({
     required this.id,
     required this.adminId,
     required this.categoryId,

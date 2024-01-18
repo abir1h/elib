@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'book_link_data_model.dart';
 import 'category_data_model.dart';
+
 @immutable
 class CategoryBookDataModel {
   final int currentPage;
@@ -18,7 +19,7 @@ class CategoryBookDataModel {
   final List<BookLinkDataModel> links;
   final List<CategoryDataModel> categoryDataModel;
 
-  CategoryBookDataModel({
+  const CategoryBookDataModel({
     required this.currentPage,
     required this.categoryDataModel,
     required this.firstPageUrl,
