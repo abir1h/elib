@@ -61,7 +61,8 @@ class _BookDataModelToEntityMapper
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
         author: model.author,
-        category: model.category,,
+        category:model.category?.toCategoryDataEntity
+    );
         
        
   }
