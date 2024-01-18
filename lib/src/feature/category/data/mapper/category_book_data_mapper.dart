@@ -1,10 +1,9 @@
-import 'package:elibrary/src/feature/category/data/mapper/book_link_data_mapper.dart';
-import 'package:elibrary/src/feature/category/data/mapper/category_data_mapper.dart';
-import 'package:elibrary/src/feature/category/data/models/book_link_data_model.dart';
-import 'package:elibrary/src/feature/category/data/models/category_data_model.dart';
-import 'package:elibrary/src/feature/category/domain/entities/book_link_data_enitity.dart';
-import 'package:elibrary/src/feature/category/domain/entities/category_data_entity.dart';
-
+import 'category_link_data_mapper.dart';
+import 'category_data_mapper.dart';
+import '../models/category_link_data_model.dart';
+import '../models/category_data_model.dart';
+import '../../domain/entities/category_link_data_enitity.dart';
+import '../../domain/entities/category_data_entity.dart';
 import '../../domain/entities/category_book_data_entity.dart';
 import '../models/category_book_data_model.dart';
 
@@ -27,8 +26,8 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
         from: entity.from,
         lastPage: entity.lastPage,
         lastPageUrl: entity.lastPageUrl,
-        links: List<BookLinkDataEntity>.from(entity.links)
-            .map((entity) => entity.toBookLinkDataModel)
+        links: List<CategoryLinkDataEntity>.from(entity.links)
+            .map((entity) => entity.toCategoryLinkDataModel)
             .toList(),
         nextPageUrl: entity.nextPageUrl,
         path: entity.path,
@@ -49,8 +48,8 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
         from: model.from,
         lastPage: model.lastPage,
         lastPageUrl: model.lastPageUrl,
-        links: List<BookLinkDataModel>.from(model.links)
-            .map((model) => model.toBookDataEntity)
+        links: List<CategoryLinkDataModel>.from(model.links)
+            .map((model) => model.toCategoryLinkDataEntity)
             .toList(),
         nextPageUrl: model.nextPageUrl,
         path: model.path,

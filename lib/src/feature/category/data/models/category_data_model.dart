@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../category/data/models/book_data_model.dart';
+import '../../../book/data/models/book_data_model.dart';
 
 @immutable
 class CategoryDataModel {

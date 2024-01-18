@@ -87,4 +87,11 @@ class BookDataModel {
     "updated_at": updatedAt,
     "deleted_at": deletedAt,
   };
+
+  static List<BookDataModel> listFromJson(List<dynamic> json) {
+    return json.isNotEmpty
+        ? List.castFrom<dynamic, BookDataModel>(
+        json.map((x) => BookDataModel.fromJson(x)).toList())
+        : [];
+  }
 }

@@ -11,4 +11,9 @@ class CategoryUseCase {
     return response;
   }
 
+  Future<ResponseEntity> getCategoryWithBookUseCase() async {
+    final response = _categoryRepository.getCategoryWithBook();
+    return response;
+  }
+
 }

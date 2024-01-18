@@ -1,10 +1,12 @@
 import '../../../../../core/constants/urls.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';
+import '../../models/category_book_data_model.dart';
 import '../../models/category_data_model.dart';
 
 abstract class CategoryRemoteDataSource {
   Future<ResponseModel> getCategoriesAction();
+  Future<ResponseModel> getCategoryWithBookAction();
 }
 
 class CategoryRemoteDataSourceImp extends CategoryRemoteDataSource {
@@ -15,6 +17,15 @@ class CategoryRemoteDataSourceImp extends CategoryRemoteDataSource {
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson,
             (dynamic json) => CategoryDataModel.listFromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> getCategoryWithBookAction() async{
+    final responseJson = await Server.instance.getRequest(url: ApiCredential.getCategoryWithBook);
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson,
+            (dynamic json) => CategoryBookDataModel.fromJson(json));
     return responseModel;
   }
 
