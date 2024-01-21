@@ -1,3 +1,6 @@
+import '../../../category/data/mapper/category_book_data_mapper.dart';
+import '../../../category/data/models/category_book_data_model.dart';
+import '../../../category/domain/entities/category_book_data_entity.dart';
 import '../mapper/book_data_mapper.dart';
 import '../models/book_data_model.dart';
 import '../../domain/entities/book_data_entity.dart';
@@ -40,5 +43,15 @@ class BookRepositoryImp extends BookRepository {
     //     .toEntityFromModel(
     // responseModel, (ResponseModel model) => model.toBookDataEntity);
     throw UnimplementedError();
+  }
+
+  @override
+  Future<ResponseEntity> getPopularBooks() async{
+    ResponseModel responseModel =
+    (await bookRemoteDataSource.getPopularBooksAction());
+    return ResponseModelToEntityMapper<CategoryBookDataEntity,
+    CategoryBookDataModel>()
+        .toEntityFromModel(responseModel,
+    (CategoryBookDataModel model) => model.toCategoryBookDataEntity);
   }
 }

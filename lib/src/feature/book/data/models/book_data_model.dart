@@ -23,7 +23,7 @@ class BookDataModel {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  final String author;
+  // final String author;
   final CategoryDataModel? category;
 
   const BookDataModel({
@@ -46,7 +46,7 @@ class BookDataModel {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    required this.author,
+    // required this.author,
     required this.category,
   });
 
@@ -70,7 +70,7 @@ class BookDataModel {
       createdAt: json["created_at"] ?? "",
       updatedAt: json["updated_at"] ?? "",
       deletedAt: json["deleted_at"] ?? "",
-      author: json["author"] ?? '',
+      // author: json["author"] ?? '',
       category: json['category'] != null
           ? CategoryDataModel.fromJson(json['category'])
           : null);
@@ -95,7 +95,7 @@ class BookDataModel {
         "created_at": createdAt,
         "updated_at": updatedAt,
         "deleted_at": deletedAt,
-        "author": author,
+        // "author": author,
         "category": category?.toJson(),
       };
   static List<BookDataModel> listFromJson(List<dynamic> json) {

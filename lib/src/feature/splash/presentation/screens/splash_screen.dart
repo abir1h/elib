@@ -1,3 +1,5 @@
+import 'package:elibrary/src/feature/book/presentation/services/book_service.dart';
+import 'package:elibrary/src/feature/shared/domain/entities/response_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +16,19 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashService{
+class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashService,BookService{
+
+  @override
+  void initState() {
+
+    super.initState();
+    _callMethod();
+  }
+
+  _callMethod()async{
+    ResponseEntity responseEntity = await getPopularBooks();
+    print(responseEntity.message);
+  }
 
   @override
   Widget build(BuildContext context) {

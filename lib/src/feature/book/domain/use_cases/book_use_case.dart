@@ -10,6 +10,10 @@ class BookUseCase {
     final response = _bookRepository.getBooks();
     return response;
   }
+  Future<ResponseEntity> getPopularBooksUseCase() async {
+    final response = _bookRepository.getPopularBooks();
+    return response;
+  }
   Future<ResponseEntity> getBookDetailsUseCase(int bookId) async {
     final response = _bookRepository.getBookDetails(bookId);
     return response;

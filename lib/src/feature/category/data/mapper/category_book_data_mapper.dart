@@ -6,6 +6,9 @@ import '../../domain/entities/category_link_data_enitity.dart';
 import '../../domain/entities/category_data_entity.dart';
 import '../../domain/entities/category_book_data_entity.dart';
 import '../models/category_book_data_model.dart';
+import '../../../book/data/mapper/book_data_mapper.dart';
+import '../../../book/data/models/book_data_model.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
 
 abstract class CategoryBookDataMapper<M, E> {
   M fromEntityToModel(E entity);
@@ -22,6 +25,9 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
             List<CategoryDataEntity>.from(entity.categoryDataEntity)
                 .map((entity) => entity.toCategoryDataModel)
                 .toList(),
+        bookDataModel: List<BookDataEntity>.from(entity.bookDataEntity)
+            .map((entity) => entity.toBookDataModel)
+            .toList(),
         firstPageUrl: entity.firstPageUrl,
         from: entity.from,
         lastPage: entity.lastPage,
@@ -41,8 +47,12 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
   CategoryBookDataEntity toEntityFromModel(CategoryBookDataModel model) {
     return CategoryBookDataEntity(
         currentPage: model.currentPage,
-        categoryDataEntity: List<CategoryDataModel>.from(model.categoryDataModel)
-            .map((model) => model.toCategoryDataEntity)
+        categoryDataEntity:
+            List<CategoryDataModel>.from(model.categoryDataModel)
+                .map((model) => model.toCategoryDataEntity)
+                .toList(),
+        bookDataEntity: List<BookDataModel>.from(model.bookDataModel)
+            .map((model) => model.toBookDataEntity)
             .toList(),
         firstPageUrl: model.firstPageUrl,
         from: model.from,

@@ -9,5 +9,5 @@ class ApiCredential {
   static String getBooks = "/books";
   static String getBookDetails = "/book-details";
   static String saveBook = "/save-book";
-
+  static String popularBooks = "/category-popular";
 }
