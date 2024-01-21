@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/common_imports.dart';
-import '../network/server_response.dart';
 
 class CustomActionButton<T> extends StatefulWidget {
   final String title;

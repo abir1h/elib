@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme, CategoryServ
   }
 
   _callMethod() async{
-    ResponseEntity responseEntity = await getBookDetails(2);
+    ResponseEntity responseEntity = await getCategories();
     print(responseEntity.message);
   }
 

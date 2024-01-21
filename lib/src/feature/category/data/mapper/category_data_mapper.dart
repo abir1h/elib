@@ -15,8 +15,11 @@ class _CategoryDataModelToEntityMapper
   CategoryDataModel fromEntityToModel(CategoryDataEntity entity) {
     return CategoryDataModel(
         id: entity.id,
+        parentId: entity.parentId,
+        name: entity.name,
         nameEn: entity.nameEn,
         nameBn: entity.nameBn,
+        slug: entity.slug,
         image: entity.image,
         status: entity.status,
         createdAt: entity.createdAt,
@@ -24,6 +27,9 @@ class _CategoryDataModelToEntityMapper
         deletedAt: entity.deletedAt,
         books: List<BookDataEntity>.from(entity.books)
             .map((entity) => entity.toBookDataModel)
+            .toList(),
+        children: List<CategoryDataEntity>.from(entity.children)
+            .map((entity) => entity.toCategoryDataModel)
             .toList());
   }
 
@@ -31,8 +37,11 @@ class _CategoryDataModelToEntityMapper
   CategoryDataEntity toEntityFromModel(CategoryDataModel model) {
     return CategoryDataEntity(
         id: model.id,
+        parentId: model.parentId,
+        name: model.name,
         nameEn: model.nameEn,
         nameBn: model.nameBn,
+        slug: model.slug,
         image: model.image,
         status: model.status,
         createdAt: model.createdAt,
@@ -40,6 +49,9 @@ class _CategoryDataModelToEntityMapper
         deletedAt: model.deletedAt,
         books: List<BookDataModel>.from(model.books)
             .map((model) => model.toBookDataEntity)
+            .toList(),
+        children: List<CategoryDataModel>.from(model.children)
+            .map((model) => model.toCategoryDataEntity)
             .toList());
   }
 }
