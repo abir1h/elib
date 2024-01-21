@@ -86,7 +86,7 @@ class PaginatedGridViewController<T>{
   VoidCallback? _updateStateDelegate;
   Future<bool> Function(int nextPage)? _loadMoreDelegate;
 
-  PaginatedGridViewController([int pageSize = 10, double loadTriggerOffset = 150]) {
+  PaginatedGridViewController([int pageSize = 1, double loadTriggerOffset = 150]) {
     _pageSize = pageSize;
     _loadTriggerOffset = loadTriggerOffset;
     _totalItemCount = 0;
