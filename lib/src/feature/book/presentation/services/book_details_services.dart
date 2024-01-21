@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:elibrary/src/core/routes/app_route_args.dart';
 import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
-import 'package:elibrary/src/feature/category/domain/entities/category_book_data_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -51,7 +50,7 @@ implements _ViewModel {
     bookDataStreamController.add(LoadingState());
     getBookDetails(args.bookId).then((value) {
       if (value.error == null && value.data!=null) {
-
+        bookDataStreamController.add(DataLoadedState<BookDataEntity>(value.data!));
       }  else {
         _view.showWarning(value.message!);
       }

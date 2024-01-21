@@ -61,12 +61,12 @@ class _PaginatedBookDataModelToEntityMapper extends PaginatedBookDataMapper<
   }
 }
 
-extension CategoryBookDataModelExt on PaginatedBookDataModel {
+extension PaginatedBookDataModelExt on PaginatedBookDataModel {
   PaginatedBookDataEntity get toPaginatedBookDataEntity =>
       _PaginatedBookDataModelToEntityMapper().toEntityFromModel(this);
 }
 
-extension CategoryBookDataEntityExt on PaginatedBookDataEntity {
+extension PaginatedBookDataEntityExt on PaginatedBookDataEntity {
   PaginatedBookDataModel get toPaginatedBookDataModel =>
       _PaginatedBookDataModelToEntityMapper().fromEntityToModel(this);
 }

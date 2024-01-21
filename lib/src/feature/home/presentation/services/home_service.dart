@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
-import 'package:elibrary/src/feature/category/domain/entities/category_book_data_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
