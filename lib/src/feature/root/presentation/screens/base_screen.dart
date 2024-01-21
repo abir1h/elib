@@ -1,121 +1,73 @@
-///Name: Md. Abdur Rouf
-///Email: official.rouf69nb@gmail.com
-///Created at: Dec 28, 2021
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants/app_theme.dart';
-
+import '../../../home/presentation/screens/home_screen.dart';
+import '../services/base_screen_services.dart';
 
 class BaseScreen extends StatefulWidget {
   final Object? arguments;
   const BaseScreen({Key? key, this.arguments}) : super(key: key);
 
   @override
-  _BaseScreenState createState() => _BaseScreenState();
+  State<BaseScreen> createState() => _BaseScreenState();
 }
 
-class _BaseScreenState extends State<BaseScreen> with AppTheme {
+class _BaseScreenState extends State<BaseScreen>
+    with AppTheme, BaseScreenService {
   @override
   Widget build(BuildContext context) {
-    return UpgradeAlert(
-      upgrader: Upgrader(dialogStyle: UpgradeDialogStyle.cupertino),
-      child: Scaffold(
-        backgroundColor: clr.primaryBackgroundLight,
+    return Scaffold(
+        backgroundColor: clr.whiteColor,
         resizeToAvoidBottomInset: false,
-        body:AppEventSubscriber<NotificationEntity,NotificationClickedNotifier>(
-            uniqueKey: NotificationClickedNotifier.instance.getKey,
-            controller: NotificationClickedNotifier.instance,
-            initialData: NotificationEntity.empty(),
-            willUpdate: (notification){
-              onNotificationClicked(notification, isFromTray: false);
-              return false;
-            },
-            builder: (context, _) {
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  ///Page body
-                  PageView.builder(
-                    controller: pageController,
-                    itemCount: 4,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return const TabHomeScreen();
-                      }
-                      else if (index == 1 && App.currentSession.canAccessELibrary) {
-                        return const TabELibraryScreen();
-                      }
-                      else if (index == 2 && App.currentSession.canAccessNotification) {
-                        return const NotificationListScreen(isBottomNavBar: true,);
-                      }
-                      else if (index == 3) {
-                        return const TabMoreScreen();
-                      }
-                      return const Center(child: Text("Unauthorized to access!"));
-                    },
-                  ),
-                  ///Bottom navigation bar
-                  BottomNavigationBar(
-                    onSelect: onTabSelected,
-                  ),
-                ],
-              );
-            }
-        ),
-      ),
-    );
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            ///Page body
+            PageView.builder(
+              controller: pageController,
+              itemCount: 4,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return const HomeScreen();
+                } else if (index == 1) {
+                  return Container();
+                } else if (index == 2) {
+                  return Container();
+                } else if (index == 3) {
+                  return Container();
+                }
+                return const Center(child: Text("Unauthorized to access!"));
+              },
+            ),
+
+            ///Bottom navigation bar
+            BottomNavigationBar(
+              onSelect: onTabSelected,
+            ),
+          ],
+        ));
   }
 
   @override
-  void showWarning(String message) {
-    Toasty.of(context).showWarning(message);
-  }
-
-
-  @override
-  void navigateToEnrolledCourseDetailsScreen({required String courseId}) {
-    Navigator.of(AppRoute.navigatorKey.currentContext!).pushNamed(
-      AppRoute.enrolledCourseDetailsScreen,
-      arguments: CourseScreenArgs(courseId: courseId),
-    );
-  }
-  @override
-  void navigateToAvailableCourseDetailsScreen({required String courseId}) {
-    Navigator.of(AppRoute.navigatorKey.currentContext!).pushNamed(
-      AppRoute.availableCourseDetailsScreen,
-      arguments: CourseScreenArgs(courseId: courseId),
-    );
-  }
-  @override
-  void navigateToForumPostDetailsScreen({required String postId}) {
-    Navigator.of(AppRoute.navigatorKey.currentContext!).pushNamed(
-      AppRoute.forumPostDetailsScreen,
-      arguments: ForumScreenArgs(postId: postId, ),
-    );
-  }
-  @override
-  void navigateToCertificateListScreen() {
-    Navigator.of(AppRoute.navigatorKey.currentContext!).pushNamed(
-      AppRoute.certificationListScreen,
-    );
+  void navigateBookMarkScreen() {
+    // TODO: implement navigateBookMarkScreen
   }
 
   @override
-  void navigateToEvaluationTestResultListScreen() {
-    Navigator.of(AppRoute.navigatorKey.currentContext!).pushNamed(
-      AppRoute.evalTestResultListScreen,
-    );
+  void navigateToCategoryScreen() {
+    // TODO: implement navigateToCategoryScreen
   }
 
   @override
-  void navigateToNotificationListScreen() {
-    Navigator.of(AppRoute.navigatorKey.currentContext!).pushNamed(
-      AppRoute.notificationListScreen,
-    );
+  void navigateToHomeScreen() {
+    // TODO: implement navigateToHomeScreen
+  }
+
+  @override
+  void navigateToProfileScreen() {
+    // TODO: implement navigateToProfileScreen
   }
 }
 
@@ -129,7 +81,9 @@ class BottomNavigationBar extends StatefulWidget {
   @override
   State<BottomNavigationBar> createState() => _BottomNavigationBarState();
 }
-class _BottomNavigationBarState extends State<BottomNavigationBar> with AppTheme {
+
+class _BottomNavigationBarState extends State<BottomNavigationBar>
+    with AppTheme {
   int _selectedIndex = 0;
 
   _selectTab(int index) {
@@ -149,23 +103,23 @@ class _BottomNavigationBarState extends State<BottomNavigationBar> with AppTheme
       alignment: Alignment.bottomCenter,
       child: Container(
         width: double.maxFinite,
-        height: size.s56 + MediaQuery.of(context).padding.bottom,
+        height: size.h56 + MediaQuery.of(context).padding.bottom,
         padding: EdgeInsets.only(
-          left: size.s12,
-          right: size.s12,
-          top: size.s4,
-          bottom: size.s4 + MediaQuery.of(context).padding.bottom,
+          left: size.h12,
+          right: size.h12,
+          top: size.w4,
+          bottom: size.w4 + MediaQuery.of(context).padding.bottom,
         ),
         decoration: BoxDecoration(
-          color: clr.controlBgWhite,
+          color: clr.whiteColor,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(size.s24),
-            topRight: Radius.circular(size.s24),
+            topLeft: Radius.circular(size.h24),
+            topRight: Radius.circular(size.h24),
           ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.16),
-              blurRadius: size.s8,
+              blurRadius: size.h8,
             )
           ],
         ),
@@ -176,27 +130,26 @@ class _BottomNavigationBarState extends State<BottomNavigationBar> with AppTheme
             NavButtonItem(
               title: "Home",
               icon: CupertinoIcons.home,
-              size: size.s24,
+              size: size.h24,
               selected: _selectedIndex == 0,
               onSelect: () => _selectTab(0),
             ),
-              NavButtonItem(
-                title: "E-Library",
-                icon: CupertinoIcons.square_stack_3d_up,
-                size: size.s24,
-                selected: _selectedIndex == 1,
-                onSelect: () => _selectTab(1),
-              ),
-
-              NavButtonItem(
-                title: "Notification",
-                icon: CupertinoIcons.arrow_2_circlepath_circle_fill,
-                size: size.h24,
-                selected: _selectedIndex == 2,
-                onSelect: () => _selectTab(2),
-              ),
             NavButtonItem(
-              title: "More",
+              title: "Categories",
+              icon: CupertinoIcons.square_stack_3d_up,
+              size: size.h24,
+              selected: _selectedIndex == 1,
+              onSelect: () => _selectTab(1),
+            ),
+            NavButtonItem(
+              title: "Bookmark",
+              icon: CupertinoIcons.bookmark_fill,
+              size: size.h24,
+              selected: _selectedIndex == 2,
+              onSelect: () => _selectTab(2),
+            ),
+            NavButtonItem(
+              title: "Profile",
               icon: CupertinoIcons.profile_circled,
               size: size.h24 + size.h2,
               selected: _selectedIndex == 3,
@@ -218,16 +171,17 @@ class NavButtonItem extends StatefulWidget {
 
   const NavButtonItem(
       {Key? key,
-        required this.icon,
-        required this.title,
-        required this.selected,
-        required this.size,
-        required this.onSelect})
+      required this.icon,
+      required this.title,
+      required this.selected,
+      required this.size,
+      required this.onSelect})
       : super(key: key);
 
   @override
   State<NavButtonItem> createState() => _NavButtonItemState();
 }
+
 class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
   @override
   Widget build(BuildContext context) {
@@ -277,12 +231,6 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
     );
   }
 }
-
-
-
-
-
-
 
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
