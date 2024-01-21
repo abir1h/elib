@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../book/data/models/book_data_model.dart';
 import 'category_link_data_model.dart';
 import 'category_data_model.dart';
 
@@ -19,23 +18,22 @@ class PaginatedCategoryDataModel {
   final int total;
   final List<CategoryLinkDataModel> links;
   final List<CategoryDataModel> categoryDataModel;
-  final List<BookDataModel> bookDataModel;
 
-  const PaginatedCategoryDataModel(
-      {required this.currentPage,
-      required this.categoryDataModel,
-      required this.firstPageUrl,
-      required this.from,
-      required this.lastPage,
-      required this.lastPageUrl,
-      required this.links,
-      required this.nextPageUrl,
-      required this.path,
-      required this.perPage,
-      required this.prevPageUrl,
-      required this.to,
-      required this.total,
-      required this.bookDataModel});
+  const PaginatedCategoryDataModel({
+    required this.currentPage,
+    required this.categoryDataModel,
+    required this.firstPageUrl,
+    required this.from,
+    required this.lastPage,
+    required this.lastPageUrl,
+    required this.nextPageUrl,
+    required this.path,
+    required this.perPage,
+    required this.prevPageUrl,
+    required this.to,
+    required this.total,
+    required this.links,
+  });
 
   factory PaginatedCategoryDataModel.fromJson(Map<String, dynamic> json) =>
       PaginatedCategoryDataModel(
@@ -54,8 +52,6 @@ class PaginatedCategoryDataModel {
             .map((x) => CategoryLinkDataModel.fromJson(x))),
         categoryDataModel: List<CategoryDataModel>.from(
             (json["data"] ?? []).map((x) => CategoryDataModel.fromJson(x))),
-        bookDataModel: List<BookDataModel>.from(
-            (json["data"] ?? []).map((x) => BookDataModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,12 +61,12 @@ class PaginatedCategoryDataModel {
         "from": from,
         "last_page": lastPage,
         "last_page_url": lastPageUrl,
-        "links": List<dynamic>.from(links.map((x) => x.toJson())),
         "next_page_url": nextPageUrl,
         "path": path,
         "per_page": perPage,
         "prev_page_url": prevPageUrl,
         "to": to,
         "total": total,
+        "links": List<dynamic>.from(links.map((x) => x.toJson())),
       };
 }
