@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'author_type_data_model.dart';
 import 'pivot_data_model.dart';
 
 @immutable
@@ -18,7 +19,7 @@ class AuthorDataModel {
   final String updatedAt;
   final String deletedAt;
   final PivotDataModel? pivot;
-  final AuthorDataModel? authorType;
+  final AuthorTypeDataModel? authorType;
 
   const AuthorDataModel({
     required this.id,
@@ -53,8 +54,12 @@ class AuthorDataModel {
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
         deletedAt: json["deleted_at"],
-        pivot: PivotDataModel.fromJson(json["pivot"]),
-        authorType: AuthorDataModel.fromJson(json["author_type"]),
+        pivot: json["pivot"] != null
+            ? PivotDataModel.fromJson(json["pivot"])
+            : null,
+        authorType: json["author_type"] != null
+            ? AuthorTypeDataModel.fromJson(json["author_type"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

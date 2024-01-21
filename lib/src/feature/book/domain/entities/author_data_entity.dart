@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/book/domain/entities/author_type_data_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'pivot_data_entity.dart';
@@ -18,7 +19,7 @@ class AuthorDataEntity {
   final String updatedAt;
   final String deletedAt;
   final PivotDataEntity? pivot;
-  final AuthorDataEntity? authorType;
+  final AuthorTypeDataEntity? authorType;
 
   const AuthorDataEntity({
     required this.id,

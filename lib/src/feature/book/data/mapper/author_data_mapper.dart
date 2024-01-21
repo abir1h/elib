@@ -1,3 +1,4 @@
+import 'author_type_data_mapper.dart';
 import 'pivot_data.mapper.dart';
 import '../../domain/entities/author_data_entity.dart';
 import '../models/author_data_model.dart';
@@ -26,7 +27,7 @@ class _AuthorDataModelToEntityMapper
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
         pivot: entity.pivot?.toPivotDataModel,
-        authorType: entity.authorType?.toAuthorDataModel);
+        authorType: entity.authorType?.toAuthorTypeDataModel);
   }
 
   @override
@@ -46,7 +47,7 @@ class _AuthorDataModelToEntityMapper
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
         pivot: model.pivot?.toPivotDataEntity,
-        authorType: model.authorType?.toAuthorDataEntity);
+        authorType: model.authorType?.toAuthorTypeDataEntity);
   }
 }
 
