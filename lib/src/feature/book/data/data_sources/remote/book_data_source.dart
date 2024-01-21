@@ -1,4 +1,4 @@
-import 'package:elibrary/src/feature/category/data/models/category_book_data_model.dart';
+import 'package:elibrary/src/feature/category/data/models/paginated_category_data_model.dart';
 
 import '../../models/book_data_model.dart';
 import '../../../../../core/constants/common_imports.dart';
@@ -49,7 +49,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.popularBooks}$pageNumber");
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => CategoryBookDataModel.fromJson(json));
+        responseJson, (dynamic json) => PaginatedCategoryDataModel.fromJson(json));
     return responseModel;
   }
 

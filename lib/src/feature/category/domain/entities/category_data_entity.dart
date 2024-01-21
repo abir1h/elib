@@ -1,3 +1,5 @@
+import 'package:elibrary/src/feature/book/domain/entities/pivot_data_entity.dart';
+
 import '../../../book/domain/entities/book_data_entity.dart';
 
 class CategoryDataEntity {
@@ -14,6 +16,7 @@ class CategoryDataEntity {
   final String deletedAt;
   final List<BookDataEntity> books;
   final List<CategoryDataEntity> children;
+  final PivotDataEntity? pivot;
 
   CategoryDataEntity(
       {required this.id,
@@ -28,5 +31,6 @@ class CategoryDataEntity {
       required this.updatedAt,
       required this.deletedAt,
       required this.books,
-      required this.children});
+      required this.children,
+      required this.pivot});
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-
+import 'author_data_model.dart';
 import '../../../category/data/models/category_data_model.dart';
 
 @immutable
@@ -23,8 +23,8 @@ class BookDataModel {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  // final String author;
-  final CategoryDataModel? category;
+  final List<AuthorDataModel> author;
+  final List<CategoryDataModel> category;
 
   const BookDataModel({
     required this.id,
@@ -46,7 +46,7 @@ class BookDataModel {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    // required this.author,
+    required this.author,
     required this.category,
   });
 
@@ -70,10 +70,14 @@ class BookDataModel {
       createdAt: json["created_at"] ?? "",
       updatedAt: json["updated_at"] ?? "",
       deletedAt: json["deleted_at"] ?? "",
-      // author: json["author"] ?? '',
+      author: json["author"] != null
+          ? List<AuthorDataModel>.from(
+              (json["author"]).map((x) => AuthorDataModel.fromJson(x)))
+          : [],
       category: json['category'] != null
-          ? CategoryDataModel.fromJson(json['category'])
-          : null);
+          ? List<CategoryDataModel>.from(
+              (json["author"]).map((x) => CategoryDataModel.fromJson(x)))
+          : []);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -95,8 +99,8 @@ class BookDataModel {
         "created_at": createdAt,
         "updated_at": updatedAt,
         "deleted_at": deletedAt,
-        // "author": author,
-        "category": category?.toJson(),
+        "author": List<dynamic>.from(author.map((x) => x.toJson())),
+        "category": List<dynamic>.from(category.map((x) => x.toJson())),
       };
   static List<BookDataModel> listFromJson(List<dynamic> json) {
     return json.isNotEmpty

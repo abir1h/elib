@@ -1,3 +1,5 @@
+import 'package:elibrary/src/feature/book/data/mapper/pivot_data.mapper.dart';
+
 import '../../../book/data/mapper/book_data_mapper.dart';
 import '../../../book/data/models/book_data_model.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
@@ -30,7 +32,8 @@ class _CategoryDataModelToEntityMapper
             .toList(),
         children: List<CategoryDataEntity>.from(entity.children)
             .map((entity) => entity.toCategoryDataModel)
-            .toList());
+            .toList(),
+        pivot: entity.pivot?.toPivotDataModel);
   }
 
   @override
@@ -52,7 +55,8 @@ class _CategoryDataModelToEntityMapper
             .toList(),
         children: List<CategoryDataModel>.from(model.children)
             .map((model) => model.toCategoryDataEntity)
-            .toList());
+            .toList(),
+        pivot: model.pivot?.toPivotDataEntity);
   }
 }
 

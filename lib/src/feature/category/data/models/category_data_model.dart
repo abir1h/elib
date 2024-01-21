@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../../../book/data/models/book_data_model.dart';
+import '../../../book/data/models/pivot_data_model.dart';
 
 @immutable
 class CategoryDataModel {
@@ -17,6 +18,7 @@ class CategoryDataModel {
   final String deletedAt;
   final List<BookDataModel> books;
   final List<CategoryDataModel> children;
+  final PivotDataModel? pivot;
 
   const CategoryDataModel(
       {required this.id,
@@ -31,7 +33,8 @@ class CategoryDataModel {
       required this.updatedAt,
       required this.deletedAt,
       required this.books,
-      required this.children});
+      required this.children,
+      required this.pivot});
 
   factory CategoryDataModel.fromJson(Map<String, dynamic> json) =>
       CategoryDataModel(
@@ -54,6 +57,9 @@ class CategoryDataModel {
             ? List<CategoryDataModel>.from(
                 (json["children"]).map((x) => CategoryDataModel.fromJson(x)))
             : [],
+        pivot: json['pivot'] != null
+            ? PivotDataModel.fromJson(json['pivot'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

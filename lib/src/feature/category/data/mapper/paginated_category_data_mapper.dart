@@ -4,22 +4,24 @@ import '../models/category_link_data_model.dart';
 import '../models/category_data_model.dart';
 import '../../domain/entities/category_link_data_enitity.dart';
 import '../../domain/entities/category_data_entity.dart';
-import '../../domain/entities/category_book_data_entity.dart';
-import '../models/category_book_data_model.dart';
+import '../../domain/entities/paginated_category_data_entity.dart';
+import '../models/paginated_category_data_model.dart';
 import '../../../book/data/mapper/book_data_mapper.dart';
 import '../../../book/data/models/book_data_model.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 
-abstract class CategoryBookDataMapper<M, E> {
+abstract class PaginatedCategoryDataMapper<M, E> {
   M fromEntityToModel(E entity);
   E toEntityFromModel(M model);
 }
 
-class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
-    CategoryBookDataModel, CategoryBookDataEntity> {
+class _PaginatedCategoryDataModelToEntityMapper
+    extends PaginatedCategoryDataMapper<PaginatedCategoryDataModel,
+        PaginatedCategoryDataEntity> {
   @override
-  CategoryBookDataModel fromEntityToModel(CategoryBookDataEntity entity) {
-    return CategoryBookDataModel(
+  PaginatedCategoryDataModel fromEntityToModel(
+      PaginatedCategoryDataEntity entity) {
+    return PaginatedCategoryDataModel(
         currentPage: entity.currentPage,
         categoryDataModel:
             List<CategoryDataEntity>.from(entity.categoryDataEntity)
@@ -44,8 +46,9 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
   }
 
   @override
-  CategoryBookDataEntity toEntityFromModel(CategoryBookDataModel model) {
-    return CategoryBookDataEntity(
+  PaginatedCategoryDataEntity toEntityFromModel(
+      PaginatedCategoryDataModel model) {
+    return PaginatedCategoryDataEntity(
         currentPage: model.currentPage,
         categoryDataEntity:
             List<CategoryDataModel>.from(model.categoryDataModel)
@@ -70,12 +73,12 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
   }
 }
 
-extension CategoryBookDataModelExt on CategoryBookDataModel {
-  CategoryBookDataEntity get toCategoryBookDataEntity =>
-      _CategoryBookDataModelToEntityMapper().toEntityFromModel(this);
+extension CategoryBookDataModelExt on PaginatedCategoryDataModel {
+  PaginatedCategoryDataEntity get toPaginatedCategoryDataEntity =>
+      _PaginatedCategoryDataModelToEntityMapper().toEntityFromModel(this);
 }
 
-extension CategoryBookDataEntityExt on CategoryBookDataEntity {
-  CategoryBookDataModel get toCategoryBookDataModel =>
-      _CategoryBookDataModelToEntityMapper().fromEntityToModel(this);
+extension CategoryBookDataEntityExt on PaginatedCategoryDataEntity {
+  PaginatedCategoryDataModel get toPaginatedCategoryDataModel =>
+      _PaginatedCategoryDataModelToEntityMapper().fromEntityToModel(this);
 }

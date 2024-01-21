@@ -1,7 +1,9 @@
-import 'package:elibrary/src/feature/category/data/mapper/category_data_mapper.dart';
-
+import '../../../category/data/mapper/category_data_mapper.dart';
 import '../../../category/data/models/category_data_model.dart';
 import '../../../category/domain/entities/category_data_entity.dart';
+import 'author_data_mapper.dart';
+import '../models/author_data_model.dart';
+import '../../domain/entities/author_data_entity.dart';
 import '../models/book_data_model.dart';
 import '../../domain/entities/book_data_entity.dart';
 
@@ -34,8 +36,12 @@ class _BookDataModelToEntityMapper
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
-        // author: entity.author,
-        category: entity.category?.toCategoryDataModel);
+        author: List<AuthorDataEntity>.from(entity.author)
+            .map((entity) => entity.toAuthorDataModel)
+            .toList(),
+        category: List<CategoryDataEntity>.from(entity.category)
+            .map((entity) => entity.toCategoryDataModel)
+            .toList());
   }
 
   @override
@@ -60,11 +66,12 @@ class _BookDataModelToEntityMapper
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
-        // author: model.author,
-        category:model.category?.toCategoryDataEntity
-    );
-        
-       
+        author: List<AuthorDataModel>.from(model.author)
+            .map((model) => model.toAuthorDataEntity)
+            .toList(),
+        category: List<CategoryDataModel>.from(model.category)
+            .map((model) => model.toCategoryDataEntity)
+            .toList());
   }
 }
 

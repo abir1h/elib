@@ -2,7 +2,7 @@ import '../../../book/domain/entities/book_data_entity.dart';
 import 'category_link_data_enitity.dart';
 import 'category_data_entity.dart';
 
-class CategoryBookDataEntity {
+class PaginatedCategoryDataEntity {
   final int currentPage;
   final String firstPageUrl;
   final int from;
@@ -18,7 +18,7 @@ class CategoryBookDataEntity {
   final List<BookDataEntity> bookDataEntity;
   final List<CategoryDataEntity> categoryDataEntity;
 
-  CategoryBookDataEntity({
+  PaginatedCategoryDataEntity({
     required this.currentPage,
     required this.categoryDataEntity,
     required this.firstPageUrl,

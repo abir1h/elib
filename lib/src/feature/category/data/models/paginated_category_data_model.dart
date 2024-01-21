@@ -5,7 +5,7 @@ import 'category_link_data_model.dart';
 import 'category_data_model.dart';
 
 @immutable
-class CategoryBookDataModel {
+class PaginatedCategoryDataModel {
   final int currentPage;
   final String firstPageUrl;
   final int from;
@@ -21,25 +21,24 @@ class CategoryBookDataModel {
   final List<CategoryDataModel> categoryDataModel;
   final List<BookDataModel> bookDataModel;
 
-  const CategoryBookDataModel({
-    required this.currentPage,
-    required this.categoryDataModel,
-    required this.firstPageUrl,
-    required this.from,
-    required this.lastPage,
-    required this.lastPageUrl,
-    required this.links,
-    required this.nextPageUrl,
-    required this.path,
-    required this.perPage,
-    required this.prevPageUrl,
-    required this.to,
-    required this.total,
-    required this.bookDataModel
-  });
+  const PaginatedCategoryDataModel(
+      {required this.currentPage,
+      required this.categoryDataModel,
+      required this.firstPageUrl,
+      required this.from,
+      required this.lastPage,
+      required this.lastPageUrl,
+      required this.links,
+      required this.nextPageUrl,
+      required this.path,
+      required this.perPage,
+      required this.prevPageUrl,
+      required this.to,
+      required this.total,
+      required this.bookDataModel});
 
-  factory CategoryBookDataModel.fromJson(Map<String, dynamic> json) =>
-      CategoryBookDataModel(
+  factory PaginatedCategoryDataModel.fromJson(Map<String, dynamic> json) =>
+      PaginatedCategoryDataModel(
         currentPage: json["current_page"] ?? -1,
         firstPageUrl: json["first_page_url"] ?? "",
         from: json["from"] ?? -1,
@@ -51,8 +50,8 @@ class CategoryBookDataModel {
         prevPageUrl: json["prev_page_url"] ?? "",
         to: json["to"] ?? -1,
         total: json["total"] ?? -1,
-        links: List<CategoryLinkDataModel>.from(
-            (json["links"] ?? []).map((x) => CategoryLinkDataModel.fromJson(x))),
+        links: List<CategoryLinkDataModel>.from((json["links"] ?? [])
+            .map((x) => CategoryLinkDataModel.fromJson(x))),
         categoryDataModel: List<CategoryDataModel>.from(
             (json["data"] ?? []).map((x) => CategoryDataModel.fromJson(x))),
         bookDataModel: List<BookDataModel>.from(
