@@ -20,13 +20,12 @@ mixin RouteGenerator {
         ///StartUp
         case AppRoute.splashScreen:
           return const SplashScreen();
-
-        ///Lan
+        ///CLMS Landing Screen
         case AppRoute.landingScreen:
           return const LandingScreen();
+        /// Base Screen - Bottom NavBar Screen
         case AppRoute.baseScreen:
           return const BaseScreen();
-
         ///Default Screen
         default:
           return const SplashScreen();
