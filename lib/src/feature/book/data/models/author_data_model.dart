@@ -41,19 +41,19 @@ class AuthorDataModel {
 
   factory AuthorDataModel.fromJson(Map<String, dynamic> json) =>
       AuthorDataModel(
-        id: json["id"],
-        authorTypeId: json["author_type_id"],
-        name: json["name"],
-        slug: json["slug"],
-        email: json["email"],
-        phone: json["phone"],
-        address: json["address"],
-        country: json["country"],
-        photo: json["photo"],
-        status: json["status"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        deletedAt: json["deleted_at"],
+        id: json["id"] ?? -1,
+        authorTypeId: json["author_type_id"] ?? -1,
+        name: json["name"] ?? "",
+        slug: json["slug"] ?? "",
+        email: json["email"] ?? "",
+        phone: json["phone"] ?? "",
+        address: json["address"] ?? "",
+        country: json["country"] ?? "",
+        photo: json["photo"] ?? "",
+        status: json["status"] ?? -1,
+        createdAt: json["created_at"] ?? "",
+        updatedAt: json["updated_at"] ?? "",
+        deletedAt: json["deleted_at"] ?? "",
         pivot: json["pivot"] != null
             ? PivotDataModel.fromJson(json["pivot"])
             : null,
