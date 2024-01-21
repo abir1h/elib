@@ -46,9 +46,9 @@ class BookRepositoryImp extends BookRepository {
   }
 
   @override
-  Future<ResponseEntity> getPopularBooks() async{
+  Future<ResponseEntity> getPopularBooks(int pageNumber) async{
     ResponseModel responseModel =
-    (await bookRemoteDataSource.getPopularBooksAction());
+    (await bookRemoteDataSource.getPopularBooksAction(pageNumber));
     return ResponseModelToEntityMapper<CategoryBookDataEntity,
     CategoryBookDataModel>()
         .toEntityFromModel(responseModel,
