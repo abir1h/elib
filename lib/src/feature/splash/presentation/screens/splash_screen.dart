@@ -4,9 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
-import '../../../category/presentation/services/category_service.dart';
-import '../../../book/presentation/services/book_service.dart';
-import '../../../shared/domain/entities/response_entity.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../services/splash_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,20 +14,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with AppTheme, CategoryService, BookService {
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _callMethod();
-  }
-
-  _callMethod() async{
-    ResponseEntity responseEntity = await getCategories();
-    print(responseEntity.message);
-  }
+class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashService{
 
   @override
   Widget build(BuildContext context) {
@@ -59,5 +45,11 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme, CategoryServ
         ),
       ),
     );
+  }
+
+  @override
+  void navigateToLandingScreen() {
+    Navigator.of(context).pushNamedAndRemoveUntil(AppRoute.landingScreen, (x)=> false);
+
   }
 }
