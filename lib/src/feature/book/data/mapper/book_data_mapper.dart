@@ -34,7 +34,7 @@ class _BookDataModelToEntityMapper
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
-        author: entity.author,
+        // author: entity.author,
         category: entity.category?.toCategoryDataModel);
   }
 
@@ -60,7 +60,7 @@ class _BookDataModelToEntityMapper
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
-        author: model.author,
+        // author: model.author,
         category:model.category?.toCategoryDataEntity
     );
         

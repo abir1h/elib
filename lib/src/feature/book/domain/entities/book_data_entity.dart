@@ -20,7 +20,7 @@ class BookDataEntity {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  final String author;
+  // final String author;
   final CategoryDataEntity? category;
   BookDataEntity({
     required this.id,
@@ -42,7 +42,7 @@ class BookDataEntity {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    required this.author,
+    // required this.author,
     required this.category,
   });
 }

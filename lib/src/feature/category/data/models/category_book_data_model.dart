@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../book/data/models/book_data_model.dart';
 import 'category_link_data_model.dart';
 import 'category_data_model.dart';
 
@@ -18,6 +19,7 @@ class CategoryBookDataModel {
   final int total;
   final List<CategoryLinkDataModel> links;
   final List<CategoryDataModel> categoryDataModel;
+  final List<BookDataModel> bookDataModel;
 
   const CategoryBookDataModel({
     required this.currentPage,
@@ -33,6 +35,7 @@ class CategoryBookDataModel {
     required this.prevPageUrl,
     required this.to,
     required this.total,
+    required this.bookDataModel
   });
 
   factory CategoryBookDataModel.fromJson(Map<String, dynamic> json) =>
@@ -52,6 +55,8 @@ class CategoryBookDataModel {
             (json["links"] ?? []).map((x) => CategoryLinkDataModel.fromJson(x))),
         categoryDataModel: List<CategoryDataModel>.from(
             (json["data"] ?? []).map((x) => CategoryDataModel.fromJson(x))),
+        bookDataModel: List<BookDataModel>.from(
+            (json["data"] ?? []).map((x) => BookDataModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

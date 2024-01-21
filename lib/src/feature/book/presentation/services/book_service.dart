@@ -12,6 +12,9 @@ mixin class BookService {
   Future<ResponseEntity> getBooks() async {
     return _bookUseCase.getBooksUseCase();
   }
+  Future<ResponseEntity> getPopularBooks() async {
+    return _bookUseCase.getPopularBooksUseCase();
+  }
   Future<ResponseEntity> getBookDetails(int bookId) async {
     return _bookUseCase.getBookDetailsUseCase(bookId);
   }

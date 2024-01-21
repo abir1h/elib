@@ -1,5 +1,5 @@
+import '../../../book/domain/entities/book_data_entity.dart';
 import 'category_link_data_enitity.dart';
-
 import 'category_data_entity.dart';
 
 class CategoryBookDataEntity {
@@ -15,6 +15,7 @@ class CategoryBookDataEntity {
   final int to;
   final int total;
   final List<CategoryLinkDataEntity> links;
+  final List<BookDataEntity> bookDataEntity;
   final List<CategoryDataEntity> categoryDataEntity;
 
   CategoryBookDataEntity({
@@ -31,5 +32,6 @@ class CategoryBookDataEntity {
     required this.prevPageUrl,
     required this.to,
     required this.total,
+    required this.bookDataEntity
   });
 }
