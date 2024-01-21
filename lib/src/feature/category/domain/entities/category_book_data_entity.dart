@@ -15,11 +15,11 @@ class CategoryBookDataEntity {
   final int to;
   final int total;
   final List<CategoryLinkDataEntity> links;
-  final List<CategoryDataEntity> categoryDataModel;
+  final List<CategoryDataEntity> categoryDataEntity;
 
   CategoryBookDataEntity({
     required this.currentPage,
-    required this.categoryDataModel,
+    required this.categoryDataEntity,
     required this.firstPageUrl,
     required this.from,
     required this.lastPage,

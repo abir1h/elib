@@ -1,5 +1,4 @@
-import 'package:elibrary/src/feature/category/domain/entities/category_data_entity.dart';
-
+import '../../../category/domain/entities/category_data_entity.dart';
 
 class BookDataEntity {
   final int id;

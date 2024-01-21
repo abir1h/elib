@@ -19,7 +19,7 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
     return CategoryBookDataModel(
         currentPage: entity.currentPage,
         categoryDataModel:
-            List<CategoryDataEntity>.from(entity.categoryDataModel)
+            List<CategoryDataEntity>.from(entity.categoryDataEntity)
                 .map((entity) => entity.toCategoryDataModel)
                 .toList(),
         firstPageUrl: entity.firstPageUrl,
@@ -41,7 +41,7 @@ class _CategoryBookDataModelToEntityMapper extends CategoryBookDataMapper<
   CategoryBookDataEntity toEntityFromModel(CategoryBookDataModel model) {
     return CategoryBookDataEntity(
         currentPage: model.currentPage,
-        categoryDataModel: List<CategoryDataModel>.from(model.categoryDataModel)
+        categoryDataEntity: List<CategoryDataModel>.from(model.categoryDataModel)
             .map((model) => model.toCategoryDataEntity)
             .toList(),
         firstPageUrl: model.firstPageUrl,
