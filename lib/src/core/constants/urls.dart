@@ -5,4 +5,9 @@ class ApiCredential {
   static String apiKey = "";
 
   static String getCategories = "/category";
+  static String getCategoryWithBook = "/category-book";
+  static String getBooks = "/books";
+  static String getBookDetails = "/book-details";
+  static String saveBook = "/save-book";
+
 }

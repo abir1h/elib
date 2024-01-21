@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'book_link_data_model.dart';
+import 'category_link_data_model.dart';
 import 'category_data_model.dart';
+
 @immutable
 class CategoryBookDataModel {
   final int currentPage;
@@ -15,10 +16,10 @@ class CategoryBookDataModel {
   final String prevPageUrl;
   final int to;
   final int total;
-  final List<BookLinkDataModel> links;
+  final List<CategoryLinkDataModel> links;
   final List<CategoryDataModel> categoryDataModel;
 
-  CategoryBookDataModel({
+  const CategoryBookDataModel({
     required this.currentPage,
     required this.categoryDataModel,
     required this.firstPageUrl,
@@ -47,8 +48,8 @@ class CategoryBookDataModel {
         prevPageUrl: json["prev_page_url"] ?? "",
         to: json["to"] ?? -1,
         total: json["total"] ?? -1,
-        links: List<BookLinkDataModel>.from(
-            (json["links"] ?? []).map((x) => BookLinkDataModel.fromJson(x))),
+        links: List<CategoryLinkDataModel>.from(
+            (json["links"] ?? []).map((x) => CategoryLinkDataModel.fromJson(x))),
         categoryDataModel: List<CategoryDataModel>.from(
             (json["data"] ?? []).map((x) => CategoryDataModel.fromJson(x))),
       );
