@@ -26,8 +26,8 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashServic
   }
 
   _callMethod()async{
-    // R
-
+    // ResponseEntity responseEntity = await getPopularBooks(2);
+    // print(responseEntity.message);
   }
 
   @override
