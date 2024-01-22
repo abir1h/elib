@@ -31,4 +31,8 @@ mixin class BookService {
   Future<ResponseEntity> userBookDownloadCountAction(int bookId) async {
     return _bookUseCase.userBookDownloadCountActionUseCase(bookId);
   }
+
+  Future<ResponseEntity> globalSearch(String searchQuery) async {
+    return _bookUseCase.globalSearchUseCase(searchQuery);
+  }
 }

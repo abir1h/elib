@@ -8,4 +8,6 @@ abstract class BookRepository {
   Future<ResponseEntity> getBookmarkBookList();
   Future<ResponseEntity> userBookViewCountAction(int bookId);
   Future<ResponseEntity> userBookDownloadCountAction(int bookId);
+
+  Future<ResponseEntity> globalSearch(String searchQuery);
 }
