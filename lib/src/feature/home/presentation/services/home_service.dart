@@ -12,7 +12,7 @@ import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
-void navigateToBookDetailsScreen(BookDataEntity data);
+  void navigateToBookDetailsScreen(BookDataEntity data);
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
 }
@@ -61,14 +61,13 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     if (!mounted) return;
     bookDataStreamController.add(LoadingState());
     getPopularBooks(1).then((value) {
-        if(value.error == null && value.data.bookDataEntity!.isNotEmpty) {
-          bookDataStreamController.add(DataLoadedState<List<BookDataEntity>>(
-              value.data!.bookDataEntity));
-        }else if(value.error == null && value.data.bookDataEntity!.isEmpty){
-
-        }else{
-          _view.showWarning(value.message!);
-        }
+      if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
+        bookDataStreamController.add(
+            DataLoadedState<List<BookDataEntity>>(value.data!.bookDataEntity));
+      } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
+      } else {
+        _view.showWarning(value.message!);
+      }
     });
 
     // ///Loading state
@@ -110,6 +109,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     //   }
     // });
   }
+
   void onBookContentSelected(BookDataEntity item) {
     _view.navigateToBookDetailsScreen(item);
   }
@@ -202,8 +202,6 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   //
   //   return completer.future;
   // }
-
-
 }
 
 class ResultsForViewModel {

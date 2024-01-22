@@ -1,5 +1,6 @@
 import 'package:elibrary/src/feature/book/presentation/screens/book_details_screen.dart';
 import 'package:flutter/material.dart';
+import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/root/presentation/screens/base_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
@@ -13,6 +14,7 @@ class AppRoute {
   static const String landingScreen = 'landingScreen';
   static const String baseScreen = 'baseScreen';
   static const String bookDetailsScreen = 'bookDetailsScreen';
+  static const String categoryDetailsScreen = 'categoryDetailsScreen';
 }
 
 mixin RouteGenerator {
@@ -22,15 +24,23 @@ mixin RouteGenerator {
         ///StartUp
         case AppRoute.splashScreen:
           return const SplashScreen();
+
         ///CLMS Landing Screen
         case AppRoute.landingScreen:
           return const LandingScreen();
+
         /// Base Screen - Bottom NavBar Screen
         case AppRoute.baseScreen:
           return const BaseScreen();
-          /// Book Details Screen
+
+        /// Book Details Screen
         case AppRoute.bookDetailsScreen:
-          return  BookDetailsScreen(arguments: setting.arguments,);
+          return BookDetailsScreen(arguments: setting.arguments);
+
+        /// Category Details Screen
+        case AppRoute.categoryDetailsScreen:
+          return CategoryDetailsScreen(arguments: setting.arguments);
+
         ///Default Screen
         default:
           return const SplashScreen();

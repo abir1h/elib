@@ -14,7 +14,7 @@ class CategoryDataEntity {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  final List<BookDataEntity> books;
+  final List<BookDataEntity> book;
   final List<CategoryDataEntity> children;
   final PivotDataEntity? pivot;
 
@@ -30,7 +30,7 @@ class CategoryDataEntity {
       required this.createdAt,
       required this.updatedAt,
       required this.deletedAt,
-      required this.books,
+      required this.book,
       required this.children,
       required this.pivot});
 }
