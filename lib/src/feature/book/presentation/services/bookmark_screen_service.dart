@@ -10,6 +10,7 @@ import '../../domain/use_cases/book_use_case.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void navigateToBookDetailsScreen(BookmarkDataEntity data);
 /*  void showWarning(String message);
   void navigateToCategoryDetailsScreen(
       String categoryName, List<BookDataEntity> data);
@@ -25,8 +26,8 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
           BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
 
   Future<ResponseEntity> bookmarkBookAction(
-      int bookId, int eMISUserId, int status) async {
-    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId, status);
+      {required int bookId, required int eMISUserId}) async {
+    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
   Future<ResponseEntity> getBookmarkBookList() async {
@@ -51,26 +52,39 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
   final AppStreamController<List<BookmarkDataEntity>>
       bookmarkDataStreamController = AppStreamController();
 
+  List<BookmarkDataEntity> _bookList = [];
+
   ///Load Category list
   void _loadBookmarkListData() {
     if (!mounted) return;
     bookmarkDataStreamController.add(LoadingState());
     getBookmarkBookList().then((value) {
       if (value.error == null && value.data != null) {
-        if (value.data is List<BookmarkDataEntity>) {
-          // Check if value.data is a List<BookmarkDataEntity>
-          bookmarkDataStreamController.add(
-            DataLoadedState<List<BookmarkDataEntity>>(
-              value.data as List<BookmarkDataEntity>,
-            ),
-          );
-        } else {
-          // Handle the case where value.data is not a List<BookmarkDataEntity>
-          _view.showWarning("Invalid data format");
-        }
+        _bookList = value.data;
+        bookmarkDataStreamController
+            .add(DataLoadedState<List<BookmarkDataEntity>>(value.data!));
       } else if (value.error == null &&
           (value.data == null || value.data.isEmpty)) {
         // Handle the case where there is no data
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
+  }
+
+  void onBookContentSelected(BookmarkDataEntity item) {
+    _view.navigateToBookDetailsScreen(item);
+  }
+
+  void onBookmarkContentSelected(BookmarkDataEntity item) {
+    bookmarkBookAction(
+      bookId: item.book!.id,
+      eMISUserId: 1,
+    ).then((value) {
+      if (value.error == null && value.data != null) {
+        _bookList.removeWhere((element) => element.bookId == value.data.bookId);
+        bookmarkDataStreamController
+            .add(DataLoadedState<List<BookmarkDataEntity>>(_bookList));
       } else {
         _view.showWarning(value.message!);
       }

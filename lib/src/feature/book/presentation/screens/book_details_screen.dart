@@ -96,24 +96,23 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Author Name: ",
+                              data.author.isNotEmpty?"Author Name: ":"",
                               style: TextStyle(
                                 color: clr.textColorAppleBlack,
                                 fontWeight: FontWeight.w900,
                                 fontSize: size.textXSmall,
                               ),
                             ),
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: data.author
-                                    .map((e) => Text(
-                                          e.name,
-                                          style: TextStyle(
-                                            color: clr.textColorAppleBlack,
-                                            fontSize: size.textXSmall,
-                                          ),
-                                        ))
-                                    .toList())
+                            Text(data.author
+                                .map((c) => c.name)
+                                .toList()
+                                .join(', '),
+                              style: TextStyle(
+                                color: clr.textColorAppleBlack,
+                                fontSize: size.textXSmall,
+                              ),
+                            )
+
                           ],
                         ),
                       ],

@@ -19,8 +19,8 @@ mixin class BookService {
     return _bookUseCase.getBookDetailsUseCase(bookId);
   }
 
-  Future<ResponseEntity> bookmarkBookAction(int bookId, int eMISUserId, int status) async {
-    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId, status);
+  Future<ResponseEntity> bookmarkBookAction(int bookId, int eMISUserId) async {
+    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
   Future<ResponseEntity> getBookmarkBookList() async {
     return _bookUseCase.getBookmarkListUseCase();

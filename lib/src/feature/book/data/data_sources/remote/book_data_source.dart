@@ -13,7 +13,7 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getPopularBooksAction(int pageNumber);
   Future<ResponseModel> getBookDetailsAction(int bookId);
   Future<ResponseModel> bookmarkBookAction(
-      int bookId, int eMISUserId, int status);
+      int bookId, int eMISUserId);
   Future<ResponseModel> getBookmarkBooksAction();
   Future<ResponseModel> userBookViewCountAction(int bookId);
   Future<ResponseModel> userBookDownloadCountAction(int bookId);
@@ -41,11 +41,10 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
 
   @override
   Future<ResponseModel> bookmarkBookAction(
-      int bookId, int eMISUserId, int status) async {
+      int bookId, int eMISUserId) async {
     Map<String, dynamic> data = {
       "book_id": bookId,
       "emis_user_id": eMISUserId,
-      "status": status
     };
     final responseJson = await Server.instance
         .postRequest(url: ApiCredential.bookmarkBook, postData: data);

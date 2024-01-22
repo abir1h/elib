@@ -59,9 +59,9 @@ class BookRepositoryImp extends BookRepository {
 
   @override
   Future<ResponseEntity> bookmarkBook(
-      int bookId, int eMISUserId, int status) async {
+      int bookId, int eMISUserId) async {
     ResponseModel responseModel = (await bookRemoteDataSource
-        .bookmarkBookAction(bookId, eMISUserId, status));
+        .bookmarkBookAction(bookId, eMISUserId));
     return ResponseModelToEntityMapper<BookmarkResponseEntity,
             BookmarkResponseModel>()
         .toEntityFromModel(responseModel,
