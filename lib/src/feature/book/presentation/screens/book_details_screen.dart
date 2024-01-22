@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elibrary/src/core/common_widgets/custom_button.dart';
 import 'package:elibrary/src/core/constants/app_theme.dart';
 import 'package:elibrary/src/core/routes/app_route_args.dart';
+import 'package:elibrary/src/core/toasty.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_scroll_widget.dart';
@@ -129,7 +130,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           height: size.h8,
                         ),
                         CustomButton(onTap: () {
-                          // onSaveFileToLocalStorage();
+                          downloadFile( "http://103.209.40.89:82/uploads/${data.bookFile}", filename: data.bookFile.substring(data.bookFile.lastIndexOf("/")+1).replaceAll("?","").replaceAll("=",""));
                         }, title: "Download Book"),
                         SizedBox(
                           height: size.h32,
