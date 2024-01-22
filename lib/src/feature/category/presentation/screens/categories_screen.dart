@@ -44,7 +44,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                     itemBuilder: (context, index) {
                       return ItemSectionWidget(
                           title: data[index].name,
-                          items: data[index].book,
+                          items: data[index].books,
                           buildItem: (context, index, item) {
                             return CategoryItemWidget(
                               data: item,
@@ -52,7 +52,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             );
                           },
                           onTapSeeAll: () =>
-                              onTapSeeAll(data[index].name, data[index].book));
+                              onTapSeeAll(data[index].name, data[index].books));
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(height: size.h12);
@@ -92,7 +92,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   void navigateToBookDetailsScreen(BookDataEntity data) {
     Navigator.of(context).pushNamed(
       AppRoute.bookDetailsScreen,
-      arguments: BookDetailsScreenArgs(bookId: data.id),
+      arguments: BookDetailsScreenArgs(bookData: data),
     );
   }
 }

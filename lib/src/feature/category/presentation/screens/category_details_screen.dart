@@ -1,6 +1,3 @@
-import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
-import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
-import 'package:elibrary/src/feature/category/presentation/services/category_details_screen_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/custom_scaffold.dart';
@@ -8,6 +5,9 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../home/presentation/screens/home_screen.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
+import '../services/category_details_screen_service.dart';
 
 class CategoryDetailsScreen extends StatefulWidget {
   final Object? arguments;
@@ -57,7 +57,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
   void navigateToBookDetailsScreen(BookDataEntity data) {
     Navigator.of(context).pushNamed(
       AppRoute.bookDetailsScreen,
-      arguments: BookDetailsScreenArgs(bookId: data.id),
+      arguments: BookDetailsScreenArgs(bookData: data),
     );
   }
 

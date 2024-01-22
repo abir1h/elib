@@ -1,6 +1,7 @@
-import 'package:elibrary/src/feature/book/presentation/screens/book_details_screen.dart';
-import 'package:elibrary/src/feature/book/presentation/screens/book_view_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../feature/book/presentation/screens/book_details_screen.dart';
+import '../../feature/book/presentation/screens/book_view_screen.dart';
 import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/root/presentation/screens/base_screen.dart';
@@ -43,9 +44,9 @@ mixin RouteGenerator {
         case AppRoute.categoryDetailsScreen:
           return CategoryDetailsScreen(arguments: setting.arguments);
 
-          return  BookDetailsScreen(arguments: setting.arguments,);
         case AppRoute.bookViewScreen:
-          return  BookViewerScreen(arguments: setting.arguments,);
+          return BookViewerScreen(arguments: setting.arguments);
+
         ///Default Screen
         default:
           return const SplashScreen();
