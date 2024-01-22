@@ -85,6 +85,7 @@ class ThemeSize {
 
   double get r1 => 1.r;
   double get r4 => 4.r;
+  double get r6 => 6.r;
   double get r8 => 8.r;
   double get r10 => 10.r;
   double get r12 => 12.r;

@@ -16,7 +16,7 @@ class CategoryDataModel {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  final List<BookDataModel> book;
+  final List<BookDataModel> books;
   final List<CategoryDataModel> children;
   final PivotDataModel? pivot;
 
@@ -32,7 +32,7 @@ class CategoryDataModel {
       required this.createdAt,
       required this.updatedAt,
       required this.deletedAt,
-      required this.book,
+      required this.books,
       required this.children,
       required this.pivot});
 
@@ -49,7 +49,7 @@ class CategoryDataModel {
         createdAt: json["created_at"] ?? "",
         updatedAt: json["updated_at"] ?? "",
         deletedAt: json["deleted_at"] ?? "",
-        book: json["book"] != null
+        books: json["book"] != null
             ? List<BookDataModel>.from(
                 (json["book"]).map((x) => BookDataModel.fromJson(x)))
             : [],

@@ -1,5 +1,4 @@
-import 'package:elibrary/src/feature/book/data/mapper/pivot_data.mapper.dart';
-
+import '../../../book/data/mapper/pivot_data.mapper.dart';
 import '../../../book/data/mapper/book_data_mapper.dart';
 import '../../../book/data/models/book_data_model.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
@@ -27,7 +26,7 @@ class _CategoryDataModelToEntityMapper
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
-        book: List<BookDataEntity>.from(entity.books)
+        books: List<BookDataEntity>.from(entity.books)
             .map((entity) => entity.toBookDataModel)
             .toList(),
         children: List<CategoryDataEntity>.from(entity.children)
@@ -50,7 +49,7 @@ class _CategoryDataModelToEntityMapper
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
-        books: List<BookDataModel>.from(model.book)
+        books: List<BookDataModel>.from(model.books)
             .map((model) => model.toBookDataEntity)
             .toList(),
         children: List<CategoryDataModel>.from(model.children)
