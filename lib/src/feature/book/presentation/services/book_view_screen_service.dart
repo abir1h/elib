@@ -1,97 +1,80 @@
+
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:elibrary/src/core/routes/app_route_args.dart';
-import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:saf/saf.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/paginated_gridview_widget.dart';
-import '../../../book/data/data_sources/remote/book_data_source.dart';
-import '../../../book/data/repositories/book_repository_imp.dart';
-import '../../../book/domain/use_cases/book_use_case.dart';
-import '../../../shared/domain/entities/response_entity.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:http/http.dart' as http;
+import '../../../../core/routes/app_route_args.dart';
 
-import 'book_view_screen_service.dart';
+abstract class _ViewModel{
+  void forceClose();
+  void showWarning(String msg);
 
-abstract class _ViewModel {
-  void showWarning(String message);
-  void navigateToBookViewerScreen(BookDataEntity bookData);
+  void showSuccess(String msg);
 }
+mixin PDFViewerScreenService<T extends StatefulWidget> on State<T> implements _ViewModel{
+  VoidCallback? onFileCached;
+  int _readingTime = 0;
+  Timer? _timer;
 
-mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
-implements _ViewModel {
   late _ViewModel _view;
-
-  final BookUseCase _bookUseCase = BookUseCase(
-      bookRepository:
-      BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
-
-  Future<ResponseEntity> getBookDetails(int bookId) async {
-    return _bookUseCase.getBookDetailsUseCase(bookId);
-  }
 
   ///Service configurations
   @override
   void initState() {
     _view = this;
     super.initState();
+    WakelockPlus.enable();
+    super.initState();
   }
 
   @override
   void dispose() {
+    WakelockPlus.disable();
+
+    ///Cancel timer
+    _timer?.cancel();
+
+    ///Close streams
+    _pageStateStreamController.close();
+    _loadingProgressStreamController.close();
+    _loadingSizeStreamController.close();
     super.dispose();
   }
 
-  ///Stream controllers
-  final AppStreamController<BookDataEntity> bookDataStreamController =
-  AppStreamController();
-  int _readingTime = 0;
-  Timer? _timer;
+  late BookViewerScreenArgs _screenArgs;
+
   final StreamController<PageState> _pageStateStreamController =  StreamController.broadcast();
   Stream<PageState> get pageStateStream => _pageStateStreamController.stream;
   Sink<PageState>? get _pageStateSink => !_pageStateStreamController.isClosed ? _pageStateStreamController.sink : null;
+
 
   final StreamController<String> _loadingProgressStreamController =  StreamController.broadcast();
   Stream<String> get loadingProgressStream => _loadingProgressStreamController.stream;
   Sink<String>? get _loadingProgressSink => !_loadingProgressStreamController.isClosed ? _loadingProgressStreamController.sink : null;
 
+
   final StreamController<String> _loadingSizeStreamController =  StreamController.broadcast();
   Stream<String> get loadingSizeStream => _loadingSizeStreamController.stream;
   Sink<String>? get _loadingSizeSink => !_loadingSizeStreamController.isClosed ? _loadingSizeStreamController.sink : null;
 
- late BookDataEntity bookData;
 
-  ///Load Book list
-  void loadInitialData(BookDetailsScreenArgs args) {
-    ///Loading state
-    if (!mounted) return;
-    bookDataStreamController.add(LoadingState());
-    getBookDetails(args.bookData.id).then((value) {
-      if (value.error == null && value.data!=null) {
-        bookData=value.data!;
-        bookDataStreamController.add(DataLoadedState<BookDataEntity>(value.data!));
-      }  else {
-        _view.showWarning(value.message!);
-      }
-    });
+
+  void loadFile(BookViewerScreenArgs args) async {
+    _screenArgs = args;
+    // _screenArgs.url = "https://www.orimi.com/pdf-test.pdf";
+
+    _downloadFile(_screenArgs.url,filename: _screenArgs.url.substring(_screenArgs.url.lastIndexOf("/")+1).replaceAll("?","").replaceAll("=",""));
   }
-
-  void onNavigateToBookViewerScreen(BookDataEntity item){
-    _view.navigateToBookViewerScreen(item);
-  }
-  void downloadBook(BookDataEntity item){
-
-  }
-
   void _downloadFile(String url, {required String filename}) async {
     try{
       var httpClient = http.Client();
@@ -136,7 +119,7 @@ implements _ViewModel {
           if((lookupMimeType(filename)??"").toLowerCase() == "application/pdf"){
             ///PDF File loaded to screen
             if(!_pageStateStreamController.isClosed) {
-              _pageStateSink?.add(PdfLoadedState(file, bookData.isDownload==1?true:false));
+              _pageStateSink?.add(PdfLoadedState(file, _screenArgs.canDownload));
               ///Start timer
               _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
                 _readingTime += 1;
@@ -145,7 +128,7 @@ implements _ViewModel {
           }else{
             ///Unknown File loaded to screen
             if(!_pageStateStreamController.isClosed) {
-              _pageStateSink?.add(UnknownFileLoadedState(file,bookData.titleEn));
+              _pageStateSink?.add(UnknownFileLoadedState(file,_screenArgs.title));
             }
           }
 
@@ -162,6 +145,11 @@ implements _ViewModel {
     }
   }
 
+  Future<bool> onGoBack() {
+    _view.forceClose();
+    // _screenArgs.onReadingEnded?.call(_screenArgs.docId,_readingTime);
+    return Future.value(false);
+  }
 
   void onSaveFileToLocalStorage(File file, [bool restartTimer=false])async {
     if (Platform.isAndroid) {
@@ -170,13 +158,13 @@ implements _ViewModel {
       await saveFileToiOSStorage(file: file);
     }
 
-    // ///Start timer if the file is not pdf file
-    // if(restartTimer){
-    //   _timer?.cancel();
-    //   _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-    //     _readingTime += 1;
-    //   });
-    // }
+    ///Start timer if the file is not pdf file
+    if(restartTimer){
+      _timer?.cancel();
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        _readingTime += 1;
+      });
+    }
   }
   Future<void> saveFileToAndroidStorage({required File file,})async{
     try{
@@ -208,7 +196,7 @@ implements _ViewModel {
         await file.copy("$_localStorage/$_userIndex/$path/${file.path
             .split("/")
             .last}").then((value) {
-          // _view.showSuccess("File saved successfully!");
+          _view.showSuccess("File saved successfully!");
         }).catchError((error) async{
           _view.showWarning('Unable to save to this directory! Please select "Documents" directory.');
         });
@@ -229,4 +217,29 @@ implements _ViewModel {
       _view.showWarning("Unable to save file!");
     });
   }
+}
+
+String formatBytes(int bytes, int decimals) {
+  if (bytes <= 0) return "0 B";
+  const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  var i = (log(bytes) / log(1024)).floor();
+  return '${(bytes / pow(1024, i)).toStringAsFixed(i > 1 ?decimals:0)} ${suffixes[i]}';
+}
+
+abstract class PageState{}
+class PdfLoadedState extends PageState{
+  final File file;
+  final bool canDownload;
+  PdfLoadedState(this.file, this.canDownload);
+}
+class UnknownFileLoadedState extends PageState{
+  final File file;
+  final String title;
+
+  UnknownFileLoadedState(this.file,this.title);
+}
+class ErrorState extends PageState{
+  String message;
+  String title;
+  ErrorState(this.title, this.message);
 }
