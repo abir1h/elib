@@ -27,7 +27,7 @@ class _CategoryDataModelToEntityMapper
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
-        books: List<BookDataEntity>.from(entity.books)
+        book: List<BookDataEntity>.from(entity.books)
             .map((entity) => entity.toBookDataModel)
             .toList(),
         children: List<CategoryDataEntity>.from(entity.children)
@@ -50,7 +50,7 @@ class _CategoryDataModelToEntityMapper
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
-        books: List<BookDataModel>.from(model.books)
+        books: List<BookDataModel>.from(model.book)
             .map((model) => model.toBookDataEntity)
             .toList(),
         children: List<CategoryDataModel>.from(model.children)

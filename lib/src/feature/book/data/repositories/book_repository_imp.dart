@@ -35,15 +35,6 @@ class BookRepositoryImp extends BookRepository {
             responseModel, (BookDataModel model) => model.toBookDataEntity);
   }
 
-  @override
-  Future<ResponseEntity> saveBook(int bookId, int status) async{
-    // ResponseModel responseModel =
-    // (await bookRemoteDataSource.saveBookAction(bookId, status));
-    // return ResponseModelToEntityMapper<ResponseEntity, ResponseModel>()
-    //     .toEntityFromModel(
-    // responseModel, (ResponseModel model) => model.toBookDataEntity);
-    throw UnimplementedError();
-  }
 
   @override
   Future<ResponseEntity> getPopularBooks(int pageNumber) async{
@@ -53,5 +44,37 @@ class BookRepositoryImp extends BookRepository {
     PaginatedBookDataModel>()
         .toEntityFromModel(responseModel,
     (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> bookmarkBook(int bookId, int eMISUserId, int status) async{
+    ResponseModel responseModel =
+    // (await bookRemoteDataSource.bookmarkBookAction(bookId, eMISUserId, status));
+    // return ResponseModelToEntityMapper<ResponseEntity, ResponseModel>()
+    //     .toEntityFromModel(
+    // responseModel, (ResponseModel model) => model.toBookDataEntity);
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResponseEntity> getBookmarkBookList() async{
+    // ResponseModel responseModel =
+    // (await bookRemoteDataSource.getBookmarkBooksAction());
+    // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+    // PaginatedBookDataModel>()
+    //     .toEntityFromModel(responseModel,
+    // (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResponseEntity> userBookCountAction(int bookId) {
+    // ResponseModel responseModel =
+    // (await bookRemoteDataSource.getBookmarkBooksAction());
+    // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+    // PaginatedBookDataModel>()
+    //     .toEntityFromModel(responseModel,
+    // (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+    throw UnimplementedError();
   }
 }

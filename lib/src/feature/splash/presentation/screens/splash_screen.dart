@@ -16,17 +16,16 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashService,BookService{
-
+class _SplashScreenState extends State<SplashScreen>
+    with AppTheme, SplashService, BookService {
   @override
   void initState() {
-
     super.initState();
     _callMethod();
   }
 
-  _callMethod()async{
-    // ResponseEntity responseEntity = await getPopularBooks(2);
+  _callMethod() async {
+    // ResponseEntity responseEntity = await getPopularBooks(1);
     // print(responseEntity.message);
   }
 
@@ -63,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> with AppTheme ,SplashServic
 
   @override
   void navigateToLandingScreen() {
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoute.landingScreen, (x)=> false);
-
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
   }
 }

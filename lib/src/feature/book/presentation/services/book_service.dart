@@ -19,7 +19,13 @@ mixin class BookService {
     return _bookUseCase.getBookDetailsUseCase(bookId);
   }
 
-  Future<ResponseEntity> saveBook(int bookId, int status) async {
-    return _bookUseCase.saveBookUseCase(bookId, status);
+  Future<ResponseEntity> bookmarkBook(int bookId, int eMISUserId, int status) async {
+    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId, status);
+  }
+  Future<ResponseEntity> getBookmarkBookList() async {
+    return _bookUseCase.getBookmarkListUseCase();
+  }
+  Future<ResponseEntity> userBookCountAction(int bookId) async {
+    return _bookUseCase.userBookCountActionUseCase(bookId);
   }
 }

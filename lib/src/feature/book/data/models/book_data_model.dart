@@ -5,20 +5,26 @@ import '../../../category/data/models/category_data_model.dart';
 @immutable
 class BookDataModel {
   final int id;
-  final int adminId;
-  final int categoryId;
-  final int authorId;
   final String titleEn;
   final String titleBn;
+  final String languageEn;
+  final String languageBn;
+  final String editionEn;
+  final String editionBn;
+  final String publishYearEn;
+  final String publishYearBn;
+  final String publisherEn;
+  final String publisherBn;
+  final String isbnEn;
+  final String isbnBn;
   final String slug;
   final String descriptionEn;
   final String descriptionBn;
   final String coverImage;
   final String bookFile;
   final String externalLink;
-  final int totalPages;
-  final int totalChapters;
-  final int isGenerateBook;
+  final int createdBy;
+  final int isDownload;
   final int status;
   final String createdAt;
   final String updatedAt;
@@ -28,20 +34,26 @@ class BookDataModel {
 
   const BookDataModel({
     required this.id,
-    required this.adminId,
-    required this.categoryId,
-    required this.authorId,
     required this.titleEn,
     required this.titleBn,
+    required this.languageEn,
+    required this.languageBn,
+    required this.editionEn,
+    required this.editionBn,
+    required this.publishYearEn,
+    required this.publishYearBn,
+    required this.publisherEn,
+    required this.publisherBn,
+    required this.isbnEn,
+    required this.isbnBn,
     required this.slug,
     required this.descriptionEn,
     required this.descriptionBn,
     required this.coverImage,
     required this.bookFile,
     required this.externalLink,
-    required this.totalPages,
-    required this.totalChapters,
-    required this.isGenerateBook,
+    required this.createdBy,
+    required this.isDownload,
     required this.status,
     required this.createdAt,
     required this.updatedAt,
@@ -52,20 +64,26 @@ class BookDataModel {
 
   factory BookDataModel.fromJson(Map<String, dynamic> json) => BookDataModel(
       id: json["id"] ?? -1,
-      adminId: json["admin_id"] ?? -1,
-      categoryId: json["category_id"] ?? -1,
-      authorId: json["author_id"] ?? -1,
       titleEn: json["title_en"] ?? "",
       titleBn: json["title_bn"] ?? "",
+      languageEn: json["language_en"] ?? "",
+      languageBn: json["language_bn"] ?? "",
+      editionEn: json["edition_en"] ?? "",
+      editionBn: json["edition_bn"] ?? "",
+      publishYearEn: json["publish_year_en"] ?? "",
+      publishYearBn: json["publish_year_bn"] ?? "",
+      publisherEn: json["publisher_en"] ?? "",
+      publisherBn: json["publisher_bn"] ?? "",
+      isbnEn: json["isbn_en"] ?? "",
+      isbnBn: json["isbn_bn"] ?? "",
       slug: json["slug"] ?? "",
       descriptionEn: json["description_en"] ?? "",
       descriptionBn: json["description_bn"] ?? "",
       coverImage: json["cover_image"] ?? "",
       bookFile: json["book_file"] ?? "",
       externalLink: json["external_link"] ?? "",
-      totalPages: json["total_pages"] ?? -1,
-      totalChapters: json["total_chapters"] ?? -1,
-      isGenerateBook: json["is_generate_book"] ?? -1,
+      createdBy: json["created_by"] ?? -1,
+      isDownload: json["is_download"] ?? -1,
       status: json["status"] ?? -1,
       createdAt: json["created_at"] ?? "",
       updatedAt: json["updated_at"] ?? "",
@@ -81,20 +99,26 @@ class BookDataModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "admin_id": adminId,
-        "category_id": categoryId,
-        "author_id": authorId,
         "title_en": titleEn,
         "title_bn": titleBn,
+        "language_en": languageEn,
+        "language_bn": languageBn,
+        "edition_en": editionEn,
+        "edition_bn": editionBn,
+        "publish_year_en": publishYearEn,
+        "publish_year_bn": publishYearBn,
+        "publisher_en": publisherEn,
+        "publisher_bn": publisherBn,
+        "isbn_en": isbnEn,
+        "isbn_bn": isbnBn,
         "slug": slug,
         "description_en": descriptionEn,
         "description_bn": descriptionBn,
         "cover_image": coverImage,
         "book_file": bookFile,
         "external_link": externalLink,
-        "total_pages": totalPages,
-        "total_chapters": totalChapters,
-        "is_generate_book": isGenerateBook,
+        "created_by": createdBy,
+        "is_download": isDownload,
         "status": status,
         "created_at": createdAt,
         "updated_at": updatedAt,
