@@ -13,6 +13,6 @@ class ApiCredential {
   static String getBookmarkBooks = "/all-boorkmark";
   static String bookCountUser = "/book-count-user";
   static String downloadCountUser = "/book-download-count";
-
+  static String globalSearch = "/global-search?search=";
 
 }

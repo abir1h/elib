@@ -103,4 +103,14 @@ class BookRepositoryImp extends BookRepository {
             (DownloadCountResponseModel model) =>
                 model.toDownloadCountResponseEntity);
   }
+
+  @override
+  Future<ResponseEntity> globalSearch(String searchQuery) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.globalSearchAction(searchQuery));
+    return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+            PaginatedBookDataModel>()
+        .toEntityFromModel(responseModel,
+            (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+  }
 }

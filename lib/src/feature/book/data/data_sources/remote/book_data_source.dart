@@ -17,6 +17,7 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getBookmarkBooksAction();
   Future<ResponseModel> userBookViewCountAction(int bookId);
   Future<ResponseModel> userBookDownloadCountAction(int bookId);
+  Future<ResponseModel> globalSearchAction(String searchQuery);
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -92,6 +93,15 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
         .postRequest(url: ApiCredential.downloadCountUser, postData: data);
     ResponseModel responseModel = ResponseModel.fromJson(responseJson,
         (dynamic json) => DownloadCountResponseModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> globalSearchAction(String searchQuery) async{
+    final responseJson = await Server.instance
+        .getRequest(url: ApiCredential.globalSearch + searchQuery);
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
     return responseModel;
   }
 }

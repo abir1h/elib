@@ -34,4 +34,8 @@ class BookUseCase {
     final response = _bookRepository.userBookDownloadCountAction(bookId);
     return response;
   }
+  Future<ResponseEntity> globalSearchUseCase(String searchQuery) async {
+    final response = _bookRepository.globalSearch(searchQuery);
+    return response;
+  }
 }
