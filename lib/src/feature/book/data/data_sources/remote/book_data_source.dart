@@ -10,6 +10,7 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getBookDetailsAction(int bookId);
   Future<ResponseModel> bookmarkBookAction(int bookId, int eMISUserId, int status);
   Future<ResponseModel> getBookmarkBooksAction();
+  Future<ResponseModel> userBookCountAction();
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -61,6 +62,12 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => null); ///TODO: Change it
     return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> userBookCountAction() {
+    // TODO: implement userBookCountAction
+    throw UnimplementedError();
   }
 
 }

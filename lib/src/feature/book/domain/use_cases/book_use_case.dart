@@ -26,4 +26,8 @@ class BookUseCase {
     final response = _bookRepository.getBookmarkBookList();
     return response;
   }
+  Future<ResponseEntity> userBookCountActionUseCase(int bookId) async {
+    final response = _bookRepository.userBookCountAction(bookId);
+    return response;
+  }
 }

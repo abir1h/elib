@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    // ResponseEntity responseEntity = await getPopularBooks(2);
+    // ResponseEntity responseEntity = await getPopularBooks(1);
     // print(responseEntity.message);
   }
 

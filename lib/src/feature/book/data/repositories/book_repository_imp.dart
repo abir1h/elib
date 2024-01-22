@@ -66,4 +66,15 @@ class BookRepositoryImp extends BookRepository {
     // (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
     throw UnimplementedError();
   }
+
+  @override
+  Future<ResponseEntity> userBookCountAction(int bookId) {
+    // ResponseModel responseModel =
+    // (await bookRemoteDataSource.getBookmarkBooksAction());
+    // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+    // PaginatedBookDataModel>()
+    //     .toEntityFromModel(responseModel,
+    // (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+    throw UnimplementedError();
+  }
 }
