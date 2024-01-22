@@ -25,7 +25,10 @@ mixin class BookService {
   Future<ResponseEntity> getBookmarkBookList() async {
     return _bookUseCase.getBookmarkListUseCase();
   }
-  Future<ResponseEntity> userBookCountAction(int bookId) async {
-    return _bookUseCase.userBookCountActionUseCase(bookId);
+  Future<ResponseEntity> userBookViewCountAction(int bookId) async {
+    return _bookUseCase.userBookViewCountActionUseCase(bookId);
+  }
+  Future<ResponseEntity> userBookDownloadCountAction(int bookId) async {
+    return _bookUseCase.userBookDownloadCountActionUseCase(bookId);
   }
 }

@@ -6,5 +6,6 @@ abstract class BookRepository {
   Future<ResponseEntity> getBookDetails(int bookId);
   Future<ResponseEntity> bookmarkBook(int bookId, int eMISUserId, int status);
   Future<ResponseEntity> getBookmarkBookList();
-  Future<ResponseEntity> userBookCountAction(int bookId);
+  Future<ResponseEntity> userBookViewCountAction(int bookId);
+  Future<ResponseEntity> userBookDownloadCountAction(int bookId);
 }

@@ -1,9 +1,5 @@
 import '../../domain/entities/download_count_response_entity.dart';
 import '../models/download_count_response_model.dart';
-import 'author_type_data_mapper.dart';
-import 'pivot_data.mapper.dart';
-import '../../domain/entities/author_data_entity.dart';
-import '../models/author_data_model.dart';
 
 abstract class DownloadCountResponseMapper<M, E> {
   M fromEntityToModel(E entity);
