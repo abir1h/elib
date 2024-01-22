@@ -65,9 +65,12 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> userBookCountAction() {
-    // TODO: implement userBookCountAction
-    throw UnimplementedError();
+  Future<ResponseModel> userBookCountAction() async{
+    final responseJson = await Server.instance
+        .getRequest(url: ApiCredential.bookCountUser);
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => null); ///TODO: Change it
+    return responseModel;
   }
 
 }

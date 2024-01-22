@@ -70,7 +70,7 @@ class BookRepositoryImp extends BookRepository {
   @override
   Future<ResponseEntity> userBookCountAction(int bookId) {
     // ResponseModel responseModel =
-    // (await bookRemoteDataSource.getBookmarkBooksAction());
+    // (await bookRemoteDataSource.userBookCountAction());
     // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
     // PaginatedBookDataModel>()
     //     .toEntityFromModel(responseModel,
