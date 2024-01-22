@@ -1,9 +1,6 @@
-import 'package:elibrary/src/feature/book/data/mapper/book_data_mapper.dart';
-import 'package:elibrary/src/feature/book/data/models/book_data_model.dart';
-
+import 'book_data_mapper.dart';
 import '../../domain/entities/bookmark_data_entity.dart';
 import '../models/bookmark_data_model.dart';
-import '../../domain/entities/bookmark_response_entity.dart';
 
 abstract class BookmarkDataMapper<M, E> {
   M fromEntityToModel(E entity);
