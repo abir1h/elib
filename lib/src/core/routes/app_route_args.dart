@@ -1,8 +1,10 @@
 
 
+import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
+
 class BookDetailsScreenArgs {
-  final int bookId;
-  BookDetailsScreenArgs( {required this.bookId,});
+  final BookDataEntity bookData;
+  BookDetailsScreenArgs( {required this.bookData,});
 }
 
 class BookViewerScreenArgs{

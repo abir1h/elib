@@ -121,14 +121,16 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CustomButton(
-                          onTap: () {},
+                          onTap: ()=>onNavigateToBookViewerScreen((widget.arguments as BookDetailsScreenArgs).bookData),
                           title: "Read Book",
                           buttonColor: clr.appPrimaryColorGreen,
                         ),
                         SizedBox(
                           height: size.h8,
                         ),
-                        CustomButton(onTap: () {}, title: "Download Book"),
+                        CustomButton(onTap: () {
+                          // onSaveFileToLocalStorage();
+                        }, title: "Download Book"),
                         SizedBox(
                           height: size.h32,
                         ),
@@ -156,8 +158,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
       arguments: BookViewerScreenArgs(
         // docId: item.id.toString(),
         title: item.titleEn,
-        canDownload: item.i,
-        url: AppConstant.getPDFFileUrl(item.filePath),
+        canDownload: item.isDownload==1?true:false,
+        url: "http://103.209.40.89:82/uploads/${item.bookFile}",
       ),
     );
   }

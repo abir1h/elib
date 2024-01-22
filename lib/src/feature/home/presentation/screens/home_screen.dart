@@ -78,6 +78,18 @@ class _HomeScreenState extends State<HomeScreen>
                 SizedBox(
                   height: size.h12,
                 ),
+                ///Search Box and Bookmark button
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: SearchBoxWidget(
+                //         hintText: "Search..",
+                //         onSearchTermChange: onSearchTermChanged,
+                //         serviceState: serviceState,
+                //       ),
+                //     ),
+                //   ],
+                // ),
 
                 ///Content section
                 AppStreamBuilder<List<BookDataEntity>>(
@@ -87,7 +99,14 @@ class _HomeScreenState extends State<HomeScreen>
                   },
                   dataBuilder: (context, data) {
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text("Popular Books",style: TextStyle(
+                          color: clr.appPrimaryColorGreen,
+                          fontSize: size.textSmall,
+                          fontWeight: FontWeight.w600
+                        ),),
+                        SizedBox(height: size.h12,),
                         GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           gridDelegate:
@@ -246,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen>
   void navigateToBookDetailsScreen(BookDataEntity data) {
     Navigator.of(context).pushNamed(
       AppRoute.bookDetailsScreen,
-      arguments: BookDetailsScreenArgs(bookId: data.id),
+      arguments: BookDetailsScreenArgs(bookData: data),
     );
   }
 }
