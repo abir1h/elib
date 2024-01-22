@@ -15,7 +15,8 @@ class _BookmarResponseModelToEntityMapper
         bookId: entity.bookId,
         updatedAt: entity.updatedAt,
         createdAt: entity.createdAt,
-        id: entity.id);
+        id: entity.id,
+        status: entity.status);
   }
 
   @override
@@ -25,7 +26,8 @@ class _BookmarResponseModelToEntityMapper
         bookId: model.bookId,
         updatedAt: model.updatedAt,
         createdAt: model.createdAt,
-        id: model.id);
+        id: model.id,
+        status: model.status);
   }
 }
 

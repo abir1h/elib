@@ -1,19 +1,21 @@
+import 'package:flutter/cupertino.dart';
 
-import 'dart:convert';
-
+@immutable
 class BookmarkResponseModel {
   final int emisUserId;
   final int bookId;
   final String updatedAt;
   final String createdAt;
   final int id;
+  final int status;
 
-  BookmarkResponseModel({
+  const BookmarkResponseModel({
     required this.emisUserId,
     required this.bookId,
     required this.updatedAt,
     required this.createdAt,
     required this.id,
+    required this.status
   });
 
   factory BookmarkResponseModel.fromJson(Map<String, dynamic> json) => BookmarkResponseModel(
@@ -22,6 +24,7 @@ class BookmarkResponseModel {
     updatedAt: json["updated_at"],
     createdAt: json["created_at"],
     id: json["id"]??-1,
+    status: json['status']??-1
   );
 
   Map<String, dynamic> toJson() => {
@@ -30,5 +33,6 @@ class BookmarkResponseModel {
     "updated_at": updatedAt,
     "created_at": createdAt,
     "id": id,
+    "status":status
   };
 }

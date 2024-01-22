@@ -31,7 +31,8 @@ class BookmarkDataModel {
         updatedAt: json["updated_at"] ?? "",
         deletedAt: json["deleted_at"] ?? "",
         status: json["status"] ?? -1,
-        book: json['book'] != null ? BookDataModel.fromJson(json['book']) : null,
+        book:
+            json['book'] != null ? BookDataModel.fromJson(json['book']) : null,
       );
 
   Map<String, dynamic> toJson() => {
