@@ -78,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
                 SizedBox(
                   height: size.h12,
                 ),
+
                 ///Search Box and Bookmark button
                 // Row(
                 //   children: [
@@ -101,18 +102,22 @@ class _HomeScreenState extends State<HomeScreen>
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Popular Books",style: TextStyle(
-                          color: clr.appPrimaryColorGreen,
-                          fontSize: size.textSmall,
-                          fontWeight: FontWeight.w600
-                        ),),
-                        SizedBox(height: size.h12,),
+                        Text(
+                          "Popular Books",
+                          style: TextStyle(
+                              color: clr.appPrimaryColorGreen,
+                              fontSize: size.textSmall,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          height: size.h12,
+                        ),
                         GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            childAspectRatio: 0.7,
+                            childAspectRatio: .6,
                             crossAxisSpacing: size.h12,
                             mainAxisSpacing: size.h12,
                           ),
@@ -349,66 +354,90 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
     super.build(context);
     return GestureDetector(
       onTap: () => widget.onSelect(widget.item),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.h8),
-          border: Border.all(
-            color: clr.appPrimaryColorGreen.withOpacity(.1),
-            width: 1.w,
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(7.w),
-          child: Stack(
-            children: [
-              ///Thumbnail image
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.grey.withOpacity(0.5),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      "http://103.209.40.89:82/uploads/${widget.item.coverImage}",
-                  fit: BoxFit.cover,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                // color: clr.iconColorRed,
+                borderRadius: BorderRadius.circular(size.h8),
+                border: Border.all(
+                  color: clr.appPrimaryColorGreen.withOpacity(.1),
+                  width: 1.w,
                 ),
               ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(7.w),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    ///Thumbnail image
+                    Container(
+                      width: double.infinity,
+                      // height: double.infinity,
+                      color: Colors.grey.withOpacity(0.5),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "http://103.209.40.89:82/uploads/${widget.item.coverImage}",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
 
-              ///Content title
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: double.maxFinite,
-                  color: Colors.black.withOpacity(0.7),
-                  padding: EdgeInsets.all(
-                    size.h8,
-                  ),
-                  child: Text(
-                    widget.item.titleEn,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: clr.whiteColor,
-                      fontSize: size.textXSmall,
-                      fontWeight: FontWeight.w500,
+                    ///Bookmark
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                          margin: EdgeInsets.all(size.h2),
+                          padding: EdgeInsets.all(size.h2),
+                          decoration: BoxDecoration(
+                            color: clr.whiteColor,
+                            borderRadius: BorderRadius.circular(size.r4),
+                          ),
+                          child: Icon(
+                            Icons.bookmark_border_outlined,
+                            color: clr.appPrimaryColorGreen,
+                          )),
                     ),
-                  ),
+                  ],
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                    margin: EdgeInsets.all(size.h2),
-                    padding: EdgeInsets.all(size.h2),
-                    decoration: BoxDecoration(
-                      color: clr.whiteColor,
-                      borderRadius: BorderRadius.circular(size.h4,),
-                    ),
-                    child: Icon(Icons.bookmark_border_outlined,color: clr.appPrimaryColorGreen,)
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          SizedBox(height: size.h4),
+          Text(
+            widget.item.titleEn,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: clr.appPrimaryColorGreen,
+              fontSize: size.textXXSmall,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text.rich(
+              textAlign: TextAlign.start,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              TextSpan(
+                  text: "by ",
+                  style: TextStyle(
+                      color: clr.placeHolderTextColorGray,
+                      fontSize: size.textXXSmall,
+                      fontWeight: FontWeight.w500),
+                  children: [
+                    TextSpan(
+                      text: widget.item.author
+                          .map((c) => c.name)
+                          .toList()
+                          .join(', '),
+                      style: TextStyle(
+                          color: clr.textColorAppleBlack,
+                          fontSize: size.textXXSmall,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ])),
+        ],
       ),
     );
   }
