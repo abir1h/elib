@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/category/presentation/screens/categories_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_theme.dart';
@@ -32,7 +33,7 @@ class _BaseScreenState extends State<BaseScreen>
                 if (index == 0) {
                   return const HomeScreen();
                 } else if (index == 1) {
-                  return Container();
+                  return const CategoriesScreen();
                 } else if (index == 2) {
                   return Container();
                 } else if (index == 3) {

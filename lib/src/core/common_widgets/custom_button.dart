@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget with AppTheme {
   final double? verticalPadding;
   final double? radius;
   final bool expanded;
+  final Color? buttonColor;
   const CustomButton(
       {super.key,
       required this.onTap,
@@ -21,7 +22,7 @@ class CustomButton extends StatelessWidget with AppTheme {
       this.horizontalPadding,
       this.verticalPadding,
       this.radius,
-      this.expanded = false});
+      this.expanded = false, this.buttonColor});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class CustomButton extends StatelessWidget with AppTheme {
           // height: size.h40,
           width: expanded ? double.maxFinite : null,
           decoration: BoxDecoration(
-              color: clr.appPrimaryColorGreen,
+              color: buttonColor??clr.appPrimaryColorGreen,
               borderRadius: BorderRadius.circular(radius ?? size.w10),
               border:
                   Border.all(color: clr.appPrimaryColorGreen, width: size.w1)),
