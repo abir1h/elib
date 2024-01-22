@@ -33,7 +33,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
               AppStreamBuilder<List<CategoryDataEntity>>(
                 stream: categoryDataStreamController.stream,
                 loadingBuilder: (context) {
-                  return const CircularLoader();
+                  return const Center(child: CircularLoader());
                 },
                 dataBuilder: (context, data) {
                   return ListView.separated(
@@ -161,7 +161,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
             ? AspectRatio(
                 aspectRatio: aspectRatio,
                 child: ListView.separated(
-                  itemCount: items.length,
+                  itemCount: items.length < 5 ? items.length : 5,
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: size.w16),

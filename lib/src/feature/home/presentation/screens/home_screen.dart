@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen>
                 AppStreamBuilder<List<BookDataEntity>>(
                   stream: bookDataStreamController.stream,
                   loadingBuilder: (context) {
-                    return const CircularLoader();
+                    return const Center(child: CircularLoader());
                   },
                   dataBuilder: (context, data) {
                     return Column(

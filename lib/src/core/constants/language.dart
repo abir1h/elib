@@ -54,16 +54,14 @@ class LanguageEn {
   String tutorial = "Tutorial";
   String messageText = "Message";
 
-  String profileAppBarText = "LMS My Profile";
-  String userNameText = "Sheikh Sabbir Ahmed"; //"User Name";
+  String profileAppBarText = "My Profile";
+  String userNameText = "Mynul Islam"; //"User Name";
   String phoneNumberText = "+0123456789"; //"Phone Number";
-  String emailText = "sheikhsabbir@gmail.com"; //"Email";
+  String emailText = "mynulislam@gmail.com"; //"Email";
   String regNoText = "2016810150"; //"Reg.No";
   String currentOrganizationNameText =
       "Dhaka College"; //"Name of the working organization";
-  String positionNameText = "Professor"; //"Your Title";
-  String certificateText = "Certificate";
-  String acknowledgment = "Acknowledgment";
+  String positionNameText = "Professor";
 
   String ongoingModule = "Ongoing Module";
   String completed = "Completed";
@@ -158,15 +156,13 @@ class LanguageBn {
   String tutorial = "টিউটোরিয়াল";
   String messageText = "বার্তা";
 
-  String profileAppBarText = "এলএমএস আমার প্রোফাইল";
-  String userNameText = "শেখ সাব্বির আহমেদ"; //"ব্যবহারকারীর নাম";
+  String profileAppBarText = "আমার প্রোফাইল";
+  String userNameText = "মাইনুল ইসলাম"; //"ব্যবহারকারীর নাম";
   String phoneNumberText = "+০১২৩৪৫৬৭৮৯০"; //"ফোন নম্বর";
-  String emailText = "sheikhsabbir@gmail.com"; //"ইমেইল";
+  String emailText = "mynulislam@gmail.com"; //"ইমেইল";
   String regNoText = "২০১৬৮১০১৫০"; //"রেজিঃ নং";
   String currentOrganizationNameText = "ঢাকা কলেজ"; //"কর্মরত প্রতিষ্ঠানের নাম";
   String positionNameText = "অধ্যাপক"; //"আপনার পদবী";
-  String certificateText = "সনদপত্র";
-  String acknowledgment = "স্বীকৃতিপত্র";
 
   String ongoingModule = "চলমান মডিউল";
   String completed = "সম্পন্ন";

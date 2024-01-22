@@ -8,67 +8,105 @@ import '../utility/log.dart';
 import '../constants/common_imports.dart';
 import 'app_exceptions.dart';
 
-class Server{
+class Server {
   static final Server _s = Server._();
   late http.Client _client;
-  static Server get instance=> _s;
-  Server._(){
+  static Server get instance => _s;
+  Server._() {
     _client = http.Client();
   }
 
-  final StreamController<String> _sessionExpireStreamController = StreamController.broadcast();
-  Stream<String> get onUnauthorizedRequest => _sessionExpireStreamController.stream;
+  final StreamController<String> _sessionExpireStreamController =
+      StreamController.broadcast();
+  Stream<String> get onUnauthorizedRequest =>
+      _sessionExpireStreamController.stream;
 
-  static String get host => ApiCredential.baseUrl; //TODO must check is HOST url active for production build
+  static String get host => ApiCredential
+      .baseUrl; //TODO must check is HOST url active for production build
 
-
-
-  Future<dynamic> postRequest({required String url, required dynamic postData,}) async {
+  Future<dynamic> postRequest({
+    required String url,
+    required dynamic postData,
+  }) async {
     try {
       var body = json.encode(postData);
       var response = await _client.post(
         Uri.parse(host + url),
-        headers: {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Bearer "},
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer "
+        },
         body: utf8.encode(body),
       );
       debugPrint("REQUEST => ${response.request.toString()}");
       debugPrint("REQUEST DATA => $body");
       debugPrint("RESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
-    }
-    on SocketException catch(_){
+    } on SocketException catch (_) {
       return '{"message": "Request failed! Check internet connection.", "error": "Error message"}';
-    }
-    on Exception catch(_)
-    {
+    } on Exception catch (_) {
       return '{"message": "Request failed! Unknown error occurred.", "error": "Error message"}';
     }
   }
 
   Future<dynamic> getRequest({required String url}) async {
     try {
-      var response = await _client.get(
-          Uri.parse(host + url),
-          headers: {"Accept": "application/json", "Content-Type":"application/json", "Authorization": "Bearer "}
-      );
-      debugPrint("REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
+      var response = await _client.get(Uri.parse(host + url), headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "
+      });
+      debugPrint(
+          "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
       return _returnResponse(response);
-    }
-    on SocketException catch(_){
-      dynamic response = {"message": "Request failed! Check internet connection.", "error": "Error message"};
+    } on SocketException catch (_) {
+      dynamic response = {
+        "message": "Request failed! Check internet connection.",
+        "error": "Error message"
+      };
       return response;
-    }
-    on Exception catch(_)
-    {
-      dynamic response = {"message": "Request failed! Unknown error occurred.", "error": "Error message"};
+    } on Exception catch (_) {
+      dynamic response = {
+        "message": "Request failed! Unknown error occurred.",
+        "error": "Error message"
+      };
       return response;
     }
   }
 
-  void dispose(){
+  ///Todo must be modify later
+  Future<dynamic> getRequestForAuth({required String url}) async {
+    try {
+      var response = await _client.get(Uri.parse(url), headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization":
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoie1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJlbXBpZFwiOlwiMTAxMzUzNzY0XCJ9IiwiaXNzIjoiaHR0cDovLzEwMy4yMDkuNDAuODk6ODEvIiwiYXVkIjoiaHR0cDovLzEwMy4yMDkuNDAuODk6ODEvIiwiaWF0IjoxNzA1OTE4ODUzLCJuYmYiOjE3MDU5MTg4NTMsImV4cCI6MTcwNTkyOTY1M30.g8bGYb0N-q_6jM1Q_y6nedQy1Owtwzyd45J98QG6Ra4"
+      });
+      debugPrint(
+          "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
+      return _returnResponse(response);
+    } on SocketException catch (_) {
+      dynamic response = {
+        "message": "Request failed! Check internet connection.",
+        "error": "Error message"
+      };
+      return response;
+    } on Exception catch (_) {
+      dynamic response = {
+        "message": "Request failed! Unknown error occurred.",
+        "error": "Error message"
+      };
+      return response;
+    }
+  }
+
+  void dispose() {
     _client.close();
     _sessionExpireStreamController.close();
   }
+
   dynamic _returnResponse(http.Response response) {
     appPrint("------------------------------");
     appPrint("Status Code ${response.statusCode}");
@@ -98,5 +136,3 @@ class Server{
     }
   }
 }
-
-
