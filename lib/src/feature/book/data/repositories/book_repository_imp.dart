@@ -1,3 +1,9 @@
+import '../mapper/bookamark_data_mapper.dart';
+import '../models/bookmark_data_model.dart';
+import '../../domain/entities/bookmark_data_entity.dart';
+import '../mapper/bookmark_response_mapper.dart';
+import '../models/bookmark_response_model.dart';
+import '../../domain/entities/bookmark_response_entity.dart';
 import '../mapper/paginated_book_data_mapper.dart';
 import '../models/paginated_book_data_model.dart';
 import '../../domain/entities/paginated_book_data_entity.dart';
@@ -36,22 +42,48 @@ class BookRepositoryImp extends BookRepository {
   }
 
   @override
-  Future<ResponseEntity> saveBook(int bookId, int status) async{
-    // ResponseModel responseModel =
-    // (await bookRemoteDataSource.saveBookAction(bookId, status));
-    // return ResponseModelToEntityMapper<ResponseEntity, ResponseModel>()
-    //     .toEntityFromModel(
-    // responseModel, (ResponseModel model) => model.toBookDataEntity);
-    throw UnimplementedError();
+  Future<ResponseEntity> getPopularBooks(int pageNumber) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.getPopularBooksAction(pageNumber));
+    return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+            PaginatedBookDataModel>()
+        .toEntityFromModel(responseModel,
+            (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
   }
 
   @override
-  Future<ResponseEntity> getPopularBooks(int pageNumber) async{
-    ResponseModel responseModel =
-    (await bookRemoteDataSource.getPopularBooksAction(pageNumber));
-    return ResponseModelToEntityMapper<PaginatedBookDataEntity,
-    PaginatedBookDataModel>()
+  Future<ResponseEntity> bookmarkBook(
+      int bookId, int eMISUserId, int status) async {
+    ResponseModel responseModel = (await bookRemoteDataSource
+        .bookmarkBookAction(bookId, eMISUserId, status));
+    return ResponseModelToEntityMapper<BookmarkResponseEntity,
+            BookmarkResponseModel>()
         .toEntityFromModel(responseModel,
-    (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+            (BookmarkResponseModel model) => model.toBookmarkResponseEntity);
+  }
+
+  @override
+  Future<ResponseEntity> getBookmarkBookList() async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.getBookmarkBooksAction());
+    return ResponseModelToEntityMapper<List<BookmarkDataEntity>,
+            List<BookmarkDataModel>>()
+        .toEntityFromModel(
+            responseModel,
+            (List<BookmarkDataModel> model) =>
+                List<BookmarkDataModel>.from(model)
+                    .map((e) => e.toBookmarkDataEntity)
+                    .toList());
+  }
+
+  @override
+  Future<ResponseEntity> userBookCountAction(int bookId) {
+    // ResponseModel responseModel =
+    // (await bookRemoteDataSource.userBookCountAction());
+    // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+    // PaginatedBookDataModel>()
+    //     .toEntityFromModel(responseModel,
+    // (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+    throw UnimplementedError();
   }
 }
