@@ -1,6 +1,4 @@
-import 'package:elibrary/src/feature/book/data/models/paginated_book_data_model.dart';
-import 'package:elibrary/src/feature/category/data/models/paginated_category_data_model.dart';
-
+import '../../models/paginated_book_data_model.dart';
 import '../../models/book_data_model.dart';
 import '../../../../../core/constants/common_imports.dart';
 import '../../../../../core/network/api_service.dart';
@@ -10,7 +8,8 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getBooksAction();
   Future<ResponseModel> getPopularBooksAction(int pageNumber);
   Future<ResponseModel> getBookDetailsAction(int bookId);
-  Future<ResponseModel> saveBookAction(int bookId, int status);
+  Future<ResponseModel> bookmarkBookAction(int bookId, int eMISUserId, int status);
+  Future<ResponseModel> getBookmarkBooksAction();
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -33,15 +32,16 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> saveBookAction(int bookId, int status) async{
+  Future<ResponseModel> bookmarkBookAction(int bookId, int eMISUserId, int status) async{
     Map<String, dynamic> data = {
       "book_id": bookId,
+      "emis_user_id": eMISUserId,
       "status": status
     };
     final responseJson = await Server.instance
-        .postRequest(url: ApiCredential.saveBook, postData: data);
+        .postRequest(url: ApiCredential.bookmarkBook, postData: data);
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => null);
+        responseJson, (dynamic json) => null); ///TODO: Change it
     return responseModel;
   }
 
@@ -51,6 +51,15 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
         .getRequest(url: "${ApiCredential.popularBooks}$pageNumber");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> getBookmarkBooksAction() async{
+    final responseJson = await Server.instance
+        .getRequest(url: ApiCredential.getBookmarkBooks);
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => null); ///TODO: Change it
     return responseModel;
   }
 
