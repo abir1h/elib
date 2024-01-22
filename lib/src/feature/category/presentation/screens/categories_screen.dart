@@ -8,6 +8,7 @@ import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../services/category_screen_service.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../domain/entities/category_data_entity.dart';
@@ -46,9 +47,13 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                           title: data[index].name,
                           items: data[index].books,
                           buildItem: (context, index, item) {
-                            return CategoryItemWidget(
-                              data: item,
-                              onSelect: onBookContentSelected,
+                            return AspectRatio(
+                              aspectRatio: .8,
+                              child: ELibContentItemWidget(
+                                key: Key(item.id.toString()),
+                                item: item,
+                                onSelect: onBookContentSelected,
+                              ),
                             );
                           },
                           onTapSeeAll: () =>
@@ -60,9 +65,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                   );
                 },
                 emptyBuilder: (context, message, icon) {
-                  return Container(
-                    child: Text("Empty"),
-                  );
+                  return const Text("Empty");
                 },
               ),
               SizedBox(height: size.h64)
@@ -381,73 +384,6 @@ class ShimmerLoaderItemWidget extends StatelessWidget with AppTheme {
           ),
         ),
       ),*/
-    );
-  }
-}
-
-class CategoryItemWidget extends StatelessWidget with AppTheme {
-  final BookDataEntity data;
-  final void Function(BookDataEntity bookDataEntity) onSelect;
-  const CategoryItemWidget({
-    Key? key,
-    required this.data,
-    required this.onSelect,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: .8,
-      child: GestureDetector(
-        onTap: () => onSelect(data),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.h8),
-            border: Border.all(
-              color: clr.appPrimaryColorGreen.withOpacity(.1),
-              width: size.w1,
-            ),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(size.r8),
-            child: Stack(
-              children: [
-                ///Thumbnail image
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.grey.withOpacity(0.5),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "http://103.209.40.89:82/uploads/${data.coverImage}",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-
-                ///Content title
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: double.maxFinite,
-                    color: Colors.black.withOpacity(0.7),
-                    padding: EdgeInsets.all(size.h8),
-                    child: Text(
-                      data.titleEn,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: clr.whiteColor,
-                        fontSize: size.textXSmall,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
