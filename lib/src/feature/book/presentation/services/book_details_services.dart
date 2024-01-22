@@ -133,7 +133,6 @@ implements _ViewModel {
           }
           await file.writeAsBytes(bytes);
 
-
           ///Get mime type and if it is PDF file then render to ui, otherwise show unknown file preview
           if((lookupMimeType(filename)??"").toLowerCase() == "application/pdf"){
             ///PDF File loaded to screen
