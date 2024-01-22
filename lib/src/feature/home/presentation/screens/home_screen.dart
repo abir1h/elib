@@ -375,6 +375,18 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   ),
                 ),
               ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                    margin: EdgeInsets.all(size.h2),
+                    padding: EdgeInsets.all(size.h2),
+                    decoration: BoxDecoration(
+                      color: clr.whiteColor,
+                      borderRadius: BorderRadius.circular(size.h4,),
+                    ),
+                    child: Icon(Icons.bookmark_border_outlined,color: clr.appPrimaryColorGreen,)
+                ),
+              ),
             ],
           ),
         ),

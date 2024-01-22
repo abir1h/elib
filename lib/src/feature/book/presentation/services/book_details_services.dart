@@ -13,6 +13,7 @@ import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void navigateToBookViewerScreen(BookDataEntity bookData);
 }
 
 mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
