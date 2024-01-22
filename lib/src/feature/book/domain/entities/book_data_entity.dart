@@ -1,6 +1,4 @@
-import '../../../category/data/models/category_data_model.dart';
 import '../../../category/domain/entities/category_data_entity.dart';
-import '../../data/models/author_data_model.dart';
 import 'author_data_entity.dart';
 
 class BookDataEntity {

@@ -1,6 +1,5 @@
-import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
+import 'book_data_entity.dart';
 
-import '../../data/models/book_data_model.dart';
 
 class BookmarkDataEntity {
   final int id;

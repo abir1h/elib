@@ -1,3 +1,5 @@
+import '../../models/bookmark_data_model.dart';
+import '../../models/bookmark_response_model.dart';
 import '../../models/paginated_book_data_model.dart';
 import '../../models/book_data_model.dart';
 import '../../../../../core/constants/common_imports.dart';
@@ -42,7 +44,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     final responseJson = await Server.instance
         .postRequest(url: ApiCredential.bookmarkBook, postData: data);
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => null); ///TODO: Change it
+        responseJson, (dynamic json) => BookmarkResponseModel.fromJson(json));
     return responseModel;
   }
 
@@ -60,7 +62,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     final responseJson = await Server.instance
         .getRequest(url: ApiCredential.getBookmarkBooks);
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => null); ///TODO: Change it
+        responseJson, (dynamic json) => BookmarkDataModel.listFromJson(json));
     return responseModel;
   }
 
