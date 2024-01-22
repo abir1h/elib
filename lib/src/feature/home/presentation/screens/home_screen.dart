@@ -128,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen>
                               key: Key(data[index].id.toString()),
                               item: data[index],
                               onSelect: onBookContentSelected,
+                              onBookmarkSelect: onBookmarkContentSelected,
                             );
                           },
                         ),
@@ -338,42 +339,54 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
 
 class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
+  final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
   const ELibContentItemWidget(
-      {Key? key, required this.onSelect, required this.item})
+      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect})
       : super(key: key);
 
   @override
   State<ELibContentItemWidget> createState() => _ELibContentItemWidgetState();
 }
 
+
 class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
     with AppTheme, AutomaticKeepAliveClientMixin {
+  StreamController<bool> controller=StreamController();
+
+  @override
+  void initState() {
+    controller.stream.listen((event) {
+      print(event);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return GestureDetector(
-      onTap: () => widget.onSelect(widget.item),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                // color: clr.iconColorRed,
-                borderRadius: BorderRadius.circular(size.h8),
-                border: Border.all(
-                  color: clr.appPrimaryColorGreen.withOpacity(.1),
-                  width: 1.w,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              // color: clr.iconColorRed,
+              borderRadius: BorderRadius.circular(size.h8),
+              border: Border.all(
+                color: clr.appPrimaryColorGreen.withOpacity(.1),
+                width: 1.w,
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(7.w),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ///Thumbnail image
-                    Container(
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(7.w),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  ///Thumbnail image
+                  GestureDetector(
+                    onTap: () => widget.onSelect(widget.item),
+                    child: Container(
                       width: double.infinity,
                       // height: double.infinity,
                       color: Colors.grey.withOpacity(0.5),
@@ -383,10 +396,13 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                         fit: BoxFit.cover,
                       ),
                     ),
+                  ),
 
-                    ///Bookmark
-                    Align(
-                      alignment: Alignment.topRight,
+                  ///Bookmark
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: widget.onBookmarkSelect!=null?()=>widget.onBookmarkSelect!(widget.item):(){},
                       child: Container(
                           margin: EdgeInsets.all(size.h2),
                           padding: EdgeInsets.all(size.h2),
@@ -394,18 +410,24 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
                           ),
-                          child: Icon(
+                          child: widget.item.bookMark ?Icon(
+                            Icons.bookmark,
+                            color: clr.appPrimaryColorGreen,
+                          ):Icon(
                             Icons.bookmark_border_outlined,
                             color: clr.appPrimaryColorGreen,
                           )),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-          SizedBox(height: size.h4),
-          Text(
+        ),
+        SizedBox(height: size.h4),
+        GestureDetector(
+          onTap: () => widget.onSelect(widget.item),
+          child: Text(
             widget.item.titleEn,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -415,30 +437,30 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
               fontWeight: FontWeight.w600,
             ),
           ),
-          Text.rich(
-              textAlign: TextAlign.start,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              TextSpan(
-                  text: "by ",
-                  style: TextStyle(
-                      color: clr.placeHolderTextColorGray,
-                      fontSize: size.textXXSmall,
-                      fontWeight: FontWeight.w500),
-                  children: [
-                    TextSpan(
-                      text: widget.item.author
-                          .map((c) => c.name)
-                          .toList()
-                          .join(', '),
-                      style: TextStyle(
-                          color: clr.textColorAppleBlack,
-                          fontSize: size.textXXSmall,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ])),
-        ],
-      ),
+        ),
+        Text.rich(
+            textAlign: TextAlign.start,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            TextSpan(
+                text: "by ",
+                style: TextStyle(
+                    color: clr.placeHolderTextColorGray,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w500),
+                children: [
+                  TextSpan(
+                    text: widget.item.author
+                        .map((c) => c.name)
+                        .toList()
+                        .join(', '),
+                    style: TextStyle(
+                        color: clr.textColorAppleBlack,
+                        fontSize: size.textXXSmall,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ])),
+      ],
     );
   }
 

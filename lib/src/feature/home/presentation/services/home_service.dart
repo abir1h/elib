@@ -30,6 +30,10 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   Future<ResponseEntity> getPopularBooks(int pageNumber) async {
     return _bookUseCase.getPopularBooksUseCase(pageNumber);
   }
+  Future<ResponseEntity> bookmarkBookAction(
+      {required int bookId, required int eMISUserId}) async {
+    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
+  }
 
   ///Service configurations
   @override
@@ -69,49 +73,22 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
         _view.showWarning(value.message!);
       }
     });
-
-    // ///Loading state
-    // if(!mounted) return;
-    // paginationController.clear();
-    // eLibraryDataStreamController.add(LoadingState());
-    // // resultsForStreamController.add(DataLoadedState(ResultsForViewModel.newUploads()));
-    // getPopularBooks(paginationController.pageSize).then((value) {
-    //   if (!mounted) return;
-    //   if(value.error == null && value.data != null && value.data!.total > 0){
-    //     paginationController.setTotalItemCount(value.data!.total);
-    //     paginationController.addItems(value.data.bookDataEntity);
-    //     // eLibraryDataStreamController.add(DataLoadedState(paginationController));
-    //   }
-    //
-    // });
-    // ELibraryGateway.getContentListWithPagination(serviceState.getPaginatedAndFilteredUrlSegment(paginationController.pageSize,0),).then((value){
-    //   if (!mounted) return;
-    //   ///Data loaded state
-    //   if(value.status == Status.success && value.data!.total > 0){
-    //     paginationController.setTotalItemCount(value.data!.total);
-    //     paginationController.addItems(value.data!.records);
-    //     eLibraryDataStreamController.add(DataLoadedState(paginationController));
-    //   }
-    //   ///Empty state
-    //   else if(value.status == Status.success && value.data!.total <= 0){
-    //     eLibraryDataStreamController.add(EmptyState(
-    //       message: "No e-library content is available!",
-    //       icon: Icons.layers_outlined,
-    //     ));
-    //   }
-    //   ///Error state
-    //   else{
-    //     ///Try reloading
-    //     _view.showWarning(value.message);
-    //     Future.delayed( Duration(seconds: AppConstant.reloadInSeconds)).then((value){
-    //       if(mounted) _loadInitialData();
-    //     });
-    //   }
-    // });
   }
 
   void onBookContentSelected(BookDataEntity item) {
     _view.navigateToBookDetailsScreen(item);
+  }
+  void onBookmarkContentSelected(BookDataEntity item) {
+    bookmarkBookAction(
+      bookId: item.id,
+      eMISUserId: 1,
+    ).then((value) {
+      if (value.error == null && value.data != null) {
+        item.bookMark=true;
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
   }
   // void onLoadCategoryList() {
   //   ///Loading state

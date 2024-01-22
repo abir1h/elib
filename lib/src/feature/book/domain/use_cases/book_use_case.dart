@@ -18,8 +18,8 @@ class BookUseCase {
     final response = _bookRepository.getBookDetails(bookId);
     return response;
   }
-  Future<ResponseEntity> bookmarkUseCase(int bookId, int eMISUserId, int status) async {
-    final response = _bookRepository.bookmarkBook(bookId, eMISUserId, status);
+  Future<ResponseEntity> bookmarkUseCase(int bookId, int eMISUserId) async {
+    final response = _bookRepository.bookmarkBook(bookId, eMISUserId);
     return response;
   }
   Future<ResponseEntity> getBookmarkListUseCase() async {
