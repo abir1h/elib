@@ -6,6 +6,7 @@ import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/search_book_widget.dart';
+import '../../../../core/common_widgets/section_empty_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
@@ -89,6 +90,11 @@ class _HomeScreenState extends State<HomeScreen>
                   ],
                 ),
 
+                ///Results for text
+                ItemSectionWidget(
+                  stream: resultsForStreamController.stream,
+                ),
+
                 ///Content section
                 AppStreamBuilder<List<BookDataEntity>>(
                   stream: bookDataStreamController.stream,
@@ -99,13 +105,6 @@ class _HomeScreenState extends State<HomeScreen>
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Popular Books",
-                          style: TextStyle(
-                              color: clr.appPrimaryColorGreen,
-                              fontSize: size.textSmall,
-                              fontWeight: FontWeight.w600),
-                        ),
                         SizedBox(
                           height: size.h12,
                         ),
@@ -126,132 +125,21 @@ class _HomeScreenState extends State<HomeScreen>
                               item: data[index],
                               onSelect: onBookContentSelected,
                               onBookmarkSelect: onBookmarkContentSelected,
-
                             );
                           },
                         ),
                       ],
                     );
-
-                    // return  Expanded(
-                    //   child: Container(
-                    //     color: Colors.deepOrange,
-                    // child: GridView.builder(
-                    //           physics: const BouncingScrollPhysics(),
-                    //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //             crossAxisCount: 2,
-                    //             childAspectRatio: 0.7,
-                    //             crossAxisSpacing: size.h12,
-                    //             mainAxisSpacing: size.h12,
-                    //           ),
-                    //           itemCount: data.length,
-                    //           shrinkWrap: false,
-                    //           itemBuilder: (context, index) {
-                    //             return Container();
-                    //           },
-                    //         ),
-                    // )
-                    // );
-                    ///Item widget
-                    // return Column(
-                    //   children: [
-                    //     Expanded(
-                    //         child: GridView.builder(
-                    //           physics: const BouncingScrollPhysics(),
-                    //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //             crossAxisCount: 2,
-                    //             childAspectRatio: 0.7,
-                    //             crossAxisSpacing: size.h12,
-                    //             mainAxisSpacing: size.h12,
-                    //           ),
-                    //           itemCount: data.length,
-                    //           shrinkWrap: false,
-                    //           itemBuilder: (context, index) {
-                    //             return Container();
-                    //           },
-                    //         ))
-                    //   ],
-                    // );
                   },
                   emptyBuilder: (context, message, icon) {
-                    return Container(
-                      child: Text("Tushar"),
+                    return SectionEmptyWidget(
+                      constraints: constraints,
+                      message: message,
+                      icon: icon,
+                      offset: 350.w,
                     );
                   },
                 ),
-
-                ///Search Box and Bookmark button
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: SearchBoxWidget(
-                //         hintText: "Search..",
-                //         onSearchTermChange: onSearchTermChanged,
-                //         serviceState: serviceState,
-                //       ),
-                //     ),
-                //     CategoryFilterMenu(
-                //       serviceState: serviceState,
-                //       onLoadData: onLoadCategoryList,
-                //       onCategorySelected: onCategorySelected,
-                //     ),
-                //   ],
-                // ),
-
-                // ///Results for text
-                // ItemSectionWidget(
-                //   stream: resultsForStreamController.stream,
-                // ),
-                // ///Content section
-                // AppStreamBuilder<PaginatedGridViewController<BookDataEntity>>(
-                //   stream: eLibraryDataStreamController.stream,
-                //   loadingBuilder: (x)=>
-                //
-                //       CircularProgressIndicator(),
-                //   //     SectionLoadingWidget(
-                //   //   constraints: constraints,
-                //   //   offset: 350.w,
-                //   // ),
-                //   dataBuilder: (context, data){
-                //     ///Item widget
-                //     return PaginatedGridView<PaginatedGridViewController<BookDataEntity>>(
-                //       controller: paginationController,
-                //       physics: const BouncingScrollPhysics(),
-                //       shrinkWrap: true,
-                //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                //         crossAxisCount: 2,
-                //         childAspectRatio: 0.7,
-                //         crossAxisSpacing: size.h12,
-                //         mainAxisSpacing: size.h12,
-                //       ),
-                //       itemBuilder: (context, item, index) {
-                //         return Container();
-                //
-                //         //   ELibContentItemWidget(
-                //         //   // key: Key(item.id.toString()),
-                //         //   item: item,
-                //         //   onSelect: onELibraryContentSelected,
-                //         // );
-                //       },
-                //       loaderBuilder: (context)=> Padding(
-                //         padding: EdgeInsets.all(4.0.w),
-                //         child: Center(
-                //           child: CircularProgressIndicator(),
-                //         ),
-                //       ),
-                //     );
-                //   },
-                //   emptyBuilder: (context, message,icon){
-                //     return CircularProgressIndicator();
-                //
-                //     //   SectionEmptyWidget(
-                //     //   constraints: constraints,
-                //     //   message: message,
-                //     //   icon: icon,
-                //     //   offset: 350.w,
-                //     // );
-                //   },
-                // ),
               ],
             ),
           ),
@@ -307,10 +195,9 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
                   Text(
                     data.title,
                     style: TextStyle(
-                      color: clr.textColorBlack,
-                      fontSize: size.textSmall,
-                      fontWeight: FontWeight.w600,
-                    ),
+                        color: clr.appPrimaryColorGreen,
+                        fontSize: size.textSmall,
+                        fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 2.w,
@@ -339,23 +226,23 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
-  const ELibContentItemWidget(
-      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect, })
-      : super(key: key);
+  const ELibContentItemWidget({
+    Key? key,
+    required this.onSelect,
+    required this.item,
+    this.onBookmarkSelect,
+  }) : super(key: key);
 
   @override
   State<ELibContentItemWidget> createState() => _ELibContentItemWidgetState();
 }
 
-
 class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
     with AppTheme {
-
- @override
+  @override
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -396,7 +283,9 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
-                      onTap: widget.onBookmarkSelect!=null?()=>widget.onBookmarkSelect!(widget.item):(){},
+                      onTap: widget.onBookmarkSelect != null
+                          ? () => widget.onBookmarkSelect!(widget.item)
+                          : () {},
                       child: Container(
                           margin: EdgeInsets.all(size.h2),
                           padding: EdgeInsets.all(size.h2),
@@ -404,13 +293,15 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
                           ),
-                          child: widget.item.bookMark ?Icon(
-                            Icons.bookmark,
-                            color: clr.appPrimaryColorGreen,
-                          ):Icon(
-                            Icons.bookmark_border_outlined,
-                            color: clr.appPrimaryColorGreen,
-                          )),
+                          child: widget.item.bookMark
+                              ? Icon(
+                                  Icons.bookmark,
+                                  color: clr.appPrimaryColorGreen,
+                                )
+                              : Icon(
+                                  Icons.bookmark_border_outlined,
+                                  color: clr.appPrimaryColorGreen,
+                                )),
                     ),
                   ),
                 ],
