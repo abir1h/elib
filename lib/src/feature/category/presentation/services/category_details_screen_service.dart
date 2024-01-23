@@ -61,12 +61,11 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
     if (!mounted) return;
     bookDataStreamController.add(LoadingState());
     getCategoryBookList(id).then((value) {
-      if (value.error == null && value.data != null) {
+      if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
         _bookList = value.data;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(value.data!));
-      } else if (value.error == null &&
-          (value.data == null || value.data.isEmpty)) {
+      } else if (value.error == null &&  value.data.bookDataEntity!.isEmpty) {
         bookDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
