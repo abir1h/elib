@@ -24,13 +24,14 @@ class BookDataEntity {
   final int createdBy;
   final int isDownload;
   final int status;
+   bool bookMark;
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
   final List<AuthorDataEntity> author;
   final List<CategoryDataEntity> category;
 
-  const BookDataEntity({
+   BookDataEntity({
     required this.id,
     required this.titleEn,
     required this.titleBn,
@@ -53,6 +54,7 @@ class BookDataEntity {
     required this.createdBy,
     required this.isDownload,
     required this.status,
+    required this.bookMark,
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,

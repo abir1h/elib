@@ -3,6 +3,7 @@ import 'package:elibrary/src/feature/profile/presentation/screens/profile_screen
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_theme.dart';
+import '../../../book/presentation/screens/bookmark_screen.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 import '../services/base_screen_services.dart';
 
@@ -36,7 +37,7 @@ class _BaseScreenState extends State<BaseScreen>
                 } else if (index == 1) {
                   return const CategoriesScreen();
                 } else if (index == 2) {
-                  return Container();
+                  return BookmarkScreen();
                 } else if (index == 3) {
                   return const ProfileScreen();
                 }

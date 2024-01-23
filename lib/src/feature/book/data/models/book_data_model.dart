@@ -26,6 +26,7 @@ class BookDataModel {
   final int createdBy;
   final int isDownload;
   final int status;
+  final bool bookmark;
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
@@ -55,6 +56,7 @@ class BookDataModel {
     required this.createdBy,
     required this.isDownload,
     required this.status,
+    required this.bookmark,
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
@@ -85,6 +87,7 @@ class BookDataModel {
       createdBy: json["created_by"] ?? -1,
       isDownload: json["is_download"] ?? -1,
       status: json["status"] ?? -1,
+      bookmark: json["book_mark"] ?? false,
       createdAt: json["created_at"] ?? "",
       updatedAt: json["updated_at"] ?? "",
       deletedAt: json["deleted_at"] ?? "",
@@ -120,6 +123,7 @@ class BookDataModel {
         "created_by": createdBy,
         "is_download": isDownload,
         "status": status,
+        "book_mark": bookmark,
         "created_at": createdAt,
         "updated_at": updatedAt,
         "deleted_at": deletedAt,

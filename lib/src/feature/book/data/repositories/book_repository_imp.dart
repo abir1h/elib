@@ -1,3 +1,9 @@
+import '../mapper/download_count_response_mapper.dart';
+import '../models/download_count_response_model.dart';
+import '../../domain/entities/download_count_response_entity.dart';
+import '../mapper/count_user_response_mapper.dart';
+import '../models/count_user_response_model.dart';
+import '../../domain/entities/count_user_response_entity.dart';
 import '../mapper/bookamark_data_mapper.dart';
 import '../models/bookmark_data_model.dart';
 import '../../domain/entities/bookmark_data_entity.dart';
@@ -53,9 +59,9 @@ class BookRepositoryImp extends BookRepository {
 
   @override
   Future<ResponseEntity> bookmarkBook(
-      int bookId, int eMISUserId, int status) async {
+      int bookId, int eMISUserId) async {
     ResponseModel responseModel = (await bookRemoteDataSource
-        .bookmarkBookAction(bookId, eMISUserId, status));
+        .bookmarkBookAction(bookId, eMISUserId));
     return ResponseModelToEntityMapper<BookmarkResponseEntity,
             BookmarkResponseModel>()
         .toEntityFromModel(responseModel,
@@ -77,13 +83,34 @@ class BookRepositoryImp extends BookRepository {
   }
 
   @override
-  Future<ResponseEntity> userBookCountAction(int bookId) {
-    // ResponseModel responseModel =
-    // (await bookRemoteDataSource.userBookCountAction());
-    // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
-    // PaginatedBookDataModel>()
-    //     .toEntityFromModel(responseModel,
-    // (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
-    throw UnimplementedError();
+  Future<ResponseEntity> userBookViewCountAction(int bookId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.userBookViewCountAction(bookId));
+    return ResponseModelToEntityMapper<CountUserResponseEntity,
+            CountUserResponseModel>()
+        .toEntityFromModel(responseModel,
+            (CountUserResponseModel model) => model.toCountUserResponseEntity);
+  }
+
+  @override
+  Future<ResponseEntity> userBookDownloadCountAction(int bookId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.userBookDownloadCountAction(bookId));
+    return ResponseModelToEntityMapper<DownloadCountResponseEntity,
+            DownloadCountResponseModel>()
+        .toEntityFromModel(
+            responseModel,
+            (DownloadCountResponseModel model) =>
+                model.toDownloadCountResponseEntity);
+  }
+
+  @override
+  Future<ResponseEntity> globalSearch(String searchQuery) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.globalSearchAction(searchQuery));
+    return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+            PaginatedBookDataModel>()
+        .toEntityFromModel(responseModel,
+            (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
   }
 }

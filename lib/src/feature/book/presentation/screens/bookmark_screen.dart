@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/feature/book/domain/entities/bookmark_data_entity.dart';
+import 'package:elibrary/src/feature/book/presentation/services/book_service.dart';
+import 'package:elibrary/src/feature/book/presentation/services/bookmark_screen_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,17 +15,16 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/toasty.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../services/home_service.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class BookmarkScreen extends StatefulWidget {
+  const BookmarkScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<BookmarkScreen> createState() => _BookmarkScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with AppTheme, HomeScreenService {
+class _BookmarkScreenState extends State<BookmarkScreen>
+    with AppTheme ,BookmarkScreenService{
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,97 +36,29 @@ class _HomeScreenState extends State<HomeScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ///Header text and image
-                Row(
-                  children: [
-                    ///Header text
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'CLMS E-Library',
-                            style: TextStyle(
-                              color: clr.appPrimaryColorGreen,
-                              fontSize: size.textXLarge,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          SizedBox(
-                            height: size.h8,
-                          ),
-                          Text(
-                            'Enriching life with knowledge of the world',
-                            style: TextStyle(
-                              color: clr.appPrimaryColorGreen,
-                              fontWeight: FontWeight.w200,
-                              fontSize: size.textSmall,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
 
-                    ///Header Image
-                    SizedBox(
-                      width: size.h64 * 2,
-                      height: size.h64 * 2,
-                      // child: Image.asset("",
-                      //   fit: BoxFit.contain,
-                      // ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.h12,
-                ),
-
-                ///Search Box and Bookmark button
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: SearchBoxWidget(
-                //         hintText: "Search..",
-                //         onSearchTermChange: onSearchTermChanged,
-                //         serviceState: serviceState,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-
-                ///Content section
-                AppStreamBuilder<List<BookDataEntity>>(
-                  stream: bookDataStreamController.stream,
+                AppStreamBuilder<List<BookmarkDataEntity>>(
+                  stream: bookmarkDataStreamController.stream,
                   loadingBuilder: (context) {
-                    return const Center(child: CircularLoader());
+                    return const CircularLoader();
                   },
                   dataBuilder: (context, data) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Popular Books",
-                          style: TextStyle(
-                              color: clr.appPrimaryColorGreen,
-                              fontSize: size.textSmall,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: size.h12,
-                        ),
                         GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                          SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            childAspectRatio: .6,
+                            childAspectRatio: 0.6,
                             crossAxisSpacing: size.h12,
                             mainAxisSpacing: size.h12,
                           ),
                           itemCount: data.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return ELibContentItemWidget(
+                            return BookmarkItemWidget(
                               key: Key(data[index].id.toString()),
                               item: data[index],
                               onSelect: onBookContentSelected,
@@ -268,100 +202,29 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   @override
-  void navigateToBookDetailsScreen(BookDataEntity data) {
+  void navigateToBookDetailsScreen(BookmarkDataEntity data) {
     Navigator.of(context).pushNamed(
       AppRoute.bookDetailsScreen,
-      arguments: BookDetailsScreenArgs(bookData: data),
+      arguments: BookDetailsScreenArgs(bookData: data.book!),
     );
   }
 }
 
-class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
-  final Stream<DataState<ResultsForViewModel>> stream;
-  const ItemSectionWidget({
-    Key? key,
-    required this.stream,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///Header text
-        Padding(
-          padding: EdgeInsets.only(
-            top: size.h32,
-            bottom: size.h8,
-          ),
-          child: StreamBuilder<DataState<ResultsForViewModel>>(
-            stream: stream,
-            initialData: DataLoadedState<ResultsForViewModel>(
-                ResultsForViewModel.newUploads()),
-            builder: (context, snapshot) {
-              var data =
-                  (snapshot.data! as DataLoadedState<ResultsForViewModel>).data;
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data.title,
-                    style: TextStyle(
-                      color: clr.textColorBlack,
-                      fontSize: size.textSmall,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.w,
-                  ),
-                  if (data.subTitle.isNotEmpty)
-                    Text(
-                      data.subTitle,
-                      style: TextStyle(
-                        color: clr.textColorBlack,
-                        fontSize: size.textXXSmall,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
-        ),
-        SizedBox(height: size.h4),
-      ],
-    );
-  }
-}
-
-class ELibContentItemWidget extends StatefulWidget with AppTheme {
-  final void Function(BookDataEntity item) onSelect;
-  final void Function(BookDataEntity item)? onBookmarkSelect;
-  final BookDataEntity item;
-  const ELibContentItemWidget(
-      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect})
+class BookmarkItemWidget extends StatefulWidget with AppTheme {
+  final void Function(BookmarkDataEntity item) onSelect;
+  final void Function(BookmarkDataEntity item)? onBookmarkSelect;
+  final BookmarkDataEntity item;
+  const BookmarkItemWidget(
+      {Key? key, required this.onSelect, required this.item,this.onBookmarkSelect})
       : super(key: key);
 
   @override
-  State<ELibContentItemWidget> createState() => _ELibContentItemWidgetState();
+  State<BookmarkItemWidget> createState() => _ELibContentItemWidgetState();
 }
 
-
-class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
+class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
     with AppTheme, AutomaticKeepAliveClientMixin {
-  StreamController<bool> controller=StreamController();
-
-  @override
-  void initState() {
-    controller.stream.listen((event) {
-      print(event);
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -392,7 +255,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                       color: Colors.grey.withOpacity(0.5),
                       child: CachedNetworkImage(
                         imageUrl:
-                            "http://103.209.40.89:82/uploads/${widget.item.coverImage}",
+                        "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -410,11 +273,8 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
                           ),
-                          child: widget.item.bookMark ?Icon(
+                          child: Icon(
                             Icons.bookmark,
-                            color: clr.appPrimaryColorGreen,
-                          ):Icon(
-                            Icons.bookmark_border_outlined,
                             color: clr.appPrimaryColorGreen,
                           )),
                     ),
@@ -428,7 +288,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
         GestureDetector(
           onTap: () => widget.onSelect(widget.item),
           child: Text(
-            widget.item.titleEn,
+            widget.item.book!=null? widget.item.book!.titleEn:"",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -450,10 +310,10 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                     fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
-                    text: widget.item.author
+                    text: widget.item.book!=null?widget.item.book!.author
                         .map((c) => c.name)
                         .toList()
-                        .join(', '),
+                        .join(', '):"",
                     style: TextStyle(
                         color: clr.textColorAppleBlack,
                         fontSize: size.textXXSmall,

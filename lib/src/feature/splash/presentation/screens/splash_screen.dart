@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    ResponseEntity responseEntity = await getBookmarkBookList();
+    // ResponseEntity responseEntity = await globalSearch("History");
     // print(responseEntity.message);
   }
 
