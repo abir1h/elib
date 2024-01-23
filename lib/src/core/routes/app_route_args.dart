@@ -31,9 +31,9 @@ class BookViewerScreenArgs {
 
 class CategoryDetailsScreenArgs {
   final String categoryName;
-  final List<BookDataEntity> books;
+  final int  categoryId;
   CategoryDetailsScreenArgs({
     required this.categoryName,
-    required this.books,
+    required this.categoryId,
   });
 }

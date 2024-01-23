@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/core/constants/common_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -67,9 +68,9 @@ class _HomeScreenState extends State<HomeScreen>
                     SizedBox(
                       width: size.h64 * 2,
                       height: size.h64 * 2,
-                      // child: Image.asset("",
-                      //   fit: BoxFit.contain,
-                      // ),
+                      child: Image.asset(ImageAssets.imageHome,
+                        fit: BoxFit.contain,
+                      ),
                     )
                   ],
                 ),

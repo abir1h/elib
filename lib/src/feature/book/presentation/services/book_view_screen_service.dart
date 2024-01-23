@@ -21,7 +21,7 @@ abstract class _ViewModel{
 
   void showSuccess(String msg);
 }
-mixin PDFViewerScreenService<T extends StatefulWidget> on State<T> implements _ViewModel{
+mixin BookViewerScreenService<T extends StatefulWidget> on State<T> implements _ViewModel{
   VoidCallback? onFileCached;
   int _readingTime = 0;
   Timer? _timer;
@@ -51,7 +51,7 @@ mixin PDFViewerScreenService<T extends StatefulWidget> on State<T> implements _V
     super.dispose();
   }
 
-  late BookViewerScreenArgs _screenArgs;
+  late BookViewerScreenArgs screenArgs;
 
   final StreamController<PageState> _pageStateStreamController =  StreamController.broadcast();
   Stream<PageState> get pageStateStream => _pageStateStreamController.stream;
@@ -70,10 +70,10 @@ mixin PDFViewerScreenService<T extends StatefulWidget> on State<T> implements _V
 
 
   void loadFile(BookViewerScreenArgs args) async {
-    _screenArgs = args;
+    screenArgs = args;
     // _screenArgs.url = "https://www.orimi.com/pdf-test.pdf";
 
-    _downloadFile(_screenArgs.url,filename: _screenArgs.url.substring(_screenArgs.url.lastIndexOf("/")+1).replaceAll("?","").replaceAll("=",""));
+    _downloadFile(screenArgs.url,filename: screenArgs.url.substring(screenArgs.url.lastIndexOf("/")+1).replaceAll("?","").replaceAll("=",""));
   }
   void _downloadFile(String url, {required String filename}) async {
     try{
@@ -119,7 +119,7 @@ mixin PDFViewerScreenService<T extends StatefulWidget> on State<T> implements _V
           if((lookupMimeType(filename)??"").toLowerCase() == "application/pdf"){
             ///PDF File loaded to screen
             if(!_pageStateStreamController.isClosed) {
-              _pageStateSink?.add(PdfLoadedState(file, _screenArgs.canDownload));
+              _pageStateSink?.add(PdfLoadedState(file, screenArgs.canDownload));
               ///Start timer
               _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
                 _readingTime += 1;
@@ -128,7 +128,7 @@ mixin PDFViewerScreenService<T extends StatefulWidget> on State<T> implements _V
           }else{
             ///Unknown File loaded to screen
             if(!_pageStateStreamController.isClosed) {
-              _pageStateSink?.add(UnknownFileLoadedState(file,_screenArgs.title));
+              _pageStateSink?.add(UnknownFileLoadedState(file,screenArgs.title));
             }
           }
 

@@ -194,8 +194,6 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
                         errorWidget: (context, url, error) =>
                             Icon(Icons.image, color: clr.greyColor),
                         fit: BoxFit.cover,
-                        placeholder: (context, url) => const Offstage(),
-                        errorWidget: (context, url, error) => const Icon(Icons.image),
                       ),
                     ),
                   ),
