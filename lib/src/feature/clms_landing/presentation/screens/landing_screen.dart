@@ -37,7 +37,7 @@ class _LandingScreenState extends State<LandingScreen>
         appBar: AppBar(
           backgroundColor: clr.secondaryBackgroundColor,
           title: Text(
-            StringData.appNameText,
+            label(e: en.appNameText, b: bn.appNameText),
             style: TextStyle(
                 color: clr.appPrimaryColorGreen,
                 fontSize: size.textXMedium,

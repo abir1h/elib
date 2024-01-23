@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/core/constants/language.dart';
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -24,7 +26,7 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen>
-    with AppTheme, CategoriesScreenService {
+    with AppTheme, Language, CategoriesScreenService {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +34,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
         builder: (context, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const HeaderWidget(title: "Categories"),
+            HeaderWidget(
+                title: label(e: en.categoriesText, b: bn.categoriesText)),
             Expanded(
               child: AppStreamBuilder<List<CategoryDataEntity>>(
                 stream: categoryDataStreamController.stream,
@@ -172,7 +175,7 @@ class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
   }
 }
 
-class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
+class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   final String title;
   final List<T> items;
   final Widget Function(BuildContext context, int index, T item) buildItem;
@@ -215,7 +218,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
                 GestureDetector(
                   onTap: onTapSeeAll,
                   child: Text(
-                    'See all',
+                    label(e: en.seeAllText, b: bn.seeAllText),
                     style: TextStyle(
                       color: clr.appPrimaryColorGreen,
                       fontSize: size.textSmall,

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elibrary/src/core/common_widgets/shimmer_loader.dart';
+import 'package:elibrary/src/core/constants/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,6 +10,7 @@ import '../../../../core/common_widgets/header_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
+import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/bookmark_data_entity.dart';
 import '../services/bookmark_screen_service.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
@@ -21,7 +23,7 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen>
-    with AppTheme, BookmarkScreenService {
+    with AppTheme, Language, BookmarkScreenService {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,7 +31,7 @@ class _BookmarkScreenState extends State<BookmarkScreen>
         builder: (context, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const HeaderWidget(title: "Bookmark"),
+            HeaderWidget(title: label(e: en.bookmarkText, b: bn.bookmarkText)),
             Expanded(
               child: AppStreamBuilder<List<BookmarkDataEntity>>(
                 stream: bookmarkDataStreamController.stream,

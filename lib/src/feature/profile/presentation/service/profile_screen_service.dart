@@ -46,10 +46,10 @@ mixin ProfileScreenService<T extends StatefulWidget> on State<T>
     if (!mounted) return;
     profileDataStreamController.add(LoadingState());
     getProfileInformation().then((value) {
-      if (value.error == null && value.data.profileDataEntity!.isNotEmpty) {
-        profileDataStreamController.add(
-            DataLoadedState<ProfileDataEntity>(value.data!.profileDataEntity));
-      } else if (value.error == null && value.data.profileDataEntity!.isEmpty) {
+      if (value.error == null && value.data != null) {
+        profileDataStreamController
+            .add(DataLoadedState<ProfileDataEntity>(value.data));
+      } else if (value.error == null && value.data == null) {
       } else {
         _view.showWarning(value.message!);
       }

@@ -13,6 +13,8 @@ import '../../../book/domain/entities/book_data_entity.dart';
 import '../services/home_service.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
+import '../../../../core/constants/language.dart';
+import '../../../../core/utility/app_label.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with AppTheme, HomeScreenService {
+    with AppTheme, Language, HomeScreenService {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'CLMS E-Library',
+                            label(e: en.appBarText, b: bn.appBarText),
                             style: TextStyle(
                               color: clr.appPrimaryColorGreen,
                               fontSize: size.textXLarge,
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                           SizedBox(height: size.h8),
                           Text(
-                            'Enriching life with knowledge of the world',
+                            label(e: en.homeHeaderText, b: bn.homeHeaderText),
                             style: TextStyle(
                               color: clr.appPrimaryColorGreen,
                               fontWeight: FontWeight.w200,
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen>
                   children: [
                     Expanded(
                       child: SearchBoxWidget(
-                        hintText: "Search..",
+                        hintText: label(e: en.searchText, b: bn.searchText),
                         onSearchTermChange: onSearchTermChanged,
                       ),
                     ),

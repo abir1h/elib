@@ -10,8 +10,8 @@ class LanguageEn {
 
   String appNameText = "CLMS";
   String appBarText = "E-Library";
+  String splashScreenText = "Welcome To E-Library";
 
-  String splashScreenText = "Welcome To CLMS";
   String authScreenHeaderText = "About HSEP";
   String authScreenContentText =
       "CLMS is a self-contained large-scale learning management system. It includes LMS, e-library, e-teacher side, social learning platform or PLC and formative assessment the entire system is designed in such a way that it can play an effective role in improving the professional quality of teachers.";
@@ -29,8 +29,9 @@ class LanguageEn {
   String copyRightText5 = "Conditions";
 
   String homeText = "Home";
-  String coursesText = "Courses";
-  String notesText = "Notes";
+  String homeHeaderText = "Enriching life with knowledge of the world";
+  String categoriesText = "Categories";
+  String bookmarkText = "Bookmark";
   String profileText = "My Profile";
 
   String cancelText = "Cancel";
@@ -42,6 +43,9 @@ class LanguageEn {
   String noInternetContentText = "Try Again to Regain Connection";
   String noInternetStepText = "Check Your Internet Connection";
   String pageReloadText = "Reload The Page";
+  String searchText = "Search..";
+  String popularBookText = "Popular Books";
+  String seeAllText = "See All";
 
   String learningManagementSystem = "Learning Management System (LMS)";
   String teachersGuide = "Teachers Guide";
@@ -113,6 +117,7 @@ class LanguageBn {
 
   String appNameText = "সিএলএমএস";
   String appBarText = "ই-লাইব্রেরি";
+  String splashScreenText = "ই-লাইব্রেরিতে স্বাগতম";
 
   String authScreenHeaderText = "HSEP সম্পর্কে";
   String authScreenContentText =
@@ -131,8 +136,9 @@ class LanguageBn {
   String copyRightText5 = "শর্তাবলী";
 
   String homeText = "হোম";
-  String coursesText = "কোর্সেস";
-  String notesText = "নোটস";
+  String homeHeaderText = "বিশ্বের জ্ঞান দিয়ে জীবনকে সমৃদ্ধ করা";
+  String categoriesText = "ক্যাটাগরি";
+  String bookmarkText = "বুকমার্ক";
   String profileText = "আমার প্রোফাইল";
 
   String cancelText = "বাতিল করুন";
@@ -144,6 +150,9 @@ class LanguageBn {
   String noInternetContentText = "সংযোগ ফিরে পেতে আবার চেষ্টা করুন";
   String noInternetStepText = "আপনার ইন্টারনেট সংযোগ চেক করুন";
   String pageReloadText = "পেজটি রিলোড দিন";
+  String searchText = "অনুসন্ধান করুন..";
+  String popularBookText = "জনপ্রিয় বই";
+  String seeAllText = "সবগুলো দেখুন";
 
   String learningManagementSystem = "লার্নিং ম্যানেজমেন্ট সিস্টেম (এলএমএস)";
   String teachersGuide = "টিচার্স গাইড";

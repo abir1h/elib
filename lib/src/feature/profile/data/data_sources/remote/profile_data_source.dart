@@ -13,10 +13,9 @@ class ProfileRemoteDataSourceImp extends ProfileRemoteDataSource {
   @override
   Future<ResponseModel> userProfileInformationAction() async {
     final responseJson =
-        await Server.instance.getRequest(url: ApiCredential.userProfile);
+        await Server.instance.getRequestForAuth(url: ApiCredential.userProfile);
     ResponseModel responseModel = ResponseModel.fromJson(
-        json.decode(responseJson),
-        (dynamic json) => ProfileDataModel.fromJson(json));
+        responseJson, (dynamic json) => ProfileDataModel.fromJson(json));
     return responseModel;
   }
 }

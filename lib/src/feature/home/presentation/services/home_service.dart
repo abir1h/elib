@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -137,7 +138,7 @@ class ResultsForViewModel {
   late final String subTitle;
 
   ResultsForViewModel.newUploads() {
-    title = "Popular Books";
+    title = label(e: "Popular Books", b: "জনপ্রিয় বই");
     subTitle = "";
   }
   ResultsForViewModel.search(String searchTerm) {

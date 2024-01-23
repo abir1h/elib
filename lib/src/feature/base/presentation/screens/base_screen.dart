@@ -1,3 +1,5 @@
+import 'package:elibrary/src/core/constants/language.dart';
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:elibrary/src/feature/category/presentation/screens/categories_screen.dart';
 import 'package:elibrary/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -86,7 +88,7 @@ class BottomNavigationBar extends StatefulWidget {
 }
 
 class _BottomNavigationBarState extends State<BottomNavigationBar>
-    with AppTheme {
+    with AppTheme, Language {
   int _selectedIndex = 0;
 
   _selectTab(int index) {
@@ -131,28 +133,28 @@ class _BottomNavigationBarState extends State<BottomNavigationBar>
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             NavButtonItem(
-              title: "Home",
+              title: label(e: en.homeText, b: bn.homeText),
               icon: CupertinoIcons.home,
               size: size.h22,
               selected: _selectedIndex == 0,
               onSelect: () => _selectTab(0),
             ),
             NavButtonItem(
-              title: "Categories",
+              title: label(e: en.categoriesText, b: bn.categoriesText),
               icon: CupertinoIcons.square_stack_3d_up,
               size: size.h22,
               selected: _selectedIndex == 1,
               onSelect: () => _selectTab(1),
             ),
             NavButtonItem(
-              title: "Bookmark",
+              title: label(e: en.bookmarkText, b: bn.bookmarkText),
               icon: CupertinoIcons.bookmark_fill,
               size: size.h22,
               selected: _selectedIndex == 2,
               onSelect: () => _selectTab(2),
             ),
             NavButtonItem(
-              title: "Profile",
+              title: label(e: en.profileText, b: bn.profileText),
               icon: CupertinoIcons.profile_circled,
               size: size.h22,
               selected: _selectedIndex == 3,
