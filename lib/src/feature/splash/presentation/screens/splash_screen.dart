@@ -1,5 +1,4 @@
-import 'package:elibrary/src/feature/book/presentation/services/book_service.dart';
-import 'package:elibrary/src/feature/shared/domain/entities/response_entity.dart';
+import '../../../book/presentation/services/book_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    // ResponseEntity responseEntity = await globalSearch("History");
+    // ResponseEntity responseEntity = await _categoryUseCase.getCategoryByIdUseCase(1);
     // print(responseEntity.message);
   }
 
