@@ -1,3 +1,6 @@
+import '../../../book/data/mapper/book_data_mapper.dart';
+import '../../../book/data/models/book_data_model.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
 import '../mapper/paginated_category_data_mapper.dart';
 import '../../domain/entities/paginated_category_data_entity.dart';
 import '../mapper/category_data_mapper.dart';
@@ -34,7 +37,22 @@ class CategoryRepositoryImp extends CategoryRepository {
         (await categoryRemoteDataSource.getCategoryWithBookAction());
     return ResponseModelToEntityMapper<PaginatedCategoryDataEntity,
             PaginatedCategoryDataModel>()
-        .toEntityFromModel(responseModel,
-            (PaginatedCategoryDataModel model) => model.toPaginatedCategoryDataEntity);
+        .toEntityFromModel(
+            responseModel,
+            (PaginatedCategoryDataModel model) =>
+                model.toPaginatedCategoryDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> getCategoryById(int categoryId) async {
+    ResponseModel responseModel =
+        (await categoryRemoteDataSource.getCategoryByIdAction(categoryId));
+    return ResponseModelToEntityMapper<List<BookDataEntity>,
+            List<BookDataModel>>()
+        .toEntityFromModel(
+            responseModel,
+            (List<BookDataModel> models) => List<BookDataModel>.from(models)
+                .map((e) => e.toBookDataEntity)
+                .toList());
   }
 }
