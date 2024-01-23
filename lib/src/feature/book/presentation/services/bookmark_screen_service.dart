@@ -59,12 +59,11 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
     if (!mounted) return;
     bookmarkDataStreamController.add(LoadingState());
     getBookmarkBookList().then((value) {
-      if (value.error == null && value.data != null) {
+      if (value.error == null && value.data.isNotEmpty) {
         _bookList = value.data;
         bookmarkDataStreamController
             .add(DataLoadedState<List<BookmarkDataEntity>>(value.data!));
-      } else if (value.error == null &&
-          (value.data == null || value.data.isEmpty)) {
+      } else if (value.error == null &&  value.data.isEmpty) {
         bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
@@ -85,6 +84,9 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
         _bookList.removeWhere((element) => element.bookId == value.data.bookId);
         bookmarkDataStreamController
             .add(DataLoadedState<List<BookmarkDataEntity>>(_bookList));
+        if(_bookList.isEmpty){
+          bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
+        }
       } else {
         _view.showWarning(value.message!);
       }

@@ -28,6 +28,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
   @override
   void initState() {
     _screenArgs = widget.arguments as CategoryDetailsScreenArgs;
+    loadBookListData(_screenArgs.categoryId);
     super.initState();
   }
 
@@ -35,7 +36,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: _screenArgs.categoryName,
-      child:LayoutBuilder(
+      child: LayoutBuilder(
         builder: (context, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,60 +46,50 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                 loadingBuilder: (context) {
                   return ShimmerLoader(
                       child: GridView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: .6,
-                          crossAxisSpacing: size.h12,
-                          mainAxisSpacing: size.h12,
-                        ),
-                        itemCount: 10,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Container();
-                          // return BookmarkItemWidget(
-                          //   item: BookmarkDataEntity(
-                          //       id: -1,
-                          //       bookId: -1,
-                          //       emisUserId: -1,
-                          //       createdAt: "",
-                          //       updatedAt: "",
-                          //       deletedAt: "",
-                          //       status: -1,
-                          //       book: BookDataEntity(
-                          //           id: -1,
-                          //           titleEn: "",
-                          //           titleBn: "",
-                          //           languageEn: "",
-                          //           languageBn: "",
-                          //           editionEn: "",
-                          //           editionBn: "",
-                          //           publishYearEn: "",
-                          //           publishYearBn: "",
-                          //           publisherEn: "",
-                          //           publisherBn: "",
-                          //           isbnEn: "",
-                          //           isbnBn: "",
-                          //           slug: "",
-                          //           descriptionEn: "",
-                          //           descriptionBn: "",
-                          //           coverImage: "",
-                          //           bookFile: "",
-                          //           externalLink: "",
-                          //           createdBy: -1,
-                          //           isDownload: -1,
-                          //           status: -1,
-                          //           bookMark: false,
-                          //           createdAt: "",
-                          //           updatedAt: "",
-                          //           deletedAt: "",
-                          //           author: [],
-                          //           category: [])),
-                          //   onSelect: (e) {},
-                          //   onBookmarkSelect: (e) {},
-                          // );
-                        },
-                      ));
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: .6,
+                      crossAxisSpacing: size.h12,
+                      mainAxisSpacing: size.h12,
+                    ),
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ELibContentItemWidget(
+                          item: BookDataEntity(
+                              id: -1,
+                              titleEn: "",
+                              titleBn: "",
+                              languageEn: "",
+                              languageBn: "",
+                              editionEn: "",
+                              editionBn: "",
+                              publishYearEn: "",
+                              publishYearBn: "",
+                              publisherEn: "",
+                              publisherBn: "",
+                              isbnEn: "",
+                              isbnBn: "",
+                              slug: "",
+                              descriptionEn: "",
+                              descriptionBn: "",
+                              coverImage: "",
+                              bookFile: "",
+                              externalLink: "",
+                              createdBy: -1,
+                              isDownload: -1,
+                              status: -1,
+                              bookMark: false,
+                              createdAt: "",
+                              updatedAt: "",
+                              deletedAt: "",
+                              author: [],
+                              category: []),
+                          onSelect: (e) {},
+                          onBookmarkSelect: (e) {});
+                    },
+                  ));
                 },
                 dataBuilder: (context, data) {
                   return GridView.builder(
@@ -115,9 +106,11 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                         horizontal: size.w12, vertical: size.h12),
                     itemBuilder: (context, index) {
                       return ELibContentItemWidget(
-                              key: Key(data[index].id.toString()),
-                              item: data[index],
-                              onSelect: onBookContentSelected,
+                        showBookmark: true,
+                        key: Key(data[index].id.toString()),
+                        item: data[index],
+                        onSelect: onBookContentSelected,
+                        onBookmarkSelect: onBookmarkSelected,
                       );
                       return Container();
                     },
@@ -131,7 +124,6 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
               ),
             ),
             SizedBox(height: size.h64),
-
           ],
         ),
       ),
