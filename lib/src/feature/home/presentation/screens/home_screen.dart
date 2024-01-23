@@ -170,6 +170,7 @@ class _HomeScreenState extends State<HomeScreen>
                               key: Key(data[index].id.toString()),
                               item: data[index],
                               onSelect: onBookContentSelected,
+                              showBookmark: true,
                               onBookmarkSelect: onBookmarkContentSelected,
                             );
                           },
@@ -272,11 +273,12 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
+  final bool? showBookmark;
   const ELibContentItemWidget({
     Key? key,
     required this.onSelect,
     required this.item,
-    this.onBookmarkSelect,
+    this.onBookmarkSelect,  this.showBookmark,
   }) : super(key: key);
 
   @override
@@ -330,7 +332,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   ),
 
                   ///Bookmark
-                  Align(
+                  widget.showBookmark!=null?Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
                       onTap: widget.onBookmarkSelect != null
@@ -353,7 +355,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                                   color: clr.appPrimaryColorGreen,
                                 )),
                     ),
-                  ),
+                  ):const Offstage(),
                 ],
               ),
             ),
