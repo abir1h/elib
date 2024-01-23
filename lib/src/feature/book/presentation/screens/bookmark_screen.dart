@@ -224,10 +224,9 @@ class BookmarkItemWidget extends StatefulWidget with AppTheme {
 }
 
 class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
-    with AppTheme, AutomaticKeepAliveClientMixin {
+    with AppTheme {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -323,7 +322,4 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

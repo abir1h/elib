@@ -2,15 +2,13 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
-import '../../../../core/common_widgets/paginated_gridview_widget.dart';
+import '../../../../core/common_widgets/search_book_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../../core/toasty.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../services/home_service.dart';
 
@@ -80,17 +78,16 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
 
                 ///Search Box and Bookmark button
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: SearchBoxWidget(
-                //         hintText: "Search..",
-                //         onSearchTermChange: onSearchTermChanged,
-                //         serviceState: serviceState,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SearchBoxWidget(
+                        hintText: "Search..",
+                        onSearchTermChange: onSearchTermChanged,
+                      ),
+                    ),
+                  ],
+                ),
 
                 ///Content section
                 AppStreamBuilder<List<BookDataEntity>>(
@@ -129,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen>
                               item: data[index],
                               onSelect: onBookContentSelected,
                               onBookmarkSelect: onBookmarkContentSelected,
+
                             );
                           },
                         ),
@@ -342,7 +340,7 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
   const ELibContentItemWidget(
-      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect})
+      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect, })
       : super(key: key);
 
   @override
@@ -351,20 +349,16 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
 
 
 class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
-    with AppTheme, AutomaticKeepAliveClientMixin {
-  StreamController<bool> controller=StreamController();
+    with AppTheme {
 
-  @override
+ @override
   void initState() {
-    controller.stream.listen((event) {
-      print(event);
-    });
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -463,7 +457,4 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
