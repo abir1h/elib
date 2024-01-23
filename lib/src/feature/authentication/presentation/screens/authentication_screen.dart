@@ -128,7 +128,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                 // });
                                 // Get.toNamed(AppRoutes.landing);
                               },
-                              title: label(e: en.loginText, b: bn.loginText))
+                              title: label(e: en.loginText, b: bn.loginText)),
+                          SizedBox(height: size.h12),
                         ],
                       ),
                       Column(
