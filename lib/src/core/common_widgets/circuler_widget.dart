@@ -8,7 +8,7 @@ class CircularLoader extends StatelessWidget with AppTheme {
   @override
   Widget build(BuildContext context) {
     return SizedBox(height: loaderSize??size.h32,width: loaderSize??size.h32,child: CircularProgressIndicator(
-      color: clr.appSecondaryColorFlagRed,
+      color: clr.appPrimaryColorGreen,
       strokeWidth:size.w2,
     ));
   }

@@ -35,7 +35,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
         physics: const BouncingScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 0.7,
+          childAspectRatio: 0.6,
           crossAxisSpacing: size.h12,
           mainAxisSpacing: size.h12,
         ),

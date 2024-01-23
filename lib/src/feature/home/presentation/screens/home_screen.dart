@@ -2,16 +2,17 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/search_book_widget.dart';
-import '../../../../core/common_widgets/section_empty_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../services/home_service.dart';
+import '../../../../core/common_widgets/empty_widget.dart';
+import '../../../../core/common_widgets/shimmer_loader.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,9 +50,7 @@ class _HomeScreenState extends State<HomeScreen>
                               fontWeight: FontWeight.w900,
                             ),
                           ),
-                          SizedBox(
-                            height: size.h8,
-                          ),
+                          SizedBox(height: size.h8),
                           Text(
                             'Enriching life with knowledge of the world',
                             style: TextStyle(
@@ -99,7 +98,53 @@ class _HomeScreenState extends State<HomeScreen>
                 AppStreamBuilder<List<BookDataEntity>>(
                   stream: bookDataStreamController.stream,
                   loadingBuilder: (context) {
-                    return const CircularLoader();
+                    return ShimmerLoader(
+                        child: GridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio: .6,
+                        crossAxisSpacing: size.h12,
+                        mainAxisSpacing: size.h12,
+                      ),
+                      itemCount: 10,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ELibContentItemWidget(
+                          item: BookDataEntity(
+                              id: -1,
+                              titleEn: "",
+                              titleBn: "",
+                              languageEn: "",
+                              languageBn: "",
+                              editionEn: "",
+                              editionBn: "",
+                              publishYearEn: "",
+                              publishYearBn: "",
+                              publisherEn: "",
+                              publisherBn: "",
+                              isbnEn: "",
+                              isbnBn: "",
+                              slug: "",
+                              descriptionEn: "",
+                              descriptionBn: "",
+                              coverImage: "",
+                              bookFile: "",
+                              externalLink: "",
+                              createdBy: -1,
+                              isDownload: -1,
+                              status: -1,
+                              bookMark: false,
+                              createdAt: "",
+                              updatedAt: "",
+                              deletedAt: "",
+                              author: [],
+                              category: []),
+                          onSelect: (e) {},
+                          onBookmarkSelect: (e) {},
+                        );
+                      },
+                    ));
                   },
                   dataBuilder: (context, data) {
                     return Column(
@@ -132,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen>
                     );
                   },
                   emptyBuilder: (context, message, icon) {
-                    return SectionEmptyWidget(
+                    return EmptyWidget(
                       constraints: constraints,
                       message: message,
                       icon: icon,
@@ -272,8 +317,12 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                       // height: double.infinity,
                       color: Colors.grey.withOpacity(0.5),
                       child: CachedNetworkImage(
-                        imageUrl:
-                            "http://103.209.40.89:82/uploads/${widget.item.coverImage}",
+                        imageUrl: widget.item.coverImage.isNotEmpty
+                            ? "http://103.209.40.89:82/uploads/${widget.item.coverImage}"
+                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                        placeholder: (context, url) => const Offstage(),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.image, color: clr.greyColor),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -328,7 +377,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             TextSpan(
-                text: "by ",
+                text: widget.item.author.isNotEmpty ? "by " : "",
                 style: TextStyle(
                     color: clr.placeHolderTextColorGray,
                     fontSize: size.textXXSmall,

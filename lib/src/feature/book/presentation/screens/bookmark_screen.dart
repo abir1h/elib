@@ -1,21 +1,16 @@
-import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elibrary/src/feature/book/domain/entities/bookmark_data_entity.dart';
-import 'package:elibrary/src/feature/book/presentation/services/book_service.dart';
-import 'package:elibrary/src/feature/book/presentation/services/bookmark_screen_service.dart';
+import 'package:elibrary/src/core/common_widgets/shimmer_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/header_widget.dart';
-import '../../../../core/common_widgets/paginated_gridview_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../../core/toasty.dart';
+import '../../domain/entities/bookmark_data_entity.dart';
+import '../services/bookmark_screen_service.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 
 class BookmarkScreen extends StatefulWidget {
@@ -39,7 +34,61 @@ class _BookmarkScreenState extends State<BookmarkScreen>
               child: AppStreamBuilder<List<BookmarkDataEntity>>(
                 stream: bookmarkDataStreamController.stream,
                 loadingBuilder: (context) {
-                  return const CircularLoader();
+                  return ShimmerLoader(
+                      child: GridView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: .6,
+                      crossAxisSpacing: size.h12,
+                      mainAxisSpacing: size.h12,
+                    ),
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return BookmarkItemWidget(
+                        item: BookmarkDataEntity(
+                            id: -1,
+                            bookId: -1,
+                            emisUserId: -1,
+                            createdAt: "",
+                            updatedAt: "",
+                            deletedAt: "",
+                            status: -1,
+                            book: BookDataEntity(
+                                id: -1,
+                                titleEn: "",
+                                titleBn: "",
+                                languageEn: "",
+                                languageBn: "",
+                                editionEn: "",
+                                editionBn: "",
+                                publishYearEn: "",
+                                publishYearBn: "",
+                                publisherEn: "",
+                                publisherBn: "",
+                                isbnEn: "",
+                                isbnBn: "",
+                                slug: "",
+                                descriptionEn: "",
+                                descriptionBn: "",
+                                coverImage: "",
+                                bookFile: "",
+                                externalLink: "",
+                                createdBy: -1,
+                                isDownload: -1,
+                                status: -1,
+                                bookMark: false,
+                                createdAt: "",
+                                updatedAt: "",
+                                deletedAt: "",
+                                author: [],
+                                category: [])),
+                        onSelect: (e) {},
+                        onBookmarkSelect: (e) {},
+                      );
+                    },
+                  ));
                 },
                 dataBuilder: (context, data) {
                   return GridView.builder(
@@ -106,6 +155,8 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
                   message: message,
+                  constraints: constraints,
+                  offset: 350.w,
                 ),
               ),
             ),
@@ -228,7 +279,6 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              // color: clr.iconColorRed,
               borderRadius: BorderRadius.circular(size.h8),
               border: Border.all(
                 color: clr.appPrimaryColorGreen.withOpacity(.1),
@@ -248,8 +298,12 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
                       // height: double.infinity,
                       color: Colors.grey.withOpacity(0.5),
                       child: CachedNetworkImage(
-                        imageUrl:
-                            "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}",
+                        imageUrl: widget.item.book!.coverImage.isNotEmpty
+                            ? "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}"
+                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                        placeholder: (context, url) => const Offstage(),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.image, color: clr.greyColor),
                         fit: BoxFit.cover,
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -38,11 +39,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                 loadingBuilder: (context) {
                   return ShimmerLoader(
                       child: CategorySectionWidget(
-                          items: const [
-                        "",
-                        "",
-                        "",
-                      ],
+                          items: const ["", "", ""],
                           buildItem: (context, index, item) {
                             return ItemSectionWidget<String>(
                               onTapSeeAll: () {},
@@ -85,7 +82,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                         deletedAt: "",
                                         author: [],
                                         category: []),
-                                    onSelect: onBookContentSelected,
+                                    onSelect: (e) {},
                                   ),
                                 );
                               },
@@ -101,7 +98,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             items: data[index].books,
                             buildItem: (context, index, item) {
                               return AspectRatio(
-                                aspectRatio: .8,
+                                aspectRatio: .6,
                                 child: ELibContentItemWidget(
                                   key: Key(item.id.toString()),
                                   item: item,
@@ -115,6 +112,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
                   message: message,
+                  constraints: constraints,
+                  offset: 350.w,
                 ),
               ),
             ),
@@ -185,7 +184,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
       required this.items,
       required this.buildItem,
       required this.onTapSeeAll,
-      this.aspectRatio = 2.4})
+      this.aspectRatio = 2})
       : super(key: key);
 
   @override

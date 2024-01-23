@@ -26,7 +26,7 @@ class Application extends StatelessWidget with AppTheme {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-            title: 'CLMS',
+            title: 'E-Library',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 colorScheme: ColorScheme.fromSwatch()

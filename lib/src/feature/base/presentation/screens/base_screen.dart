@@ -108,10 +108,10 @@ class _BottomNavigationBarState extends State<BottomNavigationBar>
         width: double.maxFinite,
         height: size.h56 + MediaQuery.of(context).padding.bottom,
         padding: EdgeInsets.only(
-          left: size.h12,
-          right: size.h12,
-          top: size.w4,
-          bottom: size.w4 + MediaQuery.of(context).padding.bottom,
+          left: size.w12,
+          right: size.w12,
+          top: size.h4,
+          bottom: size.h4 + MediaQuery.of(context).padding.bottom,
         ),
         decoration: BoxDecoration(
           color: clr.whiteColor,
@@ -133,28 +133,28 @@ class _BottomNavigationBarState extends State<BottomNavigationBar>
             NavButtonItem(
               title: "Home",
               icon: CupertinoIcons.home,
-              size: size.h24,
+              size: size.h22,
               selected: _selectedIndex == 0,
               onSelect: () => _selectTab(0),
             ),
             NavButtonItem(
               title: "Categories",
               icon: CupertinoIcons.square_stack_3d_up,
-              size: size.h24,
+              size: size.h22,
               selected: _selectedIndex == 1,
               onSelect: () => _selectTab(1),
             ),
             NavButtonItem(
               title: "Bookmark",
               icon: CupertinoIcons.bookmark_fill,
-              size: size.h24,
+              size: size.h22,
               selected: _selectedIndex == 2,
               onSelect: () => _selectTab(2),
             ),
             NavButtonItem(
               title: "Profile",
               icon: CupertinoIcons.profile_circled,
-              size: size.h24 + size.h2,
+              size: size.h22,
               selected: _selectedIndex == 3,
               onSelect: () => _selectTab(3),
             ),
@@ -208,12 +208,10 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
                 size: widget.size,
               ),
             ),
-            SizedBox(
-              height: size.h2,
-            ),
+            SizedBox(height: size.h2),
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: widget.selected ? size.h16 : size.h8,
+              height: widget.selected ? size.h20 : size.h8,
               child: AnimatedScale(
                 duration: const Duration(milliseconds: 200),
                 alignment: Alignment.bottomCenter,
@@ -221,7 +219,7 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
                 child: Text(
                   widget.title,
                   style: TextStyle(
-                    color: clr.appPrimaryColorGreen,
+                    color: clr.appSecondaryColorFlagRed,
                     fontSize: size.textXSmall,
                     fontWeight: FontWeight.w600,
                   ),

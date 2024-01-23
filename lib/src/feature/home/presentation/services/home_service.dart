@@ -81,6 +81,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(_bookData));
       } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
+        bookDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
       }
