@@ -57,37 +57,14 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Padding(
-          //   padding: EdgeInsets.only(top: 2.0.w),
-          //   child: StreamBuilder<bool>(
-          //       stream: widget.serviceState.searchActivityStream,
-          //       initialData: false,
-          //       builder: (context, snapshot) {
-          //         if(snapshot.data!) {
-          //           return SizedBox(
-          //             height: size.h20,
-          //             width: size.h20,
-          //             child: Center(
-          //               child: SizedBox(
-          //                 height: size.h12,
-          //                 width: size.h12,
-          //                 child: CircularProgressIndicator(
-          //                   color: clr.blackColor.withOpacity(.5),
-          //                   strokeWidth: 1.6.w,
-          //                 ),
-          //               ),
-          //             ),
-          //           );
-          //         }else{
-          //           return Icon(
-          //             Icons.search_rounded,
-          //             color: clr.blackColor,
-          //             size: size.h20,
-          //           );
-          //         }
-          //       }
-          //   ),
-          // ),
+          Padding(
+            padding: EdgeInsets.only(top: 2.0.w),
+            child: Icon(
+              Icons.search_rounded,
+              color: clr.blackColor,
+              size: size.h20,
+            )
+          ),
           SizedBox(width: size.h8,),
           Expanded(
             child: TextField(

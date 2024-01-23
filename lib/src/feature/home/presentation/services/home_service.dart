@@ -30,9 +30,14 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   Future<ResponseEntity> getPopularBooks(int pageNumber) async {
     return _bookUseCase.getPopularBooksUseCase(pageNumber);
   }
+
   Future<ResponseEntity> bookmarkBookAction(
       {required int bookId, required int eMISUserId}) async {
     return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
+  }
+
+  Future<ResponseEntity> globalSearch(String searchQuery) async {
+    return _bookUseCase.globalSearchUseCase(searchQuery);
   }
 
   ///Service configurations
@@ -58,18 +63,23 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   // final AppStreamController<ResultsForViewModel> resultsForStreamController = AppStreamController();
   final AppStreamController<List<BookDataEntity>> bookDataStreamController =
       AppStreamController();
-  List<BookDataEntity> _bookData=[];
+  final AppStreamController<ResultsForViewModel> resultsForStreamController =
+      AppStreamController();
+
+  List<BookDataEntity> _bookData = [];
 
   ///Load Book list
   void _loadInitialData() {
     ///Loading state
     if (!mounted) return;
     bookDataStreamController.add(LoadingState());
+    resultsForStreamController
+        .add(DataLoadedState(ResultsForViewModel.newUploads()));
     getPopularBooks(1).then((value) {
       if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
-        _bookData=value.data!.bookDataEntity;
-        bookDataStreamController.add(
-            DataLoadedState<List<BookDataEntity>>(_bookData));
+        _bookData = value.data!.bookDataEntity;
+        bookDataStreamController
+            .add(DataLoadedState<List<BookDataEntity>>(_bookData));
       } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
       } else {
         _view.showWarning(value.message!);
@@ -80,6 +90,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   void onBookContentSelected(BookDataEntity item) {
     _view.navigateToBookDetailsScreen(item);
   }
+
   void onBookmarkContentSelected(BookDataEntity item) {
     bookmarkBookAction(
       bookId: item.id,
@@ -88,105 +99,36 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
       if (value.error == null && value.data != null) {
         int index = _bookData.indexWhere((element) => element.id == item.id);
         _bookData[index].bookMark = !_bookData[index].bookMark;
-        bookDataStreamController.add(
-            DataLoadedState<List<BookDataEntity>>(_bookData));
+        bookDataStreamController
+            .add(DataLoadedState<List<BookDataEntity>>(_bookData));
       } else {
         _view.showWarning(value.message!);
       }
     });
   }
-  onSearchTermChanged(String value){
 
+  onSearchTermChanged(String value) {
+    if (value.isNotEmpty) {
+      resultsForStreamController
+          .add(DataLoadedState(ResultsForViewModel.search(value)));
+      globalSearch(value).then((value) {
+        if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
+          _bookData = value.data!.bookDataEntity;
+          bookDataStreamController
+              .add(DataLoadedState<List<BookDataEntity>>(_bookData));
+        } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
+          bookDataStreamController.add(EmptyState(
+            message: "No item found!",
+            icon: Icons.search_rounded,
+          ));
+        } else {
+          _view.showWarning(value.message!);
+        }
+      });
+    } else {
+      _loadInitialData();
+    }
   }
-  // void onLoadCategoryList() {
-  //   ///Loading state
-  //   if(!mounted) return;
-  //   ELibraryGateway.getAllCategoryList().then((value){
-  //     if(!mounted) return;
-  //
-  //     ///Data loaded state
-  //     if(value.status == Status.success && value.data!.isNotEmpty){
-  //       serviceState.addToCategoryStream(DataLoadedState<List<CategoryEntity>>(value.data!));
-  //     }
-  //     ///Empty state
-  //     else if(value.status == Status.success ){
-  //       serviceState.addToCategoryStream(EmptyState(
-  //         message: "No item found!",
-  //       ));
-  //     }
-  //     ///Error state
-  //     else{
-  //       _view.showWarning(value.message);
-  //       serviceState.addToCategoryStream(EmptyState(
-  //         message: "Failed to load!",
-  //       ));
-  //     }
-  //   });
-  // }
-  ///Once user change category selection
-  // void onCategorySelected(CategoryEntity item) {
-  //   onSearchTermChanged(serviceState.searchTerm);
-  // }
-
-  ///This is used to handle search contents. It fires when user change any search term
-  // void onSearchTermChanged(String value) {
-  //   if(!mounted) return;
-  //
-  //   if(serviceState.searchTerm.isNotEmpty || serviceState.selectedCategory.id > 0){
-  //     serviceState.addToSearchActivityStream(true);
-  //
-  //     ELibraryGateway.getContentListWithPagination(serviceState.getPaginatedAndFilteredUrlSegment(paginationController.pageSize,0),).then((value){
-  //       if(!mounted) return;
-  //
-  //       paginationController.clear();
-  //       serviceState.addToSearchActivityStream(false);
-  //       resultsForStreamController.add(DataLoadedState(ResultsForViewModel.search(serviceState.searchTerm, serviceState.selectedCategory.title)));
-  //
-  //       ///Data loaded state
-  //       if(value.status == Status.success && value.data!.total > 0){
-  //         paginationController.setTotalItemCount(value.data!.total);
-  //         paginationController.addItems(value.data!.records);
-  //         eLibraryDataStreamController.add(DataLoadedState(paginationController));
-  //       }
-  //       ///Empty state
-  //       else if(value.status == Status.success && value.data!.total <= 0){
-  //         eLibraryDataStreamController.add(EmptyState(
-  //           message: "No item found!",
-  //           icon: Icons.search_rounded,
-  //         ));
-  //       }
-  //       ///Error state
-  //       else{
-  //         _view.showWarning(value.message);
-  //       }
-  //     });
-  //   }
-  //   else{
-  //     _loadInitialData();
-  //   }
-  // }
-  //
-  // ///Load more data
-  // Future<bool> _onLoadMoreItems(int nextPage) async{
-  //   Completer<bool> completer = Completer();
-  //   getPopularBooks(paginationController.pageSize).asStream().listen((value) {
-  //     if (!mounted) return;
-  //     ///Data loaded state
-  //     if(value.error != null && value.data != null && value.data!.total > 0){
-  //       paginationController.setTotalItemCount(value.data!.total);
-  //       paginationController.addItems(value.data!.records);
-  //       completer.complete(true);
-  //     }
-  //     ///Error state
-  //     else{
-  //       ///Try reloading
-  //       _view.showWarning("");
-  //       completer.complete(false);
-  //     }
-  //   });
-  //
-  //   return completer.future;
-  // }
 }
 
 class ResultsForViewModel {
@@ -194,12 +136,11 @@ class ResultsForViewModel {
   late final String subTitle;
 
   ResultsForViewModel.newUploads() {
-    title = "New Uploads";
+    title = "Popular Books";
     subTitle = "";
   }
-  ResultsForViewModel.search(String searchTerm, String categoryName) {
+  ResultsForViewModel.search(String searchTerm) {
     title = "Search Result";
-    subTitle =
-        "Showing results ${searchTerm.isNotEmpty ? "for \"$searchTerm\"" : ""} in ${categoryName.isNotEmpty ? "\"$categoryName\" category." : "all categories."}";
+    subTitle = 'Showing results for "$searchTerm"';
   }
 }

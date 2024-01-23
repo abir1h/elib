@@ -65,7 +65,7 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
             .add(DataLoadedState<List<BookmarkDataEntity>>(value.data!));
       } else if (value.error == null &&
           (value.data == null || value.data.isEmpty)) {
-        // Handle the case where there is no data
+        bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
       }

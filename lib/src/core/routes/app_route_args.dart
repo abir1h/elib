@@ -1,5 +1,10 @@
 import '../../feature/book/domain/entities/book_data_entity.dart';
 
+class EMISWebViewScreenArgs {
+  final String webViewLink;
+  EMISWebViewScreenArgs({required this.webViewLink});
+}
+
 class BookDetailsScreenArgs {
   final BookDataEntity bookData;
   BookDetailsScreenArgs({

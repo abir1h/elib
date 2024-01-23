@@ -1,12 +1,12 @@
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:elibrary/src/feature/clms_landing/presentation/services/landing_service.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../core/utility/app_label.dart';
-import '../../../../core/config/app_event_widget.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../widgets/module_card_widget.dart';
 import '../widgets/row_item_template.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../../../../core/constants/language.dart';
+import '../services/landing_service.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -15,19 +15,18 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> with AppTheme,Language,LandingService{
-
+class _LandingScreenState extends State<LandingScreen>
+    with AppTheme, Language, LandingService {
   ///Service configurations
   @override
   void initState() {
     super.initState();
-    ///Init notification and firebase
 
+    ///Init notification and firebase
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -56,11 +55,10 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme,Language,La
                 height: size.h1,
               )),
         ),
-        body:
-        SingleChildScrollView(
+        body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(
-              horizontal: size.w16, vertical: size.h16),
+          padding:
+              EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h16),
           child: Column(
             children: [
               RowItemTemplate(
@@ -73,23 +71,19 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme,Language,La
                   ),
                   rightChild: ModuleCardWidget(
                     image: ImageAssets.imgModule2,
-                    text: label(
-                        e: en.teachersGuide, b: bn.teachersGuide),
+                    text: label(e: en.teachersGuide, b: bn.teachersGuide),
                   )),
               SizedBox(height: size.h16),
               RowItemTemplate(
                 leftChild: ModuleCardWidget(
-                  image: ImageAssets.imgModule3,
-                  text: label(e: en.eLibrary, b: bn.eLibrary),
-                  onTap: onNavigateToELibraryScreen
-                ),
+                    image: ImageAssets.imgModule3,
+                    text: label(e: en.eLibrary, b: bn.eLibrary),
+                    onTap: onNavigateToELibraryScreen),
                 rightChild: ModuleCardWidget(
                   image: ImageAssets.imgModule4,
                   text: label(
-                      e: en.formativeAssessment,
-                      b: bn.formativeAssessment),
+                      e: en.formativeAssessment, b: bn.formativeAssessment),
                 ),
-
               ),
               SizedBox(height: size.h16),
               RowItemTemplate(
@@ -107,11 +101,12 @@ class _LandingScreenState extends State<LandingScreen> with AppTheme,Language,La
 
   @override
   void navigateToELibraryScreen() {
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoute.baseScreen, (x)=> false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.baseScreen, (x) => false);
   }
 
   ///Push Notification Section
- /* void _onFCMTokenUpdate(String? token) async {
+  /* void _onFCMTokenUpdate(String? token) async {
     print(token);
   }
 

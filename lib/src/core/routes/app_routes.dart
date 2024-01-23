@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../feature/authentication/presentation/screens/authentication_screen.dart';
+import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
 import '../../feature/book/presentation/screens/book_details_screen.dart';
 import '../../feature/book/presentation/screens/book_view_screen.dart';
 import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
-import '../../feature/root/presentation/screens/base_screen.dart';
+import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
 class AppRoute {
@@ -12,7 +14,9 @@ class AppRoute {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   static const String splashScreen = 'splashScreen';
-  static const String authenticateScreen = 'authenticateScreen';
+  static const String authenticationScreen = 'authenticationScreen';
+  static const String eMISWebViewScreen = "eMISWebViewScreen";
+
   static const String landingScreen = 'landingScreen';
   static const String baseScreen = 'baseScreen';
   static const String bookDetailsScreen = 'bookDetailsScreen';
@@ -27,6 +31,10 @@ mixin RouteGenerator {
         ///StartUp
         case AppRoute.splashScreen:
           return const SplashScreen();
+        case AppRoute.authenticationScreen:
+          return const AuthenticationScreen();
+        case AppRoute.eMISWebViewScreen:
+          return EMISWebViewScreen(arguments: setting.arguments);
 
         ///CLMS Landing Screen
         case AppRoute.landingScreen:

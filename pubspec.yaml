@@ -29,6 +29,8 @@ dependencies:
   saf: ^1.0.3+4
   share_plus: ^7.2.1
   rxdart: ^0.27.7
+  webview_flutter: ^4.4.4
+  lottie: ^3.0.0
 
 
 dev_dependencies:

@@ -1,4 +1,5 @@
 import 'package:elibrary/src/feature/category/presentation/screens/categories_screen.dart';
+import 'package:elibrary/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_theme.dart';
@@ -36,9 +37,9 @@ class _BaseScreenState extends State<BaseScreen>
                 } else if (index == 1) {
                   return const CategoriesScreen();
                 } else if (index == 2) {
-                  return BookmarkScreen();
+                  return const BookmarkScreen();
                 } else if (index == 3) {
-                  return Container();
+                  return const ProfileScreen();
                 }
                 return const Center(child: Text("Unauthorized to access!"));
               },
