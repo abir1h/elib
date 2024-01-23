@@ -110,7 +110,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                         key: Key(data[index].id.toString()),
                         item: data[index],
                         onSelect: onBookContentSelected,
-                        onBookmarkSelect: onBookContentSelected,
+                        onBookmarkSelect: onBookmarkSelected,
                       );
                       return Container();
                     },

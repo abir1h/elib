@@ -61,11 +61,11 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
     if (!mounted) return;
     bookDataStreamController.add(LoadingState());
     getCategoryBookList(id).then((value) {
-      if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
+      if (value.error == null && value.data.isNotEmpty) {
         _bookList = value.data;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(value.data!));
-      } else if (value.error == null &&  value.data.bookDataEntity!.isEmpty) {
+      } else if (value.error == null &&  value.data.isEmpty) {
         bookDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
@@ -73,11 +73,11 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
     });
   }
 
-  // void onBookContentSelected(BookDataEntity item) {
-  //   _view.navigateToBookDetailsScreen(item);
-  // }
-
   void onBookContentSelected(BookDataEntity item) {
+    _view.navigateToBookDetailsScreen(item);
+  }
+
+  void onBookmarkSelected(BookDataEntity item) {
     bookmarkBookAction(
       bookId: item.id,
       eMISUserId: 1,
