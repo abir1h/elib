@@ -109,8 +109,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                 ),
                               );
                             },
-                            onTapSeeAll: () => onTapSeeAll(
-                                data[index].name, data[index].id));
+                            onTapSeeAll: () =>
+                                onTapSeeAll(data[index].name, data[index].id));
                       });
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
@@ -133,8 +133,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   }
 
   @override
-  void navigateToCategoryDetailsScreen(
-      String categoryName, int id) {
+  void navigateToCategoryDetailsScreen(String categoryName, int id) {
     Navigator.of(context).pushNamed(
       AppRoute.categoryDetailsScreen,
       arguments:
@@ -192,65 +191,78 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///Header text
-        Padding(
-          padding: EdgeInsets.only(bottom: size.h8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: clr.blackColor,
-                    fontSize: size.textSmall,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              if (items.isNotEmpty)
-                GestureDetector(
-                  onTap: onTapSeeAll,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: size.h8, horizontal: size.w8),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.r8),
+          color: clr.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: clr.blackColor.withOpacity(.2),
+              blurRadius: size.r8,
+              offset: Offset(0.0, size.h2),
+            ),
+          ]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ///Header text
+          Padding(
+            padding: EdgeInsets.only(bottom: size.h8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
                   child: Text(
-                    label(e: en.seeAllText, b: bn.seeAllText),
+                    title,
                     style: TextStyle(
-                      color: clr.appPrimaryColorGreen,
+                      color: clr.blackColor,
                       fontSize: size.textSmall,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (items.isNotEmpty)
+                  GestureDetector(
+                    onTap: onTapSeeAll,
+                    child: Text(
+                      label(e: en.seeAllText, b: bn.seeAllText),
+                      style: TextStyle(
+                        color: clr.appPrimaryColorGreen,
+                        fontSize: size.textSmall,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
-        ),
 
-        ///Items section
-        items.isNotEmpty
-            ? AspectRatio(
-                aspectRatio: aspectRatio,
-                child: ListView.separated(
-                  itemCount: items.length < 5 ? items.length : 5,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return buildItem(context, index, items[index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: size.w12);
-                  },
+          ///Items section
+          items.isNotEmpty
+              ? AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: ListView.separated(
+                    itemCount: items.length < 5 ? items.length : 5,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return buildItem(context, index, items[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: size.w12);
+                    },
+                  ),
+                )
+              : AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: Lottie.asset(ImageAssets.animEmpty),
                 ),
-              )
-            : AspectRatio(
-                aspectRatio: aspectRatio,
-                child: Lottie.asset(ImageAssets.animEmpty),
-              ),
-      ],
+        ],
+      ),
     );
   }
 }

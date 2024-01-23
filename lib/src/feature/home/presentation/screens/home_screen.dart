@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
 import 'package:elibrary/src/core/constants/common_imports.dart';
+import 'package:elibrary/src/core/toasty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,16 +31,16 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.h20),
-        child: LayoutBuilder(
-          builder: (context, constraints) => AppScrollView(
-            padding: EdgeInsets.only(bottom: size.h64),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ///Header text and image
-                Row(
+      child: LayoutBuilder(
+        builder: (context, constraints) => AppScrollView(
+          padding: EdgeInsets.only(bottom: size.h64),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ///Header text and image
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.h20),
+                child: Row(
                   children: [
                     ///Header text
                     Expanded(
@@ -76,12 +78,15 @@ class _HomeScreenState extends State<HomeScreen>
                     )
                   ],
                 ),
-                SizedBox(
-                  height: size.h12,
-                ),
+              ),
+              SizedBox(
+                height: size.h12,
+              ),
 
-                ///Search Box and Bookmark button
-                Row(
+              ///Search Box and Bookmark button
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.h20),
+                child: Row(
                   children: [
                     Expanded(
                       child: SearchBoxWidget(
@@ -91,14 +96,20 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   ],
                 ),
+              ),
 
-                ///Results for text
-                ItemSectionWidget(
+              ///Results for text
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.h20),
+                child: ItemSectionWidget(
                   stream: resultsForStreamController.stream,
                 ),
+              ),
 
-                ///Content section
-                AppStreamBuilder<List<BookDataEntity>>(
+              ///Content section
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.h12),
+                child: AppStreamBuilder<List<BookDataEntity>>(
                   stream: bookDataStreamController.stream,
                   loadingBuilder: (context) {
                     return ShimmerLoader(
@@ -156,26 +167,30 @@ class _HomeScreenState extends State<HomeScreen>
                         SizedBox(
                           height: size.h12,
                         ),
-                        GridView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: .6,
-                            crossAxisSpacing: size.h12,
-                            mainAxisSpacing: size.h12,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: size.h8)
+                          ,child: GridView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: .6,
+                              crossAxisSpacing: size.h12,
+                              mainAxisSpacing: size.h12,
+                            ),
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ELibContentItemWidget(
+                                key: Key(data[index].id.toString()),
+                                item: data[index],
+                                onSelect: onBookContentSelected,
+                                showBookmark: true,
+                                onBookmarkSelect: onBookmarkContentSelected,
+                                boxShadow: true,
+                              );
+                            },
                           ),
-                          itemCount: data.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return ELibContentItemWidget(
-                              key: Key(data[index].id.toString()),
-                              item: data[index],
-                              onSelect: onBookContentSelected,
-                              showBookmark: true,
-                              onBookmarkSelect: onBookmarkContentSelected,
-                            );
-                          },
                         ),
                       ],
                     );
@@ -189,8 +204,8 @@ class _HomeScreenState extends State<HomeScreen>
                     );
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -208,6 +223,11 @@ class _HomeScreenState extends State<HomeScreen>
       AppRoute.bookDetailsScreen,
       arguments: BookDetailsScreenArgs(bookData: data),
     );
+  }
+
+  @override
+  void showSuccess(String message) {
+   CustomToasty.of(context).showSuccess(message);
   }
 }
 
@@ -275,12 +295,13 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
+  final bool boxShadow;
   final bool? showBookmark;
   const ELibContentItemWidget({
     Key? key,
     required this.onSelect,
     required this.item,
-    this.onBookmarkSelect,  this.showBookmark,
+    this.onBookmarkSelect,  this.showBookmark, this.boxShadow=false,
   }) : super(key: key);
 
   @override
@@ -296,110 +317,130 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              // color: clr.iconColorRed,
-              borderRadius: BorderRadius.circular(size.h8),
-              border: Border.all(
-                color: clr.appPrimaryColorGreen.withOpacity(.1),
-                width: 1.w,
-              ),
+    return Container(
+      decoration: widget.boxShadow?BoxDecoration(
+          borderRadius: BorderRadius.circular(size.r8),
+          color: clr.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: clr.blackColor.withOpacity(.2),
+              blurRadius: size.r8,
+              offset: Offset(0.0, size.h2),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(7.w),
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  ///Thumbnail image
-                  GestureDetector(
-                    onTap: () => widget.onSelect(widget.item),
-                    child: Container(
-                      width: double.infinity,
-                      // height: double.infinity,
-                      color: Colors.grey.withOpacity(0.5),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.item.coverImage.isNotEmpty
-                            ? "http://103.209.40.89:82/uploads/${widget.item.coverImage}"
-                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
-                        placeholder: (context, url) => const Offstage(),
-                        errorWidget: (context, url, error) =>
-                            Icon(Icons.image, color: clr.greyColor),
-                        fit: BoxFit.cover,
+          ]
+      ):const BoxDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                // color: clr.iconColorRed,
+                borderRadius: BorderRadius.circular(size.h8),
+                border: Border.all(
+                  color: clr.appPrimaryColorGreen.withOpacity(.1),
+                  width: 1.w,
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(7.w),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    ///Thumbnail image
+                    GestureDetector(
+                      onTap: () => widget.onSelect(widget.item),
+                      child: Container(
+                        width: double.infinity,
+                        // height: double.infinity,
+                        color: Colors.grey.withOpacity(0.5),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.item.coverImage.isNotEmpty
+                              ? "http://103.209.40.89:82/uploads/${widget.item.coverImage}"
+                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                          placeholder: (context, url) => const Offstage(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.image, color: clr.greyColor),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
 
-                  ///Bookmark
-                  widget.showBookmark!=null?Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                      onTap: widget.onBookmarkSelect != null
-                          ? () => widget.onBookmarkSelect!(widget.item)
-                          : () {},
-                      child: Container(
-                          margin: EdgeInsets.all(size.h2),
-                          padding: EdgeInsets.all(size.h2),
-                          decoration: BoxDecoration(
-                            color: clr.whiteColor,
-                            borderRadius: BorderRadius.circular(size.r4),
-                          ),
-                          child: widget.item.bookMark
-                              ? Icon(
-                                  Icons.bookmark,
-                                  color: clr.appPrimaryColorGreen,
-                                )
-                              : Icon(
-                                  Icons.bookmark_border_outlined,
-                                  color: clr.appPrimaryColorGreen,
-                                )),
-                    ),
-                  ):const Offstage(),
-                ],
+                    ///Bookmark
+                    widget.showBookmark!=null?Align(
+                      alignment: Alignment.topRight,
+                      child: GestureDetector(
+                        onTap: widget.onBookmarkSelect != null
+                            ? () => widget.onBookmarkSelect!(widget.item)
+                            : () {},
+                        child: Container(
+                            margin: EdgeInsets.all(size.h2),
+                            padding: EdgeInsets.all(size.h2),
+                            decoration: BoxDecoration(
+                              color: clr.whiteColor,
+                              borderRadius: BorderRadius.circular(size.r4),
+                            ),
+                            child: widget.item.bookMark
+                                ? Icon(
+                                    Icons.bookmark,
+                                    color: clr.appPrimaryColorGreen,
+                                  )
+                                : Icon(
+                                    Icons.bookmark_border_outlined,
+                                    color: clr.appPrimaryColorGreen,
+                                  )),
+                      ),
+                    ):const Offstage(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(height: size.h4),
-        GestureDetector(
-          onTap: () => widget.onSelect(widget.item),
-          child: Text(
-            widget.item.titleEn,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: clr.appPrimaryColorGreen,
-              fontSize: size.textXXSmall,
-              fontWeight: FontWeight.w600,
+          SizedBox(height: size.h4),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: size.h4),
+            child: GestureDetector(
+              onTap: () => widget.onSelect(widget.item),
+              child: Text(
+                widget.item.titleEn,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: clr.appPrimaryColorGreen,
+                  fontSize: size.textXXSmall,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
-        ),
-        Text.rich(
-            textAlign: TextAlign.start,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            TextSpan(
-                text: widget.item.author.isNotEmpty ? "by " : "",
-                style: TextStyle(
-                    color: clr.placeHolderTextColorGray,
-                    fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w500),
-                children: [
-                  TextSpan(
-                    text: widget.item.author
-                        .map((c) => c.name)
-                        .toList()
-                        .join(', '),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: size.h4),
+            child: Text.rich(
+                textAlign: TextAlign.start,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                TextSpan(
+                    text: widget.item.author.isNotEmpty ? "by " : "",
                     style: TextStyle(
-                        color: clr.textColorAppleBlack,
+                        color: clr.placeHolderTextColorGray,
                         fontSize: size.textXXSmall,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ])),
-      ],
+                        fontWeight: FontWeight.w500),
+                    children: [
+                      TextSpan(
+                        text: widget.item.author
+                            .map((c) => c.name)
+                            .toList()
+                            .join(', '),
+                        style: TextStyle(
+                            color: clr.textColorAppleBlack,
+                            fontSize: size.textXXSmall,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ])),
+          ),
+          SizedBox(height: size.h4,)
+        ],
+      ),
     );
   }
 }

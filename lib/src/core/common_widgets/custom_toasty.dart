@@ -21,21 +21,21 @@ class CustomToasty with AppTheme{
 
   // public methods
   showSuccess(String message,
-      {Duration duration = const Duration(milliseconds: 3000)}) {
+      {Duration duration = const Duration(milliseconds: 1000)}) {
     _showToast(message, duration, "success");
   }
 
   showWarning(String message,
-      {Duration duration = const Duration(milliseconds: 3000)}) {
+      {Duration duration = const Duration(milliseconds: 1000)}) {
     _showToast(message, duration, "warning");
   }
   showAsk(String message,
-      {Duration duration = const Duration(milliseconds: 3000)}) {
+      {Duration duration = const Duration(milliseconds: 1000)}) {
     _showToast(message, duration, "ask");
   }
   showError(
       {String message = "Couldn't connect to the server.",
-      Duration duration = const Duration(milliseconds: 3000)}) {
+      Duration duration = const Duration(milliseconds: 1000)}) {
     _showToast(message, duration, "error");
   }
 
@@ -251,7 +251,7 @@ class __ToastState extends State<_Toast>
     var screen = MediaQuery.of(context);
     return Positioned(
       left: 0,
-      bottom: size.h64,
+      top: size.h64,
       child: AnimatedBuilder(
         animation: _animationController,
         builder: (context, Widget? child) {

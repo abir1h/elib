@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
 import 'package:elibrary/src/core/routes/app_route_args.dart';
 import 'package:elibrary/src/core/toasty.dart';
 import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
@@ -94,7 +95,7 @@ implements _ViewModel {
   }
 
   void downloadFile(String url, {required String filename}) async {
-    Toasty.of(context).lockUI();
+    CustomToasty.of(context).lockUI();
     try{
       var httpClient = http.Client();
       var request = http.Request('GET', Uri.parse(url));
@@ -149,7 +150,7 @@ implements _ViewModel {
               _pageStateSink?.add(UnknownFileLoadedState(file,bookData.titleEn));
             }
           }
-          Toasty.of(context).releaseUI();
+          CustomToasty.of(context).releaseUI();
           onSaveFileToLocalStorage(file);
           return;
         }, onError: _onDownloadFailed,);

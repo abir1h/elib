@@ -32,7 +32,7 @@ class LanguageEn {
   String homeHeaderText = "Enriching life with knowledge of the world";
   String categoriesText = "Categories";
   String bookmarkText = "Bookmark";
-  String profileText = "My Profile";
+  String profileText = "Profile";
 
   String cancelText = "Cancel";
   String exitText = "Logout";
@@ -139,7 +139,7 @@ class LanguageBn {
   String homeHeaderText = "বিশ্বের জ্ঞান দিয়ে জীবনকে সমৃদ্ধ করা";
   String categoriesText = "ক্যাটাগরি";
   String bookmarkText = "বুকমার্ক";
-  String profileText = "আমার প্রোফাইল";
+  String profileText = "প্রোফাইল";
 
   String cancelText = "বাতিল করুন";
   String exitText = "প্রস্থান করুন";
