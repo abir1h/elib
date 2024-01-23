@@ -58,6 +58,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   // final AppStreamController<ResultsForViewModel> resultsForStreamController = AppStreamController();
   final AppStreamController<List<BookDataEntity>> bookDataStreamController =
       AppStreamController();
+  List<BookDataEntity> _bookData=[];
 
   ///Load Book list
   void _loadInitialData() {
@@ -66,8 +67,9 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     bookDataStreamController.add(LoadingState());
     getPopularBooks(1).then((value) {
       if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
+        _bookData=value.data!.bookDataEntity;
         bookDataStreamController.add(
-            DataLoadedState<List<BookDataEntity>>(value.data!.bookDataEntity));
+            DataLoadedState<List<BookDataEntity>>(_bookData));
       } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
       } else {
         _view.showWarning(value.message!);
@@ -84,11 +86,17 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
       eMISUserId: 1,
     ).then((value) {
       if (value.error == null && value.data != null) {
-        item.bookMark=true;
+        int index = _bookData.indexWhere((element) => element.id == item.id);
+        _bookData[index].bookMark = !_bookData[index].bookMark;
+        bookDataStreamController.add(
+            DataLoadedState<List<BookDataEntity>>(_bookData));
       } else {
         _view.showWarning(value.message!);
       }
     });
+  }
+  onSearchTermChanged(String value){
+
   }
   // void onLoadCategoryList() {
   //   ///Loading state

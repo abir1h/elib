@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
+import '../../../../core/common_widgets/search_book_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
@@ -78,23 +78,22 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
 
                 ///Search Box and Bookmark button
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: SearchBoxWidget(
-                //         hintText: "Search..",
-                //         onSearchTermChange: onSearchTermChanged,
-                //         serviceState: serviceState,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SearchBoxWidget(
+                        hintText: "Search..",
+                        onSearchTermChange: onSearchTermChanged,
+                      ),
+                    ),
+                  ],
+                ),
 
                 ///Content section
                 AppStreamBuilder<List<BookDataEntity>>(
                   stream: bookDataStreamController.stream,
                   loadingBuilder: (context) {
-                    return const Center(child: CircularLoader());
+                    return const CircularLoader();
                   },
                   dataBuilder: (context, data) {
                     return Column(
@@ -127,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen>
                               item: data[index],
                               onSelect: onBookContentSelected,
                               onBookmarkSelect: onBookmarkContentSelected,
+
                             );
                           },
                         ),
@@ -340,31 +340,25 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
   const ELibContentItemWidget(
-      {Key? key,
-      required this.onSelect,
-      required this.item,
-      this.onBookmarkSelect})
+      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect, })
       : super(key: key);
 
   @override
   State<ELibContentItemWidget> createState() => _ELibContentItemWidgetState();
 }
 
-class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
-    with AppTheme, AutomaticKeepAliveClientMixin {
-  StreamController<bool> controller = StreamController();
 
-  @override
+class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
+    with AppTheme {
+
+ @override
   void initState() {
-    controller.stream.listen((event) {
-      print(event);
-    });
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -402,9 +396,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
-                      onTap: widget.onBookmarkSelect != null
-                          ? () => widget.onBookmarkSelect!(widget.item)
-                          : () {},
+                      onTap: widget.onBookmarkSelect!=null?()=>widget.onBookmarkSelect!(widget.item):(){},
                       child: Container(
                           margin: EdgeInsets.all(size.h2),
                           padding: EdgeInsets.all(size.h2),
@@ -412,15 +404,13 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
                           ),
-                          child: widget.item.bookMark
-                              ? Icon(
-                                  Icons.bookmark,
-                                  color: clr.appPrimaryColorGreen,
-                                )
-                              : Icon(
-                                  Icons.bookmark_border_outlined,
-                                  color: clr.appPrimaryColorGreen,
-                                )),
+                          child: widget.item.bookMark ?Icon(
+                            Icons.bookmark,
+                            color: clr.appPrimaryColorGreen,
+                          ):Icon(
+                            Icons.bookmark_border_outlined,
+                            color: clr.appPrimaryColorGreen,
+                          )),
                     ),
                   ),
                 ],
@@ -447,7 +437,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             TextSpan(
-                text: widget.item.author.isNotEmpty ? "by " : "",
+                text: "by ",
                 style: TextStyle(
                     color: clr.placeHolderTextColorGray,
                     fontSize: size.textXXSmall,
@@ -467,7 +457,4 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
