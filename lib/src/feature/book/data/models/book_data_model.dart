@@ -97,7 +97,7 @@ class BookDataModel {
           : [],
       category: json['category'] != null
           ? List<CategoryDataModel>.from(
-              (json["author"]).map((x) => CategoryDataModel.fromJson(x)))
+              (json["category"]).map((x) => CategoryDataModel.fromJson(x)))
           : []);
 
   Map<String, dynamic> toJson() => {
