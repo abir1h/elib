@@ -11,7 +11,7 @@ import '../../../book/domain/entities/book_data_entity.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void navigateToCategoryDetailsScreen(
-      String categoryName, List<BookDataEntity> data);
+      String categoryName, int id);
   void navigateToBookDetailsScreen(BookDataEntity data);
 }
 
@@ -65,8 +65,8 @@ mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
   }
 
   ///On Tap See All
-  void onTapSeeAll(String categoryName, List<BookDataEntity> item) {
-    _view.navigateToCategoryDetailsScreen(categoryName, item);
+  void onTapSeeAll(String categoryName, int id) {
+    _view.navigateToCategoryDetailsScreen(categoryName, id);
   }
 
   void onBookContentSelected(BookDataEntity item) {

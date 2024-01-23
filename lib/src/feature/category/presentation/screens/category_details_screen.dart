@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
+import '../../../../core/common_widgets/empty_widget.dart';
+import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_routes.dart';
@@ -31,25 +35,127 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: _screenArgs.categoryName,
-      child: GridView.builder(
-        physics: const BouncingScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 0.6,
-          crossAxisSpacing: size.h12,
-          mainAxisSpacing: size.h12,
+      child:LayoutBuilder(
+        builder: (context, constraints) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: AppStreamBuilder<List<BookDataEntity>>(
+                stream: bookDataStreamController.stream,
+                loadingBuilder: (context) {
+                  return ShimmerLoader(
+                      child: GridView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: .6,
+                          crossAxisSpacing: size.h12,
+                          mainAxisSpacing: size.h12,
+                        ),
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Container();
+                          // return BookmarkItemWidget(
+                          //   item: BookmarkDataEntity(
+                          //       id: -1,
+                          //       bookId: -1,
+                          //       emisUserId: -1,
+                          //       createdAt: "",
+                          //       updatedAt: "",
+                          //       deletedAt: "",
+                          //       status: -1,
+                          //       book: BookDataEntity(
+                          //           id: -1,
+                          //           titleEn: "",
+                          //           titleBn: "",
+                          //           languageEn: "",
+                          //           languageBn: "",
+                          //           editionEn: "",
+                          //           editionBn: "",
+                          //           publishYearEn: "",
+                          //           publishYearBn: "",
+                          //           publisherEn: "",
+                          //           publisherBn: "",
+                          //           isbnEn: "",
+                          //           isbnBn: "",
+                          //           slug: "",
+                          //           descriptionEn: "",
+                          //           descriptionBn: "",
+                          //           coverImage: "",
+                          //           bookFile: "",
+                          //           externalLink: "",
+                          //           createdBy: -1,
+                          //           isDownload: -1,
+                          //           status: -1,
+                          //           bookMark: false,
+                          //           createdAt: "",
+                          //           updatedAt: "",
+                          //           deletedAt: "",
+                          //           author: [],
+                          //           category: [])),
+                          //   onSelect: (e) {},
+                          //   onBookmarkSelect: (e) {},
+                          // );
+                        },
+                      ));
+                },
+                dataBuilder: (context, data) {
+                  return GridView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 0.6,
+                      crossAxisSpacing: size.h12,
+                      mainAxisSpacing: size.h12,
+                    ),
+                    itemCount: data.length,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.w12, vertical: size.h12),
+                    itemBuilder: (context, index) {
+                      return ELibContentItemWidget(
+                              key: Key(data[index].id.toString()),
+                              item: data[index],
+                              onSelect: onBookContentSelected,
+                      );
+                      return Container();
+                    },
+                  );
+                },
+                emptyBuilder: (context, message, icon) => EmptyWidget(
+                  message: message,
+                  constraints: constraints,
+                  offset: 350.w,
+                ),
+              ),
+            ),
+            SizedBox(height: size.h64),
+
+          ],
         ),
-        itemCount: _screenArgs.books.length,
-        padding: EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h12),
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return ELibContentItemWidget(
-            key: Key(_screenArgs.books[index].id.toString()),
-            item: _screenArgs.books[index],
-            onSelect: onBookContentSelected,
-          );
-        },
       ),
+
+      // GridView.builder(
+      //   physics: const BouncingScrollPhysics(),
+      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 3,
+      //     childAspectRatio: 0.6,
+      //     crossAxisSpacing: size.h12,
+      //     mainAxisSpacing: size.h12,
+      //   ),
+      //   itemCount: _screenArgs.books.length,
+      //   padding: EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h12),
+      //   shrinkWrap: true,
+      //   itemBuilder: (context, index) {
+      //     return ELibContentItemWidget(
+      //       key: Key(_screenArgs.books[index].id.toString()),
+      //       item: _screenArgs.books[index],
+      //       onSelect: onBookContentSelected,
+      //     );
+      //   },
+      // ),
+      //
     );
   }
 

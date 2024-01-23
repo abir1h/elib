@@ -55,239 +55,241 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                     child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: size.h16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 200.h, // Set a fixed height for the image
-                              width: 130.w,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(size.r10),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      "http://103.209.40.89:82/uploads/${data.coverImage}",
-                                  fit: BoxFit.cover,
+                    AppScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: size.h16,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 200.h, // Set a fixed height for the image
+                                width: 130.w,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(size.r10),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        "http://103.209.40.89:82/uploads/${data.coverImage}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: size.w10,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  data.titleEn.isNotEmpty
-                                      ? Text(
-                                          data.titleEn,
-                                          style: TextStyle(
-                                              color: clr.appPrimaryColorGreen,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: size.textLarge,
-                                              fontFamily:
-                                                  StringData.fontFamilyPoppins),
-                                        )
-                                      : const SizedBox(),
-                                  data.author.isNotEmpty
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 4.0),
-                                          child: Text.rich(
-                                            TextSpan(
-                                              text: data.author.isNotEmpty
-                                                  ? "By "
-                                                  : "",
-                                              children: [
-                                                TextSpan(
-                                                  text: data.author
-                                                      .map((c) => c.name)
-                                                      .toList()
-                                                      .join(', '),
-                                                  style: TextStyle(
-                                                    color: clr
-                                                        .appPrimaryColorGreen,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: StringData
-                                                        .fontFamilyPoppins,
-                                                    fontSize: size.textXSmall,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                              SizedBox(
+                                width: size.w10,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    data.titleEn.isNotEmpty
+                                        ? Text(
+                                            data.titleEn,
                                             style: TextStyle(
-                                                color: clr.textColorAppleBlack,
-                                                fontSize: size.textXXSmall,
-                                                fontFamily: StringData
-                                                    .fontFamilyPoppins),
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                  data.category.isNotEmpty
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 4.0),
-                                          child: Text.rich(
-                                            TextSpan(
-                                              text: data.category.isNotEmpty
-                                                  ? "Category : "
-                                                  : "",
-                                              children: [
-                                                TextSpan(
-                                                  text: data.category.first.name
-                                                      .toString(),
-                                                  style: TextStyle(
+                                                color: clr.appPrimaryColorGreen,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.textLarge,
+                                                fontFamily:
+                                                    StringData.fontFamilyPoppins),
+                                          )
+                                        : const SizedBox(),
+                                    data.author.isNotEmpty
+                                        ? Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 4.0),
+                                            child: Text.rich(
+                                              TextSpan(
+                                                text: data.author.isNotEmpty
+                                                    ? "By "
+                                                    : "",
+                                                children: [
+                                                  TextSpan(
+                                                    text: data.author
+                                                        .map((c) => c.name)
+                                                        .toList()
+                                                        .join(', '),
+                                                    style: TextStyle(
                                                       color: clr
                                                           .appPrimaryColorGreen,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: size.textSmall,
+                                                      fontWeight: FontWeight.w600,
                                                       fontFamily: StringData
-                                                          .fontFamilyPoppins),
-                                                ),
-                                              ],
-                                            ),
-                                            style: TextStyle(
-                                              color: clr.textColorAppleBlack,
-                                              fontSize: size.textXSmall,
-                                              fontFamily:
-                                                  StringData.fontFamilyPoppins,
-                                            ),
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                  data.publisherEn.isNotEmpty
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 4.0),
-                                          child: Text.rich(
-                                            TextSpan(
-                                              text: data.publisherEn.isNotEmpty
-                                                  ? "Publisher : "
-                                                  : "",
-                                              children: [
-                                                TextSpan(
-                                                  text: data.publisherEn,
-                                                  style: TextStyle(
-                                                    color: clr
-                                                        .appPrimaryColorGreen,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: size.textSmall,
+                                                          .fontFamilyPoppins,
+                                                      fontSize: size.textXSmall,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
+                                              style: TextStyle(
+                                                  color: clr.textColorAppleBlack,
+                                                  fontSize: size.textXXSmall,
+                                                  fontFamily: StringData
+                                                      .fontFamilyPoppins),
                                             ),
-                                            style: TextStyle(
-                                              color: clr.textColorAppleBlack,
-                                              fontSize: size.textXSmall,
-                                            ),
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                  data.editionEn.isNotEmpty
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 4.0),
-                                          child: Text.rich(
-                                            TextSpan(
-                                              text: data.editionEn.isNotEmpty
-                                                  ? "Edition : "
-                                                  : "",
-                                              children: [
-                                                TextSpan(
-                                                  text: data.editionEn,
-                                                  style: TextStyle(
-                                                    color:
-                                                        clr.textColorAppleBlack,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: size.textSmall,
+                                          )
+                                        : const SizedBox(),
+                                    data.category.isNotEmpty
+                                        ? Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 4.0),
+                                            child: Text.rich(
+                                              TextSpan(
+                                                text: data.category.isNotEmpty
+                                                    ? "Category : "
+                                                    : "",
+                                                children: [
+                                                  TextSpan(
+                                                    text: data.category.first.name
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        color: clr
+                                                            .appPrimaryColorGreen,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: size.textSmall,
+                                                        fontFamily: StringData
+                                                            .fontFamilyPoppins),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
+                                              style: TextStyle(
+                                                color: clr.textColorAppleBlack,
+                                                fontSize: size.textXSmall,
+                                                fontFamily:
+                                                    StringData.fontFamilyPoppins,
+                                              ),
                                             ),
-                                            style: TextStyle(
-                                              color: clr.textColorAppleBlack,
-                                              fontSize: size.textXSmall,
+                                          )
+                                        : const SizedBox(),
+                                    data.publisherEn.isNotEmpty
+                                        ? Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 4.0),
+                                            child: Text.rich(
+                                              TextSpan(
+                                                text: data.publisherEn.isNotEmpty
+                                                    ? "Publisher : "
+                                                    : "",
+                                                children: [
+                                                  TextSpan(
+                                                    text: data.publisherEn,
+                                                    style: TextStyle(
+                                                      color: clr
+                                                          .appPrimaryColorGreen,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: size.textSmall,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              style: TextStyle(
+                                                color: clr.textColorAppleBlack,
+                                                fontSize: size.textXSmall,
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.h16,
-                        ),
-                        data.descriptionEn.isNotEmpty
-                            ? Text(
-                                "Description",
-                                style: TextStyle(
-                                    color: clr.blackColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: size.textMedium,
-                                    fontFamily: StringData.fontFamilyPoppins),
+                                          )
+                                        : const SizedBox(),
+                                    data.editionEn.isNotEmpty
+                                        ? Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 4.0),
+                                            child: Text.rich(
+                                              TextSpan(
+                                                text: data.editionEn.isNotEmpty
+                                                    ? "Edition : "
+                                                    : "",
+                                                children: [
+                                                  TextSpan(
+                                                    text: data.editionEn,
+                                                    style: TextStyle(
+                                                      color:
+                                                          clr.textColorAppleBlack,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: size.textSmall,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              style: TextStyle(
+                                                color: clr.textColorAppleBlack,
+                                                fontSize: size.textXSmall,
+                                              ),
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  ],
+                                ),
                               )
-                            : const SizedBox(),
-                        SizedBox(
-                          height: size.h16,
-                        ),
-
-                        LimitedBox(
-                          maxHeight: 16 * size.textSmall,
-                          child: Scrollbar(
-                            thumbVisibility: true,interactive: true,
-
-                            child: SingleChildScrollView(
-                              child: Text(
-                                data.descriptionEn ?? "",
-                                maxLines: 16,textAlign: TextAlign.justify,
-                                overflow: TextOverflow.fade,
-                                style: TextStyle(
-                                    color: clr.blackColor,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: size.textSmall,
-                                    fontFamily: StringData.fontFamilyPoppins),
-                              ),
-                            ),
+                            ],
                           ),
-                        ),
-
-                        // Text("Book Title: ${data.titleEn}"),
-                      ],
+                          SizedBox(
+                            height: size.h16,
+                          ),
+                          data.descriptionEn.isNotEmpty
+                              ? Text(
+                                  "Description",
+                                  style: TextStyle(
+                                      color: clr.blackColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: size.textMedium,
+                                      fontFamily: StringData.fontFamilyPoppins),
+                                )
+                              : const SizedBox(),
+                          SizedBox(
+                            height: size.h16,
+                          ),
+                          Text(
+                            data.descriptionEn+data.descriptionEn,
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(
+                                color: clr.blackColor,
+                                fontWeight: FontWeight.normal,
+                                fontSize: size.textSmall,
+                                fontFamily: StringData.fontFamilyPoppins),
+                          ),
+                          SizedBox(
+                            height: size.h64*2+size.h24,
+                          ),
+                          // Text("Book Title: ${data.titleEn}"),
+                        ],
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CustomButton(
-                          onTap: () => onNavigateToBookViewerScreen(
-                              (widget.arguments as BookDetailsScreenArgs)
-                                  .bookData),
-                          title: "Read Book",
-                          buttonColor: clr.appPrimaryColorGreen,
+                        Container(
+                          color: clr.whiteColor,
+                          child: CustomButton(
+                            onTap: () => onNavigateToBookViewerScreen(
+                                (widget.arguments as BookDetailsScreenArgs)
+                                    .bookData),
+                            title: "Read Book",
+                            buttonColor: clr.appPrimaryColorGreen,
+                          ),
                         ),
-                        SizedBox(
+                        Container(
                           height: size.h8,
+                          color: clr.whiteColor,
                         ),
-                        CustomButton(
-                            onTap: () {
-                              downloadFile(
-                                  "http://103.209.40.89:82/uploads/${data.bookFile}",
-                                  filename: data.bookFile
-                                      .substring(
-                                          data.bookFile.lastIndexOf("/") + 1)
-                                      .replaceAll("?", "")
-                                      .replaceAll("=", ""));
-                            },
-                            title: "Download Book"),
-                        SizedBox(
+                        Container(
+                          color: clr.whiteColor,
+                          child: CustomButton(
+                              onTap: () {
+                                downloadFile(
+                                    "http://103.209.40.89:82/uploads/${data.bookFile}",
+                                    filename: data.bookFile
+                                        .substring(
+                                            data.bookFile.lastIndexOf("/") + 1)
+                                        .replaceAll("?", "")
+                                        .replaceAll("=", ""));
+                              },
+                              title: "Download Book"),
+                        ),
+                        Container(
                           height: size.h32,
+                          color: clr.whiteColor,
                         ),
                       ],
                     )

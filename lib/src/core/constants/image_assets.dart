@@ -5,7 +5,7 @@ class ImageAssets {
   static String get icLogo => 'logo'.png;
   static String get imgPlaceholder => 'placeholder'.png;
   static String get imgEmptyProfile => 'user_profile'.png;
-
+  static String get imageHome => 'home'.png;
   static String get imgModule1 => 'Illustrator_Module_1'.png;
   static String get imgModule2 => 'Illustrator_Module_2'.png;
   static String get imgModule3 => 'Illustrator_Module_3'.png;

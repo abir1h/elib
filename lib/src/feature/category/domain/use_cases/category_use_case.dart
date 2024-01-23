@@ -16,4 +16,9 @@ class CategoryUseCase {
     return response;
   }
 
+  Future<ResponseEntity> getCategoryByIdUseCase(int categoryId) async {
+    final response = _categoryRepository.getCategoryById(categoryId);
+    return response;
+  }
+
 }

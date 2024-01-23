@@ -110,7 +110,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                               );
                             },
                             onTapSeeAll: () => onTapSeeAll(
-                                data[index].name, data[index].books));
+                                data[index].name, data[index].id));
                       });
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
@@ -134,11 +134,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>
 
   @override
   void navigateToCategoryDetailsScreen(
-      String categoryName, List<BookDataEntity> data) {
+      String categoryName, int id) {
     Navigator.of(context).pushNamed(
       AppRoute.categoryDetailsScreen,
       arguments:
-          CategoryDetailsScreenArgs(categoryName: categoryName, books: data),
+          CategoryDetailsScreenArgs(categoryName: categoryName, categoryId: id),
     );
   }
 
