@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/common_widgets/app_stream.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 
 abstract class _ViewModel {
@@ -22,6 +23,10 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
   void dispose() {
     super.dispose();
   }
+  ///Stream controllers
+  final AppStreamController<List<BookDataEntity>>
+  bookDataStreamController = AppStreamController();
+
 
   void onBookContentSelected(BookDataEntity item) {
     _view.navigateToBookDetailsScreen(item);

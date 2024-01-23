@@ -18,7 +18,7 @@ class BookViewerScreen extends StatefulWidget {
   @override
   State<BookViewerScreen> createState() => _BookViewerScreenState();
 }
-class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, PDFViewerScreenService {
+class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, BookViewerScreenService {
   final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   final StreamController<int> _totalPage = StreamController.broadcast();
   final StreamController<int> _currentPage = StreamController.broadcast();
@@ -45,7 +45,7 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, PDF
     return WillPopScope(
       onWillPop: onGoBack,
       child: CustomScaffold(
-        title: "Document",
+        title: (widget.arguments! as BookViewerScreenArgs).title,
         onBack: onGoBack,
         actionChild:
         // (widget.arguments! as BookViewerScreenArgs).timeToReadInSeconds > 0
@@ -210,7 +210,7 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, PDF
 }
 
 class LoadingProgressView extends StatelessWidget with AppTheme {
-  final PDFViewerScreenService service;
+  final BookViewerScreenService service;
   const LoadingProgressView({Key? key, required this.service}) : super(key: key);
   @override
   Widget build(BuildContext context) {
