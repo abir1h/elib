@@ -110,48 +110,9 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                         onSelect: onBookContentSelected,
                         onBookmarkSelect: onBookmarkContentSelected,
                       );
+                      return Container();
                     },
                   );
-
-                  // return  Expanded(
-                  //   child: Container(
-                  //     color: Colors.deepOrange,
-                  // child: GridView.builder(
-                  //           physics: const BouncingScrollPhysics(),
-                  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //             crossAxisCount: 2,
-                  //             childAspectRatio: 0.7,
-                  //             crossAxisSpacing: size.h12,
-                  //             mainAxisSpacing: size.h12,
-                  //           ),
-                  //           itemCount: data.length,
-                  //           shrinkWrap: false,
-                  //           itemBuilder: (context, index) {
-                  //             return Container();
-                  //           },
-                  //         ),
-                  // )
-                  // );
-                  ///Item widget
-                  // return Column(
-                  //   children: [
-                  //     Expanded(
-                  //         child: GridView.builder(
-                  //           physics: const BouncingScrollPhysics(),
-                  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //             crossAxisCount: 2,
-                  //             childAspectRatio: 0.7,
-                  //             crossAxisSpacing: size.h12,
-                  //             mainAxisSpacing: size.h12,
-                  //           ),
-                  //           itemCount: data.length,
-                  //           shrinkWrap: false,
-                  //           itemBuilder: (context, index) {
-                  //             return Container();
-                  //           },
-                  //         ))
-                  //   ],
-                  // );
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
                   message: message,
@@ -162,78 +123,6 @@ class _BookmarkScreenState extends State<BookmarkScreen>
             ),
             SizedBox(height: size.h64),
 
-            ///Search Box and Bookmark button
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: SearchBoxWidget(
-            //         hintText: "Search..",
-            //         onSearchTermChange: onSearchTermChanged,
-            //         serviceState: serviceState,
-            //       ),
-            //     ),
-            //     CategoryFilterMenu(
-            //       serviceState: serviceState,
-            //       onLoadData: onLoadCategoryList,
-            //       onCategorySelected: onCategorySelected,
-            //     ),
-            //   ],
-            // ),
-
-            // ///Results for text
-            // ItemSectionWidget(
-            //   stream: resultsForStreamController.stream,
-            // ),
-            // ///Content section
-            // AppStreamBuilder<PaginatedGridViewController<BookDataEntity>>(
-            //   stream: eLibraryDataStreamController.stream,
-            //   loadingBuilder: (x)=>
-            //
-            //       CircularProgressIndicator(),
-            //   //     SectionLoadingWidget(
-            //   //   constraints: constraints,
-            //   //   offset: 350.w,
-            //   // ),
-            //   dataBuilder: (context, data){
-            //     ///Item widget
-            //     return PaginatedGridView<PaginatedGridViewController<BookDataEntity>>(
-            //       controller: paginationController,
-            //       physics: const BouncingScrollPhysics(),
-            //       shrinkWrap: true,
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2,
-            //         childAspectRatio: 0.7,
-            //         crossAxisSpacing: size.h12,
-            //         mainAxisSpacing: size.h12,
-            //       ),
-            //       itemBuilder: (context, item, index) {
-            //         return Container();
-            //
-            //         //   ELibContentItemWidget(
-            //         //   // key: Key(item.id.toString()),
-            //         //   item: item,
-            //         //   onSelect: onELibraryContentSelected,
-            //         // );
-            //       },
-            //       loaderBuilder: (context)=> Padding(
-            //         padding: EdgeInsets.all(4.0.w),
-            //         child: Center(
-            //           child: CircularProgressIndicator(),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            //   emptyBuilder: (context, message,icon){
-            //     return CircularProgressIndicator();
-            //
-            //     //   SectionEmptyWidget(
-            //     //   constraints: constraints,
-            //     //   message: message,
-            //     //   icon: icon,
-            //     //   offset: 350.w,
-            //     // );
-            //   },
-            // ),
           ],
         ),
       ),
@@ -305,6 +194,8 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
                         errorWidget: (context, url, error) =>
                             Icon(Icons.image, color: clr.greyColor),
                         fit: BoxFit.cover,
+                        placeholder: (context, url) => const Offstage(),
+                        errorWidget: (context, url, error) => const Icon(Icons.image),
                       ),
                     ),
                   ),
