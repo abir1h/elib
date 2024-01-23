@@ -6,11 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
-import '../../../../core/common_widgets/paginated_gridview_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../../core/toasty.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../services/home_service.dart';
 
@@ -342,17 +340,19 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
   const ELibContentItemWidget(
-      {Key? key, required this.onSelect, required this.item, this.onBookmarkSelect})
+      {Key? key,
+      required this.onSelect,
+      required this.item,
+      this.onBookmarkSelect})
       : super(key: key);
 
   @override
   State<ELibContentItemWidget> createState() => _ELibContentItemWidgetState();
 }
 
-
 class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
     with AppTheme, AutomaticKeepAliveClientMixin {
-  StreamController<bool> controller=StreamController();
+  StreamController<bool> controller = StreamController();
 
   @override
   void initState() {
@@ -402,7 +402,9 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
-                      onTap: widget.onBookmarkSelect!=null?()=>widget.onBookmarkSelect!(widget.item):(){},
+                      onTap: widget.onBookmarkSelect != null
+                          ? () => widget.onBookmarkSelect!(widget.item)
+                          : () {},
                       child: Container(
                           margin: EdgeInsets.all(size.h2),
                           padding: EdgeInsets.all(size.h2),
@@ -410,13 +412,15 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
                           ),
-                          child: widget.item.bookMark ?Icon(
-                            Icons.bookmark,
-                            color: clr.appPrimaryColorGreen,
-                          ):Icon(
-                            Icons.bookmark_border_outlined,
-                            color: clr.appPrimaryColorGreen,
-                          )),
+                          child: widget.item.bookMark
+                              ? Icon(
+                                  Icons.bookmark,
+                                  color: clr.appPrimaryColorGreen,
+                                )
+                              : Icon(
+                                  Icons.bookmark_border_outlined,
+                                  color: clr.appPrimaryColorGreen,
+                                )),
                     ),
                   ),
                 ],
@@ -443,7 +447,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             TextSpan(
-                text: "by ",
+                text: widget.item.author.isNotEmpty ? "by " : "",
                 style: TextStyle(
                     color: clr.placeHolderTextColorGray,
                     fontSize: size.textXXSmall,

@@ -37,7 +37,7 @@ class _BaseScreenState extends State<BaseScreen>
                 } else if (index == 1) {
                   return const CategoriesScreen();
                 } else if (index == 2) {
-                  return BookmarkScreen();
+                  return const BookmarkScreen();
                 } else if (index == 3) {
                   return const ProfileScreen();
                 }

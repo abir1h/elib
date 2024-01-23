@@ -56,6 +56,7 @@ mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
                 value.data!.categoryDataEntity));
       } else if (value.error == null &&
           value.data.categoryDataEntity!.isEmpty) {
+        categoryDataStreamController.add(EmptyState(message: 'No Category Found'));
       } else {
         _view.showWarning(value.message!);
       }

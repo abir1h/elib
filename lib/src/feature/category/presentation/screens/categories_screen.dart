@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/circuler_widget.dart';
-import '../../../../core/constants/app_theme.dart';
-import '../../../../core/common_widgets/app_scroll_widget.dart';
+import '../../../../core/common_widgets/empty_widget.dart';
+import '../../../../core/common_widgets/shimmer_loader.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
@@ -12,6 +13,7 @@ import '../../../home/presentation/screens/home_screen.dart';
 import '../services/category_screen_service.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../domain/entities/category_data_entity.dart';
+import '../../../../core/common_widgets/header_widget.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -26,51 +28,98 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: LayoutBuilder(
-        builder: (context, constraints) => AppScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppStreamBuilder<List<CategoryDataEntity>>(
+        builder: (context, constraints) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const HeaderWidget(title: "Categories"),
+            Expanded(
+              child: AppStreamBuilder<List<CategoryDataEntity>>(
                 stream: categoryDataStreamController.stream,
                 loadingBuilder: (context) {
-                  return const Center(child: CircularLoader());
+                  return ShimmerLoader(
+                      child: CategorySectionWidget(
+                          items: const [
+                        "",
+                        "",
+                        "",
+                      ],
+                          buildItem: (context, index, item) {
+                            return ItemSectionWidget<String>(
+                              onTapSeeAll: () {},
+                              title: "                    ",
+                              items: const [
+                                "",
+                                "",
+                              ],
+                              buildItem: (context, index, item) {
+                                return AspectRatio(
+                                  aspectRatio: .8,
+                                  child: ELibContentItemWidget(
+                                    key: ObjectKey(item),
+                                    item: BookDataEntity(
+                                        id: -1,
+                                        titleEn: "",
+                                        titleBn: "",
+                                        languageEn: "",
+                                        languageBn: "",
+                                        editionEn: "",
+                                        editionBn: "",
+                                        publishYearEn: "",
+                                        publishYearBn: "",
+                                        publisherEn: "",
+                                        publisherBn: "",
+                                        isbnEn: "",
+                                        isbnBn: "",
+                                        slug: "",
+                                        descriptionEn: "",
+                                        descriptionBn: "",
+                                        coverImage: "",
+                                        bookFile: "",
+                                        externalLink: "",
+                                        createdBy: -1,
+                                        isDownload: -1,
+                                        status: -1,
+                                        bookMark: false,
+                                        createdAt: "",
+                                        updatedAt: "",
+                                        deletedAt: "",
+                                        author: [],
+                                        category: []),
+                                    onSelect: onBookContentSelected,
+                                  ),
+                                );
+                              },
+                            );
+                          }));
                 },
                 dataBuilder: (context, data) {
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: data.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: size.w12, vertical: size.h12),
-                    itemBuilder: (context, index) {
-                      return ItemSectionWidget(
-                          title: data[index].name,
-                          items: data[index].books,
-                          buildItem: (context, index, item) {
-                            return AspectRatio(
-                              aspectRatio: .8,
-                              child: ELibContentItemWidget(
-                                key: Key(item.id.toString()),
-                                item: item,
-                                onSelect: onBookContentSelected,
-                              ),
-                            );
-                          },
-                          onTapSeeAll: () =>
-                              onTapSeeAll(data[index].name, data[index].books));
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: size.h12);
-                    },
-                  );
+                  return CategorySectionWidget(
+                      items: data,
+                      buildItem: (context, index, item) {
+                        return ItemSectionWidget(
+                            title: data[index].name,
+                            items: data[index].books,
+                            buildItem: (context, index, item) {
+                              return AspectRatio(
+                                aspectRatio: .8,
+                                child: ELibContentItemWidget(
+                                  key: Key(item.id.toString()),
+                                  item: item,
+                                  onSelect: onBookContentSelected,
+                                ),
+                              );
+                            },
+                            onTapSeeAll: () => onTapSeeAll(
+                                data[index].name, data[index].books));
+                      });
                 },
-                emptyBuilder: (context, message, icon) {
-                  return const Text("Empty");
-                },
+                emptyBuilder: (context, message, icon) => EmptyWidget(
+                  message: message,
+                ),
               ),
-              SizedBox(height: size.h64)
-            ],
-          ),
+            ),
+            SizedBox(height: size.h64)
+          ],
         ),
       ),
     );
@@ -100,6 +149,30 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   }
 }
 
+class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
+  final List<T> items;
+  final Widget Function(BuildContext context, int index, T item) buildItem;
+  const CategorySectionWidget(
+      {Key? key, required this.items, required this.buildItem})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemCount: items.length,
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h12),
+      itemBuilder: (context, index) {
+        return buildItem(context, index, items[index]);
+      },
+      separatorBuilder: (context, index) {
+        return SizedBox(height: size.h12);
+      },
+    );
+  }
+}
+
 class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
   final String title;
   final List<T> items;
@@ -123,8 +196,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
       children: [
         ///Header text
         Padding(
-          padding: EdgeInsets.only(
-              left: size.w16, right: size.w16, top: size.h12, bottom: size.h8),
+          padding: EdgeInsets.only(bottom: size.h8),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -164,7 +236,6 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
                   itemCount: items.length < 5 ? items.length : 5,
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: size.w16),
                   itemBuilder: (context, index) {
                     return buildItem(context, index, items[index]);
                   },
@@ -175,12 +246,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
               )
             : AspectRatio(
                 aspectRatio: aspectRatio,
-                child: Center(
-                  child: Text(
-                    "No Book Found",
-                    style: TextStyle(color: clr.textColorAppleBlack),
-                  ),
-                ),
+                child: Lottie.asset(ImageAssets.animEmpty),
               ),
       ],
     );
