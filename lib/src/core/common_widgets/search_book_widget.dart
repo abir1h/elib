@@ -54,53 +54,57 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
         ),
         borderRadius: BorderRadius.circular(size.h24),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 2.0.w),
-            child: Icon(
-              Icons.search_rounded,
-              color: clr.blackColor,
-              size: size.h20,
-            )
-          ),
-          SizedBox(width: size.h8,),
-          Expanded(
-            child: TextField(
-              controller: _textEditingController,
-              maxLines: 1,
-              minLines: 1,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.done,
-              style: TextStyle(
+      child: Padding(
+        padding: EdgeInsets.only(top: 2.0.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 2.0.w),
+              child: Icon(
+                Icons.search_rounded,
                 color: clr.blackColor,
-                fontSize: size.textSmall,
-              ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                isDense: true,
-                hintText: widget.hintText,
-                hintStyle: TextStyle(
+                size: size.h20,
+              )
+            ),
+            SizedBox(width: size.h8,),
+            Expanded(
+              child: TextField(
+                controller: _textEditingController,
+                maxLines: 1,
+                minLines: 1,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                style: TextStyle(
                   color: clr.blackColor,
                   fontSize: size.textSmall,
                 ),
-              ),
-              onChanged: _onTextChange,
-            ),
-          ),
-          if(_textEditingController.text.isNotEmpty)
-            GestureDetector(
-              onTap: (){
-                _textEditingController.clear();
-                _onTextChange(_textEditingController.text);
-              },
-              child: Icon(
-                Icons.close,
-                color: clr.appSecondaryColorFlagRed,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  isDense: true,
+                  hintText: widget.hintText,
+                  contentPadding: const EdgeInsets.all(0),
+                  hintStyle: TextStyle(
+                    color: clr.blackColor,
+                    fontSize: size.textSmall,
+                  ),
+                ),
+                onChanged: _onTextChange,
               ),
             ),
-        ],
+            if(_textEditingController.text.isNotEmpty)
+              GestureDetector(
+                onTap: (){
+                  _textEditingController.clear();
+                  _onTextChange(_textEditingController.text);
+                },
+                child: Icon(
+                  Icons.close,
+                  color: clr.appSecondaryColorFlagRed,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
