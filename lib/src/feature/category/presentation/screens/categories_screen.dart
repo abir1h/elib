@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -12,7 +10,9 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../home/presentation/screens/home_screen.dart';
+import '../../../../core/constants/language.dart';
+import '../../../../core/utility/app_label.dart';
+import '../../../book/presentation/widgets/elib_content_item_widget.dart';
 import '../services/category_screen_service.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../domain/entities/category_data_entity.dart';
@@ -259,13 +259,17 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                 )
               : AspectRatio(
                   aspectRatio: aspectRatio,
-                  child: Column(children: [
-                    Lottie.asset(
-                        ImageAssets.animEmpty,
-                    height: size.h56*2
-                    ),
-                    Text("No Book Found !",style: TextStyle(color: clr.appPrimaryColorGreen,fontSize: size.textXSmall),)
-                  ],),
+                  child: Column(
+                    children: [
+                      Lottie.asset(ImageAssets.animEmpty, height: size.h56 * 2),
+                      Text(
+                        "No Book Found !",
+                        style: TextStyle(
+                            color: clr.appPrimaryColorGreen,
+                            fontSize: size.textXSmall),
+                      )
+                    ],
+                  ),
                 ),
         ],
       ),

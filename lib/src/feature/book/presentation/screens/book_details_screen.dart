@@ -1,9 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elibrary/src/core/common_widgets/custom_button.dart';
-import 'package:elibrary/src/core/constants/app_theme.dart';
-import 'package:elibrary/src/core/constants/common_imports.dart';
-import 'package:elibrary/src/core/routes/app_route_args.dart';
-import 'package:elibrary/src/core/toasty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,6 +9,10 @@ import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../domain/entities/book_data_entity.dart';
 import '../services/book_details_services.dart';
+import '../../../../core/common_widgets/custom_button.dart';
+import '../../../../core/constants/common_imports.dart';
+import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   final Object? arguments;
@@ -65,17 +64,53 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 200.h, // Set a fixed height for the image
-                                width: 130.w,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(size.r10),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        "http://103.209.40.89:82/uploads/${data.coverImage}",
-                                    fit: BoxFit.cover,
+                              Stack(
+                                children: [
+                                  SizedBox(
+                                    height: 200
+                                        .h, // Set a fixed height for the image
+                                    width: 130.w,
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.circular(size.r10),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            "http://103.209.40.89:82/uploads/${data.coverImage}",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ),
+
+                                  ///Bookmark
+                                  Positioned(
+                                    // top: size.h2,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () =>
+                                          onBookmarkContentSelected(data),
+                                      child: Container(
+                                          margin: EdgeInsets.all(size.h2),
+                                          padding: EdgeInsets.all(size.h2),
+                                          decoration: BoxDecoration(
+                                            color: clr.whiteColor,
+                                            borderRadius:
+                                                BorderRadius.circular(size.r4),
+                                          ),
+                                          child: data.bookMark
+                                              ? Icon(
+                                                  Icons.bookmark,
+                                                  color:
+                                                      clr.appPrimaryColorGreen,
+                                                )
+                                              : Icon(
+                                                  Icons
+                                                      .bookmark_border_outlined,
+                                                  color:
+                                                      clr.appPrimaryColorGreen,
+                                                )),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 width: size.w10,
@@ -91,8 +126,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                 color: clr.appPrimaryColorGreen,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: size.textLarge,
-                                                fontFamily:
-                                                    StringData.fontFamilyPoppins),
+                                                fontFamily: StringData
+                                                    .fontFamilyPoppins),
                                           )
                                         : const SizedBox(),
                                     data.author.isNotEmpty
@@ -113,7 +148,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                     style: TextStyle(
                                                       color: clr
                                                           .appPrimaryColorGreen,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontFamily: StringData
                                                           .fontFamilyPoppins,
                                                       fontSize: size.textXSmall,
@@ -122,7 +158,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                 ],
                                               ),
                                               style: TextStyle(
-                                                  color: clr.textColorAppleBlack,
+                                                  color:
+                                                      clr.textColorAppleBlack,
                                                   fontSize: size.textXXSmall,
                                                   fontFamily: StringData
                                                       .fontFamilyPoppins),
@@ -140,14 +177,16 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                     : "",
                                                 children: [
                                                   TextSpan(
-                                                    text: data.category.first.name
+                                                    text: data
+                                                        .category.first.name
                                                         .toString(),
                                                     style: TextStyle(
                                                         color: clr
                                                             .appPrimaryColorGreen,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        fontSize: size.textSmall,
+                                                        fontSize:
+                                                            size.textSmall,
                                                         fontFamily: StringData
                                                             .fontFamilyPoppins),
                                                   ),
@@ -156,8 +195,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                               style: TextStyle(
                                                 color: clr.textColorAppleBlack,
                                                 fontSize: size.textXSmall,
-                                                fontFamily:
-                                                    StringData.fontFamilyPoppins,
+                                                fontFamily: StringData
+                                                    .fontFamilyPoppins,
                                               ),
                                             ),
                                           )
@@ -168,16 +207,18 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                 const EdgeInsets.only(top: 4.0),
                                             child: Text.rich(
                                               TextSpan(
-                                                text: data.publisherEn.isNotEmpty
-                                                    ? "Publisher : "
-                                                    : "",
+                                                text:
+                                                    data.publisherEn.isNotEmpty
+                                                        ? "Publisher : "
+                                                        : "",
                                                 children: [
                                                   TextSpan(
                                                     text: data.publisherEn,
                                                     style: TextStyle(
                                                       color: clr
                                                           .appPrimaryColorGreen,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                       fontSize: size.textSmall,
                                                     ),
                                                   ),
@@ -203,9 +244,10 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                   TextSpan(
                                                     text: data.editionEn,
                                                     style: TextStyle(
-                                                      color:
-                                                          clr.textColorAppleBlack,
-                                                      fontWeight: FontWeight.w500,
+                                                      color: clr
+                                                          .textColorAppleBlack,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                       fontSize: size.textSmall,
                                                     ),
                                                   ),
@@ -240,7 +282,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             height: size.h16,
                           ),
                           Text(
-                            data.descriptionEn+data.descriptionEn,
+                            data.descriptionEn + data.descriptionEn,
                             textAlign: TextAlign.justify,
                             overflow: TextOverflow.fade,
                             style: TextStyle(
@@ -250,7 +292,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 fontFamily: StringData.fontFamilyPoppins),
                           ),
                           SizedBox(
-                            height: size.h64*2+size.h24,
+                            height: size.h64 * 2 + size.h24,
                           ),
                           // Text("Book Title: ${data.titleEn}"),
                         ],
@@ -305,10 +347,6 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   }
 
   @override
-  void showWarning(String message) {
-    // TODO: implement showWarning
-  }
-  @override
   void navigateToBookViewerScreen(BookDataEntity item) {
     Navigator.of(context).pushNamed(
       AppRoute.bookViewScreen,
@@ -319,5 +357,15 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
         url: "http://103.209.40.89:82/uploads/${item.bookFile}",
       ),
     );
+  }
+
+  @override
+  void showWarning(String message) {
+    CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 }

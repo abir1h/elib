@@ -8,9 +8,9 @@ import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../home/presentation/screens/home_screen.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
+import '../../../book/presentation/widgets/elib_content_item_widget.dart';
 import '../services/category_details_screen_service.dart';
 
 class CategoryDetailsScreen extends StatefulWidget {
@@ -55,8 +55,8 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                     ),
                     itemCount: 10,
                     shrinkWrap: true,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.w12, vertical: size.h12),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.w12, vertical: size.h12),
                     itemBuilder: (context, index) {
                       return ELibContentItemWidget(
                           item: BookDataEntity(
@@ -115,7 +115,6 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                         onBookmarkSelect: onBookmarkSelected,
                         boxShadow: true,
                       );
-                      return Container();
                     },
                   );
                 },
