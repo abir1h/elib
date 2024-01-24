@@ -217,7 +217,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: clr.blackColor,
+                      color: clr.appPrimaryColorGreen,
                       fontSize: size.textSmall,
                       fontWeight: FontWeight.w600,
                     ),
@@ -259,7 +259,13 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                 )
               : AspectRatio(
                   aspectRatio: aspectRatio,
-                  child: Lottie.asset(ImageAssets.animEmpty),
+                  child: Column(children: [
+                    Lottie.asset(
+                        ImageAssets.animEmpty,
+                    height: size.h56*2
+                    ),
+                    Text("No Book Found !",style: TextStyle(color: clr.appPrimaryColorGreen,fontSize: size.textXSmall),)
+                  ],),
                 ),
         ],
       ),

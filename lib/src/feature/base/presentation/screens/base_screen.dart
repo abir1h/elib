@@ -35,13 +35,15 @@ class _BaseScreenState extends State<BaseScreen>
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return const HomeScreen();
+                  return  HomeScreen(
+                    key: ObjectKey(DateTime.now()),
+                  );
                 } else if (index == 1) {
-                  return const CategoriesScreen();
+                  return  CategoriesScreen(  key: ObjectKey(DateTime.now()),);
                 } else if (index == 2) {
-                  return const BookmarkScreen();
+                  return  BookmarkScreen(  key: ObjectKey(DateTime.now()),);
                 } else if (index == 3) {
-                  return const ProfileScreen();
+                  return  ProfileScreen(  key: ObjectKey(DateTime.now()),);
                 }
                 return const Center(child: Text("Unauthorized to access!"));
               },
