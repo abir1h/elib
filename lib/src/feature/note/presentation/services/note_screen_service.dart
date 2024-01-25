@@ -20,8 +20,10 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
       noteRepository:
           NoteRepositoryImp(noteRemoteDataSource: NoteRemoteDataSourceImp()));
 
-  Future<ResponseEntity> getNoteList() async {
-    return _noteUseCase.getNotesUseCase();
+  Future<ResponseEntity> getNoteList(bool enablePagination,
+      {int? pageNumber}) async {
+    return _noteUseCase.getNotesUseCase(enablePagination,
+        pageNumber: pageNumber);
   }
 
   ///Service configurations
@@ -29,7 +31,7 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
   void initState() {
     _view = this;
     super.initState();
-    _loadNotesData();
+    _loadNotesData(true, pageNumber: 1);
   }
 
   @override
@@ -43,10 +45,10 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
       AppStreamController();
 
   ///Load Category list
-  void _loadNotesData() {
+  void _loadNotesData(bool enablePagination, {int? pageNumber}) {
     if (!mounted) return;
     noteDataStreamController.add(LoadingState());
-    getNoteList().then((value) {
+    getNoteList(enablePagination, pageNumber: pageNumber).then((value) {
       if (value.error == null && value.data.noteDataEntity!.isNotEmpty) {
         noteDataStreamController.add(
             DataLoadedState<List<NoteDataEntity>>(value.data!.noteDataEntity));

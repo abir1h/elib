@@ -6,8 +6,10 @@ class NoteUseCase {
   NoteUseCase({required NoteRepository noteRepository})
       : _noteRepository = noteRepository;
 
-  Future<ResponseEntity> getNotesUseCase() async {
-    final response = _noteRepository.getNoteList();
+  Future<ResponseEntity> getNotesUseCase(bool enablePagination,
+      {int? pageNumber}) async {
+    final response =
+        _noteRepository.getNoteList(enablePagination, pageNumber: pageNumber);
     return response;
   }
 }

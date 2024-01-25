@@ -138,7 +138,8 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
               DrawerLinkWidget(
                 icon: Icons.book,
                 text: label(e: en.bookRequestText, b: bn.bookRequestText),
-                onTap: () {},
+                onTap: () => Navigator.of(context)
+                    .pushNamed(AppRoute.bookRequestListScreen),
               ),
               DrawerLinkWidget(
                 icon: Icons.logout,

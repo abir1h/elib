@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
 import '../../feature/book/presentation/screens/book_details_screen.dart';
+import '../../feature/book/presentation/screens/book_request_list_screen.dart';
 import '../../feature/book/presentation/screens/book_view_screen.dart';
 import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
@@ -26,6 +27,7 @@ class AppRoute {
   static const String bookViewScreen = 'bookViewScreen';
   static const String noteScreen = 'noteScreen';
   static const String noteDetailsScreen = 'noteDetailsScreen';
+  static const String bookRequestListScreen = 'bookRequestListScreen';
 }
 
 mixin RouteGenerator {
@@ -64,6 +66,10 @@ mixin RouteGenerator {
           return const NoteScreen();
         case AppRoute.noteDetailsScreen:
           return NoteDetailsScreen(arguments: setting.arguments);
+
+        ///Book Request
+        case AppRoute.bookRequestListScreen:
+          return const BookRequestListScreen();
 
         ///Default Screen
         default:
