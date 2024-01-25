@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 
+@immutable
 class BookRequestDataModel {
   final int id;
   final int emisUserId;
@@ -53,4 +55,10 @@ class BookRequestDataModel {
     "updated_at": updatedAt,
     "deleted_at": deletedAt,
   };
+  static List<BookRequestDataModel> listFromJson(List<dynamic> json) {
+    return json.isNotEmpty
+        ? List.castFrom<dynamic, BookRequestDataModel>(
+        json.map((x) => BookRequestDataModel.fromJson(x)).toList())
+        : [];
+  }
 }
