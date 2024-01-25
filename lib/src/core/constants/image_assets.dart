@@ -14,7 +14,7 @@ class ImageAssets {
   static String get icSocialLearning => 'social_learning'.svg;
   static String get icLockOpenRight => 'lock_open_right'.svg;
 
-  static String get animEmpty => 'Animation - 1705985200497'.json;
+  static String get animEmpty => 'Animation - 1706009676891'.json;
 }
 
 extension on String {

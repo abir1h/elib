@@ -1,13 +1,15 @@
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:elibrary/src/core/utility/app_label.dart';
-import 'package:elibrary/src/feature/category/presentation/screens/categories_screen.dart';
-import 'package:elibrary/src/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../core/constants/app_theme.dart';
 import '../../../book/presentation/screens/bookmark_screen.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 import '../services/base_screen_services.dart';
+import '../../../../core/common_widgets/drawer_widget.dart';
+import '../../../../core/constants/language.dart';
+import '../../../../core/utility/app_label.dart';
+import '../../../category/presentation/screens/categories_screen.dart';
+import '../../../profile/presentation/screens/profile_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   final Object? arguments;
@@ -19,11 +21,15 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen>
     with AppTheme, BaseScreenService {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: clr.whiteColor,
         resizeToAvoidBottomInset: false,
+        drawer: const DrawerWidget(),
         body: Stack(
           fit: StackFit.expand,
           children: [
@@ -35,13 +41,21 @@ class _BaseScreenState extends State<BaseScreen>
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return const HomeScreen();
+                  return HomeScreen(
+                    key: ObjectKey(DateTime.now()),
+                  );
                 } else if (index == 1) {
-                  return const CategoriesScreen();
+                  return CategoriesScreen(
+                    key: ObjectKey(DateTime.now()),
+                  );
                 } else if (index == 2) {
-                  return const BookmarkScreen();
+                  return BookmarkScreen(
+                    key: ObjectKey(DateTime.now()),
+                  );
                 } else if (index == 3) {
-                  return const ProfileScreen();
+                  return ProfileScreen(
+                    key: ObjectKey(DateTime.now()),
+                  );
                 }
                 return const Center(child: Text("Unauthorized to access!"));
               },
@@ -134,28 +148,34 @@ class _BottomNavigationBarState extends State<BottomNavigationBar>
           children: [
             NavButtonItem(
               title: label(e: en.homeText, b: bn.homeText),
-              icon: CupertinoIcons.home,
+              icon: _selectedIndex == 0 ? Icons.home_outlined : Icons.home,
               size: size.h22,
               selected: _selectedIndex == 0,
               onSelect: () => _selectTab(0),
             ),
             NavButtonItem(
               title: label(e: en.categoriesText, b: bn.categoriesText),
-              icon: CupertinoIcons.square_stack_3d_up,
+              icon: _selectedIndex == 1
+                  ? Icons.category_outlined
+                  : Icons.category_rounded,
               size: size.h22,
               selected: _selectedIndex == 1,
               onSelect: () => _selectTab(1),
             ),
             NavButtonItem(
               title: label(e: en.bookmarkText, b: bn.bookmarkText),
-              icon: CupertinoIcons.bookmark_fill,
+              icon: _selectedIndex == 2
+                  ? Icons.bookmark_border
+                  : Icons.bookmark_outlined,
               size: size.h22,
               selected: _selectedIndex == 2,
               onSelect: () => _selectTab(2),
             ),
             NavButtonItem(
               title: label(e: en.profileText, b: bn.profileText),
-              icon: CupertinoIcons.profile_circled,
+              icon: _selectedIndex == 3
+                  ? Icons.account_circle_outlined
+                  : CupertinoIcons.profile_circled,
               size: size.h22,
               selected: _selectedIndex == 3,
               onSelect: () => _selectTab(3),

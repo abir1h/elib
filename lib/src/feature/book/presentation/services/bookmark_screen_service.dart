@@ -9,8 +9,9 @@ import '../../domain/entities/bookmark_data_entity.dart';
 import '../../domain/use_cases/book_use_case.dart';
 
 abstract class _ViewModel {
-  void showWarning(String message);
+  void showSuccess(String message);
   void navigateToBookDetailsScreen(BookmarkDataEntity data);
+  void showWarning(String message);
 /*  void showWarning(String message);
   void navigateToCategoryDetailsScreen(
       String categoryName, List<BookDataEntity> data);
@@ -87,6 +88,7 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
         if(_bookList.isEmpty){
           bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
         }
+        _view.showSuccess(item.status==0?"বুকমার্ক সফলভাবে যোগ করা হয়েছে !":"বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
       } else {
         _view.showWarning(value.message!);
       }

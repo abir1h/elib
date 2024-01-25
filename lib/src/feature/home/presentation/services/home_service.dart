@@ -13,6 +13,7 @@ import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void showSuccess(String message);
   void navigateToBookDetailsScreen(BookDataEntity data);
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
@@ -103,6 +104,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
         _bookData[index].bookMark = !_bookData[index].bookMark;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(_bookData));
+        _view.showSuccess(item.bookMark?"বুকমার্ক সফলভাবে যোগ করা হয়েছে !":"বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
       } else {
         _view.showWarning(value.message!);
       }
@@ -120,7 +122,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
               .add(DataLoadedState<List<BookDataEntity>>(_bookData));
         } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
           bookDataStreamController.add(EmptyState(
-            message: "No item found!",
+            message: "No Book found!",
             icon: Icons.search_rounded,
           ));
         } else {

@@ -12,6 +12,7 @@ import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void showSuccess(String message);
   void navigateToBookDetailsScreen(BookDataEntity data);
 }
 
@@ -87,6 +88,7 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
         _bookList[index].bookMark = !_bookList[index].bookMark;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(_bookList));
+        _view.showSuccess(item.bookMark?"বুকমার্ক সফলভাবে যোগ করা হয়েছে !":"বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
       } else {
         _view.showWarning(value.message!);
       }

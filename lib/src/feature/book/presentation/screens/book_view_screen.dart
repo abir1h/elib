@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:elibrary/src/core/common_widgets/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
@@ -200,12 +201,12 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
 
   @override
   void showWarning(String msg) {
-    Toasty.of(context).showWarning(msg);
+    CustomToasty.of(context).showWarning(msg);
   }
 
   @override
   void showSuccess(String msg) {
-    Toasty.of(context).showSuccess(msg);
+    CustomToasty.of(context).showSuccess(msg);
   }
 }
 

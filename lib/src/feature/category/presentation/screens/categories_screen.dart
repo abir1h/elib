@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -12,7 +10,9 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../home/presentation/screens/home_screen.dart';
+import '../../../../core/constants/language.dart';
+import '../../../../core/utility/app_label.dart';
+import '../../../book/presentation/widgets/elib_content_item_widget.dart';
 import '../services/category_screen_service.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../domain/entities/category_data_entity.dart';
@@ -109,8 +109,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                 ),
                               );
                             },
-                            onTapSeeAll: () => onTapSeeAll(
-                                data[index].name, data[index].id));
+                            onTapSeeAll: () =>
+                                onTapSeeAll(data[index].name, data[index].id));
                       });
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
@@ -133,8 +133,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   }
 
   @override
-  void navigateToCategoryDetailsScreen(
-      String categoryName, int id) {
+  void navigateToCategoryDetailsScreen(String categoryName, int id) {
     Navigator.of(context).pushNamed(
       AppRoute.categoryDetailsScreen,
       arguments:
@@ -192,65 +191,88 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///Header text
-        Padding(
-          padding: EdgeInsets.only(bottom: size.h8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: clr.blackColor,
-                    fontSize: size.textSmall,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              if (items.isNotEmpty)
-                GestureDetector(
-                  onTap: onTapSeeAll,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: size.h8, horizontal: size.w8),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.r8),
+          color: clr.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: clr.blackColor.withOpacity(.2),
+              blurRadius: size.r8,
+              offset: Offset(0.0, size.h2),
+            ),
+          ]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ///Header text
+          Padding(
+            padding: EdgeInsets.only(bottom: size.h8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
                   child: Text(
-                    label(e: en.seeAllText, b: bn.seeAllText),
+                    title,
                     style: TextStyle(
                       color: clr.appPrimaryColorGreen,
                       fontSize: size.textSmall,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-            ],
+                if (items.isNotEmpty)
+                  GestureDetector(
+                    onTap: onTapSeeAll,
+                    child: Text(
+                      label(e: en.seeAllText, b: bn.seeAllText),
+                      style: TextStyle(
+                        color: clr.appPrimaryColorGreen,
+                        fontSize: size.textSmall,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
 
-        ///Items section
-        items.isNotEmpty
-            ? AspectRatio(
-                aspectRatio: aspectRatio,
-                child: ListView.separated(
-                  itemCount: items.length < 5 ? items.length : 5,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return buildItem(context, index, items[index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: size.w12);
-                  },
+          ///Items section
+          items.isNotEmpty
+              ? AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: ListView.separated(
+                    itemCount: items.length < 5 ? items.length : 5,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return buildItem(context, index, items[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: size.w12);
+                    },
+                  ),
+                )
+              : AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: Column(
+                    children: [
+                      Lottie.asset(ImageAssets.animEmpty, height: size.h56 * 2),
+                      Text(
+                        "No Book Found !",
+                        style: TextStyle(
+                            color: clr.appPrimaryColorGreen,
+                            fontSize: size.textXSmall),
+                      )
+                    ],
+                  ),
                 ),
-              )
-            : AspectRatio(
-                aspectRatio: aspectRatio,
-                child: Lottie.asset(ImageAssets.animEmpty),
-              ),
-      ],
+        ],
+      ),
     );
   }
 }
