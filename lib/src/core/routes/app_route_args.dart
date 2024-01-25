@@ -1,3 +1,4 @@
+import '../../feature/note/domain/entities/note_data_entity.dart';
 import '../../feature/book/domain/entities/book_data_entity.dart';
 
 class EMISWebViewScreenArgs {
@@ -31,9 +32,14 @@ class BookViewerScreenArgs {
 
 class CategoryDetailsScreenArgs {
   final String categoryName;
-  final int  categoryId;
+  final int categoryId;
   CategoryDetailsScreenArgs({
     required this.categoryName,
     required this.categoryId,
   });
+}
+
+class NoteDetailsScreenArgs {
+  final NoteDataEntity noteDataEntity;
+  NoteDetailsScreenArgs({required this.noteDataEntity});
 }

@@ -1,6 +1,5 @@
-import 'package:elibrary/src/feature/authentication/data/data_sources/remote/auth_data_source.dart';
-import 'package:elibrary/src/feature/authentication/data/repositories/auth_repository_imp.dart';
-
+import '../../data/data_sources/remote/auth_data_source.dart';
+import '../../data/repositories/auth_repository_imp.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../domain/use_cases/auth_use_case.dart';
 

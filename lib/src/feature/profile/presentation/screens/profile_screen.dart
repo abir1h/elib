@@ -1,5 +1,3 @@
-import 'package:elibrary/src/core/common_widgets/circuler_widget.dart';
-import 'package:elibrary/src/feature/profile/domain/entities/profile_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +13,9 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../service/profile_screen_service.dart';
+import '../../../../core/common_widgets/circuler_widget.dart';
+import '../../domain/entities/profile_data_entity.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -37,57 +38,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                 stream: profileDataStreamController.stream,
                 loadingBuilder: (context) {
                   return const Center(child: CircularLoader());
-                  // return ShimmerLoader(
-                  //     child: CategorySectionWidget(
-                  //         items: const ["", "", ""],
-                  //         buildItem: (context, index, item) {
-                  //           return ItemSectionWidget<String>(
-                  //             onTapSeeAll: () {},
-                  //             title: "                    ",
-                  //             items: const [
-                  //               "",
-                  //               "",
-                  //             ],
-                  //             buildItem: (context, index, item) {
-                  //               return AspectRatio(
-                  //                 aspectRatio: .8,
-                  //                 child: ELibContentItemWidget(
-                  //                   key: ObjectKey(item),
-                  //                   item: BookDataEntity(
-                  //                       id: -1,
-                  //                       titleEn: "",
-                  //                       titleBn: "",
-                  //                       languageEn: "",
-                  //                       languageBn: "",
-                  //                       editionEn: "",
-                  //                       editionBn: "",
-                  //                       publishYearEn: "",
-                  //                       publishYearBn: "",
-                  //                       publisherEn: "",
-                  //                       publisherBn: "",
-                  //                       isbnEn: "",
-                  //                       isbnBn: "",
-                  //                       slug: "",
-                  //                       descriptionEn: "",
-                  //                       descriptionBn: "",
-                  //                       coverImage: "",
-                  //                       bookFile: "",
-                  //                       externalLink: "",
-                  //                       createdBy: -1,
-                  //                       isDownload: -1,
-                  //                       status: -1,
-                  //                       bookMark: false,
-                  //                       createdAt: "",
-                  //                       updatedAt: "",
-                  //                       deletedAt: "",
-                  //                       author: [],
-                  //                       category: []),
-                  //                   onSelect: (e) {},
-                  //                 ),
-                  //               );
-                  //             },
-                  //           );
-                  //         }));
                 },
                 dataBuilder: (context, data) {
                   return Container(
@@ -236,6 +186,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     title: data.email,
                                   ),
                                   TitleWithIcon(
+                                    onTap: onTapNotes,
+                                    icon: Icons.event_note_sharp,
+                                    title: label(e: "Notes", b: "Notes"),
+                                  ),
+                                  TitleWithIcon(
                                     icon: Icons.logout,
                                     title: label(
                                         e: en.logoutText, b: bn.logoutText),
@@ -294,6 +249,11 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void navigateToNotesScreen() {
+    Navigator.of(context).pushNamed(AppRoute.noteScreen);
   }
 }
 

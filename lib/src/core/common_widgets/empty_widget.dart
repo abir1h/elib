@@ -20,32 +20,22 @@ class EmptyWidget extends StatelessWidget with AppTheme {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: constraints.maxHeight - (offset ?? 242.w),
-      child: Padding(
-        padding: EdgeInsets.all(size.h24),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Icon(
-              //   icon,
-              //   size: size.h64 * 1.3,
-              //   color: clr.blackColor.withOpacity(.26),
-              // ),
-              Lottie.asset(ImageAssets.animEmpty, height: size.h64 * 3),
-              SizedBox(height: size.h8),
-              Text(
-                message,
-                style: TextStyle(
-                  color: clr.blackColor,
-                  fontSize: size.textSmall,
+        height: constraints.maxHeight - (offset ?? 242.w),
+        child: Padding(
+            padding: EdgeInsets.all(size.h24),
+            child: Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Lottie.asset(ImageAssets.animEmpty, height: size.h64 * 3),
+                SizedBox(height: size.h8),
+                Text(
+                  message,
+                  style: TextStyle(
+                    color: clr.blackColor,
+                    fontSize: size.textSmall,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+              ]),
+            )));
   }
 }

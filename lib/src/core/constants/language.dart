@@ -57,6 +57,8 @@ class LanguageEn {
   String lms = "Learning Management System";
   String tutorial = "Tutorial";
   String messageText = "Message";
+  String bookRequestText = "Book Request List";
+  String notesText = "Notes";
 
   String profileAppBarText = "My Profile";
   String userNameText = "Mynul Islam"; //"User Name";
@@ -164,6 +166,8 @@ class LanguageBn {
   String lms = "লার্নিং ম্যানেজমেন্ট সিস্টেম";
   String tutorial = "টিউটোরিয়াল";
   String messageText = "বার্তা";
+  String bookRequestText = "বইয়ের অনুরোধের তালিকা";
+  String notesText = "নোটস";
 
   String profileAppBarText = "আমার প্রোফাইল";
   String userNameText = "মাইনুল ইসলাম"; //"ব্যবহারকারীর নাম";

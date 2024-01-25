@@ -2,6 +2,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants/language.dart';
+import '../routes/app_routes.dart';
 import '../service/notifier/app_events_notifier.dart';
 import 'custom_dialog_widget.dart';
 import 'custom_switch_button.dart';
@@ -126,6 +127,17 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
               DrawerLinkWidget(
                 icon: Icons.chat_bubble,
                 text: label(e: en.messageText, b: bn.messageText),
+                onTap: () {},
+              ),
+              DrawerLinkWidget(
+                icon: Icons.event_note_sharp,
+                text: label(e: en.notesText, b: bn.notesText),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoute.noteScreen),
+              ),
+              DrawerLinkWidget(
+                icon: Icons.book,
+                text: label(e: en.bookRequestText, b: bn.bookRequestText),
                 onTap: () {},
               ),
               DrawerLinkWidget(
