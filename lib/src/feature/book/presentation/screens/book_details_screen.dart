@@ -3,7 +3,6 @@ import 'package:elibrary/src/core/common_widgets/custom_button.dart';
 import 'package:elibrary/src/core/constants/app_theme.dart';
 import 'package:elibrary/src/core/constants/common_imports.dart';
 import 'package:elibrary/src/core/routes/app_route_args.dart';
-import 'package:elibrary/src/core/toasty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
