@@ -42,4 +42,13 @@ mixin class BookService {
   Future<ResponseEntity> createBookRequest(BookRequestDataEntity bookRequestDataEntity) async {
     return _bookUseCase.createBookRequestUseCase(bookRequestDataEntity);
   }
+  Future<ResponseEntity> updateBookRequest(BookRequestDataEntity bookRequestDataEntity) async {
+    return _bookUseCase.updateBookRequestUseCase(bookRequestDataEntity);
+  }
+  Future<ResponseEntity> deleteBookRequest(int bookRequestId) async {
+    return _bookUseCase.deleteBookRequestUseCase(bookRequestId);
+  }
+  Future<ResponseEntity> getBookRequestDetails(int bookRequestId) async {
+    return _bookUseCase.getBookRequestDetailsUseCase(bookRequestId);
+  }
 }

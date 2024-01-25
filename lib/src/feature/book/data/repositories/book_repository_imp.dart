@@ -151,4 +151,35 @@ class BookRepositoryImp extends BookRepository {
         .toEntityFromModel(responseModel,
             (BookRequestDataModel model) => model.toBookRequestDataEntity);
   }
+
+  @override
+  Future<ResponseEntity> updateBookRequest(
+      BookRequestDataEntity bookRequestDataEntity) async {
+    ResponseModel responseModel = (await bookRemoteDataSource
+        .updateBookRequestAction(bookRequestDataEntity.toBookRequestDataModel));
+    return ResponseModelToEntityMapper<BookRequestDataEntity,
+            BookRequestDataModel>()
+        .toEntityFromModel(responseModel,
+            (BookRequestDataModel model) => model.toBookRequestDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> deleteBookRequest(int bookRequestId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.deleteBookRequestAction(bookRequestId));
+    return ResponseModelToEntityMapper<BookRequestDataEntity,
+            BookRequestDataModel>()
+        .toEntityFromModel(responseModel,
+            (BookRequestDataModel model) => model.toBookRequestDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> getBookRequestDetails(int bookRequestId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.getBookRequestDetailsAction(bookRequestId));
+    return ResponseModelToEntityMapper<BookRequestDataEntity,
+            BookRequestDataModel>()
+        .toEntityFromModel(responseModel,
+            (BookRequestDataModel model) => model.toBookRequestDataEntity);
+  }
 }

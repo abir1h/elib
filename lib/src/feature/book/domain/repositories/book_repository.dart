@@ -15,4 +15,7 @@ abstract class BookRepository {
   Future<ResponseEntity> getBookRequests(bool enablePagination,
       {int? pageNumber});
   Future<ResponseEntity> createBookRequest(BookRequestDataEntity bookRequestDataEntity);
+  Future<ResponseEntity> updateBookRequest(BookRequestDataEntity bookRequestDataEntity);
+  Future<ResponseEntity> deleteBookRequest(int bookRequestId);
+  Future<ResponseEntity> getBookRequestDetails(int bookRequestId);
 }

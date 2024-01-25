@@ -22,6 +22,9 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getBookRequestsAction(bool enablePagination,
       {int? pageNumber});
   Future<ResponseModel> createBookRequestAction(BookRequestDataModel bookRequestDataModel);
+  Future<ResponseModel> updateBookRequestAction(BookRequestDataModel bookRequestDataModel);
+  Future<ResponseModel> deleteBookRequestAction(int bookRequestId);
+  Future<ResponseModel> getBookRequestDetailsAction(int bookRequestId);
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -130,4 +133,34 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
         responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
     return responseModel;
   }
+
+  @override
+  Future<ResponseModel> updateBookRequestAction(BookRequestDataModel bookRequestDataModel) async{
+    Map<String, dynamic> data = bookRequestDataModel.toJson();
+    data["_method"] = "PUT";
+    final responseJson = await Server.instance
+        .postRequest(url: "${ApiCredential.bookRequest}/${bookRequestDataModel.id}", postData: data);
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> deleteBookRequestAction(int bookRequestId) async{
+    final responseJson = await Server.instance
+        .deleteRequest(url: "${ApiCredential.bookRequest}/$bookRequestId");
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> getBookRequestDetailsAction(int bookRequestId) async{
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.bookRequest}/$bookRequestId");
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
+    return responseModel;
+  }
+
 }
