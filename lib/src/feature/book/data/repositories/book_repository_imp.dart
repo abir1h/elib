@@ -1,3 +1,9 @@
+import '../mapper/paginated_book_request_data_mapper.dart';
+import '../models/paginated_book_request_data_model.dart';
+import '../../domain/entities/paginated_book_request_data_entity.dart';
+import '../mapper/book_request_data_mapper.dart';
+import '../models/book_request_data_model.dart';
+import '../../domain/entities/book_request_entity.dart';
 import '../mapper/download_count_response_mapper.dart';
 import '../models/download_count_response_model.dart';
 import '../../domain/entities/download_count_response_entity.dart';
@@ -58,10 +64,9 @@ class BookRepositoryImp extends BookRepository {
   }
 
   @override
-  Future<ResponseEntity> bookmarkBook(
-      int bookId, int eMISUserId) async {
-    ResponseModel responseModel = (await bookRemoteDataSource
-        .bookmarkBookAction(bookId, eMISUserId));
+  Future<ResponseEntity> bookmarkBook(int bookId, int eMISUserId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.bookmarkBookAction(bookId, eMISUserId));
     return ResponseModelToEntityMapper<BookmarkResponseEntity,
             BookmarkResponseModel>()
         .toEntityFromModel(responseModel,
@@ -112,5 +117,38 @@ class BookRepositoryImp extends BookRepository {
             PaginatedBookDataModel>()
         .toEntityFromModel(responseModel,
             (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> getBookRequests(bool enablePagination,
+      {int? pageNumber}) async {
+    ResponseModel responseModel = (await bookRemoteDataSource
+        .getBookRequestsAction(enablePagination, pageNumber: pageNumber));
+    return enablePagination
+        ? ResponseModelToEntityMapper<PaginatedBookRequestDataEntity,
+                PaginatedBookRequestDataModel>()
+            .toEntityFromModel(
+                responseModel,
+                (PaginatedBookRequestDataModel model) =>
+                    model.toPaginatedBookRequestDataEntity)
+        : ResponseModelToEntityMapper<List<BookRequestDataEntity>,
+                List<BookRequestDataModel>>()
+            .toEntityFromModel(
+                responseModel,
+                (List<BookRequestDataModel> models) =>
+                    List<BookRequestDataModel>.from(models)
+                        .map((e) => e.toBookRequestDataEntity)
+                        .toList());
+  }
+
+  @override
+  Future<ResponseEntity> createBookRequest(
+      BookRequestDataEntity bookRequestDataEntity) async {
+    ResponseModel responseModel = (await bookRemoteDataSource
+        .createBookRequestAction(bookRequestDataEntity.toBookRequestDataModel));
+    return ResponseModelToEntityMapper<BookRequestDataEntity,
+            BookRequestDataModel>()
+        .toEntityFromModel(responseModel,
+            (BookRequestDataModel model) => model.toBookRequestDataEntity);
   }
 }

@@ -1,3 +1,4 @@
+import '../../domain/entities/book_request_entity.dart';
 import '../../data/data_sources/remote/book_data_source.dart';
 import '../../data/repositories/book_repository_imp.dart';
 import '../../domain/use_cases/book_use_case.dart';
@@ -34,5 +35,11 @@ mixin class BookService {
 
   Future<ResponseEntity> globalSearch(String searchQuery) async {
     return _bookUseCase.globalSearchUseCase(searchQuery);
+  }
+  Future<ResponseEntity> getBookRequests(bool enablePagination, {int? pageNumber}) async {
+    return _bookUseCase.getBookRequestsUseCase(enablePagination, pageNumber: pageNumber);
+  }
+  Future<ResponseEntity> createBookRequest(BookRequestDataEntity bookRequestDataEntity) async {
+    return _bookUseCase.createBookRequestUseCase(bookRequestDataEntity);
   }
 }

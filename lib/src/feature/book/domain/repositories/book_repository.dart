@@ -1,3 +1,4 @@
+import '../entities/book_request_entity.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 
 abstract class BookRepository {
@@ -10,4 +11,8 @@ abstract class BookRepository {
   Future<ResponseEntity> userBookDownloadCountAction(int bookId);
 
   Future<ResponseEntity> globalSearch(String searchQuery);
+
+  Future<ResponseEntity> getBookRequests(bool enablePagination,
+      {int? pageNumber});
+  Future<ResponseEntity> createBookRequest(BookRequestDataEntity bookRequestDataEntity);
 }

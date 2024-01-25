@@ -5,6 +5,7 @@ import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_routes.dart';
+import '../../../shared/domain/entities/response_entity.dart';
 import '../services/splash_service.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
@@ -26,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    // ResponseEntity responseEntity = await globalSearch("History");
+    // ResponseEntity responseEntity = await createBookRequest(BookRequestDataEntity(emisUserId: 1, authorName: "Rahman", bookName: "Harry Potter",
+    //     publishYear: "2003", edition: "2.3.4", remark: "New"));
     // print(responseEntity.message);
   }
 
