@@ -21,4 +21,7 @@ class ApiCredential {
   static String globalSearch = "/global-search?search=";
 
   static String categoryDetailsById = "/category/details/";
+
+  static String getBookRequests = "/book-requests?pagination=";
+  static String bookRequest = "/book-requests";
 }

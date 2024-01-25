@@ -1,3 +1,5 @@
+import '../../models/paginated_book_request_data_model.dart';
+import '../../models/book_request_data_model.dart';
 import '../../models/download_count_response_model.dart';
 import '../../models/bookmark_data_model.dart';
 import '../../models/bookmark_response_model.dart';
@@ -12,12 +14,14 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getBooksAction();
   Future<ResponseModel> getPopularBooksAction(int pageNumber);
   Future<ResponseModel> getBookDetailsAction(int bookId);
-  Future<ResponseModel> bookmarkBookAction(
-      int bookId, int eMISUserId);
+  Future<ResponseModel> bookmarkBookAction(int bookId, int eMISUserId);
   Future<ResponseModel> getBookmarkBooksAction();
   Future<ResponseModel> userBookViewCountAction(int bookId);
   Future<ResponseModel> userBookDownloadCountAction(int bookId);
   Future<ResponseModel> globalSearchAction(String searchQuery);
+  Future<ResponseModel> getBookRequestsAction(bool enablePagination,
+      {int? pageNumber});
+  Future<ResponseModel> createBookRequestAction(BookRequestDataModel bookRequestDataModel);
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -40,8 +44,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> bookmarkBookAction(
-      int bookId, int eMISUserId) async {
+  Future<ResponseModel> bookmarkBookAction(int bookId, int eMISUserId) async {
     Map<String, dynamic> data = {
       "book_id": bookId,
       "emis_user_id": eMISUserId,
@@ -96,11 +99,35 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> globalSearchAction(String searchQuery) async{
+  Future<ResponseModel> globalSearchAction(String searchQuery) async {
     final responseJson = await Server.instance
         .getRequest(url: ApiCredential.globalSearch + searchQuery);
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> getBookRequestsAction(bool enablePagination,
+      {int? pageNumber}) async {
+    String url = pageNumber != null
+        ? "${ApiCredential.getBookRequests}$enablePagination&page=$pageNumber"
+        : "${ApiCredential.getBookRequests}$enablePagination";
+    final responseJson = await Server.instance.getRequest(url: url);
+    ResponseModel responseModel = enablePagination
+        ? ResponseModel.fromJson(responseJson,
+            (dynamic json) => PaginatedBookRequestDataModel.fromJson(json))
+        : ResponseModel.fromJson(responseJson,
+            (dynamic json) => BookRequestDataModel.listFromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> createBookRequestAction(BookRequestDataModel bookRequestDataModel) async{
+    final responseJson = await Server.instance
+        .postRequest(url: ApiCredential.bookRequest, postData: bookRequestDataModel.toJson());
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
     return responseModel;
   }
 }
