@@ -1,29 +1,39 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:elibrary/src/core/common_widgets/custom_scaffold.dart';
+import 'package:elibrary/src/core/utility/log.dart';
+import 'package:elibrary/src/feature/note/data/models/note_data_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quill_delta/quill_delta.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/toasty.dart';
+import '../../../note/presentation/widgets/note_bottom_sheet.dart';
 import '../services/book_view_screen_service.dart';
 
 class BookViewerScreen extends StatefulWidget {
   final Object? arguments;
-  const BookViewerScreen({Key? key, this.arguments}) : assert(arguments != null && arguments is BookViewerScreenArgs), super(key: key);
-
+  const BookViewerScreen({Key? key, this.arguments})
+      : assert(arguments != null && arguments is BookViewerScreenArgs),
+        super(key: key);
 
   @override
   State<BookViewerScreen> createState() => _BookViewerScreenState();
 }
-class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, BookViewerScreenService {
+
+class _BookViewerScreenState extends State<BookViewerScreen>
+    with AppTheme, BookViewerScreenService {
   final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   final StreamController<int> _totalPage = StreamController.broadcast();
   final StreamController<int> _currentPage = StreamController.broadcast();
-  final StreamController<bool> _timerActivationStream = StreamController.broadcast();
+  final StreamController<bool> _timerActivationStream =
+      StreamController.broadcast();
 
   @override
   void initState() {
@@ -49,12 +59,15 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
         title: (widget.arguments! as BookViewerScreenArgs).title,
         onBack: onGoBack,
         actionChild:
-        // (widget.arguments! as BookViewerScreenArgs).timeToReadInSeconds > 0
-        //     ? CountdownTimerWidget(
-        //   duration: Duration(seconds: (widget.arguments! as BookViewerScreenArgs).timeToReadInSeconds),
-        //   activeStateStream: _timerActivationStream.stream,
-        // ):
-        PageNumberShowWidget(currentPageStream: _currentPage.stream,totalPageStream: _totalPage.stream,),
+            // (widget.arguments! as BookViewerScreenArgs).timeToReadInSeconds > 0
+            //     ? CountdownTimerWidget(
+            //   duration: Duration(seconds: (widget.arguments! as BookViewerScreenArgs).timeToReadInSeconds),
+            //   activeStateStream: _timerActivationStream.stream,
+            // ):
+            PageNumberShowWidget(
+          currentPageStream: _currentPage.stream,
+          totalPageStream: _totalPage.stream,
+        ),
         child: StreamBuilder<PageState>(
           stream: pageStateStream,
           initialData: null,
@@ -77,33 +90,94 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
                       _currentPage.sink.add(changed.newPageNumber);
                     },
                   ),
+
                   ///Download button
-                  if(data.canDownload)Align(
-                    alignment: Alignment.bottomRight,
-                    child: GestureDetector(
-                      onTap: ()=> onSaveFileToLocalStorage(data.file),
-                      child: Container(
-                        padding: EdgeInsets.all(size.h8),
-                        margin: EdgeInsets.only(right:size.h16,bottom: size.h16),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: clr.appPrimaryColorGreen,
-                          boxShadow: [
-                            BoxShadow(
-                              color: clr.blackColor.withOpacity(.5),
-                              blurRadius: size.h12,
-                            )
-                          ],
-                        ),
-                        child: FittedBox(
-                          child: Icon(
-                            Icons.download_rounded,
-                            color: clr.whiteColor,
+                  if (data.canDownload)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+
+                              String noteJson = jsonEncode([
+                                {"insert": "Your "},
+                                {
+                                  "insert": "text",
+                                  "attributes": {
+                                    "italic": true,
+                                    "underline": true
+                                  }
+                                },
+                                {"insert": " here sdfgfgsfgfsg\n"}
+                              ]);
+                              appPrint(noteJson);
+
+                              NoteDataModel noteModel = NoteDataModel(
+                                id: 1,
+                                bookId: 15,
+                                emisUserId: 1,
+                                note: noteJson,
+                                createdAt: "sdfdf",
+                                updatedAt: "dfdf",
+                                deletedAt: "dfdf",
+                              );
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) =>
+                                    NoteBottomSheet(noteModel: noteModel),
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(size.h8),
+                              margin: EdgeInsets.only(
+                                  right: size.h16, bottom: size.h16),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: clr.appPrimaryColorGreen,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: clr.blackColor.withOpacity(.5),
+                                    blurRadius: size.h12,
+                                  )
+                                ],
+                              ),
+                              child: FittedBox(
+                                child: Icon(
+                                  Icons.note,
+                                  color: clr.whiteColor,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () => onSaveFileToLocalStorage(data.file),
+                            child: Container(
+                              padding: EdgeInsets.all(size.h8),
+                              margin: EdgeInsets.only(
+                                  right: size.h16, bottom: size.h16),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: clr.appPrimaryColorGreen,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: clr.blackColor.withOpacity(.5),
+                                    blurRadius: size.h12,
+                                  )
+                                ],
+                              ),
+                              child: FittedBox(
+                                child: Icon(
+                                  Icons.download_rounded,
+                                  color: clr.whiteColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
                 ],
               );
             }
@@ -116,43 +190,44 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
                       child: Center(
                         child: AspectRatio(
                           aspectRatio: 0.8,
-                          child: LayoutBuilder(
-                              builder: (context, constraints) {
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ///TODO
-                                    // Image.asset(
-                                    //   AppConstant.getAssetFileIcon(data.file.path),
-                                    //   height: min(constraints.maxWidth * 0.5, constraints.maxHeight * 0.5),
-                                    //   width: min(constraints.maxWidth * 0.5, constraints.maxHeight * 0.5),
-                                    // ),
-                                    SizedBox(height: size.h16,),
-                                    Text(
-                                      data.title,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: clr.textColorBlack,
-                                        fontSize: size.textXMedium,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: size.h64),
-                                  ],
-                                );
-                              }
-                          ),
+                          child: LayoutBuilder(builder: (context, constraints) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ///TODO
+                                // Image.asset(
+                                //   AppConstant.getAssetFileIcon(data.file.path),
+                                //   height: min(constraints.maxWidth * 0.5, constraints.maxHeight * 0.5),
+                                //   width: min(constraints.maxWidth * 0.5, constraints.maxHeight * 0.5),
+                                // ),
+                                SizedBox(
+                                  height: size.h16,
+                                ),
+                                Text(
+                                  data.title,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: clr.textColorBlack,
+                                    fontSize: size.textXMedium,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: size.h64),
+                              ],
+                            );
+                          }),
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.h24,vertical: size.h24),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.h24, vertical: size.h24),
                     child: ButtonWidget(
                       title: "Download",
                       expanded: true,
-                      onTap: ()=> onSaveFileToLocalStorage(data.file, true),
+                      onTap: () => onSaveFileToLocalStorage(data.file, true),
                     ),
                   ),
                 ],
@@ -171,7 +246,9 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
                         fontSize: size.textXMedium,
                       ),
                     ),
-                    SizedBox(height: size.h24,),
+                    SizedBox(
+                      height: size.h24,
+                    ),
                     Text(
                       data.message,
                       textAlign: TextAlign.center,
@@ -194,6 +271,13 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
     );
   }
 
+  void onTapCreateDiscussion() {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => const NoteBottomSheet(),
+    );
+  }
+
   @override
   void forceClose() {
     Navigator.of(context).pop();
@@ -212,7 +296,8 @@ class _BookViewerScreenState extends State<BookViewerScreen> with  AppTheme, Boo
 
 class LoadingProgressView extends StatelessWidget with AppTheme {
   final BookViewerScreenService service;
-  const LoadingProgressView({Key? key, required this.service}) : super(key: key);
+  const LoadingProgressView({Key? key, required this.service})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -247,7 +332,8 @@ class LoadingProgressView extends StatelessWidget with AppTheme {
                 },
               ),
               Padding(
-                padding: EdgeInsets.only( top: size.h16, left: size.h42, right: size.h42),
+                padding: EdgeInsets.only(
+                    top: size.h16, left: size.h42, right: size.h42),
                 child: StreamBuilder<String>(
                   stream: service.loadingSizeStream,
                   initialData: "0 Byte",
@@ -274,22 +360,30 @@ class LoadingProgressView extends StatelessWidget with AppTheme {
 class PageNumberShowWidget extends StatefulWidget {
   final Stream<int> totalPageStream;
   final Stream<int> currentPageStream;
-  const PageNumberShowWidget({Key? key, required this.totalPageStream, required this.currentPageStream}) : super(key: key);
+  const PageNumberShowWidget(
+      {Key? key,
+      required this.totalPageStream,
+      required this.currentPageStream})
+      : super(key: key);
 
   @override
   _PageNumberShowWidgetState createState() => _PageNumberShowWidgetState();
 }
-class _PageNumberShowWidgetState extends State<PageNumberShowWidget> with AppTheme {
+
+class _PageNumberShowWidgetState extends State<PageNumberShowWidget>
+    with AppTheme {
   StreamSubscription<int>? _subscriptionTotalPage;
   StreamSubscription<int>? _subscriptionCurrentPage;
 
-  int _totalPage=0;
-  int _currentPage=1;
+  int _totalPage = 0;
+  int _currentPage = 1;
 
   @override
   void initState() {
-    _subscriptionTotalPage = widget.totalPageStream.listen(_onDataUpdateTotalPage);
-    _subscriptionCurrentPage = widget.currentPageStream.listen(_onDataUpdateCurrentPage);
+    _subscriptionTotalPage =
+        widget.totalPageStream.listen(_onDataUpdateTotalPage);
+    _subscriptionCurrentPage =
+        widget.currentPageStream.listen(_onDataUpdateCurrentPage);
     super.initState();
   }
 
@@ -300,52 +394,66 @@ class _PageNumberShowWidgetState extends State<PageNumberShowWidget> with AppThe
     super.dispose();
   }
 
-
   void _onDataUpdateTotalPage(int totalPage) {
     setState(() {
-      _totalPage=totalPage;
+      _totalPage = totalPage;
     });
   }
 
   void _onDataUpdateCurrentPage(int currentPage) {
     setState(() {
-      _currentPage=currentPage;
+      _currentPage = currentPage;
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return _totalPage!=0?Container(
-      padding: EdgeInsets.symmetric(horizontal: size.h8,vertical: size.h4),
-      decoration: BoxDecoration(color: clr.blackColor.withOpacity(.7),
-          borderRadius: BorderRadius.all(Radius.circular(size.h4))
-      ),
-      child: Row(children: [
-        Text('${_currentPage.toString()}/${_totalPage.toString()}',style: TextStyle(color: clr.whiteColor,fontSize:size.textSmall),),
-      ],),):const Offstage();
+    return _totalPage != 0
+        ? Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: size.h8, vertical: size.h4),
+            decoration: BoxDecoration(
+                color: clr.blackColor.withOpacity(.7),
+                borderRadius: BorderRadius.all(Radius.circular(size.h4))),
+            child: Row(
+              children: [
+                Text(
+                  '${_currentPage.toString()}/${_totalPage.toString()}',
+                  style: TextStyle(
+                      color: clr.whiteColor, fontSize: size.textSmall),
+                ),
+              ],
+            ),
+          )
+        : const Offstage();
   }
 }
 
-class ButtonWidget extends StatelessWidget with AppTheme{
+class ButtonWidget extends StatelessWidget with AppTheme {
   final VoidCallback onTap;
   final String title;
   final bool expanded;
-  const ButtonWidget({Key? key, required this.title,required this.onTap, this.expanded = false}) : super(key: key);
+  const ButtonWidget(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      this.expanded = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomRight,
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
           onTap.call();
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: size.h32, vertical: size.h4),
+          padding:
+              EdgeInsets.symmetric(horizontal: size.h32, vertical: size.h4),
           height: size.w44,
-          width: expanded?double.maxFinite:null,
+          width: expanded ? double.maxFinite : null,
           decoration: BoxDecoration(
             color: clr.appPrimaryColorGreen,
             borderRadius: BorderRadius.circular(size.h12),
