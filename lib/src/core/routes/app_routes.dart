@@ -1,12 +1,16 @@
+import 'package:elibrary/src/feature/report/presentation/screens/book_view_download_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
 import '../../feature/book/presentation/screens/book_details_screen.dart';
+import '../../feature/book/presentation/screens/book_request_list_screen.dart';
 import '../../feature/book/presentation/screens/book_view_screen.dart';
 import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
+import '../../feature/note/presentation/screens/note_details_screen.dart';
+import '../../feature/note/presentation/screens/note_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
 class AppRoute {

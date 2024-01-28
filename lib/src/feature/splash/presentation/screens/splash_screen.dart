@@ -21,7 +21,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with AppTheme, Language, SplashService, BookService, ReportService{
+    with AppTheme, Language, SplashService, BookService{
   @override
   void initState() {
     super.initState();
@@ -71,4 +71,5 @@ class _SplashScreenState extends State<SplashScreen>
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
   }
+
 }

@@ -112,7 +112,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 icon: Icons.assignment,
                 text:
                     label(e: en.formativeAssessment, b: bn.formativeAssessment),
-                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
+                onTap: () {},
               ),
               DrawerLinkWidget(
                 svgIcon: ImageAssets.icSocialLearning,
@@ -128,7 +128,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
               DrawerLinkWidget(
                 icon: Icons.chat_bubble,
                 text: label(e: en.messageText, b: bn.messageText),
-                onTap: () {},
+                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
               ),
               DrawerLinkWidget(
                 icon: Icons.event_note_sharp,

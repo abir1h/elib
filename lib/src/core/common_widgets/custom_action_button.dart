@@ -14,6 +14,8 @@ class CustomActionButton<T> extends StatefulWidget {
   final void Function(T data) onSuccess;
   final DefaultActionButtonController? controller;
   final bool enabled;
+  final Color? bgColor;
+
 
   const CustomActionButton({
     Key? key,
@@ -22,7 +24,7 @@ class CustomActionButton<T> extends StatefulWidget {
     required this.onSuccess,
     this.onCheck,
     this.controller,
-    this.enabled=true,
+    this.enabled=true, this.bgColor,
   }) : super(key: key);
 
 
@@ -116,7 +118,7 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
           width: _expanded?MediaQuery.of(context).size.width:44.w,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: clr.appPrimaryColorGreen,
+            color: widget.bgColor??clr.appPrimaryColorGreen,
             borderRadius: BorderRadius.circular(_expanded?size.h12:100),
             boxShadow: const [
               BoxShadow(

@@ -19,6 +19,7 @@ class ThemeColor {
   Color get secondaryBackgroundColor => HexColor("FFFEFE");
 
   Color get whiteColor => HexColor("FFFFFF");
+  Color get disableColor => HexColor("FF15233D");
   Color get shadeWhiteColor => HexColor("FDFDFD");
   Color get shadeWhiteColor2 => HexColor("FEFFFF");
   Color get blackColor => HexColor("000000");
