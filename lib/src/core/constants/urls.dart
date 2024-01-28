@@ -26,4 +26,6 @@ class ApiCredential {
 
   static String getBookRequests = "/book-requests?pagination=";
   static String bookRequest = "/book-requests";
+  static String bookViewDownloadReport = "/book-view-download-report";
+
 }
