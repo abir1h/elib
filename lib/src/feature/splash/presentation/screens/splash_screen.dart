@@ -29,8 +29,8 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    ResponseEntity responseEntity = await getBookViewDownloadReport("2024-01-17", "2024-01-19");
-    print(responseEntity.message);
+    // ResponseEntity responseEntity = await getBookViewDownloadReport("2024-01-17", "2024-01-19");
+    // print(responseEntity.message);
   }
 
   @override
