@@ -95,7 +95,7 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
         .then((x) {
       if (x) {
         onBookRequestDelete(bookRequestId);
-        loadBookRequestData(false);
+        // loadBookRequestData(false);
       }
     });
   }
