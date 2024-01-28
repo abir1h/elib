@@ -57,6 +57,8 @@ class LanguageEn {
   String lms = "Learning Management System";
   String tutorial = "Tutorial";
   String messageText = "Message";
+  String bookRequestText = "Book Request List";
+  String notesText = "Notes";
 
   String profileAppBarText = "My Profile";
   String userNameText = "Mynul Islam"; //"User Name";
@@ -108,6 +110,13 @@ class LanguageEn {
   String writeHere = "Write here";
   String publishTheDiscussion = "Publish The Discussion";
   String writeYourOpinion = "Write Your Opinion";
+
+  String authorName = "Write Author Name";
+  String bookName = "Write Book Name";
+  String publishYear = "Write Publish Year";
+  String edition = "Write Edition";
+  String remark = "Write Remark";
+  String requestBook = "Request Book";
 }
 
 class LanguageBn {
@@ -164,6 +173,8 @@ class LanguageBn {
   String lms = "লার্নিং ম্যানেজমেন্ট সিস্টেম";
   String tutorial = "টিউটোরিয়াল";
   String messageText = "বার্তা";
+  String bookRequestText = "বইয়ের অনুরোধের তালিকা";
+  String notesText = "নোটস";
 
   String profileAppBarText = "আমার প্রোফাইল";
   String userNameText = "মাইনুল ইসলাম"; //"ব্যবহারকারীর নাম";
@@ -213,4 +224,11 @@ class LanguageBn {
   String writeHere = "এখানে লিখুন";
   String publishTheDiscussion = "আলোচনা প্রকাশ করুন";
   String writeYourOpinion = "আপনার মতামত লিখুন";
+
+  String authorName = "লেখকের নাম লিখুন";
+  String bookName = "বইয়ের নাম লিখুন";
+  String publishYear = "প্রকাশের বছর লিখুন";
+  String edition = "সংস্করণ লিখুন";
+  String remark = "মন্তব্য লিখুন";
+  String requestBook = "বই অনুরোধ করুন";
 }

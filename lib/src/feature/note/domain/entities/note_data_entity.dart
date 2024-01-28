@@ -1,7 +1,5 @@
 import '../../../book/domain/entities/book_data_entity.dart';
 
-import '../../../book/data/models/book_data_model.dart';
-
 class NoteDataEntity {
   final int id;
   final int bookId;

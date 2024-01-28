@@ -9,6 +9,7 @@ import '../../domain/entities/profile_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void navigateToNotesScreen();
 }
 
 mixin ProfileScreenService<T extends StatefulWidget> on State<T>
@@ -41,7 +42,7 @@ mixin ProfileScreenService<T extends StatefulWidget> on State<T>
   final AppStreamController<ProfileDataEntity> profileDataStreamController =
       AppStreamController();
 
-  ///Load Category list
+  ///Load Notes list
   void _loadCategoryData() {
     if (!mounted) return;
     profileDataStreamController.add(LoadingState());
@@ -54,5 +55,10 @@ mixin ProfileScreenService<T extends StatefulWidget> on State<T>
         _view.showWarning(value.message!);
       }
     });
+  }
+
+  ///On Tap Notes
+  void onTapNotes() {
+    _view.navigateToNotesScreen();
   }
 }

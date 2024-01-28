@@ -1,4 +1,3 @@
-import 'package:elibrary/src/feature/book/presentation/screens/book_view_download_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
@@ -25,6 +24,9 @@ class AppRoute {
   static const String bookViewScreen = 'bookViewScreen';
   static const String bookViewDownloadCountScreen =
       'bookViewDownloadCountScreen';
+  static const String noteScreen = 'noteScreen';
+  static const String noteDetailsScreen = 'noteDetailsScreen';
+  static const String bookRequestListScreen = 'bookRequestListScreen';
 }
 
 mixin RouteGenerator {
@@ -60,6 +62,16 @@ mixin RouteGenerator {
 
         case AppRoute.bookViewDownloadCountScreen:
           return BookVIewDownloadScreen();
+
+        ///Notes
+        case AppRoute.noteScreen:
+          return const NoteScreen();
+        case AppRoute.noteDetailsScreen:
+          return NoteDetailsScreen(arguments: setting.arguments);
+
+        ///Book Request
+        case AppRoute.bookRequestListScreen:
+          return const BookRequestListScreen();
 
         ///Default Screen
         default:
