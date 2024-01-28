@@ -128,7 +128,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
               DrawerLinkWidget(
                 icon: Icons.chat_bubble,
                 text: label(e: en.messageText, b: bn.messageText),
-                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
+                onTap: () {},
               ),
               DrawerLinkWidget(
                 icon: Icons.event_note_sharp,
@@ -141,6 +141,11 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 text: label(e: en.bookRequestText, b: bn.bookRequestText),
                 onTap: () => Navigator.of(context)
                     .pushNamed(AppRoute.bookRequestListScreen),
+              ),  DrawerLinkWidget(
+                icon: Icons.book,
+                text: label(e: en.bookReportText, b: bn.bookReportText),
+                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
+
               ),
               DrawerLinkWidget(
                 icon: Icons.logout,

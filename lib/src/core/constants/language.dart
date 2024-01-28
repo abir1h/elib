@@ -58,6 +58,7 @@ class LanguageEn {
   String tutorial = "Tutorial";
   String messageText = "Message";
   String bookRequestText = "Book Request List";
+  String bookReportText = "Book Report";
   String notesText = "Notes";
 
   String profileAppBarText = "My Profile";
@@ -233,4 +234,6 @@ class LanguageBn {
   String remark = "মন্তব্য লিখুন";
   String requestBook = "বই অনুরোধ করুন";
   String getReport = "রিপোর্ট পান";
+  String bookReportText = "বই রিপোর্ট";
+
 }
