@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/utility/utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -166,21 +167,12 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
               ),
               Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: size.w4, vertical: size.h4),
+                    horizontal: size.w8, vertical: size.h4),
                 decoration: BoxDecoration(
-                  color: clr.appPrimaryColorGreen,
-                  borderRadius: BorderRadius.circular(size.r4),
+                  color: AppUtility.getInstance!.getStatusColor(bookRequestDataEntity.status),
+                  borderRadius: BorderRadius.circular(size.r24),
                 ),
-                child: Text(
-                  bookRequestDataEntity.status == 0
-                      ? "Inactive"
-                      : bookRequestDataEntity.status == 1
-                          ? "Active"
-                          : bookRequestDataEntity.status == 2
-                              ? "Review"
-                              : bookRequestDataEntity.status == 3
-                                  ? "Hold"
-                                  : "Closed",
+                child: Text(AppUtility.getInstance!.getStatusText(bookRequestDataEntity.status),
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
                     fontWeight: FontWeight.w500,
