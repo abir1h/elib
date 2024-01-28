@@ -20,7 +20,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with AppTheme, Language, SplashService, BookService {
+    with AppTheme, Language, SplashService, BookService{
   @override
   void initState() {
     super.initState();
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    // ResponseEntity responseEntity = await deleteBookRequest(5);
+    // ResponseEntity responseEntity = await getBookViewDownloadReport("2024-01-17", "2024-01-19");
     // print(responseEntity.message);
   }
 
@@ -70,4 +70,5 @@ class _SplashScreenState extends State<SplashScreen>
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
   }
+
 }

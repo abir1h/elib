@@ -15,6 +15,7 @@ class ImageAssets {
   static String get icLockOpenRight => 'lock_open_right'.svg;
 
   static String get animEmpty => 'Animation - 1706009676891'.json;
+  static String get filterAnim => 'filter'.json;
 }
 
 extension on String {

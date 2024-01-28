@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/routes/app_routes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -127,7 +128,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
               DrawerLinkWidget(
                 icon: Icons.chat_bubble,
                 text: label(e: en.messageText, b: bn.messageText),
-                onTap: () {},
+                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
               ),
               DrawerLinkWidget(
                 icon: Icons.event_note_sharp,
