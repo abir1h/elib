@@ -12,10 +12,10 @@ import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 
 class BookRequestBottomSheet extends StatefulWidget {
-  final VoidCallback onBookRequest;
+  final VoidCallback onBookRequestSuccess;
   const BookRequestBottomSheet({
     super.key,
-    required this.onBookRequest,
+    required this.onBookRequestSuccess,
   });
 
   @override
@@ -84,7 +84,7 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                   CustomActionButton(
                       title: label(e: en.requestBook, b: bn.requestBook),
                       onSuccess: (e) {
-                        widget.onBookRequest.call();
+                        widget.onBookRequestSuccess();
                       },
                       tapAction: () => onBookRequest(BookRequestDataEntity(
                           emisUserId: 1,
@@ -93,16 +93,6 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                           publishYear: publishYearController.text,
                           edition: editionController.text,
                           remark: remarkController.text))),
-                  // CustomButton(
-                  //   onTap: () => onBookRequest(BookRequestDataEntity(
-                  //       emisUserId: 1,
-                  //       authorName: authorNameController.text,
-                  //       bookName: bookNameController.text,
-                  //       publishYear: publishYearController.text,
-                  //       edition: editionController.text,
-                  //       remark: remarkController.text)),
-                  //   title: label(e: en.requestBook, b: bn.requestBook),
-                  // )
                 ],
               ),
             ),

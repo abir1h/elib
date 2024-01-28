@@ -1,4 +1,3 @@
-import 'package:elibrary/src/feature/book/presentation/widgets/book_request_bottomsheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +12,7 @@ import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/book_request_entity.dart';
 import '../services/book_request_list_screen_service.dart';
+import 'book_request_bottomsheet_screen.dart';
 
 class BookRequestListScreen extends StatefulWidget {
   const BookRequestListScreen({super.key});
@@ -88,7 +88,7 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
     showCupertinoModalPopup(
         context: context,
         builder: (context) => BookRequestBottomSheet(
-              onBookRequest: () {
+              onBookRequestSuccess: () {
                 Navigator.of(context).pop();
                 loadBookRequestData(false);
               },
