@@ -1,4 +1,4 @@
-import 'package:elibrary/src/feature/book/data/models/book_data_model.dart';
+import '../../../book/data/models/book_data_model.dart';
 
 class BookViewDownloadDataModel {
   final int id;

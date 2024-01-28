@@ -1,4 +1,5 @@
 import 'package:elibrary/src/feature/book/domain/entities/book_request_entity.dart';
+import 'package:elibrary/src/feature/report/presentation/services/report_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +21,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with AppTheme, Language, SplashService, BookService {
+    with AppTheme, Language, SplashService, BookService, ReportService{
   @override
   void initState() {
     super.initState();
@@ -28,8 +29,8 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    // ResponseEntity responseEntity = await deleteBookRequest(5);
-    // print(responseEntity.message);
+    ResponseEntity responseEntity = await getBookViewDownloadReport("2024-01-17", "2024-01-19");
+    print(responseEntity.message);
   }
 
   @override
