@@ -102,6 +102,31 @@ class Server {
     }
   }
 
+  Future<dynamic> deleteRequest({required String url}) async {
+    try {
+      var response = await _client.delete(Uri.parse(host + url), headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "
+      });
+      debugPrint(
+          "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
+      return _returnResponse(response);
+    } on SocketException catch (_) {
+      dynamic response = {
+        "message": "Request failed! Check internet connection.",
+        "error": "Error message"
+      };
+      return response;
+    } on Exception catch (_) {
+      dynamic response = {
+        "message": "Request failed! Unknown error occurred.",
+        "error": "Error message"
+      };
+      return response;
+    }
+  }
+
   void dispose() {
     _client.close();
     _sessionExpireStreamController.close();

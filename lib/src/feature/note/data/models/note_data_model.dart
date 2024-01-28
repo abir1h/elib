@@ -21,7 +21,7 @@ class NoteDataModel {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    required this.book,
+    this.book,
   });
 
   factory NoteDataModel.fromJson(Map<String, dynamic> json) => NoteDataModel(

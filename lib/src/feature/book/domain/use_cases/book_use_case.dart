@@ -53,9 +53,20 @@ class BookUseCase {
         pageNumber: pageNumber);
     return response;
   }
-
   Future<ResponseEntity> createBookRequestUseCase(BookRequestDataEntity bookRequestDataEntity) async {
     final response = _bookRepository.createBookRequest(bookRequestDataEntity);
+    return response;
+  }
+  Future<ResponseEntity> updateBookRequestUseCase(BookRequestDataEntity bookRequestDataEntity) async {
+    final response = _bookRepository.updateBookRequest(bookRequestDataEntity);
+    return response;
+  }
+  Future<ResponseEntity> deleteBookRequestUseCase(int bookRequestId) async {
+    final response = _bookRepository.deleteBookRequest(bookRequestId);
+    return response;
+  }
+  Future<ResponseEntity> getBookRequestDetailsUseCase(int bookRequestId) async {
+    final response = _bookRepository.getBookRequestDetails(bookRequestId);
     return response;
   }
 }

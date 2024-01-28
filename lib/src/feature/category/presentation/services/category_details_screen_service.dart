@@ -1,6 +1,4 @@
-import 'package:elibrary/src/feature/category/data/data_sources/remote/category_data_source.dart';
-import 'package:elibrary/src/feature/category/data/repositories/category_repository_imp.dart';
-import 'package:elibrary/src/feature/category/domain/use_cases/category_use_case.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -9,6 +7,9 @@ import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../../data/data_sources/remote/category_data_source.dart';
+import '../../data/repositories/category_repository_imp.dart';
+import '../../domain/use_cases/category_use_case.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
