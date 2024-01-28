@@ -1,4 +1,4 @@
-import 'package:elibrary/src/feature/book/presentation/widgets/book_request_bottomsheet.dart';
+import 'package:elibrary/src/core/utility/utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +13,7 @@ import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/book_request_entity.dart';
 import '../services/book_request_list_screen_service.dart';
+import 'book_request_bottomsheet_screen.dart';
 
 class BookRequestListScreen extends StatefulWidget {
   const BookRequestListScreen({super.key});
@@ -88,7 +89,7 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
     showCupertinoModalPopup(
         context: context,
         builder: (context) => BookRequestBottomSheet(
-              onBookRequest: () {
+              onBookRequestSuccess: () {
                 Navigator.of(context).pop();
                 loadBookRequestData(false);
               },
@@ -166,21 +167,12 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
               ),
               Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: size.w4, vertical: size.h4),
+                    horizontal: size.w8, vertical: size.h4),
                 decoration: BoxDecoration(
-                  color: clr.appPrimaryColorGreen,
-                  borderRadius: BorderRadius.circular(size.r4),
+                  color: AppUtility.getInstance!.getStatusColor(bookRequestDataEntity.status),
+                  borderRadius: BorderRadius.circular(size.r24),
                 ),
-                child: Text(
-                  bookRequestDataEntity.status == 0
-                      ? "Inactive"
-                      : bookRequestDataEntity.status == 1
-                          ? "Active"
-                          : bookRequestDataEntity.status == 2
-                              ? "Review"
-                              : bookRequestDataEntity.status == 3
-                                  ? "Hold"
-                                  : "Closed",
+                child: Text(AppUtility.getInstance!.getStatusText(bookRequestDataEntity.status),
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
                     fontWeight: FontWeight.w500,

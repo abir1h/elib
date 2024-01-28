@@ -69,22 +69,21 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
     });
   }
 
-  void onBookRequest(BookRequestDataEntity item) {
-    createBookRequest(bookRequestDataEntity: item).then((value) {
-      if (value.error == null && value.data != null) {
+  Future<ResponseEntity> onBookRequest(BookRequestDataEntity item) async{
+    ResponseEntity responseEntity = await createBookRequest(bookRequestDataEntity: item);
+    if (responseEntity.error == null && responseEntity.data != null) {
+      bookRequestDataStreamController
+          .add(DataLoadedState<List<BookRequestDataEntity>>(_bookList));
+      if (_bookList.isEmpty) {
         bookRequestDataStreamController
-            .add(DataLoadedState<List<BookRequestDataEntity>>(_bookList));
-        if (_bookList.isEmpty) {
-          bookRequestDataStreamController
-              .add(EmptyState(message: 'No Book Found'));
-        }
-        _view.showSuccess(item.status == 0
-            ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
-            : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
-      } else {
-        _view.showWarning(value.message!);
+            .add(EmptyState(message: 'No Book Found'));
       }
-      // return value;
-    });
+      _view.showSuccess(item.status == 0
+          ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
+          : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
+    } else {
+      _view.showWarning(responseEntity.message!);
+    }
+    return responseEntity;
   }
 }
