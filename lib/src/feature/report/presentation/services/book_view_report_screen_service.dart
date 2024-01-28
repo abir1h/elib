@@ -13,7 +13,7 @@ abstract class _ViewModel {
   void showWarning(String value);
 }
 
-mixin ReportService<T extends StatefulWidget> on State<T>
+mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
     implements _ViewModel {
   late _ViewModel _view;
   bool isStartFilter = false;
@@ -50,7 +50,7 @@ mixin ReportService<T extends StatefulWidget> on State<T>
   Future<void> selectEndDate() async {
     final selected = await showDatePicker(
       context: context,
-      initialDate:selectedStartDate,
+      initialDate: selectedStartDate,
       firstDate: selectedStartDate!,
       lastDate: DateTime.now(),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -81,14 +81,6 @@ mixin ReportService<T extends StatefulWidget> on State<T>
     return _reportUseCase.getBookViewDownloadReportUseCase(startDate, endDate);
   }
 
-  ///Service configurations
-  @override
-  void initState() {
-    _view = this;
-    super.initState();
-    // _loadBookmarkListData();
-  }
-
   @override
   void dispose() {
     reportDataStreamController.dispose();
@@ -98,37 +90,33 @@ mixin ReportService<T extends StatefulWidget> on State<T>
   ///Stream controllers
   final AppStreamController<List<BookViewDownloadDataEntity>>
       reportDataStreamController = AppStreamController();
-
+  final AppStreamController<bool> actionButtonDataStreamController =
+      AppStreamController();
 
   ///Load Category list
-   Future<ResponseEntity> getReportList(String startDate,String endDate) async {
+  Future<ResponseEntity> getReportList(String startDate, String endDate) async {
+    ResponseEntity responseEntity =
+        await getBookViewDownloadReport(startDate, endDate);
+    if (responseEntity.error == null && responseEntity.data != null) {
+      if (responseEntity.data.isNotEmpty) {
+        reportDataStreamController.add(
+            DataLoadedState<List<BookViewDownloadDataEntity>>(
+                responseEntity.data));
+      } else {
+        reportDataStreamController.add(EmptyState(message: 'No Book Found'));
+      }
+      actionButtonDataStreamController.add(DataLoadedState(true));
+    } else {
+      _view.showWarning(responseEntity.message!);
+    }
+    return responseEntity;
+  }
 
-     ResponseEntity responseEntity = await getBookViewDownloadReport(startDate,endDate);
-     if (responseEntity.error == null && responseEntity.data != null) {
-       // reportDataStreamController
-       //     .add(DataLoadedState<List<BookViewDownloadDataEntity>>(data));
-       // if (_viewDownloadList.isEmpty) {
-       //   reportDataStreamController
-       //       .add(EmptyState(message: 'No Book Found'));
-       // }
-       // _view.showSuccess("Report list imported");
-     } else {
-       _view.showWarning(responseEntity.message!);
-     }
-     return responseEntity;
-    // if (!mounted) return;
-    // bookmarkDataStreamController.add(LoadingState());
-    // getBookViewDownloadReport(startDate,endDate).then((value) {
-    //   if (value.error == null && value.data.isNotEmpty) {
-    //     _viewDownloadList = value.data;
-    //     bookmarkDataStreamController
-    //         .add(DataLoadedState<List<BookViewDownloadDataEntity>>(value.data!));
-    //   } else if (value.error == null && value.data.isEmpty) {
-    //     bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
-    //   } else {
-    //     //_view.showWarning(value.message!);
-    //   }
-    //
-    // });
+  onTapClearButton() {
+    startDate=null;
+    endDate =null;
+    selectedStartDate=null;
+    reportDataStreamController.add(LoadingState());
+    actionButtonDataStreamController.add(LoadingState());
   }
 }
