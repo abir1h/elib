@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/routes/app_routes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,7 +111,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 icon: Icons.assignment,
                 text:
                     label(e: en.formativeAssessment, b: bn.formativeAssessment),
-                onTap: () {},
+                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
               ),
               DrawerLinkWidget(
                 svgIcon: ImageAssets.icSocialLearning,
