@@ -26,9 +26,8 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
         pageNumber: pageNumber);
   }
 
-  Future<ResponseEntity> createBookRequest(
-      {required BookRequestDataEntity bookRequestDataEntity}) async {
-    return _bookUseCase.createBookRequestUseCase(bookRequestDataEntity);
+  Future<ResponseEntity> deleteBookRequest({required int bookRequestId}) async {
+    return _bookUseCase.deleteBookRequestUseCase(bookRequestId);
   }
 
   List<BookRequestDataEntity> _bookList = [];
@@ -69,18 +68,17 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
     });
   }
 
-  Future<ResponseEntity> onBookRequest(BookRequestDataEntity item) async{
-    ResponseEntity responseEntity = await createBookRequest(bookRequestDataEntity: item);
+  Future<ResponseEntity> onBookRequestDelete(int bookRequestId) async {
+    ResponseEntity responseEntity =
+        await deleteBookRequest(bookRequestId: bookRequestId);
     if (responseEntity.error == null && responseEntity.data != null) {
-      bookRequestDataStreamController
-          .add(DataLoadedState<List<BookRequestDataEntity>>(_bookList));
-      if (_bookList.isEmpty) {
-        bookRequestDataStreamController
-            .add(EmptyState(message: 'No Book Found'));
-      }
-      _view.showSuccess(item.status == 0
-          ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
-          : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
+      // bookRequestDataStreamController
+      //     .add(DataLoadedState<List<BookRequestDataEntity>>(_bookList));
+      // if (_bookList.isEmpty) {
+      //   bookRequestDataStreamController
+      //       .add(EmptyState(message: 'No Book Found'));
+      // }
+      _view.showSuccess(responseEntity.message!);
     } else {
       _view.showWarning(responseEntity.message!);
     }

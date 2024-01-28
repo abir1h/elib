@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
+import '../../../../core/common_widgets/custom_dialog_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
@@ -42,6 +43,7 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
                     buildItem: (context, index, item) {
                       return BookRequestItemWidget(
                         bookRequestDataEntity: item,
+                        onDelete: () => _onDelete(bookRequestId: item.id!),
                       );
                     });
               },
@@ -83,6 +85,19 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
         ),
       ),
     );
+  }
+
+  void _onDelete({required int bookRequestId}) {
+    CustomDialogWidget.show(
+            context: context,
+            title: "Do you want to delete Request?",
+            infoText: "Are you Sure?")
+        .then((x) {
+      if (x) {
+        onBookRequestDelete(bookRequestId);
+        loadBookRequestData(false);
+      }
+    });
   }
 
   void onTapAdd() {
@@ -133,7 +148,9 @@ class BookRequestItemSectionWidget<T> extends StatelessWidget with AppTheme {
 
 class BookRequestItemWidget extends StatelessWidget with AppTheme {
   final BookRequestDataEntity bookRequestDataEntity;
-  const BookRequestItemWidget({super.key, required this.bookRequestDataEntity});
+  final VoidCallback onDelete;
+  const BookRequestItemWidget(
+      {super.key, required this.bookRequestDataEntity, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -153,26 +170,19 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Text(
-                  bookRequestDataEntity.bookName,
-                  style: TextStyle(
-                    fontFamily: StringData.fontFamilyPoppins,
-                    fontWeight: FontWeight.w600,
-                    fontSize: size.textXXSmall,
-                    color: clr.appPrimaryColorGreen,
-                  ),
-                ),
-              ),
               Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: size.w8, vertical: size.h4),
                 decoration: BoxDecoration(
-                  color: AppUtility.getInstance!.getStatusColor(bookRequestDataEntity.status),
+                  color: AppUtility.getInstance!
+                      .getStatusColor(bookRequestDataEntity.status),
                   borderRadius: BorderRadius.circular(size.r24),
                 ),
-                child: Text(AppUtility.getInstance!.getStatusText(bookRequestDataEntity.status),
+                child: Text(
+                  AppUtility.getInstance!
+                      .getStatusText(bookRequestDataEntity.status),
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
                     fontWeight: FontWeight.w500,
@@ -180,8 +190,26 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
                     color: clr.whiteColor,
                   ),
                 ),
+              ),
+              IconButton(
+                onPressed: onDelete,
+                icon: Icon(
+                  Icons.close,
+                  size: size.r24,
+                  color: Colors.red,
+                ),
               )
             ],
+          ),
+          SizedBox(height: size.h8),
+          Text(
+            bookRequestDataEntity.bookName,
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w600,
+              fontSize: size.textXXSmall,
+              color: clr.appPrimaryColorGreen,
+            ),
           ),
           SizedBox(height: size.h8),
           Text(

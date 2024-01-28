@@ -9,6 +9,7 @@ import '../../domain/use_cases/note_use_case.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void showSuccess(String message);
   void onNavigateToNoteDetailsScreen(NoteDataEntity noteDataEntity);
 }
 
@@ -26,12 +27,16 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
         pageNumber: pageNumber);
   }
 
+  Future<ResponseEntity> deleteNotes({required int noteId}) async {
+    return _noteUseCase.deleteNotesUseCase(noteId);
+  }
+
   ///Service configurations
   @override
   void initState() {
     _view = this;
     super.initState();
-    _loadNotesData(true, pageNumber: 1);
+    loadNotesData(true, pageNumber: 1);
   }
 
   @override
@@ -45,7 +50,7 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
       AppStreamController();
 
   ///Load Category list
-  void _loadNotesData(bool enablePagination, {int? pageNumber}) {
+  void loadNotesData(bool enablePagination, {int? pageNumber}) {
     if (!mounted) return;
     noteDataStreamController.add(LoadingState());
     getNoteList(enablePagination, pageNumber: pageNumber).then((value) {
@@ -63,5 +68,15 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
   ///OnTap Note
   void onTapNote(NoteDataEntity noteDataEntity) {
     _view.onNavigateToNoteDetailsScreen(noteDataEntity);
+  }
+
+  Future<ResponseEntity> onNotesDelete(int noteId) async {
+    ResponseEntity responseEntity = await deleteNotes(noteId: noteId);
+    if (responseEntity.error == null && responseEntity.data != null) {
+      _view.showSuccess(responseEntity.message!);
+    } else {
+      _view.showWarning(responseEntity.message!);
+    }
+    return responseEntity;
   }
 }

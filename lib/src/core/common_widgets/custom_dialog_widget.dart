@@ -10,8 +10,8 @@ mixin CustomDialogWidget {
     required BuildContext context,
     required String infoText,
     String title = "Are You Sure?",
-    String rightButtonText = "Yes",
-    String leftButtonText = "Cancel",
+    String rightButtonText = "Cancel",
+    String leftButtonText = "Yes",
     bool singleButton = false,
   }) {
     Completer<bool> completer = Completer();

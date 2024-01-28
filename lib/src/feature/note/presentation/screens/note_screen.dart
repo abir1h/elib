@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/custom_dialog_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/constants/common_imports.dart';
@@ -44,6 +45,7 @@ class _NoteScreenState extends State<NoteScreen>
                       buildItem: (context, index, item) {
                         return NoteItemWidget(
                           noteDataEntity: item,
+                          onDelete: () => _onDelete(noteId: item.id!),
                           onPressed: () => onTapNote(item),
                         );
                       });
@@ -62,9 +64,27 @@ class _NoteScreenState extends State<NoteScreen>
     );
   }
 
+  void _onDelete({required int noteId}) {
+    CustomDialogWidget.show(
+            context: context,
+            title: "Do you want to delete Notes?",
+            infoText: "Are you Sure?")
+        .then((x) {
+      if (x) {
+        onNotesDelete(noteId);
+        loadNotesData(true, pageNumber: 1);
+      }
+    });
+  }
+
   @override
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
   }
 
   @override
@@ -100,10 +120,12 @@ class NoteItemSectionWidget<T> extends StatelessWidget with AppTheme {
 
 class NoteItemWidget extends StatelessWidget with AppTheme {
   final NoteDataEntity noteDataEntity;
+  final VoidCallback onDelete;
   final VoidCallback onPressed;
   const NoteItemWidget({
     super.key,
     required this.noteDataEntity,
+    required this.onDelete,
     required this.onPressed,
   });
 
@@ -149,16 +171,31 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    noteDataEntity.note,
-                    style: TextStyle(
-                      color: clr.blackColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: size.textXSmall,
-                      fontFamily: StringData.fontFamilyPoppins,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          noteDataEntity.note,
+                          style: TextStyle(
+                            color: clr.blackColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: size.textXSmall,
+                            fontFamily: StringData.fontFamilyPoppins,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: onDelete,
+                        child: Icon(
+                          Icons.close,
+                          size: size.r24,
+                          color: Colors.red,
+                        ),
+                      )
+                    ],
                   ),
                   SizedBox(height: size.h4),
                   Text(

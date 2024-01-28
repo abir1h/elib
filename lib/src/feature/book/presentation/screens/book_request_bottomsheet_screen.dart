@@ -1,15 +1,14 @@
-import 'package:elibrary/src/core/common_widgets/custom_action_button.dart';
-import 'package:elibrary/src/feature/book/domain/entities/book_request_entity.dart';
-import 'package:elibrary/src/feature/book/presentation/services/book_request_list_screen_service.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/common_widgets/custom_button.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/text_field_widget.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
+import '../services/book_request_bottomsheet_screen_service.dart';
+import '../../../../core/common_widgets/custom_action_button.dart';
+import '../../domain/entities/book_request_entity.dart';
 
 class BookRequestBottomSheet extends StatefulWidget {
   final VoidCallback onBookRequestSuccess;
@@ -23,7 +22,7 @@ class BookRequestBottomSheet extends StatefulWidget {
 }
 
 class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
-    with AppTheme, Language, BookRequestListScreenService {
+    with AppTheme, Language, BookRequestBottomSheetScreenService {
   TextEditingController authorNameController = TextEditingController();
   TextEditingController bookNameController = TextEditingController();
   TextEditingController publishYearController = TextEditingController();
