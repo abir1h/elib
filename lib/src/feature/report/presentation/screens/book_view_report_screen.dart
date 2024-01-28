@@ -68,8 +68,7 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
                     AppStreamBuilder<List<BookViewDownloadDataEntity>>(
                   stream: reportDataStreamController.stream,
                   loadingBuilder: (context) {
-                    return
-                        Stack(
+                    return Stack(
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -170,9 +169,7 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
                                   enabled: startDate != null && endDate != null,
                                     title: label(e: en.getReport, b: bn.getReport),
                                     onSuccess: (e) {
-                                      setState(() {
-                                        isStartFilter = true;
-                                      });
+
                                     },
                                     tapAction: () => getReportList(startDate!, endDate!)),
                               ),
@@ -216,7 +213,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(size.h20),
+      margin: EdgeInsets.all(size.h12),
       color: Colors.white,
       surfaceTintColor: Colors.white,
       elevation: 8.0,
@@ -256,7 +253,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          label(e: item.book!.titleEn, b: item.book!.titleBn),
+                          item.book!.titleEn,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -268,9 +265,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                         ),
                         SizedBox(height: 12.h),
                         Text(
-                          label(
-                              e: item.book!.descriptionEn,
-                              b: item.book!.descriptionBn),
+                          item.book!.descriptionEn,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 12.sp),
@@ -343,12 +338,12 @@ class ViewDownloadListWidget<T> extends StatelessWidget with AppTheme {
       itemCount: items.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h12),
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(height: size.h12);
+        return SizedBox(height: size.h4);
       },
     );
   }
