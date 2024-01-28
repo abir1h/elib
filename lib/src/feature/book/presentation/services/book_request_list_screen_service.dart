@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -69,6 +70,7 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
   }
 
   Future<ResponseEntity> onBookRequestDelete(int bookRequestId) async {
+    CustomToasty.of(context).lockUI();
     ResponseEntity responseEntity =
         await deleteBookRequest(bookRequestId: bookRequestId);
     if (responseEntity.error == null && responseEntity.data != null) {
@@ -78,10 +80,12 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
       //   bookRequestDataStreamController
       //       .add(EmptyState(message: 'No Book Found'));
       // }
+      loadBookRequestData(false);
       _view.showSuccess(responseEntity.message!);
     } else {
       _view.showWarning(responseEntity.message!);
     }
+    CustomToasty.of(context).releaseUI();
     return responseEntity;
   }
 }
