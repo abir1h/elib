@@ -1,6 +1,4 @@
-import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
-
-import '../../data/models/book_data_model.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
 
 class BookViewDownloadDataEntity {
   final int id;
