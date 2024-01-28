@@ -4,23 +4,23 @@ import '../../../book/data/models/book_data_model.dart';
 
 @immutable
 class NoteDataModel {
-  final int id;
+  final int? id;
   final int bookId;
   final int emisUserId;
   final String note;
-  final String createdAt;
-  final String updatedAt;
-  final String deletedAt;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? deletedAt;
   final BookDataModel? book;
 
   const NoteDataModel({
-    required this.id,
+    this.id,
     required this.bookId,
     required this.emisUserId,
     required this.note,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
     this.book,
   });
 
@@ -36,15 +36,26 @@ class NoteDataModel {
             json['book'] != null ? BookDataModel.fromJson(json['book']) : null,
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "book_id": bookId,
-        "emis_user_id": emisUserId,
-        "note": note,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "deleted_at": deletedAt,
-      };
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = {};
+    if (id != null) {
+      data["id"] = id;
+    }
+    data["book_id"] = bookId;
+    data["emis_user_id"] = emisUserId;
+    data["note"] = note;
+    if (createdAt != null) {
+      data["created_at"] = createdAt;
+    }
+    if (updatedAt != null) {
+      data["updated_at"] = updatedAt;
+    }
+    if (deletedAt != null) {
+      data["deleted_at"] = deletedAt;
+    }
+    return data;
+  }
+
   static List<NoteDataModel> listFromJson(List<dynamic> json) {
     return json.isNotEmpty
         ? List.castFrom<dynamic, NoteDataModel>(

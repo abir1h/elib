@@ -9,6 +9,7 @@ import '../../feature/category/presentation/screens/category_details_screen.dart
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/note/presentation/screens/note_details_screen.dart';
+import '../../feature/note/presentation/screens/note_edit_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
@@ -27,6 +28,7 @@ class AppRoute {
   static const String bookViewScreen = 'bookViewScreen';
   static const String noteScreen = 'noteScreen';
   static const String noteDetailsScreen = 'noteDetailsScreen';
+  static const String noteEditScreen = 'noteEditScreen';
   static const String bookRequestListScreen = 'bookRequestListScreen';
 }
 
@@ -66,6 +68,8 @@ mixin RouteGenerator {
           return const NoteScreen();
         case AppRoute.noteDetailsScreen:
           return NoteDetailsScreen(arguments: setting.arguments);
+        case AppRoute.noteEditScreen:
+          return NoteEditScreen(arguments: setting.arguments);
 
         ///Book Request
         case AppRoute.bookRequestListScreen:

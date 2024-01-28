@@ -43,9 +43,7 @@ class _NoteScreenState extends State<NoteScreen>
                       items: data,
                       buildItem: (context, index, item) {
                         return NoteItemWidget(
-                          noteContent: item.note,
-                          title: "title",
-                          timestamp: item.createdAt,
+                          noteDataEntity: item,
                           onPressed: () => onTapNote(item),
                         );
                       });
@@ -101,18 +99,13 @@ class NoteItemSectionWidget<T> extends StatelessWidget with AppTheme {
 }
 
 class NoteItemWidget extends StatelessWidget with AppTheme {
-  final String noteContent;
-  final String title;
-  final String timestamp;
+  final NoteDataEntity noteDataEntity;
   final VoidCallback onPressed;
-  final String? reference;
-  const NoteItemWidget(
-      {super.key,
-      required this.noteContent,
-      required this.title,
-      required this.timestamp,
-      required this.onPressed,
-      this.reference});
+  const NoteItemWidget({
+    super.key,
+    required this.noteDataEntity,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +131,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                   border: Border.all(color: Colors.grey),
                 ),
                 child: Text(
-                  noteContent,
+                  noteDataEntity.note,
                   maxLines: 2,
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
@@ -157,35 +150,33 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    noteDataEntity.note,
                     style: TextStyle(
                       color: clr.blackColor,
                       fontWeight: FontWeight.w500,
-                      fontSize: size.textSmall,
+                      fontSize: size.textXSmall,
                       fontFamily: StringData.fontFamilyPoppins,
                     ),
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: size.h4),
-                  reference != "টপিক সিলেক্ট করুন"
-                      ? Text(
-                          reference.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: size.textXSmall,
-                              fontFamily: StringData.fontFamilyPoppins,
-                              color: clr.appPrimaryColorGreen),
-                        )
-                      : const SizedBox(),
+                  Text(
+                    label(
+                        e: noteDataEntity.book!.titleEn,
+                        b: noteDataEntity.book!.titleEn),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: size.textXXSmall,
+                        fontFamily: StringData.fontFamilyPoppins,
+                        color: clr.appPrimaryColorGreen),
+                  ),
                   Row(
-                    mainAxisAlignment: reference != null
-                        ? MainAxisAlignment.end
-                        : MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Expanded(
                         child: Text(
-                          "তারিখ: ${DateFormat('dd MMMM yyyy').format(DateTime.parse(timestamp))}",
+                          "তারিখ: ${DateFormat('dd MMMM yyyy').format(DateTime.parse(noteDataEntity.createdAt!))}",
                           style: TextStyle(
                             color: clr.placeHolderTextColorGray,
                             fontWeight: FontWeight.w400,
@@ -194,9 +185,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          textAlign: reference != null
-                              ? TextAlign.end
-                              : TextAlign.start,
+                          textAlign: TextAlign.end,
                         ),
                       ),
                     ],
