@@ -86,9 +86,13 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
 
   void onTapAdd() {
     showCupertinoModalPopup(
-      context: context,
-      builder: (context) => const BookRequestBottomSheet(),
-    );
+        context: context,
+        builder: (context) => BookRequestBottomSheet(
+              onBookRequest: () {
+                Navigator.of(context).pop();
+                loadBookRequestData(false);
+              },
+            ));
   }
 
   @override
@@ -147,46 +151,16 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            bookRequestDataEntity.bookName,
-            style: TextStyle(
-              fontFamily: StringData.fontFamilyPoppins,
-              fontWeight: FontWeight.w600,
-              fontSize: size.textXXSmall,
-              color: clr.appPrimaryColorGreen,
-            ),
-          ),
-          SizedBox(height: size.h8),
-          Text(
-            "Author: ${bookRequestDataEntity.authorName}",
-            style: TextStyle(
-              fontFamily: StringData.fontFamilyPoppins,
-              fontWeight: FontWeight.w500,
-              fontSize: size.textXXSmall,
-              color: clr.blackColor,
-            ),
-          ),
-          SizedBox(height: size.h2),
-          Text(
-            "Publish Year: ${bookRequestDataEntity.publishYear}",
-            style: TextStyle(
-              fontFamily: StringData.fontFamilyPoppins,
-              fontWeight: FontWeight.w500,
-              fontSize: size.textXXSmall,
-              color: clr.blackColor,
-            ),
-          ),
-          SizedBox(height: size.h2),
           Row(
             children: [
               Expanded(
                 child: Text(
-                  "Edition: ${bookRequestDataEntity.edition}",
+                  bookRequestDataEntity.bookName,
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontSize: size.textXXSmall,
-                    color: clr.blackColor,
+                    color: clr.appPrimaryColorGreen,
                   ),
                 ),
               ),
@@ -216,6 +190,36 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
                 ),
               )
             ],
+          ),
+          SizedBox(height: size.h8),
+          Text(
+            "Author: ${bookRequestDataEntity.authorName}",
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w500,
+              fontSize: size.textXXSmall,
+              color: clr.blackColor,
+            ),
+          ),
+          SizedBox(height: size.h2),
+          Text(
+            "Publish Year: ${bookRequestDataEntity.publishYear}",
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w500,
+              fontSize: size.textXXSmall,
+              color: clr.blackColor,
+            ),
+          ),
+          SizedBox(height: size.h2),
+          Text(
+            "Edition: ${bookRequestDataEntity.edition}",
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w500,
+              fontSize: size.textXXSmall,
+              color: clr.blackColor,
+            ),
           ),
         ],
       ),

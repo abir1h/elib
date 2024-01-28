@@ -1,3 +1,5 @@
+import 'package:elibrary/src/core/common_widgets/custom_action_button.dart';
+import 'package:elibrary/src/feature/book/domain/entities/book_request_entity.dart';
 import 'package:elibrary/src/feature/book/presentation/services/book_request_list_screen_service.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,11 @@ import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 
 class BookRequestBottomSheet extends StatefulWidget {
-  const BookRequestBottomSheet({super.key});
+  final VoidCallback onBookRequest;
+  const BookRequestBottomSheet({
+    super.key,
+    required this.onBookRequest,
+  });
 
   @override
   State<BookRequestBottomSheet> createState() => _DiscussionBottomSheetState();
@@ -75,10 +81,28 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                     controller: remarkController,
                   ),
                   SizedBox(height: size.h16),
-                  CustomButton(
-                    onTap: () {},
-                    title: label(e: en.requestBook, b: bn.requestBook),
-                  )
+                  CustomActionButton(
+                      title: label(e: en.requestBook, b: bn.requestBook),
+                      onSuccess: (e) {
+                        widget.onBookRequest.call();
+                      },
+                      tapAction: () => onBookRequest(BookRequestDataEntity(
+                          emisUserId: 1,
+                          authorName: authorNameController.text,
+                          bookName: bookNameController.text,
+                          publishYear: publishYearController.text,
+                          edition: editionController.text,
+                          remark: remarkController.text))),
+                  // CustomButton(
+                  //   onTap: () => onBookRequest(BookRequestDataEntity(
+                  //       emisUserId: 1,
+                  //       authorName: authorNameController.text,
+                  //       bookName: bookNameController.text,
+                  //       publishYear: publishYearController.text,
+                  //       edition: editionController.text,
+                  //       remark: remarkController.text)),
+                  //   title: label(e: en.requestBook, b: bn.requestBook),
+                  // )
                 ],
               ),
             ),

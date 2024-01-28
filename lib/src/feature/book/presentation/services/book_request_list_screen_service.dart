@@ -38,7 +38,7 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
   void initState() {
     _view = this;
     super.initState();
-    _loadBookRequestData(false);
+    loadBookRequestData(false);
   }
 
   @override
@@ -52,7 +52,7 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
       bookRequestDataStreamController = AppStreamController();
 
   ///Load Book Request list
-  void _loadBookRequestData(bool enablePagination, {int? pageNumber}) {
+  void loadBookRequestData(bool enablePagination, {int? pageNumber}) {
     if (!mounted) return;
     bookRequestDataStreamController.add(LoadingState());
     getBookRequestList(enablePagination, pageNumber: pageNumber).then((value) {
@@ -69,7 +69,7 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
     });
   }
 
-  void onBookmarkContentSelected(BookRequestDataEntity item) {
+  void onBookRequest(BookRequestDataEntity item) {
     createBookRequest(bookRequestDataEntity: item).then((value) {
       if (value.error == null && value.data != null) {
         bookRequestDataStreamController
@@ -84,6 +84,7 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
       } else {
         _view.showWarning(value.message!);
       }
+      // return value;
     });
   }
 }
