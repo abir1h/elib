@@ -7,7 +7,6 @@ import 'package:elibrary/src/core/utility/log.dart';
 import 'package:elibrary/src/feature/note/data/models/note_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quill_delta/quill_delta.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
@@ -123,11 +122,7 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                                 updatedAt: "dfdf",
                                 deletedAt: "dfdf",
                               );
-                              showCupertinoModalPopup(
-                                context: context,
-                                builder: (context) =>
-                                    NoteBottomSheet(noteModel: noteModel),
-                              );
+
                             },
                             child: Container(
                               padding: EdgeInsets.all(size.h8),
@@ -271,12 +266,7 @@ class _BookViewerScreenState extends State<BookViewerScreen>
     );
   }
 
-  void onTapCreateDiscussion() {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => const NoteBottomSheet(),
-    );
-  }
+
 
   @override
   void forceClose() {
