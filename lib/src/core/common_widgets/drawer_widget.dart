@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/language.dart';
 import '../routes/app_routes.dart';
+import '../service/auth_cache_manager.dart';
 import '../service/notifier/app_events_notifier.dart';
 import 'custom_dialog_widget.dart';
 import 'custom_switch_button.dart';
@@ -173,7 +174,9 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
       leftButtonText: label(e: en.exitText, b: bn.exitText),
     ).then((value) {
       if (value) {
-        //Get.find<LandingController>().logout();
+        AuthCacheManager.userLogout();
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            AppRoute.authenticationScreen, (x) => false);
       }
     });
   }

@@ -6,6 +6,7 @@ import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/header_widget.dart';
 import '../../../../core/constants/language.dart';
+import '../../../../core/service/auth_cache_manager.dart';
 import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/common_widgets/custom_dialog_widget.dart';
 import '../../../../core/common_widgets/custom_switch_button.dart';
@@ -231,7 +232,9 @@ class _ProfileScreenState extends State<ProfileScreen>
       leftButtonText: label(e: en.exitText, b: bn.exitText),
     ).then((value) {
       if (value) {
-        // Get.find<LandingController>().logout();
+        AuthCacheManager.userLogout();
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            AppRoute.authenticationScreen, (x) => false);
       }
     });
   }

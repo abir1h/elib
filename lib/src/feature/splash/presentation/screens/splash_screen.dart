@@ -1,4 +1,3 @@
-import 'package:elibrary/src/feature/book/domain/entities/book_request_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +5,6 @@ import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../shared/domain/entities/response_entity.dart';
 import '../services/splash_service.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
@@ -20,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with AppTheme, Language, SplashService, BookService{
+    with AppTheme, Language, SplashService, BookService {
   @override
   void initState() {
     super.initState();
@@ -65,10 +63,13 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void navigateToLandingScreen() {
-    // Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(AppRoute.authenticationScreen, (x) => false);
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoute.landingScreen, (x) => false);
   }
 
+  @override
+  void navigateToAuthScreen() {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoute.authenticationScreen, (x) => false);
+  }
 }

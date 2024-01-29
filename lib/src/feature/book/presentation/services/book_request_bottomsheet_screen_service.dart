@@ -51,14 +51,14 @@ mixin BookRequestBottomSheetScreenService<T extends StatefulWidget> on State<T>
       _view.showWarning("Author name is required!");
       return false;
     } else if (!Validator.isValidLength(
-        authorNameController.text.trim(), 3, 16)) {
+        authorNameController.text.trim(), 3, 100)) {
       _view.showWarning("Author name is required at least 3 character!");
       return false;
     } else if (Validator.isEmpty(bookNameController.text.trim())) {
       _view.showWarning("Book name is required!");
       return false;
     } else if (!Validator.isValidLength(
-        bookNameController.text.trim(), 3, 16)) {
+        bookNameController.text.trim(), 3, 100)) {
       _view.showWarning("Book name is required at least 3 character!");
       return false;
     } else if (Validator.isEmpty(publishYearController.text.trim())) {
@@ -67,7 +67,7 @@ mixin BookRequestBottomSheetScreenService<T extends StatefulWidget> on State<T>
     } else if (Validator.isEmpty(editionController.text.trim())) {
       _view.showWarning("Edition is required!");
       return false;
-    } else if (!Validator.isValidLength(editionController.text.trim(), 3, 16)) {
+    } else if (!Validator.isValidLength(editionController.text.trim(), 3, 100)) {
       _view.showWarning("Edition is required at least 3 character!");
       return false;
     } else {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/service/auth_cache_manager.dart';
+
 abstract class _ViewModel {
+  void navigateToAuthScreen();
   void navigateToLandingScreen();
 }
 
@@ -23,6 +26,8 @@ mixin SplashService implements _ViewModel {
     await Future.delayed(const Duration(milliseconds: 500));
 
     ///Navigate to logical page
-    _view.navigateToLandingScreen();
+    await AuthCacheManager.isUserLoggedIn()
+        ? _view.navigateToLandingScreen()
+        : _view.navigateToAuthScreen();
   }
 }
