@@ -9,6 +9,7 @@ import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/note/presentation/screens/note_details_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
+import '../../feature/note/presentation/screens/note_screen_beta.dart';
 import '../../feature/report/presentation/screens/book_view_report_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
@@ -29,6 +30,7 @@ class AppRoute {
       'bookViewDownloadCountScreen';
   static const String noteScreen = 'noteScreen';
   static const String noteDetailsScreen = 'noteDetailsScreen';
+  static const String noteDetailsScreenBeta = 'noteDetailsScreenBeta';
   static const String bookRequestListScreen = 'bookRequestListScreen';
 }
 
@@ -71,6 +73,8 @@ mixin RouteGenerator {
           return const NoteScreen();
         case AppRoute.noteDetailsScreen:
           return NoteDetailsScreen(arguments: setting.arguments);
+          case AppRoute.noteDetailsScreenBeta:
+          return const NoteScreenBeta();
 
         ///Book Request
         case AppRoute.bookRequestListScreen:

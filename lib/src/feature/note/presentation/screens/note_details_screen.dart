@@ -4,6 +4,7 @@ import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class NoteDetailsScreen extends StatefulWidget {
   final Object? arguments;
@@ -52,9 +53,9 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> with AppTheme {
                   size: size.r24, color: clr.appPrimaryColorGreen)),
           IconButton(
               onPressed: () {
-                // Navigator.of(context).pushNamed(AppRoute.noteEditScreen,
-                //     arguments: NoteDetailsScreenArgs(
-                //         noteModel: _screenArgs.noteModel));
+                Navigator.of(context).pushNamed(
+                  AppRoute.noteDetailsScreenBeta,
+                );
               },
               icon:
                   Icon(Icons.edit, size: size.r24, color: clr.iconColorBlack)),
