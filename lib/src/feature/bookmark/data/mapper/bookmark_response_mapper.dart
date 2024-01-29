@@ -1,5 +1,5 @@
-import '../models/bookmark_response_model.dart';
 import '../../domain/entities/bookmark_response_entity.dart';
+import '../models/bookmark_response_model.dart';
 
 abstract class BookmarkMapper<M, E> {
   M fromEntityToModel(E entity);

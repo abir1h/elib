@@ -118,6 +118,7 @@ class LanguageEn {
   String edition = "Write Edition";
   String remark = "Write Remark";
   String requestBook = "Request Book";
+  String updateRequestBook = "Update Request";
   String getReport = "Get Report";
 }
 
@@ -233,7 +234,7 @@ class LanguageBn {
   String edition = "সংস্করণ লিখুন";
   String remark = "মন্তব্য লিখুন";
   String requestBook = "বই অনুরোধ করুন";
+  String updateRequestBook = "আপডেট করুন";
   String getReport = "রিপোর্ট পান";
   String bookReportText = "বই রিপোর্ট";
-
 }

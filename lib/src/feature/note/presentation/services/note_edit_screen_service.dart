@@ -30,16 +30,6 @@ mixin NoteEditScreenService<T extends StatefulWidget> on State<T>
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   noteDataStreamController.dispose();
-  //   super.dispose();
-  // }
-  //
-  // ///Stream controllers
-  // final AppStreamController<NoteDataEntity> noteDataStreamController =
-  //     AppStreamController();
-
   void onUpdateNotes(NoteDataEntity noteDataEntity) {
     updateNotes(noteDataEntity).then((value) {
       if (value.error == null && value.data != null) {

@@ -1,7 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
-import 'package:elibrary/src/core/common_widgets/shimmer_loader.dart';
-import 'package:elibrary/src/core/constants/language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,8 +10,11 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/bookmark_data_entity.dart';
-import '../services/bookmark_screen_service.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
+import '../services/bookmark_screen_service.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../../core/common_widgets/shimmer_loader.dart';
+import '../../../../core/constants/language.dart';
 
 class BookmarkScreen extends StatefulWidget {
   const BookmarkScreen({Key? key}) : super(key: key);
@@ -42,14 +42,14 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                     physics: const BouncingScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: .6,
+                      childAspectRatio: .5,
                       crossAxisSpacing: size.h12,
                       mainAxisSpacing: size.h12,
                     ),
                     itemCount: 10,
                     shrinkWrap: true,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.w12, vertical: size.h12),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.w12, vertical: size.h12),
                     itemBuilder: (context, index) {
                       return BookmarkItemWidget(
                         item: BookmarkDataEntity(
@@ -100,7 +100,7 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                     physics: const BouncingScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 0.6,
+                      childAspectRatio: 0.5,
                       crossAxisSpacing: size.h12,
                       mainAxisSpacing: size.h12,
                     ),
@@ -127,7 +127,6 @@ class _BookmarkScreenState extends State<BookmarkScreen>
               ),
             ),
             SizedBox(height: size.h64),
-
           ],
         ),
       ),
@@ -175,19 +174,19 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(size.r8),
-        color: clr.whiteColor,
+          color: clr.cardFillColorBlue,
           boxShadow: [
             BoxShadow(
               color: clr.blackColor.withOpacity(.2),
               blurRadius: size.r8,
               offset: Offset(0.0, size.h2),
             ),
-          ]
-      ),
+          ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          AspectRatio(
+            aspectRatio: 0.8,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(size.h8),
@@ -196,7 +195,6 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
                   width: 1.w,
                 ),
               ),
-
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(7.w),
                 child: Stack(
@@ -246,31 +244,33 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
               ),
             ),
           ),
-          SizedBox(height: size.h4),
-          GestureDetector(
-            onTap: () => widget.onSelect(widget.item),
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: size.h4),
-              child: Text(
-                widget.item.book != null ? widget.item.book!.titleEn : "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: clr.appPrimaryColorGreen,
-                  fontSize: size.textXXSmall,
-                  fontWeight: FontWeight.w600,
+          SizedBox(height: size.h6),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => widget.onSelect(widget.item),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.h4),
+                child: Text(
+                  widget.item.book != null ? widget.item.book!.titleEn : "",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: clr.appPrimaryColorGreen,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
           ),
           Text.rich(
               textAlign: TextAlign.start,
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               TextSpan(
                   text: widget.item.book!.author.isNotEmpty ? "by " : "",
                   style: TextStyle(
-                      color: clr.placeHolderTextColorGray,
+                      color: clr.appPrimaryColorGreen,
                       fontSize: size.textXXSmall,
                       fontWeight: FontWeight.w500),
                   children: [
@@ -282,7 +282,7 @@ class _ELibContentItemWidgetState extends State<BookmarkItemWidget>
                               .join(', ')
                           : "",
                       style: TextStyle(
-                          color: clr.textColorAppleBlack,
+                          color: clr.textColorBlack,
                           fontSize: size.textXXSmall,
                           fontWeight: FontWeight.w600),
                     ),

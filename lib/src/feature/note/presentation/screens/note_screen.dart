@@ -72,7 +72,6 @@ class _NoteScreenState extends State<NoteScreen>
         .then((x) {
       if (x) {
         onNotesDelete(noteId);
-        loadNotesData(true, pageNumber: 1);
       }
     });
   }

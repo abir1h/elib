@@ -1,8 +1,7 @@
-import 'package:elibrary/src/feature/book/data/models/book_request_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../category/data/models/category_link_data_model.dart';
-import 'book_data_model.dart';
+import 'book_request_data_model.dart';
+
 
 @immutable
 class PaginatedBookRequestDataModel {

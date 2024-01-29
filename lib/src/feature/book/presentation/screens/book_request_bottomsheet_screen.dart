@@ -11,10 +11,14 @@ import '../../../../core/common_widgets/custom_action_button.dart';
 import '../../domain/entities/book_request_entity.dart';
 
 class BookRequestBottomSheet extends StatefulWidget {
+  final BookRequestDataEntity bookRequestDataEntity;
   final VoidCallback onBookRequestSuccess;
+  final bool edit;
   const BookRequestBottomSheet({
     super.key,
+    required this.bookRequestDataEntity,
     required this.onBookRequestSuccess,
+    required this.edit,
   });
 
   @override
@@ -28,6 +32,21 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
   TextEditingController publishYearController = TextEditingController();
   TextEditingController editionController = TextEditingController();
   TextEditingController remarkController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    preFillExistingInfo();
+  }
+
+  ///Existing info
+  void preFillExistingInfo() {
+    authorNameController.text = widget.bookRequestDataEntity.authorName;
+    bookNameController.text = widget.bookRequestDataEntity.bookName;
+    publishYearController.text = widget.bookRequestDataEntity.publishYear;
+    editionController.text = widget.bookRequestDataEntity.edition;
+    remarkController.text = widget.bookRequestDataEntity.remark;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +87,7 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                   AppTextField(
                     hintText: label(e: en.publishYear, b: bn.publishYear),
                     controller: publishYearController,
+                    keyboardType: TextInputType.number,
                   ),
                   SizedBox(height: size.h8),
                   AppTextField(
@@ -81,17 +101,30 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                   ),
                   SizedBox(height: size.h16),
                   CustomActionButton(
-                      title: label(e: en.requestBook, b: bn.requestBook),
+                      title: widget.edit
+                          ? label(e: en.updateRequestBook, b: bn.updateRequestBook)
+                          : label(e: en.requestBook, b: bn.requestBook),
                       onSuccess: (e) {
                         widget.onBookRequestSuccess();
                       },
-                      tapAction: () => onBookRequest(BookRequestDataEntity(
-                          emisUserId: 1,
-                          authorName: authorNameController.text,
-                          bookName: bookNameController.text,
-                          publishYear: publishYearController.text,
-                          edition: editionController.text,
-                          remark: remarkController.text))),
+                      onCheck: () => validateFormData(
+                          authorNameController,
+                          bookNameController,
+                          publishYearController,
+                          editionController),
+                      tapAction: () => onBookRequestOrUpdate(
+                            item: BookRequestDataEntity(
+                                id: widget.edit
+                                    ? widget.bookRequestDataEntity.id
+                                    : null,
+                                emisUserId: 1,
+                                authorName: authorNameController.text.trim(),
+                                bookName: bookNameController.text.trim(),
+                                publishYear: publishYearController.text.trim(),
+                                edition: editionController.text.trim(),
+                                remark: remarkController.text.trim()),
+                            edit: widget.edit,
+                          )),
                 ],
               ),
             ),

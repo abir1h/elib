@@ -1,7 +1,7 @@
-import 'package:elibrary/src/feature/book/domain/entities/author_type_data_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'pivot_data_entity.dart';
+import 'author_type_data_entity.dart';
 
 @immutable
 class AuthorDataEntity {

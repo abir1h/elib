@@ -1,4 +1,3 @@
-import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -7,6 +6,7 @@ import '../../data/data_sources/remote/book_data_source.dart';
 import '../../data/repositories/book_repository_imp.dart';
 import '../../domain/entities/book_request_entity.dart';
 import '../../domain/use_cases/book_use_case.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
@@ -74,12 +74,6 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
     ResponseEntity responseEntity =
         await deleteBookRequest(bookRequestId: bookRequestId);
     if (responseEntity.error == null && responseEntity.data != null) {
-      // bookRequestDataStreamController
-      //     .add(DataLoadedState<List<BookRequestDataEntity>>(_bookList));
-      // if (_bookList.isEmpty) {
-      //   bookRequestDataStreamController
-      //       .add(EmptyState(message: 'No Book Found'));
-      // }
       loadBookRequestData(false);
       _view.showSuccess(responseEntity.message!);
     } else {

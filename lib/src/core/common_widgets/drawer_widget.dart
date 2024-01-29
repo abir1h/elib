@@ -1,7 +1,7 @@
-import 'package:elibrary/src/core/routes/app_routes.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../constants/language.dart';
 import '../routes/app_routes.dart';
 import '../service/notifier/app_events_notifier.dart';
@@ -72,9 +72,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                       if (mounted) {
                         setState(() {});
                       }
-                      AppEventsNotifier.notify(EventAction.bottomNavAllScreen);
                       AppEventsNotifier.notify(EventAction.bottomNavBar);
-                      AppEventsNotifier.notify(EventAction.graphChart);
                     });
                   },
                   buttonHolder: const Icon(
@@ -141,11 +139,14 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 text: label(e: en.bookRequestText, b: bn.bookRequestText),
                 onTap: () => Navigator.of(context)
                     .pushNamed(AppRoute.bookRequestListScreen),
-              ),  DrawerLinkWidget(
+              ),
+              DrawerLinkWidget(
                 icon: Icons.book,
                 text: label(e: en.bookReportText, b: bn.bookReportText),
-                onTap: () {Navigator.pushNamed(context, AppRoute.bookViewDownloadCountScreen);},
-
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, AppRoute.bookViewDownloadCountScreen);
+                },
               ),
               DrawerLinkWidget(
                 icon: Icons.logout,

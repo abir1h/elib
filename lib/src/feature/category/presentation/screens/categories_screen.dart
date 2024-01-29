@@ -53,7 +53,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                               ],
                               buildItem: (context, index, item) {
                                 return AspectRatio(
-                                  aspectRatio: .8,
+                                  aspectRatio: .45,
                                   child: ELibContentItemWidget(
                                     key: ObjectKey(item),
                                     item: BookDataEntity(
@@ -101,8 +101,10 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             items: data[index].books,
                             buildItem: (context, index, item) {
                               return AspectRatio(
-                                aspectRatio: .6,
+                                aspectRatio: .5,
                                 child: ELibContentItemWidget(
+                                  boxShadow: true,
+                                  aspectRatio: .7,
                                   key: Key(item.id.toString()),
                                   item: item,
                                   onSelect: onBookContentSelected,
@@ -186,7 +188,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
       required this.items,
       required this.buildItem,
       required this.onTapSeeAll,
-      this.aspectRatio = 2})
+      this.aspectRatio = 1.5})
       : super(key: key);
 
   @override

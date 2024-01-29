@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utility/validator.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../data/data_sources/remote/book_data_source.dart';
 import '../../data/repositories/book_repository_imp.dart';
@@ -24,6 +25,11 @@ mixin BookRequestBottomSheetScreenService<T extends StatefulWidget> on State<T>
     return _bookUseCase.createBookRequestUseCase(bookRequestDataEntity);
   }
 
+  Future<ResponseEntity> updateBookRequest(
+      {required BookRequestDataEntity bookRequestDataEntity}) async {
+    return _bookUseCase.updateBookRequestUseCase(bookRequestDataEntity);
+  }
+
   ///Service configurations
   @override
   void initState() {
@@ -36,9 +42,44 @@ mixin BookRequestBottomSheetScreenService<T extends StatefulWidget> on State<T>
     super.dispose();
   }
 
-  Future<ResponseEntity> onBookRequest(BookRequestDataEntity item) async {
-    ResponseEntity responseEntity =
-        await createBookRequest(bookRequestDataEntity: item);
+  bool validateFormData(
+      TextEditingController authorNameController,
+      TextEditingController bookNameController,
+      TextEditingController publishYearController,
+      TextEditingController editionController) {
+    if (Validator.isEmpty(authorNameController.text.trim())) {
+      _view.showWarning("Author name is required!");
+      return false;
+    } else if (!Validator.isValidLength(
+        authorNameController.text.trim(), 3, 16)) {
+      _view.showWarning("Author name is required at least 3 character!");
+      return false;
+    } else if (Validator.isEmpty(bookNameController.text.trim())) {
+      _view.showWarning("Book name is required!");
+      return false;
+    } else if (!Validator.isValidLength(
+        bookNameController.text.trim(), 3, 16)) {
+      _view.showWarning("Book name is required at least 3 character!");
+      return false;
+    } else if (Validator.isEmpty(publishYearController.text.trim())) {
+      _view.showWarning("Publish year is required!");
+      return false;
+    } else if (Validator.isEmpty(editionController.text.trim())) {
+      _view.showWarning("Edition is required!");
+      return false;
+    } else if (!Validator.isValidLength(editionController.text.trim(), 3, 16)) {
+      _view.showWarning("Edition is required at least 3 character!");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  Future<ResponseEntity> onBookRequestOrUpdate(
+      {required BookRequestDataEntity item, required bool edit}) async {
+    ResponseEntity responseEntity = edit
+        ? await updateBookRequest(bookRequestDataEntity: item)
+        : await createBookRequest(bookRequestDataEntity: item);
     if (responseEntity.error == null && responseEntity.data != null) {
       _view.showSuccess(responseEntity.message!);
     } else {

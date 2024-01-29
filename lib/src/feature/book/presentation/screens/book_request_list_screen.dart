@@ -44,6 +44,8 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
                       return BookRequestItemWidget(
                         bookRequestDataEntity: item,
                         onDelete: () => _onDelete(bookRequestId: item.id!),
+                        onEdit: () => onTapCreateOrUpdate(
+                            bookRequestDataEntity: item, edit: true),
                       );
                     });
               },
@@ -57,7 +59,15 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
               bottom: size.h10,
               right: size.w10,
               child: GestureDetector(
-                onTap: onTapAdd,
+                onTap: () => onTapCreateOrUpdate(
+                    bookRequestDataEntity: BookRequestDataEntity(
+                        emisUserId: 1,
+                        authorName: "",
+                        bookName: "",
+                        publishYear: "",
+                        edition: "",
+                        remark: ""),
+                    edit: false),
                 child: Container(
                   padding: EdgeInsets.all(size.r12),
                   decoration: BoxDecoration(
@@ -95,19 +105,22 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
         .then((x) {
       if (x) {
         onBookRequestDelete(bookRequestId);
-        // loadBookRequestData(false);
       }
     });
   }
 
-  void onTapAdd() {
+  void onTapCreateOrUpdate(
+      {required BookRequestDataEntity bookRequestDataEntity,
+      required bool edit}) {
     showCupertinoModalPopup(
         context: context,
         builder: (context) => BookRequestBottomSheet(
+              bookRequestDataEntity: bookRequestDataEntity,
               onBookRequestSuccess: () {
                 Navigator.of(context).pop();
                 loadBookRequestData(false);
               },
+              edit: edit,
             ));
   }
 
@@ -149,8 +162,12 @@ class BookRequestItemSectionWidget<T> extends StatelessWidget with AppTheme {
 class BookRequestItemWidget extends StatelessWidget with AppTheme {
   final BookRequestDataEntity bookRequestDataEntity;
   final VoidCallback onDelete;
+  final VoidCallback onEdit;
   const BookRequestItemWidget(
-      {super.key, required this.bookRequestDataEntity, required this.onDelete});
+      {super.key,
+      required this.bookRequestDataEntity,
+      required this.onDelete,
+      required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -189,6 +206,15 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
                     fontSize: size.textXXSmall,
                     color: clr.whiteColor,
                   ),
+                ),
+              ),
+              const Spacer(),
+              InkWell(
+                onTap: onEdit,
+                child: Icon(
+                  Icons.edit,
+                  size: size.r24,
+                  color: clr.blackColor,
                 ),
               ),
               IconButton(

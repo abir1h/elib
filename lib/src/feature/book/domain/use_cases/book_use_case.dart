@@ -22,16 +22,6 @@ class BookUseCase {
     return response;
   }
 
-  Future<ResponseEntity> bookmarkUseCase(int bookId, int eMISUserId) async {
-    final response = _bookRepository.bookmarkBook(bookId, eMISUserId);
-    return response;
-  }
-
-  Future<ResponseEntity> getBookmarkListUseCase() async {
-    final response = _bookRepository.getBookmarkBookList();
-    return response;
-  }
-
   Future<ResponseEntity> userBookViewCountActionUseCase(int bookId) async {
     final response = _bookRepository.userBookViewCountAction(bookId);
     return response;
@@ -53,18 +43,24 @@ class BookUseCase {
         pageNumber: pageNumber);
     return response;
   }
-  Future<ResponseEntity> createBookRequestUseCase(BookRequestDataEntity bookRequestDataEntity) async {
+
+  Future<ResponseEntity> createBookRequestUseCase(
+      BookRequestDataEntity bookRequestDataEntity) async {
     final response = _bookRepository.createBookRequest(bookRequestDataEntity);
     return response;
   }
-  Future<ResponseEntity> updateBookRequestUseCase(BookRequestDataEntity bookRequestDataEntity) async {
+
+  Future<ResponseEntity> updateBookRequestUseCase(
+      BookRequestDataEntity bookRequestDataEntity) async {
     final response = _bookRepository.updateBookRequest(bookRequestDataEntity);
     return response;
   }
+
   Future<ResponseEntity> deleteBookRequestUseCase(int bookRequestId) async {
     final response = _bookRepository.deleteBookRequest(bookRequestId);
     return response;
   }
+
   Future<ResponseEntity> getBookRequestDetailsUseCase(int bookRequestId) async {
     final response = _bookRepository.getBookRequestDetails(bookRequestId);
     return response;

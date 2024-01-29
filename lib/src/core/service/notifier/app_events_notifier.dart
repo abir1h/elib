@@ -34,12 +34,6 @@ abstract class _EventHandler {
 
 enum EventAction {
   bottomNavAllScreen,
-  dashBoardScreen,
-  coursesScreen,
-  notesScreen,
   profileScreen,
-  onGoingCoursesScreen,
-  courseDetailsScreen,
   bottomNavBar,
-  graphChart
 }

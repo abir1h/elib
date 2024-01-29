@@ -10,12 +10,6 @@ import '../../domain/entities/download_count_response_entity.dart';
 import '../mapper/count_user_response_mapper.dart';
 import '../models/count_user_response_model.dart';
 import '../../domain/entities/count_user_response_entity.dart';
-import '../mapper/bookamark_data_mapper.dart';
-import '../models/bookmark_data_model.dart';
-import '../../domain/entities/bookmark_data_entity.dart';
-import '../mapper/bookmark_response_mapper.dart';
-import '../models/bookmark_response_model.dart';
-import '../../domain/entities/bookmark_response_entity.dart';
 import '../mapper/paginated_book_data_mapper.dart';
 import '../models/paginated_book_data_model.dart';
 import '../../domain/entities/paginated_book_data_entity.dart';
@@ -61,30 +55,6 @@ class BookRepositoryImp extends BookRepository {
             PaginatedBookDataModel>()
         .toEntityFromModel(responseModel,
             (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
-  }
-
-  @override
-  Future<ResponseEntity> bookmarkBook(int bookId, int eMISUserId) async {
-    ResponseModel responseModel =
-        (await bookRemoteDataSource.bookmarkBookAction(bookId, eMISUserId));
-    return ResponseModelToEntityMapper<BookmarkResponseEntity,
-            BookmarkResponseModel>()
-        .toEntityFromModel(responseModel,
-            (BookmarkResponseModel model) => model.toBookmarkResponseEntity);
-  }
-
-  @override
-  Future<ResponseEntity> getBookmarkBookList() async {
-    ResponseModel responseModel =
-        (await bookRemoteDataSource.getBookmarkBooksAction());
-    return ResponseModelToEntityMapper<List<BookmarkDataEntity>,
-            List<BookmarkDataModel>>()
-        .toEntityFromModel(
-            responseModel,
-            (List<BookmarkDataModel> model) =>
-                List<BookmarkDataModel>.from(model)
-                    .map((e) => e.toBookmarkDataEntity)
-                    .toList());
   }
 
   @override

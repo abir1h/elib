@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_theme.dart';
-import '../../../book/presentation/screens/bookmark_screen.dart';
+import '../../../../core/service/notifier/app_events_notifier.dart';
+import '../../../bookmark/presentation/screens/bookmark_screen.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 import '../services/base_screen_services.dart';
 import '../../../../core/common_widgets/drawer_widget.dart';
@@ -20,7 +21,7 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen>
-    with AppTheme, BaseScreenService {
+    with AppTheme, BaseScreenService ,AppEventsNotifier{
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -87,6 +88,15 @@ class _BaseScreenState extends State<BaseScreen>
   @override
   void navigateToProfileScreen() {
     // TODO: implement navigateToProfileScreen
+  }
+
+  @override
+  void onEventReceived(EventAction action) {
+    if (action == EventAction.bottomNavBar) {
+      if (mounted) {
+        setState(() {});
+      }
+    }
   }
 }
 

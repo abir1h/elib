@@ -1,4 +1,4 @@
-import 'book_data_mapper.dart';
+import '../../../book/data/mapper/book_data_mapper.dart';
 import '../../domain/entities/bookmark_data_entity.dart';
 import '../models/bookmark_data_model.dart';
 

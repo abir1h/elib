@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../shared/domain/entities/response_entity.dart';
-import '../../data/data_sources/remote/book_data_source.dart';
-import '../../data/repositories/book_repository_imp.dart';
-import '../../domain/entities/book_data_entity.dart';
-import '../../domain/entities/bookmark_data_entity.dart';
-import '../../domain/use_cases/book_use_case.dart';
+import '../../../bookmark/domain/entities/bookmark_data_entity.dart';
+import '../../data/data_sources/remote/bookmark_data_source.dart';
+import '../../data/repositories/bookmark_repository_imp.dart';
+import '../../domain/use_cases/book_mark_use_case.dart';
 
 abstract class _ViewModel {
   void showSuccess(String message);
@@ -22,17 +21,17 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
     implements _ViewModel {
   late _ViewModel _view;
 
-  final BookUseCase _bookUseCase = BookUseCase(
-      bookRepository:
-          BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
+  final BookmarkUseCase _bookmarkUseCase = BookmarkUseCase(
+      bookmarkRepository: BookmarkRepositoryImp(
+          bookmarkRemoteDataSource: BookmarkRemoteDataSourceImp()));
 
   Future<ResponseEntity> bookmarkBookAction(
       {required int bookId, required int eMISUserId}) async {
-    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
+    return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
   Future<ResponseEntity> getBookmarkBookList() async {
-    return _bookUseCase.getBookmarkListUseCase();
+    return _bookmarkUseCase.getBookmarkListUseCase();
   }
 
   ///Service configurations
@@ -64,7 +63,7 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
         _bookList = value.data;
         bookmarkDataStreamController
             .add(DataLoadedState<List<BookmarkDataEntity>>(value.data!));
-      } else if (value.error == null &&  value.data.isEmpty) {
+      } else if (value.error == null && value.data.isEmpty) {
         bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
@@ -85,10 +84,13 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
         _bookList.removeWhere((element) => element.bookId == value.data.bookId);
         bookmarkDataStreamController
             .add(DataLoadedState<List<BookmarkDataEntity>>(_bookList));
-        if(_bookList.isEmpty){
-          bookmarkDataStreamController.add(EmptyState(message: 'No Book Found'));
+        if (_bookList.isEmpty) {
+          bookmarkDataStreamController
+              .add(EmptyState(message: 'No Book Found'));
         }
-        _view.showSuccess(item.status==0?"বুকমার্ক সফলভাবে যোগ করা হয়েছে !":"বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
+        _view.showSuccess(item.status == 0
+            ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
+            : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
       } else {
         _view.showWarning(value.message!);
       }

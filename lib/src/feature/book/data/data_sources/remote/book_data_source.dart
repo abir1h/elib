@@ -1,8 +1,8 @@
 import '../../models/paginated_book_request_data_model.dart';
 import '../../models/book_request_data_model.dart';
 import '../../models/download_count_response_model.dart';
-import '../../models/bookmark_data_model.dart';
-import '../../models/bookmark_response_model.dart';
+import '../../../../bookmark/data/models/bookmark_data_model.dart';
+import '../../../../bookmark/data/models/bookmark_response_model.dart';
 import '../../models/count_user_response_model.dart';
 import '../../models/paginated_book_data_model.dart';
 import '../../models/book_data_model.dart';
@@ -21,8 +21,10 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> globalSearchAction(String searchQuery);
   Future<ResponseModel> getBookRequestsAction(bool enablePagination,
       {int? pageNumber});
-  Future<ResponseModel> createBookRequestAction(BookRequestDataModel bookRequestDataModel);
-  Future<ResponseModel> updateBookRequestAction(BookRequestDataModel bookRequestDataModel);
+  Future<ResponseModel> createBookRequestAction(
+      BookRequestDataModel bookRequestDataModel);
+  Future<ResponseModel> updateBookRequestAction(
+      BookRequestDataModel bookRequestDataModel);
   Future<ResponseModel> deleteBookRequestAction(int bookRequestId);
   Future<ResponseModel> getBookRequestDetailsAction(int bookRequestId);
 }
@@ -126,27 +128,31 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> createBookRequestAction(BookRequestDataModel bookRequestDataModel) async{
-    final responseJson = await Server.instance
-        .postRequest(url: ApiCredential.bookRequest, postData: bookRequestDataModel.toJson());
+  Future<ResponseModel> createBookRequestAction(
+      BookRequestDataModel bookRequestDataModel) async {
+    final responseJson = await Server.instance.postRequest(
+        url: ApiCredential.bookRequest,
+        postData: bookRequestDataModel.toJson());
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
     return responseModel;
   }
 
   @override
-  Future<ResponseModel> updateBookRequestAction(BookRequestDataModel bookRequestDataModel) async{
+  Future<ResponseModel> updateBookRequestAction(
+      BookRequestDataModel bookRequestDataModel) async {
     Map<String, dynamic> data = bookRequestDataModel.toJson();
     data["_method"] = "PUT";
-    final responseJson = await Server.instance
-        .postRequest(url: "${ApiCredential.bookRequest}/${bookRequestDataModel.id}", postData: data);
+    final responseJson = await Server.instance.postRequest(
+        url: "${ApiCredential.bookRequest}/${bookRequestDataModel.id}",
+        postData: data);
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
     return responseModel;
   }
 
   @override
-  Future<ResponseModel> deleteBookRequestAction(int bookRequestId) async{
+  Future<ResponseModel> deleteBookRequestAction(int bookRequestId) async {
     final responseJson = await Server.instance
         .deleteRequest(url: "${ApiCredential.bookRequest}/$bookRequestId");
     ResponseModel responseModel = ResponseModel.fromJson(
@@ -155,12 +161,11 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> getBookRequestDetailsAction(int bookRequestId) async{
+  Future<ResponseModel> getBookRequestDetailsAction(int bookRequestId) async {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.bookRequest}/$bookRequestId");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
     return responseModel;
   }
-
 }

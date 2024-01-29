@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../data/data_sources/remote/note_data_source.dart';
 import '../../data/repositories/note_repository_imp.dart';
@@ -71,12 +72,15 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
   }
 
   Future<ResponseEntity> onNotesDelete(int noteId) async {
+    CustomToasty.of(context).lockUI();
     ResponseEntity responseEntity = await deleteNotes(noteId: noteId);
     if (responseEntity.error == null && responseEntity.data != null) {
+      loadNotesData(true, pageNumber: 1);
       _view.showSuccess(responseEntity.message!);
     } else {
       _view.showWarning(responseEntity.message!);
     }
+    CustomToasty.of(context).releaseUI();
     return responseEntity;
   }
 }

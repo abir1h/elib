@@ -1,4 +1,4 @@
-import 'book_data_model.dart';
+import '../../../book/data/models/book_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
 @immutable

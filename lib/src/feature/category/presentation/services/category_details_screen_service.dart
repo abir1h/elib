@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -6,6 +5,9 @@ import '../../../book/data/data_sources/remote/book_data_source.dart';
 import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
+import '../../../bookmark/data/data_sources/remote/bookmark_data_source.dart';
+import '../../../bookmark/data/repositories/bookmark_repository_imp.dart';
+import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../data/data_sources/remote/category_data_source.dart';
 import '../../data/repositories/category_repository_imp.dart';
@@ -27,18 +29,19 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
 
   final BookUseCase _bookUseCase = BookUseCase(
       bookRepository:
-      BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
-
-  Future<ResponseEntity> bookmarkBookAction(
-      {required int bookId, required int eMISUserId}) async {
-    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
-  }
-  // Future<ResponseEntity> getBookmarkBookList(int id) async {
-  //   return _categoryUseCase.getCategoryByIdUseCase(id);
-  // }
+          BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
 
   Future<ResponseEntity> getCategoryBookList(int id) async {
     return _categoryUseCase.getCategoryByIdUseCase(id);
+  }
+
+  final BookmarkUseCase _bookmarkUseCase = BookmarkUseCase(
+      bookmarkRepository: BookmarkRepositoryImp(
+          bookmarkRemoteDataSource: BookmarkRemoteDataSourceImp()));
+
+  Future<ResponseEntity> bookmarkBookAction(
+      {required int bookId, required int eMISUserId}) async {
+    return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
   List<BookDataEntity> _bookList = [];
@@ -67,7 +70,7 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
         _bookList = value.data;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(value.data!));
-      } else if (value.error == null &&  value.data.isEmpty) {
+      } else if (value.error == null && value.data.isEmpty) {
         bookDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
         _view.showWarning(value.message!);
@@ -89,11 +92,12 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
         _bookList[index].bookMark = !_bookList[index].bookMark;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(_bookList));
-        _view.showSuccess(item.bookMark?"বুকমার্ক সফলভাবে যোগ করা হয়েছে !":"বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
+        _view.showSuccess(item.bookMark
+            ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
+            : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
       } else {
         _view.showWarning(value.message!);
       }
     });
   }
-
 }

@@ -11,6 +11,7 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final BookDataEntity item;
   final bool boxShadow;
   final bool? showBookmark;
+  final double aspectRatio;
   const ELibContentItemWidget({
     Key? key,
     required this.onSelect,
@@ -18,6 +19,7 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
     this.onBookmarkSelect,
     this.showBookmark,
     this.boxShadow = false,
+    this.aspectRatio = .8,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
       decoration: widget.boxShadow
           ? BoxDecoration(
               borderRadius: BorderRadius.circular(size.r8),
-              color: clr.whiteColor,
+              color: clr.cardFillColorBlue,
               boxShadow: [
                   BoxShadow(
                     color: clr.blackColor.withOpacity(.2),
@@ -49,7 +51,8 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          AspectRatio(
+            aspectRatio: widget.aspectRatio,
             child: Container(
               decoration: BoxDecoration(
                 // color: clr.iconColorRed,
@@ -116,19 +119,21 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
               ),
             ),
           ),
-          SizedBox(height: size.h4),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.h4),
-            child: GestureDetector(
-              onTap: () => widget.onSelect(widget.item),
-              child: Text(
-                widget.item.titleEn,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: clr.appPrimaryColorGreen,
-                  fontSize: size.textXXSmall,
-                  fontWeight: FontWeight.w600,
+          SizedBox(height: size.h6),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.h4),
+              child: GestureDetector(
+                onTap: () => widget.onSelect(widget.item),
+                child: Text(
+                  widget.item.titleEn,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: clr.appPrimaryColorGreen,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -137,12 +142,12 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
             padding: EdgeInsets.symmetric(horizontal: size.h4),
             child: Text.rich(
                 textAlign: TextAlign.start,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 TextSpan(
                     text: widget.item.author.isNotEmpty ? "by " : "",
                     style: TextStyle(
-                        color: clr.placeHolderTextColorGray,
+                        color: clr.appPrimaryColorGreen,
                         fontSize: size.textXXSmall,
                         fontWeight: FontWeight.w500),
                     children: [
@@ -152,7 +157,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                             .toList()
                             .join(', '),
                         style: TextStyle(
-                            color: clr.textColorAppleBlack,
+                            color: clr.textColorBlack,
                             fontSize: size.textXXSmall,
                             fontWeight: FontWeight.w600),
                       ),

@@ -48,7 +48,7 @@ class ThemeColor {
   Color get cardFillColorOrange => HexColor("FFE9D6");
   Color get cardFillColorGreen => HexColor("F2FED7");
   Color get cardFillColorPurple => HexColor("F7F2FF");
-  Color get cardFillColorBlue => HexColor("E7F6FF");
+  Color get cardFillColorBlue => HexColor("D7EEFC");
   Color get cardFillColorCruise => HexColor("B3E0DD");
 
   Color get clickableLinkColor => HexColor("4A88FF");
@@ -66,6 +66,7 @@ class ThemeColor {
   Color get toastAskColor => HexColor("68B1EF");
   Color get toastAskBackgroundColor => HexColor("E7F6FF");
   Color get backgroundColorMintCream => HexColor("F2FCFA");
+  Color get backgroundColorGreenCyan => HexColor("E7FDF8");
 }
 
 class ThemeSize {

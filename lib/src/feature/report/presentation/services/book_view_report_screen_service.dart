@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../data/data_sources/remote/report_data_source.dart';
 import '../../data/repositories/report_repository_imp.dart';
 import '../../domain/use_cases/report_use_case.dart';
 
 abstract class _ViewModel {
-  void showSuccess(String value);
-  void showWarning(String value);
+  void showWarning(String message);
+  void showSuccess(String message);
 }
 
 mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
@@ -30,10 +31,7 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
       lastDate: DateTime.now(),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light(),
-          child: child!,
-        );
+        return child!;
       },
     );
 
@@ -55,10 +53,7 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
       lastDate: DateTime.now(),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light(),
-          child: child!,
-        );
+        return child!;
       },
     );
 
@@ -107,15 +102,18 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
       }
       actionButtonDataStreamController.add(DataLoadedState(true));
     } else {
-      _view.showWarning(responseEntity.message!);
+      // _view.showWarning(responseEntity.message!);
+      CustomToasty.of(context).showWarning("No Data Found");
+
+      ///Todo
     }
     return responseEntity;
   }
 
   onTapClearButton() {
-    startDate=null;
-    endDate =null;
-    selectedStartDate=null;
+    startDate = null;
+    endDate = null;
+    selectedStartDate = null;
     reportDataStreamController.add(LoadingState());
     actionButtonDataStreamController.add(LoadingState());
   }

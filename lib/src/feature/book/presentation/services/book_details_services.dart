@@ -12,6 +12,9 @@ import 'package:http/http.dart' as http;
 
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/routes/app_route_args.dart';
+import '../../../bookmark/data/data_sources/remote/bookmark_data_source.dart';
+import '../../../bookmark/data/repositories/bookmark_repository_imp.dart';
+import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
 import '../../domain/entities/book_data_entity.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../book/data/data_sources/remote/book_data_source.dart';
@@ -38,9 +41,13 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
     return _bookUseCase.getBookDetailsUseCase(bookId);
   }
 
+  final BookmarkUseCase _bookmarkUseCase = BookmarkUseCase(
+      bookmarkRepository: BookmarkRepositoryImp(
+          bookmarkRemoteDataSource: BookmarkRemoteDataSourceImp()));
+
   Future<ResponseEntity> bookmarkBookAction(
       {required int bookId, required int eMISUserId}) async {
-    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
+    return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
   ///Service configurations

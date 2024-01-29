@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:elibrary/src/core/utility/app_label.dart';
-import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -9,7 +6,12 @@ import '../../../../core/common_widgets/paginated_gridview_widget.dart';
 import '../../../book/data/data_sources/remote/book_data_source.dart';
 import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
+import '../../../bookmark/data/data_sources/remote/bookmark_data_source.dart';
+import '../../../bookmark/data/repositories/bookmark_repository_imp.dart';
+import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../../../../core/utility/app_label.dart';
+import '../../../book/domain/entities/book_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
@@ -33,13 +35,17 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     return _bookUseCase.getPopularBooksUseCase(pageNumber);
   }
 
-  Future<ResponseEntity> bookmarkBookAction(
-      {required int bookId, required int eMISUserId}) async {
-    return _bookUseCase.bookmarkUseCase(bookId, eMISUserId);
-  }
-
   Future<ResponseEntity> globalSearch(String searchQuery) async {
     return _bookUseCase.globalSearchUseCase(searchQuery);
+  }
+
+  final BookmarkUseCase _bookmarkUseCase = BookmarkUseCase(
+      bookmarkRepository: BookmarkRepositoryImp(
+          bookmarkRemoteDataSource: BookmarkRemoteDataSourceImp()));
+
+  Future<ResponseEntity> bookmarkBookAction(
+      {required int bookId, required int eMISUserId}) async {
+    return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
   ///Service configurations
@@ -104,7 +110,9 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
         _bookData[index].bookMark = !_bookData[index].bookMark;
         bookDataStreamController
             .add(DataLoadedState<List<BookDataEntity>>(_bookData));
-        _view.showSuccess(item.bookMark?"বুকমার্ক সফলভাবে যোগ করা হয়েছে !":"বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
+        _view.showSuccess(item.bookMark
+            ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
+            : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
       } else {
         _view.showWarning(value.message!);
       }
