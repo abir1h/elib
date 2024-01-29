@@ -5,7 +5,7 @@ class LocalStorageService{
   LocalStorageService({SharedPreferences? sharedPreferences}) : _sharedPreferences = sharedPreferences!;
 
   static LocalStorageService? _instance;
-  static Future<LocalStorageService> initialize() async{
+  static Future<LocalStorageService> getInstance() async{
     return _instance ?? LocalStorageService(
         sharedPreferences: await SharedPreferences.getInstance()
     );
@@ -19,6 +19,10 @@ class LocalStorageService{
   }
   storeIntValue(String key, int value) async{
     _sharedPreferences.setInt(key, value);
+  }
+
+  removeValue(String key) async{
+    _sharedPreferences.remove(key);
   }
 
   clearAllValues() async{

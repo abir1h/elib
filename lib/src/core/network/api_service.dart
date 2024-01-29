@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../utility/log.dart';
+import '../service/auth_cache_manager.dart';
 import '../constants/common_imports.dart';
 import 'app_exceptions.dart';
 
@@ -30,12 +31,13 @@ class Server {
   }) async {
     try {
       var body = json.encode(postData);
+      String token = await AuthCacheManager.getUserToken();
       var response = await _client.post(
         Uri.parse(host + url),
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
-          "Authorization": "Bearer "
+          "Authorization": "Bearer $token"
         },
         body: utf8.encode(body),
       );
@@ -52,10 +54,11 @@ class Server {
 
   Future<dynamic> getRequest({required String url}) async {
     try {
+      String token = await AuthCacheManager.getUserToken();
       var response = await _client.get(Uri.parse(host + url), headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": "Bearer "
+        "Authorization": "Bearer $token"
       });
       debugPrint(
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
@@ -78,11 +81,12 @@ class Server {
   ///Todo must be modify later
   Future<dynamic> getRequestForAuth({required String url}) async {
     try {
+      String token = await AuthCacheManager.getUserToken();
       var response = await _client.get(Uri.parse(url), headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Authorization":
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoie1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJlbXBpZFwiOlwiMTAxMzUzNzY0XCJ9IiwiaXNzIjoiaHR0cDovLzEwMy4yMDkuNDAuODk6ODEvIiwiYXVkIjoiaHR0cDovLzEwMy4yMDkuNDAuODk6ODEvIiwiaWF0IjoxNzA2MTczMTM1LCJuYmYiOjE3MDYxNzMxMzUsImV4cCI6MTcwNjE4MzkzNX0.pZuX0iEiWdhl2-88T4ob_afE8rMtriVPKDvF8MrtJ60"
+            "Bearer $token"
       });
       debugPrint(
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
@@ -104,10 +108,11 @@ class Server {
 
   Future<dynamic> deleteRequest({required String url}) async {
     try {
+      String token = await AuthCacheManager.getUserToken();
       var response = await _client.delete(Uri.parse(host + url), headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": "Bearer "
+        "Authorization": "Bearer $token"
       });
       debugPrint(
           "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");

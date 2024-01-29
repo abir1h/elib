@@ -1,3 +1,4 @@
+import '../../../../core/service/auth_cache_manager.dart';
 import '../../data/data_sources/remote/auth_data_source.dart';
 import '../../data/repositories/auth_repository_imp.dart';
 import '../../../shared/domain/entities/response_entity.dart';
@@ -14,7 +15,7 @@ class AuthService {
       String username, String eMISToken) async {
     ResponseEntity responseEntity =
         await _authUseCase.getTokenUseCase(username, eMISToken);
-    // storeUserInfo(responseEntity);
+    storeUserInfo(responseEntity);
     // UserService.setCurrentSession(responseEntity.data);
     return responseEntity;
   }
@@ -23,22 +24,14 @@ class AuthService {
     return _authUseCase.getEMISLinkUseCase();
   }
 
-  // static storeUserInfo(ResponseEntity responseEntity) async {
-  //   LocalStorageService localStorageService =
-  //       await LocalStorageService.getInstance();
-  //   if (responseEntity.data != null) {
-  //     if (responseEntity.data?.accessToken != null) {
-  //       localStorageService.storeStringValue(
-  //           StringData.accessTokenKey, responseEntity.data!.accessToken);
-  //     }
-  //     if (responseEntity.data?.refreshToken != null) {
-  //       localStorageService.storeStringValue(
-  //           StringData.refreshTokenKey, responseEntity.data!.refreshToken);
-  //     }
-  //     if (responseEntity.data?.expiresAt != null) {
-  //       localStorageService.storeStringValue(
-  //           StringData.expiresAt, responseEntity.data!.expiresAt);
-  //     }
-  //   }
-  // }
+  static storeUserInfo(ResponseEntity responseEntity) async {
+    if (responseEntity.data != null) {
+      if (responseEntity.data?.accessToken != null &&
+          responseEntity.data?.refreshToken != null &&
+          responseEntity.data?.expiresAt != null) {
+        AuthCacheManager.storeUserInfo(responseEntity.data?.accessToken,
+            responseEntity.data?.refreshToken, responseEntity.data?.expiresAt);
+      }
+    }
+  }
 }
