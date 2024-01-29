@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -180,7 +181,7 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
                     controller: controller,
                     crossAxisAlignment: WrapCrossAlignment.start,
                     direction: Axis.horizontal,
-                    toolBarConfig: customToolBarList,
+                    // toolBarConfig: customToolBarList,
                   ),
                 )
             ],
@@ -197,5 +198,162 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
   void onNavigateToNoteDetailsScreen(NoteDataEntity noteDataEntity) {
     Navigator.of(context).pushNamed(AppRoute.noteDetailsScreen,
         arguments: NoteDetailsScreenArgs(noteDataEntity: noteDataEntity));
+  }
+}
+*/
+import 'package:elibrary/src/core/constants/app_theme.dart';
+import 'package:elibrary/src/core/constants/language.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/common_widgets/custom_scaffold.dart';
+import 'package:flutter/material.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
+
+import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/utility/app_label.dart';
+
+class NoteScreenBeta extends StatefulWidget {
+  final Object? arguments;
+  const NoteScreenBeta({super.key, this.arguments});
+
+  @override
+  State<NoteScreenBeta> createState() => _NoteScreenBetaState();
+}
+
+class _NoteScreenBetaState extends State<NoteScreenBeta> with AppTheme,Language{
+  final HtmlEditorController controller = HtmlEditorController();
+  bool isKeyboardOpen = false;
+  late NoteDetailsScreenArgs _screenArgs;
+
+  @override
+  void initState() {
+    _screenArgs = widget.arguments as NoteDetailsScreenArgs;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    isKeyboardOpen = mediaQuery.viewInsets.bottom > 0.0;
+    return Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          title: Text(
+            label(e: en.notesText, b: bn.notesText),
+          ),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: HtmlEditor(
+
+                controller: controller,
+                //required
+                htmlEditorOptions: HtmlEditorOptions(
+                    autoAdjustHeight: false,
+                    hint: "Your text here...",
+                    initialText: _screenArgs.noteDataEntity.note
+                  //initalText: "text content initial, if any",
+                ),
+
+                htmlToolbarOptions: HtmlToolbarOptions(
+                    toolbarPosition: ToolbarPosition.belowEditor,
+                    defaultToolbarButtons:  [
+                      const FontButtons(
+                          bold: true,
+                          italic: true,
+                          underline: true,
+                          strikethrough: false,
+                          clearAll: false,
+                          subscript: false,
+                          superscript: false),
+                      const ColorButtons(),
+                      const ListButtons(listStyles: false),
+                      const ParagraphButtons(
+                          textDirection: false,
+                          lineHeight: false,
+                          caseConverter: false,
+                          alignCenter: true,
+                          alignJustify: true,
+                          alignLeft: true,
+                          alignRight: true,
+                          decreaseIndent: false,
+                          increaseIndent: false),
+                    ]
+                ),
+                otherOptions: OtherOptions(
+                  decoration: BoxDecoration(
+                    color: clr.whiteColor
+                    // color: Colors.red
+                  ),
+                  height: 1.sh,
+                ),
+              ),
+            ),
+          ],
+        )
+    );
+    // body: SizedBox(
+    //   height: 1.sh,
+    //   width: 1.sw,
+    //   child: Stack(
+    //     clipBehavior: Clip.none,
+    //     children: [
+    //       QuillHtmlEditor(
+    //         text: "<h1>Hello</h1>This is a quill html editor example 😊",
+    //         hintText: 'Hint text goes here',
+    //         controller: controller,
+    //         isEnabled: true,
+    //         ensureVisible: true,
+    //         minHeight: 500,
+    //         autoFocus: true,
+    //         textStyle: _editorTextStyle,
+    //         hintTextStyle: _hintTextStyle,
+    //         hintTextAlign: TextAlign.start,
+    //         padding: const EdgeInsets.only(left: 10, top: 10),
+    //         hintTextPadding: const EdgeInsets.only(left: 20),
+    //         backgroundColor: _backgroundColor,
+    //         inputAction: InputAction.newline,
+    //         onEditingComplete: (s) => debugPrint('Editing completed $s'),
+    //         loadingBuilder: (context) {
+    //           return const Center(
+    //             child: CircularProgressIndicator(
+    //               strokeWidth: 1,
+    //               color: Colors.red,
+    //             ),
+    //           );
+    //         },
+    //         onFocusChanged: (focus) {
+    //           debugPrint('has focus $focus');
+    //           setState(() {
+    //             _hasFocus = focus;
+    //           });
+    //         },
+    //         onTextChanged: (text) => debugPrint('widget text change $text'),
+    //         onEditorCreated: () {},
+    //         onEditorResized: (height) =>
+    //             debugPrint('Editor resized $height'),
+    //         onSelectionChanged: (sel) =>
+    //             debugPrint('index ${sel.index}, range ${sel.length}'),
+    //       ),
+    //       if (isKeyboardOpen)
+    //         Positioned(
+    //           bottom: 0,
+    //           child: ToolBar(
+    //             mainAxisSize: MainAxisSize.min,
+    //             toolBarColor: _toolbarColor,
+    //             padding: const EdgeInsets.all(8),
+    //             iconSize: 25,
+    //             iconColor: _toolbarIconColor,
+    //             activeIconColor: clr.appPrimaryColorGreen,
+    //             controller: controller,
+    //             crossAxisAlignment: WrapCrossAlignment.start,
+    //             direction: Axis.horizontal,
+    //             toolBarConfig: customToolBarList,
+    //           ),
+    //         )
+    //     ],
+    //   ),
+    // ));
   }
 }

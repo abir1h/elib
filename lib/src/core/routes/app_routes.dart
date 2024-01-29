@@ -73,8 +73,8 @@ mixin RouteGenerator {
           return const NoteScreen();
         case AppRoute.noteDetailsScreen:
           return NoteDetailsScreen(arguments: setting.arguments);
-          case AppRoute.noteDetailsScreenBeta:
-          return const NoteScreenBeta();
+        case AppRoute.noteDetailsScreenBeta:
+          return NoteScreenBeta(arguments: setting.arguments);
 
         ///Book Request
         case AppRoute.bookRequestListScreen:

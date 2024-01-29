@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quill_html_editor/quill_html_editor.dart';
 
 abstract class _ViewModel {}
 
