@@ -118,11 +118,7 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                                 updatedAt: "dfdf",
                                 deletedAt: "dfdf",
                               );
-                              showCupertinoModalPopup(
-                                context: context,
-                                builder: (context) =>
-                                    NoteBottomSheet(noteModel: noteModel),
-                              );
+
                             },
                             child: Container(
                               padding: EdgeInsets.all(size.h8),
@@ -266,12 +262,7 @@ class _BookViewerScreenState extends State<BookViewerScreen>
     );
   }
 
-  void onTapCreateDiscussion() {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => const NoteBottomSheet(),
-    );
-  }
+
 
   @override
   void forceClose() {
