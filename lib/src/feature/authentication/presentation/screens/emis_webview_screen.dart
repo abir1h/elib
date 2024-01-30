@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -56,7 +57,7 @@ class _EMISWebViewScreenState extends State<EMISWebViewScreen> {
                 AuthDataEntity authData = responseEntity.data!;
                 print(authData.accessToken);
               });
-
+              CustomToasty.of(context).showSuccess("Login Successfully");
               Navigator.of(context).pushNamedAndRemoveUntil(
                   AppRoute.landingScreen, (x) => false);
               return NavigationDecision.prevent;
