@@ -1,17 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+import 'package:elibrary/src/core/common_widgets/custom_scaffold.dart';
+import 'package:elibrary/src/core/utility/log.dart';
+import 'package:elibrary/src/feature/note/data/models/note_data_model.dart';
+import 'package:elibrary/src/feature/note/domain/entities/note_data_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../../../../core/toasty.dart';
 import '../../../note/presentation/widgets/note_bottom_sheet.dart';
 import '../services/book_view_screen_service.dart';
-import '../../../../core/common_widgets/custom_scaffold.dart';
-import '../../../../core/utility/log.dart';
-import '../../../note/data/models/note_data_model.dart';
 
 class BookViewerScreen extends StatefulWidget {
   final Object? arguments;
@@ -96,29 +100,15 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                         children: [
                           GestureDetector(
                             onTap: () {
-                              String noteJson = jsonEncode([
-                                {"insert": "Your "},
-                                {
-                                  "insert": "text",
-                                  "attributes": {
-                                    "italic": true,
-                                    "underline": true
-                                  }
-                                },
-                                {"insert": " here sdfgfgsfgfsg\n"}
-                              ]);
-                              appPrint(noteJson);
-
-                              NoteDataModel noteModel = NoteDataModel(
-                                id: 1,
-                                bookId: 15,
-                                emisUserId: 1,
-                                note: noteJson,
-                                createdAt: "sdfdf",
-                                updatedAt: "dfdf",
-                                deletedAt: "dfdf",
-                              );
-
+                              showCupertinoModalPopup(
+                                  context: context,
+                                  builder: (context) => const NoteBottomSheet(
+                                        noteDataEntity: const NoteDataEntity(
+                                          bookId: 15,
+                                          emisUserId: 1,
+                                          note: '',
+                                        ),
+                                      ));
                             },
                             child: Container(
                               padding: EdgeInsets.all(size.h8),
@@ -261,8 +251,6 @@ class _BookViewerScreenState extends State<BookViewerScreen>
       ),
     );
   }
-
-
 
   @override
   void forceClose() {
