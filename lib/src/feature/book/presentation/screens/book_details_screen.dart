@@ -83,7 +83,6 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
 
                                   ///Bookmark
                                   Positioned(
-                                    // top: size.h2,
                                     right: 0,
                                     child: GestureDetector(
                                       onTap: () =>

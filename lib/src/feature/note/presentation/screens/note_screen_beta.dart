@@ -210,6 +210,7 @@ import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
 import 'package:elibrary/src/core/constants/app_theme.dart';
 import 'package:elibrary/src/core/constants/language.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/note_data_entity.dart';
@@ -244,6 +245,21 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
         appBar: AppBar(
           title: Text(
             label(e: en.notesText, b: bn.notesText),
+            style: TextStyle(
+                color: clr.appPrimaryColorGreen,
+                fontSize: size.textXMedium,
+                fontWeight: FontWeight.w500,
+                fontFamily: StringData.fontFamilyPoppins),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          leading: InkWell(
+            onTap: () => Navigator.of(context).pop(),
+            child: Icon(
+              Icons.arrow_back,
+              color: clr.appPrimaryColorGreen,
+              size: size.r24,
+            ),
           ),
           actions: [
             Padding(
@@ -258,7 +274,7 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
                             emisUserId: _screenArgs.noteDataEntity.emisUserId,
                             note: value,
                           )));
-                  Navigator.pushNamed(context, AppRoute.noteScreen);
+                  Navigator.popAndPushNamed(context, AppRoute.noteScreen);
                 },
                 child: Container(
                   padding: EdgeInsets.all(size.r4),
