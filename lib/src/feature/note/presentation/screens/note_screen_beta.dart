@@ -201,16 +201,19 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
   }
 }
 */
-import 'package:elibrary/src/core/constants/app_theme.dart';
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/common_widgets/custom_scaffold.dart';
+import 'package:elibrary/src/core/routes/app_routes.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 
+import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
+import 'package:elibrary/src/core/constants/app_theme.dart';
+import 'package:elibrary/src/core/constants/language.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/utility/app_label.dart';
+import '../../domain/entities/note_data_entity.dart';
+import '../services/note_edit_screen_service.dart';
 
 class NoteScreenBeta extends StatefulWidget {
   final Object? arguments;
@@ -220,7 +223,8 @@ class NoteScreenBeta extends StatefulWidget {
   State<NoteScreenBeta> createState() => _NoteScreenBetaState();
 }
 
-class _NoteScreenBetaState extends State<NoteScreenBeta> with AppTheme,Language{
+class _NoteScreenBetaState extends State<NoteScreenBeta>
+    with AppTheme, Language, NoteEditScreenService {
   final HtmlEditorController controller = HtmlEditorController();
   bool isKeyboardOpen = false;
   late NoteDetailsScreenArgs _screenArgs;
@@ -241,24 +245,53 @@ class _NoteScreenBetaState extends State<NoteScreenBeta> with AppTheme,Language{
           title: Text(
             label(e: en.notesText, b: bn.notesText),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  controller
+                      .getText()
+                      .then((value) => onUpdateNotes(NoteDataEntity(
+                            id: _screenArgs.noteDataEntity.id,
+                            bookId: _screenArgs.noteDataEntity.bookId,
+                            emisUserId: _screenArgs.noteDataEntity.emisUserId,
+                            note: value,
+                          )));
+                  Navigator.pushNamed(context, AppRoute.noteScreen);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(size.r4),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(size.r8),
+                      color: clr.appPrimaryColorGreen),
+                  child: Icon(
+                    Icons.check,
+                    color: clr.whiteColor,
+                    size: size.r24,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         body: Column(
           children: [
             Expanded(
               child: HtmlEditor(
-
                 controller: controller,
                 //required
                 htmlEditorOptions: HtmlEditorOptions(
                     autoAdjustHeight: false,
                     hint: "Your text here...",
                     initialText: _screenArgs.noteDataEntity.note
-                  //initalText: "text content initial, if any",
-                ),
+                    //initalText: "text content initial, if any",
+                    ),
 
                 htmlToolbarOptions: HtmlToolbarOptions(
                     toolbarPosition: ToolbarPosition.belowEditor,
-                    defaultToolbarButtons:  [
+                    defaultToolbarButtons: [
                       const FontButtons(
                           bold: true,
                           italic: true,
@@ -279,20 +312,17 @@ class _NoteScreenBetaState extends State<NoteScreenBeta> with AppTheme,Language{
                           alignRight: true,
                           decreaseIndent: false,
                           increaseIndent: false),
-                    ]
-                ),
+                    ]),
                 otherOptions: OtherOptions(
-                  decoration: BoxDecoration(
-                    color: clr.whiteColor
-                    // color: Colors.red
-                  ),
+                  decoration: BoxDecoration(color: clr.whiteColor
+                      // color: Colors.red
+                      ),
                   height: 1.sh,
                 ),
               ),
             ),
           ],
-        )
-    );
+        ));
     // body: SizedBox(
     //   height: 1.sh,
     //   width: 1.sw,
@@ -355,5 +385,15 @@ class _NoteScreenBetaState extends State<NoteScreenBeta> with AppTheme,Language{
     //     ],
     //   ),
     // ));
+  }
+
+  @override
+  void showSuccess(String message) {
+    CustomToasty.of(context).showSuccess(message);
+  }
+
+  @override
+  void showWarning(String message) {
+    CustomToasty.of(context).showWarning(message);
   }
 }
