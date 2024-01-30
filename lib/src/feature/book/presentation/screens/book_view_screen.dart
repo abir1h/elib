@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-import 'package:elibrary/src/core/common_widgets/custom_scaffold.dart';
-import 'package:elibrary/src/core/utility/log.dart';
-import 'package:elibrary/src/feature/note/data/models/note_data_model.dart';
-import 'package:elibrary/src/feature/note/domain/entities/note_data_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/common_widgets/custom_scaffold.dart';
+import 'package:elibrary/src/core/utility/log.dart';
+import '../../../note/domain/entities/note_data_entity.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
@@ -103,7 +103,7 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                               showCupertinoModalPopup(
                                   context: context,
                                   builder: (context) => const NoteBottomSheet(
-                                        noteDataEntity: const NoteDataEntity(
+                                        noteDataEntity: NoteDataEntity(
                                           bookId: 15,
                                           emisUserId: 1,
                                           note: '',
