@@ -12,32 +12,30 @@ abstract class CategoryRemoteDataSource {
 }
 
 class CategoryRemoteDataSourceImp extends CategoryRemoteDataSource {
-
   @override
-  Future<ResponseModel> getCategoriesAction() async{
-    final responseJson = await Server.instance.getRequest(url: ApiCredential.getCategories);
+  Future<ResponseModel> getCategoriesAction() async {
+    final responseJson =
+        await Server.instance.getRequest(url: ApiCredential.getCategories);
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson,
-            (dynamic json) => CategoryDataModel.listFromJson(json));
+        responseJson, (dynamic json) => CategoryDataModel.listFromJson(json));
     return responseModel;
   }
 
   @override
-  Future<ResponseModel> getCategoryWithBookAction() async{
-    final responseJson = await Server.instance.getRequest(url: ApiCredential.getCategoryWithBook);
-    ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson,
-            (dynamic json) => PaginatedCategoryDataModel.fromJson(json));
+  Future<ResponseModel> getCategoryWithBookAction() async {
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.getCategoryWithBook}?page=2");
+    ResponseModel responseModel = ResponseModel.fromJson(responseJson,
+        (dynamic json) => PaginatedCategoryDataModel.fromJson(json));
     return responseModel;
   }
 
   @override
-  Future<ResponseModel> getCategoryByIdAction(int categoryId) async{
-    final responseJson = await Server.instance.getRequest(url: "${ApiCredential.categoryDetailsById}$categoryId");
+  Future<ResponseModel> getCategoryByIdAction(int categoryId) async {
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.categoryDetailsById}$categoryId");
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson,
-            (dynamic json) => BookDataModel.listFromJson(json));
+        responseJson, (dynamic json) => BookDataModel.listFromJson(json));
     return responseModel;
   }
-
 }

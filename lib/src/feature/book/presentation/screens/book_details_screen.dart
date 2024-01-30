@@ -76,7 +76,12 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                       child: CachedNetworkImage(
                                         imageUrl:
                                             "http://103.209.40.89:82/uploads/${data.coverImage}",
-                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            const Offstage(),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.image,
+                                                color: clr.greyColor),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),

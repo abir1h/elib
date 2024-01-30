@@ -81,7 +81,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                           placeholder: (context, url) => const Offstage(),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.image, color: clr.greyColor),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
