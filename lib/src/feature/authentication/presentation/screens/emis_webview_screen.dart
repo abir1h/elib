@@ -47,7 +47,7 @@ class _EMISWebViewScreenState extends State<EMISWebViewScreen> {
               isLoading = true;
               print(isLoading);
             } else if (request.url.startsWith(
-                "http://103.209.40.89:81/api/auth/dev/authThroughEmis?")) {
+                "http://103.209.40.89:81/api/auth/dev/emis-auth?")) {
               isLoading = true;
 
               getUsernameToken(request.url);
