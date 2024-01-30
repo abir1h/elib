@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/utility/utility.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_dialog_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
@@ -152,7 +153,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                   border: Border.all(color: Colors.grey),
                 ),
                 child: Text(
-                  noteDataEntity.note,
+                  AppUtility.parseHtmlToText(noteDataEntity.note),
                   maxLines: 2,
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
@@ -175,7 +176,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                     children: [
                       Expanded(
                         child: Text(
-                          noteDataEntity.note,
+                          AppUtility.parseHtmlToText(noteDataEntity.note),
                           style: TextStyle(
                             color: clr.blackColor,
                             fontWeight: FontWeight.w500,

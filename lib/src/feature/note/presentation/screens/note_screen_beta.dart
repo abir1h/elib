@@ -202,19 +202,18 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
 }
 */
 
-import 'package:elibrary/src/core/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 
-import 'package:elibrary/src/core/common_widgets/custom_toasty.dart';
-import 'package:elibrary/src/core/constants/app_theme.dart';
-import 'package:elibrary/src/core/constants/language.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../../core/constants/language.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/note_data_entity.dart';
 import '../services/note_edit_screen_service.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class NoteScreenBeta extends StatefulWidget {
   final Object? arguments;
