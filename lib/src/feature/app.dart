@@ -7,7 +7,7 @@ import '../core/constants/app_theme.dart';
 import 'splash/presentation/screens/splash_screen.dart';
 
 class Application extends StatelessWidget with AppTheme {
-  const Application({super.key});
+  const   Application({super.key});
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

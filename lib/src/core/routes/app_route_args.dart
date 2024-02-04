@@ -14,6 +14,7 @@ class BookDetailsScreenArgs {
 }
 
 class BookViewerScreenArgs {
+  int bookId;
   String url;
   String title;
   final bool canDownload;
@@ -23,7 +24,8 @@ class BookViewerScreenArgs {
     int readTimeInSec,
   )? onReadingEnded;
   BookViewerScreenArgs(
-      {required this.url,
+      {required this.bookId,
+      required this.url,
       this.onReadingEnded,
       this.canDownload = false,
       this.title = "",

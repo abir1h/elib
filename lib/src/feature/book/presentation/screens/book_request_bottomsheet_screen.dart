@@ -102,7 +102,8 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                   SizedBox(height: size.h16),
                   CustomActionButton(
                       title: widget.edit
-                          ? label(e: en.updateRequestBook, b: bn.updateRequestBook)
+                          ? label(
+                              e: en.updateRequestBook, b: bn.updateRequestBook)
                           : label(e: en.requestBook, b: bn.requestBook),
                       onSuccess: (e) {
                         widget.onBookRequestSuccess();

@@ -210,20 +210,21 @@ import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../domain/entities/note_data_entity.dart';
 import '../services/note_edit_screen_service.dart';
 import '../../../../core/routes/app_routes.dart';
 
-class NoteScreenBeta extends StatefulWidget {
+class NoteEditScreen extends StatefulWidget {
   final Object? arguments;
-  const NoteScreenBeta({super.key, this.arguments});
+  const NoteEditScreen({super.key, this.arguments});
 
   @override
-  State<NoteScreenBeta> createState() => _NoteScreenBetaState();
+  State<NoteEditScreen> createState() => _NoteEditScreenState();
 }
 
-class _NoteScreenBetaState extends State<NoteScreenBeta>
+class _NoteEditScreenState extends State<NoteEditScreen>
     with AppTheme, Language, NoteEditScreenService {
   final HtmlEditorController controller = HtmlEditorController();
   bool isKeyboardOpen = false;
@@ -273,6 +274,7 @@ class _NoteScreenBetaState extends State<NoteScreenBeta>
                             emisUserId: _screenArgs.noteDataEntity.emisUserId,
                             note: value,
                           )));
+                  AppEventsNotifier.notify(EventAction.notes);
                   Navigator.popAndPushNamed(context, AppRoute.noteScreen);
                 },
                 child: Container(

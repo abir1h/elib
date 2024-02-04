@@ -4,6 +4,7 @@ import 'package:html_editor_enhanced/html_editor.dart';
 
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
+import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
@@ -17,7 +18,7 @@ class NoteDetailsScreen extends StatefulWidget {
 }
 
 class _NoteDetailsScreenState extends State<NoteDetailsScreen>
-    with AppTheme, Language {
+    with AppTheme, Language, AppEventsNotifier {
   late NoteDetailsScreenArgs _screenArgs;
   final HtmlEditorController controller = HtmlEditorController();
 
@@ -93,5 +94,14 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen>
             ),
           ],
         ));
+  }
+
+  @override
+  void onEventReceived(EventAction action) {
+    if (action == EventAction.notes) {
+      if (mounted) {
+        setState(() {});
+      }
+    }
   }
 }

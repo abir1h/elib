@@ -33,9 +33,7 @@ dependencies:
   lottie: ^3.0.0
   html_editor_enhanced: ^2.5.1
   flutter_quill: ^8.6.4
-  html:
-  flutter_widget_from_html: ^0.14.11
-  flutter_html:
+  flutter_html: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:

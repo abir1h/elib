@@ -102,9 +102,11 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                             onTap: () {
                               showCupertinoModalPopup(
                                   context: context,
-                                  builder: (context) => const NoteBottomSheet(
+                                  builder: (context) => NoteBottomSheet(
                                         noteDataEntity: NoteDataEntity(
-                                          bookId: 15,
+                                          bookId: (widget.arguments!
+                                                  as BookViewerScreenArgs)
+                                              .bookId,
                                           emisUserId: 1,
                                           note: '',
                                         ),
