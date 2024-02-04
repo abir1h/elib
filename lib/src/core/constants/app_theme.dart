@@ -13,7 +13,7 @@ class ThemeColor {
   static ThemeColor? _instance;
   static ThemeColor get instance => _instance ?? (_instance = ThemeColor._());
 
-  Color get appPrimaryColorGreen => HexColor("693392");
+  Color get appPrimaryColorGreen => HexColor("006A4E");
   Color get appSecondaryColorFlagRed => HexColor("F42A41");
   Color get scaffoldBackgroundColor => HexColor("F9FEFD");
   Color get secondaryBackgroundColor => HexColor("FFFEFE");
