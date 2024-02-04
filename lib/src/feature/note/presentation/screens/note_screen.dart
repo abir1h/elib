@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/utility/utility.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_dialog_widget.dart';
@@ -25,7 +27,7 @@ class NoteScreen extends StatefulWidget {
 }
 
 class _NoteScreenState extends State<NoteScreen>
-    with AppTheme, Language, NoteScreenService {
+    with AppTheme, Language, NoteScreenService, AppEventsNotifier {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -91,6 +93,17 @@ class _NoteScreenState extends State<NoteScreen>
   void onNavigateToNoteDetailsScreen(NoteDataEntity noteDataEntity) {
     Navigator.of(context).pushNamed(AppRoute.noteDetailsScreen,
         arguments: NoteDetailsScreenArgs(noteDataEntity: noteDataEntity));
+  }
+
+  @override
+  void onEventReceived(EventAction action) {
+    if (action == EventAction.notes) {
+      if (mounted) {
+        setState(() {
+          loadNotesData(true, pageNumber: 1);
+        });
+      }
+    }
   }
 }
 
@@ -165,7 +178,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                 ),
               ),
             ),
-            SizedBox(width: size.w16),
+            SizedBox(width: size.w4),
             Expanded(
               flex: 5,
               child: Column(
@@ -174,17 +187,34 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Expanded(
+                      //   child: Text(
+                      //     AppUtility.parseHtmlToText(noteDataEntity.note),
+                      //     style: TextStyle(
+                      //       color: clr.blackColor,
+                      //       fontWeight: FontWeight.w500,
+                      //       fontSize: size.textXSmall,
+                      //       fontFamily: StringData.fontFamilyPoppins,
+                      //     ),
+                      //     maxLines: 2,
+                      //     overflow: TextOverflow.ellipsis,
+                      //   ),
+                      // ),
                       Expanded(
-                        child: Text(
-                          AppUtility.parseHtmlToText(noteDataEntity.note),
-                          style: TextStyle(
-                            color: clr.blackColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: size.textXSmall,
-                            fontFamily: StringData.fontFamilyPoppins,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                        child: Html(
+                          data: noteDataEntity.note,
+                          shrinkWrap: true,
+                          style: {
+                            '#': Style(
+                              color: clr.blackColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: FontSize(size.textXSmall),
+                              fontFamily: StringData.fontFamilyPoppins,
+                              textAlign: TextAlign.justify,
+                              maxLines: 2,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
+                          },
                         ),
                       ),
                       InkWell(
@@ -198,15 +228,18 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                     ],
                   ),
                   SizedBox(height: size.h4),
-                  Text(
-                    label(
-                        e: noteDataEntity.book!.titleEn,
-                        b: noteDataEntity.book!.titleEn),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: size.textXXSmall,
-                        fontFamily: StringData.fontFamilyPoppins,
-                        color: clr.appPrimaryColorGreen),
+                  Padding(
+                    padding: EdgeInsets.only(left: size.w8),
+                    child: Text(
+                      label(
+                          e: noteDataEntity.book!.titleEn,
+                          b: noteDataEntity.book!.titleEn),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: size.textXXSmall,
+                          fontFamily: StringData.fontFamilyPoppins,
+                          color: clr.appPrimaryColorGreen),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

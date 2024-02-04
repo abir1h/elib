@@ -356,6 +356,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
       AppRoute.bookViewScreen,
       arguments: BookViewerScreenArgs(
         // docId: item.id.toString(),
+        bookId: item.id,
         title: item.titleEn,
         canDownload: item.isDownload == 1 ? true : false,
         url: "http://103.209.40.89:82/uploads/${item.bookFile}",

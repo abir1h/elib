@@ -9,7 +9,7 @@ import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/note/presentation/screens/note_details_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
-import '../../feature/note/presentation/screens/note_screen_beta.dart';
+import '../../feature/note/presentation/screens/note_edit_screen.dart';
 import '../../feature/report/presentation/screens/book_view_report_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
@@ -74,7 +74,7 @@ mixin RouteGenerator {
         case AppRoute.noteDetailsScreen:
           return NoteDetailsScreen(arguments: setting.arguments);
         case AppRoute.noteDetailsScreenBeta:
-          return NoteScreenBeta(arguments: setting.arguments);
+          return NoteEditScreen(arguments: setting.arguments);
 
         ///Book Request
         case AppRoute.bookRequestListScreen:

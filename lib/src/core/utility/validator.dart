@@ -27,6 +27,10 @@ mixin Validator {
         .hasMatch(email);
   }
 
+  static bool isValidString(String string) {
+    return RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(string);
+  }
+
   static bool isEmpty(String? value) {
     return value == null || value.isEmpty || value.trim().isEmpty;
   }

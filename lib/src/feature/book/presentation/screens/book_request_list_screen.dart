@@ -209,22 +209,24 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
                 ),
               ),
               const Spacer(),
-              InkWell(
-                onTap: onEdit,
-                child: Icon(
-                  Icons.edit,
-                  size: size.r24,
-                  color: clr.blackColor,
+              if (bookRequestDataEntity.status == 0)
+                InkWell(
+                  onTap: onEdit,
+                  child: Icon(
+                    Icons.edit,
+                    size: size.r24,
+                    color: clr.blackColor,
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: onDelete,
-                icon: Icon(
-                  Icons.close,
-                  size: size.r24,
-                  color: Colors.red,
-                ),
-              )
+              if (bookRequestDataEntity.status == 0)
+                IconButton(
+                  onPressed: onDelete,
+                  icon: Icon(
+                    Icons.close,
+                    size: size.r24,
+                    color: Colors.red,
+                  ),
+                )
             ],
           ),
           SizedBox(height: size.h8),

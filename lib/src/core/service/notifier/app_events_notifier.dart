@@ -36,4 +36,5 @@ enum EventAction {
   bottomNavAllScreen,
   profileScreen,
   bottomNavBar,
+  notes,
 }
