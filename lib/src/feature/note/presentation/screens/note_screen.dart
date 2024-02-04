@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/utility/utility.dart';
@@ -175,16 +177,15 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Text(
-                          AppUtility.parseHtmlToText(noteDataEntity.note),
-                          style: TextStyle(
-                            color: clr.blackColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: size.textXSmall,
-                            fontFamily: StringData.fontFamilyPoppins,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                        child:Html(
+                          data: noteDataEntity.note,
+                          style: {
+                            '#': Style(
+                              fontSize: FontSize(18),
+                              maxLines: 2,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
+                          },
                         ),
                       ),
                       InkWell(

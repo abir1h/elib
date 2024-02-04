@@ -35,6 +35,7 @@ dependencies:
   flutter_quill: ^8.6.4
   html:
   flutter_widget_from_html: ^0.14.11
+  flutter_html:
 
 dev_dependencies:
   flutter_test:
