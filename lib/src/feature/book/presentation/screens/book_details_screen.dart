@@ -104,7 +104,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         borderRadius: BorderRadius.circular(4.0),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: clr.blackColor.withOpacity(0.2),
+                                            color: Colors.black.withOpacity(0.2),
                                             blurRadius: 3,
                                             offset: const Offset(0.0, 2),
                                           ),
@@ -113,12 +113,12 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                       child: data.bookMark
                                           ? Icon(
                                         Icons.bookmark,
-                                        color: clr.appPrimaryColorGreen,
+                                        color: clr.appSecondaryColorPurple,
                                         size: 24.0,
                                       )
                                           : Icon(
                                         Icons.bookmark_border_outlined,
-                                        color: clr.appPrimaryColorGreen,
+                                        color: clr.appSecondaryColorPurple,
                                         size: 24.0,
                                       ),
                                     ),
@@ -331,7 +331,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               borderRadius: BorderRadius.circular(size.r16),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: clr.blackColor.withOpacity(.2),
+                                      color: Colors.black.withOpacity(.2),
                                       blurRadius: size.r8,
                                       offset: Offset(0.0, 3),
                                     ),
@@ -342,7 +342,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     ? Text(
                                   data.titleEn,
                                   style: TextStyle(
-                                      color: clr.blackColor,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.w600,
                                       fontSize: size.textMedium,
                                       fontFamily: StringData.fontFamilyPoppins),
@@ -360,7 +360,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         child: Text(
                                           label(e: en.author, b: bn.bookPublishYear),
                                           style: TextStyle(
-                                            color: clr.blackColor,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.w600,
                                             fontSize: size.textSmall,
                                             fontFamily: StringData.fontFamilyPoppins,
@@ -372,7 +372,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         child: Text(
                                           ":",
                                           style: TextStyle(
-                                            color: clr.blackColor,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.w500,
                                             fontSize: size.textSmall,
                                             fontFamily: StringData.fontFamilyPoppins,
@@ -383,7 +383,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         child: Text(
                                          data.titleEn,
                                           style: TextStyle(
-                                            color: clr.blackColor,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.w500,
                                             fontSize: size.textSmall,
                                             fontFamily: StringData.fontFamilyPoppins,
@@ -402,7 +402,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         child: Text(
                                           label(e: en.bookPublishYear, b: bn.bookPublishYear),
                                           style: TextStyle(
-                                            color: clr.blackColor,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.w600,
                                             fontSize: size.textSmall,
                                             fontFamily: StringData.fontFamilyPoppins,
@@ -414,7 +414,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         child: Text(
                                           ":",
                                           style: TextStyle(
-                                            color: clr.blackColor,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.w500,
                                             fontSize: size.textSmall,
                                             fontFamily: StringData.fontFamilyPoppins,
@@ -425,7 +425,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         child: Text(
                                          data.titleEn,
                                           style: TextStyle(
-                                            color: clr.blackColor,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.w500,
                                             fontSize: size.textSmall,
                                             fontFamily: StringData.fontFamilyPoppins,
