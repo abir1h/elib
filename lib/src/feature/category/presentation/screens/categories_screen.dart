@@ -200,7 +200,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
           color: clr.whiteColor,
           boxShadow: [
             BoxShadow(
-              color: clr.blackColor.withOpacity(.2),
+              color: clr.appPrimaryColorBlack.withOpacity(.2),
               blurRadius: size.r8,
               offset: Offset(0.0, size.h2),
             ),
@@ -219,7 +219,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: clr.appPrimaryColorGreen,
+                      color: clr.appPrimaryColorBlack,
                       fontSize: size.textSmall,
                       fontWeight: FontWeight.w600,
                     ),
@@ -233,7 +233,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                     child: Text(
                       label(e: en.seeAllText, b: bn.seeAllText),
                       style: TextStyle(
-                        color: clr.appPrimaryColorGreen,
+                        color: clr.appPrimaryColorBlack,
                         fontSize: size.textSmall,
                         fontWeight: FontWeight.w400,
                       ),
@@ -267,7 +267,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                       Text(
                         "No Book Found !",
                         style: TextStyle(
-                            color: clr.appPrimaryColorGreen,
+                            color: clr.appPrimaryColorBlack,
                             fontSize: size.textXSmall),
                       )
                     ],
@@ -300,7 +300,7 @@ class ShimmerLoaderItemWidget extends StatelessWidget with AppTheme {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(size.h8),
             border: Border.all(
-              color: clr.appPrimaryColorGreen.withOpacity(.1),
+              color: clr.appPrimaryColorBlack.withOpacity(.1),
               width: size.w1,
             ),
           ),

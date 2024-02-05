@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       //     e: en.userNameText,
                                       //     b: bn.userNameText),
                                       style: TextStyle(
-                                          color: clr.appPrimaryColorGreen,
+                                          color: clr.appPrimaryColorBlack,
                                           fontSize: size.textXMedium,
                                           fontWeight: FontWeight.w600,
                                           fontFamily:
@@ -295,14 +295,14 @@ class TitleWithIcon extends StatelessWidget with AppTheme {
             if (icon != null)
               Icon(
                 icon,
-                color: clr.appPrimaryColorGreen,
+                color: clr.appPrimaryColorBlack,
                 size: size.r20,
               ),
             if (svgIcon != null)
               SvgPicture.asset(
                 svgIcon!,
                 colorFilter:
-                    ColorFilter.mode(clr.appPrimaryColorGreen, BlendMode.srcIn),
+                    ColorFilter.mode(clr.appPrimaryColorBlack, BlendMode.srcIn),
                 // color: clr.hintIconColor,
               ),
             SizedBox(width: size.w16),
@@ -319,7 +319,7 @@ class TitleWithIcon extends StatelessWidget with AppTheme {
             if (hasTrailing)
               Icon(
                 Icons.arrow_circle_right,
-                color: clr.appPrimaryColorGreen,
+                color: clr.appPrimaryColorBlack,
                 size: size.r16,
               ),
           ],

@@ -38,7 +38,7 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
-                color: clr.appPrimaryColorGreen,
+                color: clr.appPrimaryColorBlack,
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
@@ -76,7 +76,7 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18.sp,
-                              color: clr.appPrimaryColorGreen),
+                              color: clr.appPrimaryColorBlack),
                         ),
                       ),
                       SizedBox(height: size.h16),
@@ -279,7 +279,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                               children: [
                                 Icon(
                                   Icons.download,
-                                  color: clr.appPrimaryColorGreen,
+                                  color: clr.appPrimaryColorBlack,
                                 ),
                                 Text(
                                   item.bookDownload.toString(),
@@ -293,7 +293,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                               children: [
                                 Icon(
                                   Icons.remove_red_eye,
-                                  color: clr.appPrimaryColorGreen,
+                                  color: clr.appPrimaryColorBlack,
                                 ),
                                 Text(
                                   item.viewCount.toString(),

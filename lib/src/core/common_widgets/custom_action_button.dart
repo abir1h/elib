@@ -1,4 +1,3 @@
-
 import 'package:elibrary/src/feature/shared/domain/entities/response_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,6 @@ class CustomActionButton<T> extends StatefulWidget {
   final DefaultActionButtonController? controller;
   final bool enabled;
 
-
   const CustomActionButton({
     Key? key,
     required this.title,
@@ -23,18 +21,18 @@ class CustomActionButton<T> extends StatefulWidget {
     required this.onSuccess,
     this.onCheck,
     this.controller,
-    this.enabled=true,
+    this.enabled = true,
   }) : super(key: key);
 
-
   @override
-  _CustomActionButtonState<T> createState() => _CustomActionButtonState<T>();
+  State<CustomActionButton<T>> createState() => _CustomActionButtonState<T>();
 }
-class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppTheme{
+
+class _CustomActionButtonState<T> extends State<CustomActionButton<T>>
+    with AppTheme {
   late Color _buttonTextColor;
   late bool _expanded;
   late int _stateIndex;
-
 
   @override
   void initState() {
@@ -42,15 +40,16 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
     _stateIndex = 0;
     _buttonTextColor = Colors.white;
     super.initState();
-    if(widget.controller != null) widget.controller?._setAutoTapEventHandler(_onTap);
-    if(widget.controller != null) widget.controller?._setForceTapEventHandler(_executeRequest);
+    if (widget.controller != null)
+      widget.controller?._setAutoTapEventHandler(_onTap);
+    if (widget.controller != null)
+      widget.controller?._setForceTapEventHandler(_executeRequest);
   }
 
   void _onTap() {
     FocusScope.of(context).requestFocus(FocusNode());
-    if( mounted && _stateIndex == 0 && widget.enabled)
-    {
-      if(widget.onCheck == null || widget.onCheck!()) {
+    if (mounted && _stateIndex == 0 && widget.enabled) {
+      if (widget.onCheck == null || widget.onCheck!()) {
         _executeRequest();
       }
     }
@@ -58,7 +57,7 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
 
   void _executeRequest() {
     // // set state to working
-    if(mounted) {
+    if (mounted) {
       setState(() {
         _expanded = false;
         _stateIndex = 1;
@@ -68,25 +67,26 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
     _lockUi();
     widget.tapAction().then((x) {
       // set state to success
-      if(mounted) {
+      if (mounted) {
         setState(() {
-          try{
-            if(x.error == null) {
+          try {
+            if (x.error == null) {
               _stateIndex = 2;
-              Future.delayed(const Duration(milliseconds: 700)).whenComplete((){
-                if(mounted) widget.onSuccess.call(x.data as T);
+              Future.delayed(const Duration(milliseconds: 700))
+                  .whenComplete(() {
+                if (mounted) widget.onSuccess.call(x.data as T);
               });
-            }else{
+            } else {
               _stateIndex = 3;
             }
-          }catch(e){
+          } catch (e) {
             _stateIndex = 3;
           }
         });
       }
     }).catchError((x) {
       // set state to error
-      if(mounted) {
+      if (mounted) {
         setState(() {
           _stateIndex = 3;
         });
@@ -95,7 +95,7 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
       // reset state to normal
       _unlockUi();
       Future.delayed(const Duration(milliseconds: 1200)).then((x) {
-        if(mounted) {
+        if (mounted) {
           setState(() {
             _expanded = true;
             _stateIndex = 0;
@@ -114,11 +114,13 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOutCubic,
           height: 44.w,
-          width: _expanded?MediaQuery.of(context).size.width:44.w,
+          width: _expanded ? MediaQuery.of(context).size.width : 44.w,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: widget.enabled?clr.appPrimaryColorGreen:clr.disableColor.withOpacity(.5),
-            borderRadius: BorderRadius.circular(_expanded?size.h12:100),
+            color: widget.enabled
+                ? clr.appSecondaryColorPurple
+                : clr.disableColor.withOpacity(.5),
+            borderRadius: BorderRadius.circular(_expanded ? size.h12 : 100),
             boxShadow: const [
               BoxShadow(
                 color: Colors.black12,
@@ -145,18 +147,17 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
                 SizedBox(
                   height: 24.w,
                   width: 24.w,
-                  child:
-                  CircularProgressIndicator(
+                  child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(_buttonTextColor),
                     strokeWidth: 2.w,
                   ),
                 ),
 
                 // Success icon
-                Icon(Icons.check, color: _buttonTextColor,size: 24.w),
+                Icon(Icons.check, color: _buttonTextColor, size: 24.w),
 
                 // Error icon
-                Icon(Icons.close, color: _buttonTextColor,size: 24.w),
+                Icon(Icons.close, color: _buttonTextColor, size: 24.w),
               ],
             ),
           ),
@@ -167,7 +168,7 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
 
   bool _isUiLocked = false;
   void _lockUi() async {
-    if(!_isUiLocked) {
+    if (!_isUiLocked) {
       _isUiLocked = true;
       await showDialog(
           context: context,
@@ -181,51 +182,52 @@ class _CustomActionButtonState<T> extends State<CustomActionButton<T>> with AppT
                 child: Container(),
               ),
             );
-          }
-      );
+          });
       _isUiLocked = false;
     }
   }
+
   void _unlockUi() {
-    if(_isUiLocked){
+    if (_isUiLocked) {
       Navigator.of(context).pop();
     }
   }
-
 }
-class DefaultActionButtonController{
+
+class DefaultActionButtonController {
   VoidCallback? _autoTapEvent;
   VoidCallback? _forceTapEvent;
-  void _setAutoTapEventHandler(VoidCallback event)
-  {
+  void _setAutoTapEventHandler(VoidCallback event) {
     _autoTapEvent = event;
   }
-  void _setForceTapEventHandler(VoidCallback event)
-  {
+
+  void _setForceTapEventHandler(VoidCallback event) {
     _forceTapEvent = event;
   }
 
-  void tap(){
-    if(_autoTapEvent != null) {
+  void tap() {
+    if (_autoTapEvent != null) {
       _autoTapEvent!();
     }
   }
-  void forceTap(){
+
+  void forceTap() {
     _forceTapEvent?.call();
   }
 }
-
 
 // Fader
 class Fader extends StatefulWidget {
   final int index;
   final List<Widget> children;
 
-  const Fader({Key? key,required this.index,required this.children}) : super(key: key);
+  const Fader({Key? key, required this.index, required this.children})
+      : super(key: key);
 
   @override
   _FaderState createState() => _FaderState();
 }
+
 class _FaderState extends State<Fader> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
@@ -234,8 +236,8 @@ class _FaderState extends State<Fader> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _widget = widget.children.elementAt(widget.index);
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
     _opacityAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.easeInOutCubic));
 

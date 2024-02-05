@@ -46,7 +46,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                       child: Text(
                         label(e: en.userNameText, b: bn.userNameText),
                         style: TextStyle(
-                            color: clr.appPrimaryColorGreen,
+                            color: clr.appPrimaryColorBlack,
                             fontSize: size.textXMedium,
                             fontWeight: FontWeight.w500,
                             fontFamily: StringData.fontFamilyPoppins),
@@ -86,7 +86,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 ),
               ),
               SizedBox(height: size.h12),
-              Container(height: size.h1, color: clr.cardStrokeColor),
+              Container(height: size.h1, color: clr.cardStrokeColorMauve),
               DrawerLinkWidget(
                 icon: Icons.contact_support,
                 text: label(e: en.aboutUs, b: bn.aboutUs),
@@ -206,7 +206,8 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
         decoration: BoxDecoration(
           color: Colors.transparent,
           border: Border(
-              bottom: BorderSide(width: size.h1, color: clr.cardStrokeColor)),
+              bottom:
+                  BorderSide(width: size.h1, color: clr.cardStrokeColorMauve)),
         ),
         child: Row(
           children: [

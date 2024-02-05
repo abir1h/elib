@@ -172,7 +172,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                     fontFamily: StringData.fontFamilyPoppins,
                     fontWeight: FontWeight.w500,
                     fontSize: size.textXXSmall,
-                    color: clr.blackColor,
+                    color: clr.appPrimaryColorBlack,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -206,7 +206,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           shrinkWrap: true,
                           style: {
                             '#': Style(
-                              color: clr.blackColor,
+                              color: clr.appPrimaryColorBlack,
                               fontWeight: FontWeight.w500,
                               fontSize: FontSize(size.textXSmall),
                               fontFamily: StringData.fontFamilyPoppins,
@@ -238,7 +238,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           fontWeight: FontWeight.w400,
                           fontSize: size.textXXSmall,
                           fontFamily: StringData.fontFamilyPoppins,
-                          color: clr.appPrimaryColorGreen),
+                          color: clr.appPrimaryColorBlack),
                     ),
                   ),
                   Row(

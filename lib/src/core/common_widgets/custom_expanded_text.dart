@@ -47,7 +47,7 @@ class _ExpandableTextState extends State<ExpandableText>
                 child: Text(
                   "",
                   style: widget.style.copyWith(
-                      color: clr.appPrimaryColorGreen,
+                      color: clr.appPrimaryColorBlack,
                       fontSize: size.textXSmall),
                 ),
               ),
@@ -59,7 +59,7 @@ class _ExpandableTextState extends State<ExpandableText>
                 child: Text(
                   "",
                   style: widget.style.copyWith(
-                      color: clr.appPrimaryColorGreen,
+                      color: clr.appPrimaryColorBlack,
                       fontSize: size.textXSmall),
                 ),
               ),

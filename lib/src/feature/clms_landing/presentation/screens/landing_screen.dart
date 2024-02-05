@@ -35,11 +35,11 @@ class _LandingScreenState extends State<LandingScreen>
     return Scaffold(
         backgroundColor: clr.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: clr.secondaryBackgroundColor,
+          backgroundColor: clr.scaffoldBackgroundColor,
           title: Text(
             label(e: en.appNameText, b: bn.appNameText),
             style: TextStyle(
-                color: clr.appPrimaryColorGreen,
+                color: clr.appPrimaryColorBlack,
                 fontSize: size.textXMedium,
                 fontWeight: FontWeight.w500,
                 fontFamily: StringData.fontFamilyPoppins),

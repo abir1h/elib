@@ -74,7 +74,7 @@ class _NoteBottomSheetState extends State<NoteBottomSheet>
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular(size.r8),
-                              color: clr.appPrimaryColorGreen),
+                              color: clr.appPrimaryColorBlack),
                           child: Icon(
                             Icons.check,
                             color: clr.whiteColor,

@@ -33,7 +33,7 @@ class AppTextFieldWithTitle extends StatelessWidget with AppTheme {
       children: [
         if (title != '')
           Padding(
-            padding: EdgeInsets.only(bottom: size.h4),
+            padding: EdgeInsets.only(bottom: size.h10),
             child: Text(
               title,
               style: TextStyle(
@@ -128,7 +128,7 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
           controller: widget.controller,
           focusNode: focusNode,
           cursorRadius: const Radius.circular(100),
-          cursorColor: clr.appPrimaryColorGreen,
+          cursorColor: clr.appPrimaryColorBlack,
           cursorWidth: size.w2,
           autocorrect: false,
           maxLines: (widget.autoMaxLine) ? null : 1,
@@ -140,7 +140,7 @@ class _AppTextFieldState extends State<AppTextField> with AppTheme {
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
               borderSide:
-                  BorderSide(color: clr.appPrimaryColorGreen, width: size.w1),
+                  BorderSide(color: clr.appPrimaryColorBlack, width: size.w1),
               borderRadius: BorderRadius.all(Radius.circular(size.w8)),
             ),
             enabledBorder: OutlineInputBorder(

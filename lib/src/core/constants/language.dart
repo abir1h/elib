@@ -112,10 +112,15 @@ class LanguageEn {
   String publishTheDiscussion = "Publish The Discussion";
   String writeYourOpinion = "Write Your Opinion";
 
-  String authorName = "Write Author Name";
-  String bookName = "Write Book Name";
-  String publishYear = "Write Publish Year";
-  String edition = "Write Edition";
+  String requestForNewBook = "Request for new book";
+  String bookName = "Full name of the book";
+  String bookNameHint = "For example: Name of book";
+  String authorName = "Name of the author of the book";
+  String authorNameHint = "For example: Author name";
+  String publishYear = "Year of publication of the book";
+  String publishYearHint = "For example: 2000";
+  String edition = "Book Edition";
+  String editionHint = "For example: Second";
   String remark = "Write Remark";
   String requestBook = "Request Book";
   String updateRequestBook = "Update Request";
@@ -228,10 +233,15 @@ class LanguageBn {
   String publishTheDiscussion = "আলোচনা প্রকাশ করুন";
   String writeYourOpinion = "আপনার মতামত লিখুন";
 
-  String authorName = "লেখকের নাম লিখুন";
-  String bookName = "বইয়ের নাম লিখুন";
-  String publishYear = "প্রকাশের বছর লিখুন";
-  String edition = "সংস্করণ লিখুন";
+  String requestForNewBook = "নতুন বইয়ের জন্য অনুরোধ";
+  String bookName = "বইয়ের পূর্ণাঙ্গ নাম";
+  String bookNameHint = "উদাহরণ স্বরূপ: বইয়ের নাম";
+  String authorName = "বইয়ের লেখকের নাম";
+  String authorNameHint = "উদাহরণ স্বরূপ: লেখকের নাম";
+  String publishYear = "বইয়ের প্রকাশনার বছর";
+  String publishYearHint = "উদাহরণ স্বরূপ: ২০০০";
+  String edition = "বইয়ের সংস্করণ";
+  String editionHint = "উদাহরণ স্বরূপ: দ্বিতীয়";
   String remark = "মন্তব্য লিখুন";
   String requestBook = "বই অনুরোধ করুন";
   String updateRequestBook = "আপডেট করুন";

@@ -104,13 +104,13 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                               ? Icon(
                                                   Icons.bookmark,
                                                   color:
-                                                      clr.appPrimaryColorGreen,
+                                                      clr.appPrimaryColorBlack,
                                                 )
                                               : Icon(
                                                   Icons
                                                       .bookmark_border_outlined,
                                                   color:
-                                                      clr.appPrimaryColorGreen,
+                                                      clr.appPrimaryColorBlack,
                                                 )),
                                     ),
                                   ),
@@ -127,7 +127,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         ? Text(
                                             data.titleEn,
                                             style: TextStyle(
-                                                color: clr.appPrimaryColorGreen,
+                                                color: clr.appPrimaryColorBlack,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: size.textLarge,
                                                 fontFamily: StringData
@@ -151,7 +151,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                         .join(', '),
                                                     style: TextStyle(
                                                       color: clr
-                                                          .appPrimaryColorGreen,
+                                                          .appPrimaryColorBlack,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontFamily: StringData
@@ -186,7 +186,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                         .toString(),
                                                     style: TextStyle(
                                                         color: clr
-                                                            .appPrimaryColorGreen,
+                                                            .appPrimaryColorBlack,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         fontSize:
@@ -220,7 +220,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                     text: data.publisherEn,
                                                     style: TextStyle(
                                                       color: clr
-                                                          .appPrimaryColorGreen,
+                                                          .appPrimaryColorBlack,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                       fontSize: size.textSmall,
@@ -276,7 +276,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               ? Text(
                                   "Description",
                                   style: TextStyle(
-                                      color: clr.blackColor,
+                                      color: clr.appPrimaryColorBlack,
                                       fontWeight: FontWeight.w600,
                                       fontSize: size.textMedium,
                                       fontFamily: StringData.fontFamilyPoppins),
@@ -290,7 +290,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             textAlign: TextAlign.justify,
                             overflow: TextOverflow.fade,
                             style: TextStyle(
-                                color: clr.blackColor,
+                                color: clr.appPrimaryColorBlack,
                                 fontWeight: FontWeight.normal,
                                 fontSize: size.textSmall,
                                 fontFamily: StringData.fontFamilyPoppins),
@@ -312,7 +312,6 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 (widget.arguments as BookDetailsScreenArgs)
                                     .bookData),
                             title: "Read Book",
-                            buttonColor: clr.appPrimaryColorGreen,
                           ),
                         ),
                         Container(

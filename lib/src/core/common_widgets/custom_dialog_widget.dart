@@ -83,7 +83,7 @@ mixin CustomDialogWidget {
                                             .instance.shadeWhiteColor2,
                                         border: Border.all(
                                             color: ThemeColor
-                                                .instance.appPrimaryColorGreen,
+                                                .instance.appPrimaryColorBlack,
                                             width: 1.w),
                                       ),
                                       child: Center(
@@ -91,7 +91,7 @@ mixin CustomDialogWidget {
                                           leftButtonText,
                                           style: TextStyle(
                                               color: ThemeColor.instance
-                                                  .appPrimaryColorGreen,
+                                                  .appPrimaryColorBlack,
                                               fontSize:
                                                   ThemeSize.instance.textSmall,
                                               fontWeight: FontWeight.w500,
@@ -113,10 +113,10 @@ mixin CustomDialogWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.w),
                                   color:
-                                      ThemeColor.instance.appPrimaryColorGreen,
+                                      ThemeColor.instance.appPrimaryColorBlack,
                                   border: Border.all(
                                       color: ThemeColor
-                                          .instance.appPrimaryColorGreen,
+                                          .instance.appPrimaryColorBlack,
                                       width: 1.w),
                                 ),
                                 child: Center(

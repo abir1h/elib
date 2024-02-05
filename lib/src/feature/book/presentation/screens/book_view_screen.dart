@@ -118,10 +118,10 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                                   right: size.h16, bottom: size.h16),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: clr.appPrimaryColorGreen,
+                                color: clr.appPrimaryColorBlack,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: clr.blackColor.withOpacity(.5),
+                                    color: clr.appPrimaryColorBlack.withOpacity(.5),
                                     blurRadius: size.h12,
                                   )
                                 ],
@@ -142,10 +142,10 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                                   right: size.h16, bottom: size.h16),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: clr.appPrimaryColorGreen,
+                                color: clr.appPrimaryColorBlack,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: clr.blackColor.withOpacity(.5),
+                                    color: clr.appPrimaryColorBlack.withOpacity(.5),
                                     blurRadius: size.h12,
                                   )
                                 ],
@@ -288,7 +288,7 @@ class LoadingProgressView extends StatelessWidget with AppTheme {
                 width: size.h42 * 2,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(clr.appPrimaryColorGreen),
+                  valueColor: AlwaysStoppedAnimation(clr.appPrimaryColorBlack),
                 ),
               ),
               StreamBuilder<String>(
@@ -389,7 +389,7 @@ class _PageNumberShowWidgetState extends State<PageNumberShowWidget>
             padding:
                 EdgeInsets.symmetric(horizontal: size.h8, vertical: size.h4),
             decoration: BoxDecoration(
-                color: clr.blackColor.withOpacity(.7),
+                color: clr.appPrimaryColorBlack.withOpacity(.7),
                 borderRadius: BorderRadius.all(Radius.circular(size.h4))),
             child: Row(
               children: [
@@ -431,7 +431,7 @@ class ButtonWidget extends StatelessWidget with AppTheme {
           height: size.w44,
           width: expanded ? double.maxFinite : null,
           decoration: BoxDecoration(
-            color: clr.appPrimaryColorGreen,
+            color: clr.appPrimaryColorBlack,
             borderRadius: BorderRadius.circular(size.h12),
           ),
           child: Center(

@@ -246,7 +246,7 @@ class _NoteEditScreenState extends State<NoteEditScreen>
           title: Text(
             label(e: en.notesText, b: bn.notesText),
             style: TextStyle(
-                color: clr.appPrimaryColorGreen,
+                color: clr.appPrimaryColorBlack,
                 fontSize: size.textXMedium,
                 fontWeight: FontWeight.w500,
                 fontFamily: StringData.fontFamilyPoppins),
@@ -257,7 +257,7 @@ class _NoteEditScreenState extends State<NoteEditScreen>
             onTap: () => Navigator.of(context).pop(),
             child: Icon(
               Icons.arrow_back,
-              color: clr.appPrimaryColorGreen,
+              color: clr.appPrimaryColorBlack,
               size: size.r24,
             ),
           ),
@@ -282,7 +282,7 @@ class _NoteEditScreenState extends State<NoteEditScreen>
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(size.r8),
-                      color: clr.appPrimaryColorGreen),
+                      color: clr.appPrimaryColorBlack),
                   child: Icon(
                     Icons.check,
                     color: clr.whiteColor,

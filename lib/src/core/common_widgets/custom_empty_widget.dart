@@ -32,7 +32,7 @@ class CustomEmptyWidget extends StatelessWidget with AppTheme {
                   Text(
                     title ?? "",
                     style: TextStyle(
-                        color: clr.blackColor,
+                        color: clr.appPrimaryColorBlack,
                         fontSize: size.textXMedium,
                         fontWeight: FontWeight.w600,
                         fontFamily: StringData.fontFamilyPoppins),
@@ -51,7 +51,7 @@ class CustomEmptyWidget extends StatelessWidget with AppTheme {
                     padding: EdgeInsets.symmetric(
                         horizontal: size.w32, vertical: size.h8),
                     decoration: BoxDecoration(
-                        color: clr.appPrimaryColorGreen,
+                        color: clr.appPrimaryColorBlack,
                         borderRadius: BorderRadius.circular(size.w1 + size.w4)),
                     child: Text(
                       "",

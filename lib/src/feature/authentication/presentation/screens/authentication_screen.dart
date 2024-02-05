@@ -51,7 +51,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                 e: en.authScreenHeaderText,
                                 b: bn.authScreenHeaderText),
                             style: TextStyle(
-                                color: clr.appPrimaryColorGreen,
+                                color: clr.appPrimaryColorBlack,
                                 fontSize: size.textXMedium,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: StringData.fontFamilyPoppins),
@@ -98,7 +98,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                 e: en.authScreenLoginText,
                                 b: bn.authScreenLoginText),
                             style: TextStyle(
-                              color: clr.appPrimaryColorGreen,
+                              color: clr.appPrimaryColorBlack,
                               fontSize: size.textSmall,
                               fontFamily: StringData.fontFamilyInter,
                               fontWeight: FontWeight.w600,
@@ -138,7 +138,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                               text: label(
                                   e: en.copyRightText2, b: bn.copyRightText2),
                               style: TextStyle(
-                                color: clr.appPrimaryColorGreen,
+                                color: clr.appPrimaryColorBlack,
                                 fontSize: size.textXXSmall,
                                 fontWeight: FontWeight.w400,
                                 fontFamily: StringData.fontFamilyInter,
@@ -147,7 +147,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                 TextSpan(
                                   text: ' | ',
                                   style: TextStyle(
-                                    color: clr.appPrimaryColorGreen,
+                                    color: clr.appPrimaryColorBlack,
                                     fontSize: size.textXXSmall,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: StringData.fontFamilyInter,
@@ -158,7 +158,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                       e: en.copyRightText4,
                                       b: bn.copyRightText4),
                                   style: TextStyle(
-                                    color: clr.appPrimaryColorGreen,
+                                    color: clr.appPrimaryColorBlack,
                                     fontSize: size.textXXSmall,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: StringData.fontFamilyInter,
@@ -167,7 +167,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                 TextSpan(
                                   text: ' | ',
                                   style: TextStyle(
-                                    color: clr.appPrimaryColorGreen,
+                                    color: clr.appPrimaryColorBlack,
                                     fontSize: size.textXXSmall,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: StringData.fontFamilyInter,
@@ -178,7 +178,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                       e: en.copyRightText5,
                                       b: bn.copyRightText5),
                                   style: TextStyle(
-                                    color: clr.appPrimaryColorGreen,
+                                    color: clr.appPrimaryColorBlack,
                                     fontSize: size.textXXSmall,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: StringData.fontFamilyInter,

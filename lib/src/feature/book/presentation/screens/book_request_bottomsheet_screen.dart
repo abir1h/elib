@@ -62,7 +62,7 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
             width: double.infinity,
             margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             padding:
-                EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h16),
+                EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h24),
             decoration: BoxDecoration(
               color: clr.shadeWhiteColor2,
               borderRadius: BorderRadius.only(
@@ -74,28 +74,47 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  AppTextField(
-                    hintText: label(e: en.authorName, b: bn.authorName),
-                    controller: authorNameController,
+                  Text(
+                    label(e: en.requestForNewBook, b: bn.requestForNewBook),
+                    style: TextStyle(
+                      fontFamily: StringData.fontFamilyPoppins,
+                      fontWeight: FontWeight.w600,
+                      fontSize: size.textXMedium,
+                      color: clr.appSecondaryColorPurple,
+                    ),
                   ),
-                  SizedBox(height: size.h8),
-                  AppTextField(
-                    hintText: label(e: en.bookName, b: bn.bookName),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: size.h20),
+                      color: clr.cardStrokeColor,
+                      height: size.h1),
+                  AppTextFieldWithTitle(
+                    title: label(e: en.bookName, b: bn.bookName),
+                    hintText: label(e: en.bookNameHint, b: bn.bookNameHint),
                     controller: bookNameController,
                   ),
                   SizedBox(height: size.h8),
-                  AppTextField(
-                    hintText: label(e: en.publishYear, b: bn.publishYear),
+                  AppTextFieldWithTitle(
+                    title: label(e: en.authorName, b: bn.authorName),
+                    hintText: label(e: en.authorNameHint, b: bn.authorNameHint),
+                    controller: authorNameController,
+                  ),
+                  SizedBox(height: size.h8),
+                  AppTextFieldWithTitle(
+                    title: label(e: en.publishYear, b: bn.publishYear),
+                    hintText:
+                        label(e: en.publishYearHint, b: bn.publishYearHint),
                     controller: publishYearController,
                     keyboardType: TextInputType.number,
                   ),
                   SizedBox(height: size.h8),
-                  AppTextField(
-                    hintText: label(e: en.edition, b: bn.edition),
+                  AppTextFieldWithTitle(
+                    title: label(e: en.edition, b: bn.edition),
+                    hintText: label(e: en.editionHint, b: bn.editionHint),
                     controller: editionController,
                   ),
                   SizedBox(height: size.h8),
-                  AppTextField(
+                  AppTextFieldWithTitle(
+                    title: label(e: en.remark, b: bn.remark),
                     hintText: label(e: en.remark, b: bn.remark),
                     controller: remarkController,
                   ),

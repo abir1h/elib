@@ -13,16 +13,15 @@ class ThemeColor {
   static ThemeColor? _instance;
   static ThemeColor get instance => _instance ?? (_instance = ThemeColor._());
 
-  Color get appPrimaryColorGreen => HexColor("006A4E");
+  Color get appPrimaryColorBlack => HexColor("000000");
+  Color get appSecondaryColorPurple => HexColor("693392");
   Color get appSecondaryColorFlagRed => HexColor("F42A41");
-  Color get scaffoldBackgroundColor => HexColor("F9FEFD");
-  Color get secondaryBackgroundColor => HexColor("FFFEFE");
+  Color get scaffoldBackgroundColor => HexColor("FFFEFE");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get disableColor => HexColor("FF15233D");
   Color get shadeWhiteColor => HexColor("FDFDFD");
   Color get shadeWhiteColor2 => HexColor("FEFFFF");
-  Color get blackColor => HexColor("000000");
   Color get greyColor => HexColor("B6B6B6");
   Color get strokeToggleColor => HexColor("CBE1A9");
   Color get iconColorHint => HexColor("797979");
@@ -34,10 +33,13 @@ class ThemeColor {
 
   Color get textColorAppleBlack => HexColor("1D1D1F");
   Color get textColorBlack => HexColor("414141");
+  Color get textColorMidBlack => HexColor("535353");
+  Color get textColorGray => HexColor("535056");
   Color get placeHolderTextColorGray => HexColor("9F9F9F");
 
   Color get boxStrokeColor => HexColor("DFDFDF");
-  Color get cardStrokeColor => HexColor("B6DED4");
+  Color get cardStrokeColor => HexColor("C9A2D0");
+  Color get cardStrokeColorMauve => HexColor("E5C6FE");
   Color get cardStrokeColorOrange => HexColor("FDC89B");
   Color get cardStrokeColorGreen => HexColor("B7D37A");
   Color get cardStrokeColorPurple => HexColor("E5D9F7");
@@ -67,6 +69,12 @@ class ThemeColor {
   Color get toastAskBackgroundColor => HexColor("E7F6FF");
   Color get backgroundColorMintCream => HexColor("F2FCFA");
   Color get backgroundColorGreenCyan => HexColor("E7FDF8");
+
+  Color get statusColorGray => HexColor("737373");
+  Color get statusColorMediumGreen => HexColor("3DB650");
+  Color get statusColorColoradoPeach => HexColor("E4944A");
+  Color get statusColorRoyalBlue => HexColor("557DE3");
+  Color get statusColorRed => HexColor("F24646");
 }
 
 class ThemeSize {

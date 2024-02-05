@@ -49,7 +49,7 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
       decoration: BoxDecoration(
         color: clr.whiteColor,
         border: Border.all(
-          color: clr.appPrimaryColorGreen,
+          color: clr.appPrimaryColorBlack,
           // width: 1.w,
         ),
         borderRadius: BorderRadius.circular(size.h24),
@@ -63,7 +63,7 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
               padding: EdgeInsets.only(top: 2.0.w),
               child: Icon(
                 Icons.search_rounded,
-                color: clr.blackColor,
+                color: clr.appPrimaryColorBlack,
                 size: size.h20,
               )
             ),
@@ -76,7 +76,7 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 style: TextStyle(
-                  color: clr.blackColor,
+                  color: clr.appPrimaryColorBlack,
                   fontSize: size.textSmall,
                 ),
                 decoration: InputDecoration(
@@ -85,7 +85,7 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
                   hintText: widget.hintText,
                   contentPadding: const EdgeInsets.all(0),
                   hintStyle: TextStyle(
-                    color: clr.blackColor,
+                    color: clr.appPrimaryColorBlack,
                     fontSize: size.textSmall,
                   ),
                 ),

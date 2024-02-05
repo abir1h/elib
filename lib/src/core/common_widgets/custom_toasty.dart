@@ -82,7 +82,7 @@ class CustomToasty with AppTheme{
                           width: 42.w,
                           child: CircularProgressIndicator(
                             valueColor:  AlwaysStoppedAnimation(
-                              clr.appPrimaryColorGreen,
+                              clr.appPrimaryColorBlack,
                             ),
                             strokeWidth: 2.w,
                           ),
@@ -93,7 +93,7 @@ class CustomToasty with AppTheme{
                         Text(
                           "Please wait..",
                           style: TextStyle(
-                            color: clr.appPrimaryColorGreen,
+                            color: clr.appPrimaryColorBlack,
                             fontSize: 20.sp,
                           ),
                           textAlign: TextAlign.center,

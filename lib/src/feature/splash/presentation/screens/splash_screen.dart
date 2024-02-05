@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
               Text(
                 label(e: en.splashScreenText, b: bn.splashScreenText),
                 style: TextStyle(
-                    color: clr.appPrimaryColorGreen,
+                    color: clr.appPrimaryColorBlack,
                     fontSize: size.textXXSmall + size.textXXSmall,
                     fontWeight: FontWeight.w600,
                     fontFamily: StringData.fontFamilyPoppins),

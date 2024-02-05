@@ -30,7 +30,7 @@ class EmptyWidget extends StatelessWidget with AppTheme {
                 Text(
                   message,
                   style: TextStyle(
-                    color: clr.blackColor,
+                    color: clr.appPrimaryColorBlack,
                     fontSize: size.textSmall,
                   ),
                   textAlign: TextAlign.center,

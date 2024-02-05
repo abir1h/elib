@@ -30,7 +30,7 @@ class NoInternetWidget extends StatelessWidget with AppTheme {
                     Text(
                       title ?? "",
                       style: TextStyle(
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlack,
                           fontSize: size.textXMedium,
                           fontWeight: FontWeight.w600,
                           fontFamily: StringData.fontFamilyPoppins),
@@ -39,7 +39,7 @@ class NoInternetWidget extends StatelessWidget with AppTheme {
                     Text(
                       "",
                       style: TextStyle(
-                          color: clr.blackColor,
+                          color: clr.appPrimaryColorBlack,
                           fontSize: size.textSmall,
                           fontWeight: FontWeight.w500,
                           fontFamily: StringData.fontFamilyPoppins),
@@ -51,13 +51,13 @@ class NoInternetWidget extends StatelessWidget with AppTheme {
                         Icon(
                           Icons.check_circle,
                           size: size.r20,
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlack,
                         ),
                         SizedBox(width: size.w8),
                         Text(
                           "",
                           style: TextStyle(
-                              color: clr.blackColor,
+                              color: clr.appPrimaryColorBlack,
                               fontSize: size.textSmall,
                               fontWeight: FontWeight.w500,
                               fontFamily: StringData.fontFamilyPoppins),
@@ -69,7 +69,7 @@ class NoInternetWidget extends StatelessWidget with AppTheme {
                       padding: EdgeInsets.symmetric(
                           horizontal: size.w20, vertical: size.h8),
                       decoration: BoxDecoration(
-                          color: clr.appPrimaryColorGreen,
+                          color: clr.appPrimaryColorBlack,
                           borderRadius:
                               BorderRadius.circular(size.w1 + size.w4)),
                       child: Text(

@@ -30,7 +30,7 @@ class Application extends StatelessWidget with AppTheme {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 colorScheme: ColorScheme.fromSwatch()
-                    .copyWith(primary: clr.appPrimaryColorGreen),
+                    .copyWith(primary: clr.appPrimaryColorBlack),
                 scaffoldBackgroundColor: clr.scaffoldBackgroundColor,
                 dividerColor: Colors.transparent,
                 fontFamily: StringData.fontFamilyPoppins,canvasColor: Colors.transparent

@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen>
                               Text(
                                 label(e: en.appBarText, b: bn.appBarText),
                                 style: TextStyle(
-                                  color: clr.appPrimaryColorGreen,
+                                  color: clr.appPrimaryColorBlack,
                                   fontSize: size.textXLarge,
                                   fontWeight: FontWeight.w900,
                                 ),
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 label(
                                     e: en.homeHeaderText, b: bn.homeHeaderText),
                                 style: TextStyle(
-                                  color: clr.appPrimaryColorGreen,
+                                  color: clr.appPrimaryColorBlack,
                                   fontWeight: FontWeight.w200,
                                   fontSize: size.textSmall,
                                 ),
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen>
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: clr.blackColor.withOpacity(.2),
+                        color: clr.appPrimaryColorBlack.withOpacity(.2),
                         blurRadius: size.r8,
                         offset: Offset(0.0, size.h2),
                       ),
@@ -235,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen>
                   child: Icon(
                     Icons.menu,
                     size: size.r24,
-                    color: clr.appPrimaryColorGreen,
+                    color: clr.appPrimaryColorBlack,
                   ),
                 ),
               ),
@@ -298,7 +298,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
                   Text(
                     data.title,
                     style: TextStyle(
-                        color: clr.appPrimaryColorGreen,
+                        color: clr.appPrimaryColorBlack,
                         fontSize: size.textSmall,
                         fontWeight: FontWeight.w600),
                   ),

@@ -90,7 +90,7 @@ class _RollingSwitchState extends State<CustomSwitchButton>
     Color? transitionColor =
         Color.lerp(widget.bgColor, clr.appSecondaryColorFlagRed, value);
     var style = TextStyle(
-        color: clr.appPrimaryColorGreen,
+        color: clr.appPrimaryColorBlack,
         fontWeight: FontWeight.w400,
         fontFamily: StringData.fontFamilyRoboto,
         fontSize: widget.textSize);
@@ -181,7 +181,7 @@ class _RollingSwitchState extends State<CustomSwitchButton>
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: clr.appPrimaryColorGreen),
+                          color: clr.appPrimaryColorBlack),
                       child: widget.buttonHolder,
                     ),
             )

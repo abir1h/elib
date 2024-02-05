@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_theme.dart';
+
 class AppUtility {
   static final AppUtility _instance = AppUtility._();
   AppUtility._();
@@ -8,30 +10,31 @@ class AppUtility {
   Color? getStatusColor(int? status) {
     Color? color;
     if (status == 0) {
-      color = const Color(0xFFFF5256);
-    } else if (status == 4) {
-      color = const Color(0xFF2FA1F7);
-    } else if (status == 2) {
-      color = const Color(0xFF1EBDB1);
+      color = ThemeColor.instance.statusColorGray;
     } else if (status == 1) {
-      color = const Color(0xFF00B962);
+      color = ThemeColor.instance.statusColorMediumGreen;
+    } else if (status == 2) {
+      color = ThemeColor.instance.statusColorColoradoPeach;
     } else if (status == 3) {
-      color = const Color(0xFFF8C549);
+      color = ThemeColor.instance.statusColorRoyalBlue;
+    } else if (status == 4) {
+      color = ThemeColor.instance.statusColorRed;
     }
     return color;
   }
+
   String getStatusText(int? status) {
     String text = "";
     if (status == 0) {
       text = "Inactive";
-    } else if (status == 4) {
-      text = "Closed";
-    } else if (status == 2) {
-      text = "Review";
     } else if (status == 1) {
       text = "Active";
+    } else if (status == 2) {
+      text = "Review";
     } else if (status == 3) {
       text = "Hold";
+    } else if (status == 4) {
+      text = "Closed";
     }
     return text;
   }
@@ -41,5 +44,4 @@ class AppUtility {
     String parsedString = text.trim().replaceAll(exp, ' ');
     return parsedString.trim();
   }
-
 }

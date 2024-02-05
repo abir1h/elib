@@ -28,7 +28,7 @@ class _BaseScreenState extends State<BaseScreen>
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        backgroundColor: clr.whiteColor,
+        backgroundColor: clr.scaffoldBackgroundColor,
         resizeToAvoidBottomInset: false,
         drawer: const DrawerWidget(),
         body: Stack(
@@ -236,7 +236,7 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
                 widget.icon,
                 color: widget.selected
                     ? clr.appSecondaryColorFlagRed
-                    : clr.appPrimaryColorGreen,
+                    : clr.appPrimaryColorBlack,
                 size: widget.size,
               ),
             ),

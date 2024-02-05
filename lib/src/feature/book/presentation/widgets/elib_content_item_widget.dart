@@ -42,7 +42,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
               color: clr.cardFillColorBlue,
               boxShadow: [
                   BoxShadow(
-                    color: clr.blackColor.withOpacity(.2),
+                    color: clr.appPrimaryColorBlack.withOpacity(.2),
                     blurRadius: size.r8,
                     offset: Offset(0.0, size.h2),
                   ),
@@ -58,7 +58,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                 // color: clr.iconColorRed,
                 borderRadius: BorderRadius.circular(size.h8),
                 border: Border.all(
-                  color: clr.appPrimaryColorGreen.withOpacity(.1),
+                  color: clr.appPrimaryColorBlack.withOpacity(.1),
                   width: 1.w,
                 ),
               ),
@@ -105,11 +105,11 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                                   child: widget.item.bookMark
                                       ? Icon(
                                           Icons.bookmark,
-                                          color: clr.appPrimaryColorGreen,
+                                          color: clr.appPrimaryColorBlack,
                                         )
                                       : Icon(
                                           Icons.bookmark_border_outlined,
-                                          color: clr.appPrimaryColorGreen,
+                                          color: clr.appPrimaryColorBlack,
                                         )),
                             ),
                           )
@@ -130,7 +130,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: clr.appPrimaryColorGreen,
+                    color: clr.appPrimaryColorBlack,
                     fontSize: size.textXXSmall,
                     fontWeight: FontWeight.w600,
                   ),
@@ -147,7 +147,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                 TextSpan(
                     text: widget.item.author.isNotEmpty ? "by " : "",
                     style: TextStyle(
-                        color: clr.appPrimaryColorGreen,
+                        color: clr.appPrimaryColorBlack,
                         fontSize: size.textXXSmall,
                         fontWeight: FontWeight.w500),
                     children: [

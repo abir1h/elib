@@ -18,7 +18,7 @@ class ModuleCardWidget extends StatelessWidget with AppTheme {
       child: CustomCardTile(
         horizontal: size.w8,
         vertical: size.h8,
-        bgColor: clr.secondaryBackgroundColor,
+        bgColor: clr.scaffoldBackgroundColor,
         borderColor: clr.cardStrokeColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

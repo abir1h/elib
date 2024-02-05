@@ -25,13 +25,13 @@ class SectionEmptyWidget extends StatelessWidget with AppTheme{
               Icon(
                 icon,
                 size: size.h64 * 1.3,
-                color: clr.blackColor.withOpacity(.26),
+                color: clr.appPrimaryColorBlack.withOpacity(.26),
               ),
               SizedBox(height: size.h8,),
               Text(
                 message,
                 style: TextStyle(
-                  color: clr.blackColor,
+                  color: clr.appPrimaryColorBlack,
                   fontSize: size.textSmall,
                 ),
                 textAlign: TextAlign.center,
