@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/core/constants/language.dart';
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,7 +25,7 @@ class BookDetailsScreen extends StatefulWidget {
 }
 
 class _BookDetailsScreenState extends State<BookDetailsScreen>
-    with AppTheme, BookDetailsScreenService {
+    with AppTheme, BookDetailsScreenService,Language {
   @override
   void initState() {
     super.initState();
@@ -52,7 +54,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
               children: [
                 Expanded(
                     child: Stack(
-                  fit: StackFit.expand,
+                  fit: StackFit.expand,clipBehavior: Clip.none,
                   children: [
                     AppScrollView(
                       child: Column(
@@ -61,30 +63,76 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           SizedBox(
                             height: size.h16,
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 200
-                                        .h, // Set a fixed height for the image
-                                    width: 130.w,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0.w), // Adjust horizontal padding
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // Flexible container for image
+                                Flexible(
+                                  flex: 2, // Adjust the flex value as needed
+                                  child: SizedBox(
+                                    height:230.h, // Responsive height
                                     child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(size.r10),
+                                      borderRadius: BorderRadius.circular(8.0),
                                       child: CachedNetworkImage(
-                                        imageUrl:
-                                            "http://103.209.40.89:82/uploads/${data.coverImage}",
-                                        placeholder: (context, url) =>
-                                            const Offstage(),
+                                        imageUrl: "http://103.209.40.89:82/uploads/${data.coverImage}",
+                                        placeholder: (context, url) => const Offstage(),
                                         errorWidget: (context, url, error) =>
-                                            Icon(Icons.image,
-                                                color: clr.greyColor),
+                                            Icon(Icons.image, color: clr.greyColor),
                                         fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
+                                ),
+                                SizedBox(width: 16.0.w), // Adjust horizontal spacing
+
+                                // Flexible container for bookmark icon
+                                Flexible(
+                                  flex: 1, // Adjust the flex value as needed
+                                  child: GestureDetector(
+                                    onTap: () => onBookmarkContentSelected(data),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 8.0.h,
+                                        horizontal: 10.0.w,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: clr.whiteColor,
+                                        border: Border.all(color: clr.greyStokeColor, width: 1.0),
+                                        borderRadius: BorderRadius.circular(4.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: clr.blackColor.withOpacity(0.2),
+                                            blurRadius: 3,
+                                            offset: const Offset(0.0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: data.bookMark
+                                          ? Icon(
+                                        Icons.bookmark,
+                                        color: clr.appPrimaryColorGreen,
+                                        size: 24.0,
+                                      )
+                                          : Icon(
+                                        Icons.bookmark_border_outlined,
+                                        color: clr.appPrimaryColorGreen,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          /* Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
+                                children: [
+
 
                                   ///Bookmark
                                   Positioned(
@@ -268,9 +316,130 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 ),
                               )
                             ],
-                          ),
+                          ),*/
                           SizedBox(
-                            height: size.h16,
+                            height: size.h32,
+                          ),
+                          Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: size.h4),
+                            child: Container(
+
+                              width: 1.sw,
+                              clipBehavior: Clip.none,
+                              decoration: BoxDecoration(
+                              color: clr.whiteColor,
+                              borderRadius: BorderRadius.circular(size.r16),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: clr.blackColor.withOpacity(.2),
+                                      blurRadius: size.r8,
+                                      offset: Offset(0.0, 3),
+                                    ),
+                                  ]
+                              ),child: Column(
+                              children: [
+                                data.titleEn.isNotEmpty
+                                    ? Text(
+                                  data.titleEn,
+                                  style: TextStyle(
+                                      color: clr.blackColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: size.textMedium,
+                                      fontFamily: StringData.fontFamilyPoppins),
+                                )
+                                    : const SizedBox(),
+                                SizedBox(height: size.h8,),
+                                if(data.author.isNotEmpty)
+
+                                Padding(
+                                  padding: EdgeInsets.only(left: 26.w,right: 26.w),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(flex: 3,
+                                        child: Text(
+                                          label(e: en.author, b: bn.bookPublishYear),
+                                          style: TextStyle(
+                                            color: clr.blackColor,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: size.textSmall,
+                                            fontFamily: StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:  EdgeInsets.symmetric(horizontal:size.w12),
+                                        child: Text(
+                                          ":",
+                                          style: TextStyle(
+                                            color: clr.blackColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: size.textSmall,
+                                            fontFamily: StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(flex: 4,
+                                        child: Text(
+                                         data.titleEn,
+                                          style: TextStyle(
+                                            color: clr.blackColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: size.textSmall,
+                                            fontFamily: StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 26.w,right: 26.w),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(flex: 35,
+                                        child: Text(
+                                          label(e: en.bookPublishYear, b: bn.bookPublishYear),
+                                          style: TextStyle(
+                                            color: clr.blackColor,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: size.textSmall,
+                                            fontFamily: StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:  EdgeInsets.symmetric(horizontal:size.w8),
+                                        child: Text(
+                                          ":",
+                                          style: TextStyle(
+                                            color: clr.blackColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: size.textSmall,
+                                            fontFamily: StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(flex: 60,
+                                        child: Text(
+                                         data.titleEn,
+                                          style: TextStyle(
+                                            color: clr.blackColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: size.textSmall,
+                                            fontFamily: StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                SizedBox(height: size.h32,),
+                              ],
+                            ),
+                            ),
                           ),
                           data.descriptionEn.isNotEmpty
                               ? Text(

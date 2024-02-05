@@ -120,6 +120,13 @@ class LanguageEn {
   String requestBook = "Request Book";
   String updateRequestBook = "Update Request";
   String getReport = "Get Report";
+  String author = "Author";
+  String tag = "Tag";
+  String bookLanguage = "Language";
+  String bookedition = "Edition";
+  String bookPublishYear = "Publish year";
+  String publisher = "Publisher";
+  String isbnNUmber = "ISBN Number";
 }
 
 class LanguageBn {
@@ -237,4 +244,12 @@ class LanguageBn {
   String updateRequestBook = "আপডেট করুন";
   String getReport = "রিপোর্ট পান";
   String bookReportText = "বই রিপোর্ট";
+  String author = "লেখক";
+  String tag = "ট্যাগ";
+  String bookLanguage = "ভাষা";
+  String bookedition = "সংস্করণ";
+  String bookPublishYear = "প্রকাশনার সন";
+  String publisher = "প্রকাশনা";
+  String isbnNUmber = "ISBN নম্বর";
+
 }
