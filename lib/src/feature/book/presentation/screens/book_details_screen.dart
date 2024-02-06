@@ -15,6 +15,8 @@ import '../../../../core/common_widgets/custom_button.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
+import '../widgets/book_info_item_widget.dart';
+import '../widgets/tag_widget.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   final Object? arguments;
@@ -35,6 +37,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
       loadInitialData(widget.arguments as BookDetailsScreenArgs);
     });
   }
+
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -351,160 +355,222 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     ),
                                   ]),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  SizedBox(
+                                    height: size.h16,
+                                  ),
                                   data.titleEn.isNotEmpty
-                                      ? Text(
-                                          data.titleEn,
-                                          style: TextStyle(
-                                              color: clr.appPrimaryColorBlack,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: size.textMedium,
-                                              fontFamily:
-                                                  StringData.fontFamilyPoppins),
+                                      ? Center(
+                                          child: Text(
+                                            data.titleEn,
+                                            style: TextStyle(
+                                                color: clr.appPrimaryColorBlack,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.textMedium,
+                                                fontFamily: StringData
+                                                    .fontFamilyPoppins),
+                                          ),
                                         )
                                       : const SizedBox(),
                                   SizedBox(
                                     height: size.h8,
                                   ),
                                   if (data.author.isNotEmpty)
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 26.w, right: 26.w),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: Text(
-                                              label(
-                                                  e: en.author,
-                                                  b: bn.bookPublishYear),
-                                              style: TextStyle(
-                                                color: clr.appPrimaryColorBlack,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: size.textSmall,
-                                                fontFamily: StringData
-                                                    .fontFamilyPoppins,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: size.w12),
-                                            child: Text(
-                                              ":",
-                                              style: TextStyle(
-                                                color: clr.appPrimaryColorBlack,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: size.textSmall,
-                                                fontFamily: StringData
-                                                    .fontFamilyPoppins,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 4,
-                                            child: Text(
-                                              data.titleEn,
-                                              style: TextStyle(
-                                                color: clr.appPrimaryColorBlack,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: size.textSmall,
-                                                fontFamily: StringData
-                                                    .fontFamilyPoppins,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 26.w, right: 26.w),
+                                    BookInfoItemWidget(
+                                        firstItem:
+                                            label(e: en.author, b: bn.author),
+                                        secondItem: data.author
+                                            .map((c) => c.name)
+                                            .toList()
+                                            .join(', ')),
+                                  if (data.category.isNotEmpty)
+                                    BookInfoItemWidget(
+                                        firstItem:
+                                            label(e: en.type, b: bn.type),
+                                        secondItem: data.category
+                                            .map((c) => c.name)
+                                            .toList()
+                                            .join(', ')),
+                                  AnimatedSwitcher(
+                                    duration: Duration(
+                                        milliseconds:
+                                            300), // Adjust the duration as needed
+                                    switchInCurve: Curves
+                                        .easeInOut, // Animation curve for appearing
+                                    switchOutCurve: Curves
+                                        .easeInOut, // Animation curve for disappearing
+                                    child: isExpanded
+                                        ? Column(
+                                            key: Key(
+                                                'expanded'), // Key to differentiate between different children of AnimatedSwitcher
+                                            children: [
+                                              if (data.category.isNotEmpty)
+                                                TagWidget(
+                                                  firstItem: label(
+                                                      e: en.tag, b: bn.tag),
+                                                  secondItem: Wrap(
+                                                    children: data.category
+                                                        .map((c) => Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      bottom: size
+                                                                          .h4),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                border: Border(
+                                                                  bottom:
+                                                                      BorderSide(
+                                                                    color: clr
+                                                                        .appSecondaryColorPurple,
+                                                                    width: 2.w,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              child: Text(
+                                                                c.name,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: clr
+                                                                      .appPrimaryColorBlack,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: size
+                                                                      .textSmall,
+                                                                  fontFamily:
+                                                                      StringData
+                                                                          .fontFamilyPoppins,
+                                                                ),
+                                                              ),
+                                                            ))
+                                                        .toList(),
+                                                  ),
+                                                ),
+                                              if (data.languageEn.isNotEmpty)
+                                                BookInfoItemWidget(
+                                                    firstItem: label(
+                                                        e: en.bookLanguage,
+                                                        b: bn.bookLanguage),
+                                                    secondItem:
+                                                        data.languageEn),
+                                              if (data.editionEn.isNotEmpty)
+                                                BookInfoItemWidget(
+                                                    firstItem: label(
+                                                        e: en.bookedition,
+                                                        b: bn.bookedition),
+                                                    secondItem: data.editionEn),
+                                              if (data.publishYearEn.isNotEmpty)
+                                                BookInfoItemWidget(
+                                                    firstItem: label(
+                                                        e: en.bookPublishYear,
+                                                        b: bn.bookPublishYear),
+                                                    secondItem:
+                                                        data.publishYearEn),
+                                              if (data.publisherEn.isNotEmpty)
+                                                BookInfoItemWidget(
+                                                    firstItem: label(
+                                                        e: en.publisher,
+                                                        b: bn.publisher),
+                                                    secondItem:
+                                                        data.publisherEn),
+                                              if (data.isbnEn.isNotEmpty)
+                                                BookInfoItemWidget(
+                                                    firstItem: label(
+                                                        e: en.isbnNUmber,
+                                                        b: bn.isbnNUmber),
+                                                    secondItem: data.isbnEn),
+                                            ],
+                                          )
+                                        : SizedBox(), // Use SizedBox to make sure there's no visual artifact when the column is not expanded
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isExpanded = !isExpanded;
+                                      });
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Expanded(
-                                          flex: 35,
-                                          child: Text(
-                                            label(
-                                                e: en.bookPublishYear,
-                                                b: bn.bookPublishYear),
-                                            style: TextStyle(
+                                        Text(
+                                          label(
+                                              e: en.seeMoreBookInfo,
+                                              b: bn.seeMoreBookInfo),
+                                          style: TextStyle(
                                               color: clr.appPrimaryColorBlack,
                                               fontWeight: FontWeight.w600,
-                                              fontSize: size.textSmall,
+                                              fontSize: size.textMedium,
                                               fontFamily:
-                                                  StringData.fontFamilyPoppins,
-                                            ),
-                                          ),
+                                                  StringData.fontFamilyPoppins),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: size.w8),
-                                          child: Text(
-                                            ":",
-                                            style: TextStyle(
-                                              color: clr.appPrimaryColorBlack,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: size.textSmall,
-                                              fontFamily:
-                                                  StringData.fontFamilyPoppins,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 60,
-                                          child: Text(
-                                            data.titleEn,
-                                            style: TextStyle(
-                                              color: clr.appPrimaryColorBlack,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: size.textSmall,
-                                              fontFamily:
-                                                  StringData.fontFamilyPoppins,
-                                            ),
-                                          ),
-                                        ),
+                                        AnimatedSwitcher(
+                                            duration: Duration(
+                                                milliseconds:
+                                                    300), // Adjust the duration as needed
+                                            switchInCurve: Curves
+                                                .easeInOut, // Animation curve for appearing
+                                            switchOutCurve: Curves
+                                                .easeInOut, // Animation curve for disappearing
+                                            child: isExpanded
+                                                ? Icon(Icons
+                                                    .keyboard_arrow_up_sharp)
+                                                : Icon(Icons
+                                                    .keyboard_arrow_down_sharp))
                                       ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height: size.h32,
+                                    height: size.h20,
                                   ),
+                                  Divider(
+                                    color: clr.dividerStrokeColorGrey2,
+                                  ),
+                                  SizedBox(
+                                    height: size.h20,
+                                  ),
+                                  data.descriptionEn.isNotEmpty
+                                      ? Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: size.h16),
+                                          child: Text(
+                                            label(
+                                                e: en.description,
+                                                b: bn.description),
+                                            style: TextStyle(
+                                                color: clr.appPrimaryColorBlack,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: size.textSmall,
+                                                fontFamily:
+                                                    StringData.fontFamilyInter),
+                                          ),
+                                        )
+                                      : const SizedBox(),
+                                  data.descriptionEn.isNotEmpty
+                                      ? Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: size.h16),
+                                          child: Text(
+                                            data.descriptionEn,
+                                            textAlign: TextAlign.justify,
+                                            style: TextStyle(
+                                                color: clr.appPrimaryColorBlack,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: size.textSmall,
+                                                fontFamily:
+                                                    StringData.fontFamilyInter),
+                                          ),
+                                        )
+                                      : const SizedBox(),
+                                  SizedBox(
+                                    height: size.h32,
+                                  )
                                 ],
                               ),
                             ),
                           ),
-                          data.descriptionEn.isNotEmpty
-                              ? Text(
-                                  "Description",
-                                  style: TextStyle(
-                                      color: clr.appPrimaryColorBlack,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.textMedium,
-                                      fontFamily: StringData.fontFamilyPoppins),
-                                )
-                              : const SizedBox(),
-                          SizedBox(
-                            height: size.h16,
-                          ),
-                          Text(
-                            data.descriptionEn + data.descriptionEn,
-                            textAlign: TextAlign.justify,
-                            overflow: TextOverflow.fade,
-                            style: TextStyle(
-                                color: clr.appPrimaryColorBlack,
-                                fontWeight: FontWeight.normal,
-                                fontSize: size.textSmall,
-                                fontFamily: StringData.fontFamilyPoppins),
-                          ),
+
                           SizedBox(
                             height: size.h64 * 2 + size.h24,
                           ),

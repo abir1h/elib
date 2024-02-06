@@ -132,6 +132,12 @@ class LanguageEn {
   String bookPublishYear = "Publish year";
   String publisher = "Publisher";
   String isbnNUmber = "ISBN Number";
+  String seeMoreBookInfo = "See more information about the book";
+  String type = "Type";
+  String description = "Description :";
+  String personalInformation= "Personal Information";
+  String progressInformation = "Progress information";
+
 }
 
 class LanguageBn {
@@ -255,11 +261,17 @@ class LanguageBn {
   String getReport = "রিপোর্ট পান";
   String bookReportText = "বই রিপোর্ট";
   String author = "লেখক";
+  String type = "ধরন";
   String tag = "ট্যাগ";
   String bookLanguage = "ভাষা";
   String bookedition = "সংস্করণ";
   String bookPublishYear = "প্রকাশনার সন";
   String publisher = "প্রকাশনা";
   String isbnNUmber = "ISBN নম্বর";
+  String seeMoreBookInfo = "বই সম্পর্কে আরো তথ্য দেখুন";
+  String description = "সংক্ষিপ্ত বিবরন : ";
+  String personalInformation= "ব্যাক্তিগত তথ্য";
+  String progressInformation = "অগ্রগতির তথ্য";
+
 
 }

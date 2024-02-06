@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 },
                 dataBuilder: (context, data) {
                   return Container(
-                    color: clr.iconColorWhiteIce,
+                    color: clr.scaffoldSecondaryBackgroundColor,
                     child: Column(
                       children: [
                         Stack(
@@ -55,10 +55,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         border: Border.all(
-                                            color: clr.cardStrokeColor,
+                                            color: clr.strokeToggleColorPurple,
                                             width: size.w1)),
                                     child: CircleAvatar(
                                       radius: 45.r,
+                                      backgroundColor: Colors.transparent,
                                       backgroundImage: AssetImage(
                                         ImageAssets.imgEmptyProfile,
                                       ),
@@ -76,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       //     e: en.userNameText,
                                       //     b: bn.userNameText),
                                       style: TextStyle(
-                                          color: clr.appPrimaryColorBlack,
+                                          color: clr.appSecondaryColorPurple,
                                           fontSize: size.textXMedium,
                                           fontWeight: FontWeight.w600,
                                           fontFamily:
@@ -136,70 +137,159 @@ class _ProfileScreenState extends State<ProfileScreen>
                           ],
                         ),
                         Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: size.w16),
-                            decoration: BoxDecoration(
+                          child: DefaultTabController(
+                            length: 2,
+                            child: Container(
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: size.w16),
+                              decoration: BoxDecoration(
                                 color: clr.scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(size.w40),
                                   topRight: Radius.circular(size.w40),
                                 ),
-                                border: Border(
-                                    top: BorderSide(color: clr.cardStrokeColor),
-                                    right: BorderSide(
-                                        color: clr.cardStrokeColor))),
-                            child: SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: size.h40),
-                                  TitleWithIcon(
-                                    icon: Icons.account_balance,
-                                    // title: label(
-                                    //     e: data.fullnameEn, b: data.fullnameBn),
-                                    title: label(
-                                        e: en.currentOrganizationNameText,
-                                        b: bn.currentOrganizationNameText),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black
+                                        .withOpacity(.2)
+                                        .withOpacity(.2),
+                                    blurRadius: 4,
+                                    offset: Offset(-2, 0),
                                   ),
-                                  TitleWithIcon(
-                                      icon: Icons.beenhere,
-                                      // title: label(
-                                      //     e: data.fullnameEn, b: data.fullnameEn),
-                                      title: label(
-                                          e: en.positionNameText,
-                                          b: bn.positionNameText)),
-                                  TitleWithIcon(
-                                    icon: Icons.badge,
-                                    title: data.empId,
-                                    // title:
-                                    //     label(e: en.regNoText, b: bn.regNoText),
-                                  ),
-                                  TitleWithIcon(
-                                    icon: Icons.phone,
-                                    title: data.mobileNo,
-                                    // title: label(
-                                    //     e: en.phoneNumberText,
-                                    //     b: bn.phoneNumberText),
-                                  ),
-                                  TitleWithIcon(
-                                    onTap: () {},
-                                    icon: Icons.email,
-                                    title: data.email,
-                                  ),
-                                  TitleWithIcon(
-                                    onTap: onTapNotes,
-                                    icon: Icons.event_note_sharp,
-                                    title: label(e: "Notes", b: "Notes"),
-                                  ),
-                                  TitleWithIcon(
-                                    icon: Icons.logout,
-                                    title: label(
-                                        e: en.logoutText, b: bn.logoutText),
-                                    onTap: showLogoutPromptDialog,
-                                    hasBorder: false,
-                                  ),
-                                  SizedBox(height: size.h64),
                                 ],
+                              ),
+                              child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: size.h40,
+                                    ),
+                                    TabBar(
+                                        unselectedLabelColor: Colors.black,
+                                        indicatorSize:
+                                            TabBarIndicatorSize.label,
+                                        labelStyle: TextStyle(
+                                            color: clr.whiteColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: size.textSmall,
+                                            fontFamily:
+                                                StringData.fontFamilyPoppins),
+                                        indicator: BoxDecoration(
+                                            gradient: LinearGradient(colors: [
+                                              clr.profileGradiant2,
+                                              clr.profileGradiant1,
+                                            ]),
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            border: Border.all(
+                                                color: clr
+                                                    .appSecondaryColorPurple)),
+                                        tabs: [
+                                          Tab(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      color: clr
+                                                          .appSecondaryColorPurple,
+                                                      width: 1)),
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(label(
+                                                    e: en.personalInformation,
+                                                    b: bn.personalInformation)),
+                                              ),
+                                            ),
+                                          ),
+                                          Tab(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      color: clr
+                                                          .appSecondaryColorPurple,
+                                                      width: 1)),
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(label(
+                                                    e: en.progressInformation,
+                                                    b: bn.progressInformation)),
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                    TabBarView(
+                                      children: [
+                                        Container(
+                                          child: SingleChildScrollView(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: size.h40),
+                                                TitleWithIcon(
+                                                  icon: Icons.account_balance,
+                                                  // title: label(
+                                                  //     e: data.fullnameEn, b: data.fullnameBn),
+                                                  title: label(
+                                                      e: en
+                                                          .currentOrganizationNameText,
+                                                      b: bn
+                                                          .currentOrganizationNameText),
+                                                ),
+                                                TitleWithIcon(
+                                                    icon: Icons.beenhere,
+                                                    // title: label(
+                                                    //     e: data.fullnameEn, b: data.fullnameEn),
+                                                    title: label(
+                                                        e: en.positionNameText,
+                                                        b: bn
+                                                            .positionNameText)),
+                                                TitleWithIcon(
+                                                  icon: Icons.badge,
+                                                  title: data.empId,
+                                                  // title:
+                                                  //     label(e: en.regNoText, b: bn.regNoText),
+                                                ),
+                                                TitleWithIcon(
+                                                  icon: Icons.phone,
+                                                  title: data.mobileNo,
+                                                  // title: label(
+                                                  //     e: en.phoneNumberText,
+                                                  //     b: bn.phoneNumberText),
+                                                ),
+                                                TitleWithIcon(
+                                                  onTap: () {},
+                                                  icon: Icons.email,
+                                                  title: data.email,
+                                                ),
+                                                TitleWithIcon(
+                                                  onTap: onTapNotes,
+                                                  icon: Icons.event_note_sharp,
+                                                  title: label(
+                                                      e: "Notes", b: "Notes"),
+                                                ),
+                                                TitleWithIcon(
+                                                  icon: Icons.logout,
+                                                  title: label(
+                                                      e: en.logoutText,
+                                                      b: bn.logoutText),
+                                                  onTap: showLogoutPromptDialog,
+                                                  hasBorder: false,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(height: size.h64),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
