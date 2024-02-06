@@ -17,14 +17,18 @@ class ThemeColor {
   Color get appSecondaryColorPurple => HexColor("693392");
   Color get appSecondaryColorFlagRed => HexColor("F42A41");
   Color get scaffoldBackgroundColor => HexColor("FFFEFE");
+  Color get scaffoldSecondaryBackgroundColor => HexColor("F9F0FF");
 
   Color get whiteColor => HexColor("FFFFFF");
+  Color get profileGradiant1 => HexColor("7D51DA");
+  Color get profileGradiant2 => HexColor("701CC3");
   Color get disableColor => HexColor("FF15233D");
   Color get shadeWhiteColor => HexColor("FDFDFD");
   Color get shadeWhiteColor2 => HexColor("FEFFFF");
   Color get greyColor => HexColor("B6B6B6");
   Color get greyStokeColor => HexColor("D0D0D0");
   Color get strokeToggleColor => HexColor("CBE1A9");
+  Color get strokeToggleColorPurple => HexColor("CE94D7");
   Color get iconColorHint => HexColor("797979");
   Color get iconColorWhiteIce => HexColor("D1ECE4");
   Color get iconColorRed => HexColor("F27785");
@@ -50,6 +54,7 @@ class ThemeColor {
   Color get cardStrokeColorBlueMagenta => HexColor("D1ADED");
   Color get cardStrokeColorPerfume => HexColor("C3A8D7");
   Color get dividerStrokeColorGrey => HexColor("B0B0B0");
+  Color get dividerStrokeColorGrey2 => HexColor("C5C5C5");
 
   Color get fromBoxFillColor => HexColor("FCFFFE");
   Color get cardFillColorOrange => HexColor("FFE9D6");

@@ -111,7 +111,7 @@ class _RollingSwitchState extends State<CustomSwitchButton>
         padding: const EdgeInsets.all(5),
         width: widget.width,
         decoration: BoxDecoration(
-            border: Border.all(color: clr.strokeToggleColor),
+            border: Border.all(color: clr.strokeToggleColorPurple),
             color: transitionColor,
             borderRadius: BorderRadius.circular(50)),
         child: Stack(
@@ -181,7 +181,7 @@ class _RollingSwitchState extends State<CustomSwitchButton>
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: clr.appPrimaryColorBlack),
+                          color: clr.appSecondaryColorPurple),
                       child: widget.buttonHolder,
                     ),
             )
