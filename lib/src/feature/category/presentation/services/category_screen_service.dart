@@ -10,8 +10,7 @@ import '../../../book/domain/entities/book_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
-  void navigateToCategoryDetailsScreen(
-      String categoryName, int id);
+  void navigateToCategoryDetailsScreen(String categoryName, int id);
   void navigateToBookDetailsScreen(BookDataEntity data);
 }
 
@@ -23,8 +22,8 @@ mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
       categoryRepository: CategoryRepositoryImp(
           categoryRemoteDataSource: CategoryRemoteDataSourceImp()));
 
-  Future<ResponseEntity> getCategoryWithBook() async {
-    return _categoryUseCase.getCategoryWithBookUseCase();
+  Future<ResponseEntity> getCategories() async {
+    return _categoryUseCase.getCategoriesUseCase();
   }
 
   ///Service configurations
@@ -49,13 +48,11 @@ mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
   void _loadCategoryData() {
     if (!mounted) return;
     categoryDataStreamController.add(LoadingState());
-    getCategoryWithBook().then((value) {
-      if (value.error == null && value.data.categoryDataEntity!.isNotEmpty) {
-        categoryDataStreamController.add(
-            DataLoadedState<List<CategoryDataEntity>>(
-                value.data!.categoryDataEntity));
-      } else if (value.error == null &&
-          value.data.categoryDataEntity!.isEmpty) {
+    getCategories().then((value) {
+      if (value.error == null && value.data.isNotEmpty) {
+        categoryDataStreamController
+            .add(DataLoadedState<List<CategoryDataEntity>>(value.data));
+      } else if (value.error == null && value.data.isEmpty) {
         categoryDataStreamController
             .add(EmptyState(message: 'No Category Found'));
       } else {

@@ -30,7 +30,7 @@ class HeaderWidget extends StatelessWidget with AppTheme {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: clr.appPrimaryColorBlack.withOpacity(.2),
+                    color: clr.appSecondaryColorPurple.withOpacity(.2),
                     blurRadius: size.r8,
                     offset: Offset(0.0, size.h2),
                   ),
@@ -39,7 +39,7 @@ class HeaderWidget extends StatelessWidget with AppTheme {
               child: Icon(
                 Icons.menu,
                 size: size.r24,
-                color: clr.appPrimaryColorBlack,
+                color: clr.appSecondaryColorPurple,
               ),
             ),
           ),
@@ -48,7 +48,7 @@ class HeaderWidget extends StatelessWidget with AppTheme {
             child: Text(
               title,
               style: TextStyle(
-                  color: clr.appPrimaryColorBlack,
+                  color: clr.appSecondaryColorPurple,
                   fontSize: size.textXMedium,
                   fontWeight: FontWeight.w500,
                   fontFamily: StringData.fontFamilyPoppins),

@@ -32,5 +32,5 @@ class CategoryDataEntity {
       required this.deletedAt,
       required this.books,
       required this.children,
-      required this.pivot});
+      this.pivot});
 }
