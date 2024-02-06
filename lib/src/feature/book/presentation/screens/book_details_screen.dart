@@ -457,8 +457,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                               if (data.editionEn.isNotEmpty)
                                                 BookInfoItemWidget(
                                                     firstItem: label(
-                                                        e: en.bookedition,
-                                                        b: bn.bookedition),
+                                                        e: en.bookEdition,
+                                                        b: bn.bookEdition),
                                                     secondItem: data.editionEn),
                                               if (data.publishYearEn.isNotEmpty)
                                                 BookInfoItemWidget(

@@ -154,17 +154,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                                         .withOpacity(.2)
                                         .withOpacity(.2),
                                     blurRadius: 4,
-                                    offset: Offset(-2, 0),
+                                    offset: const Offset(-2, 0),
                                   ),
                                 ],
                               ),
-                              child: SingleChildScrollView(
-                                physics: const BouncingScrollPhysics(),
+                              child: Expanded(
                                 child: Column(
                                   children: [
-                                    SizedBox(
-                                      height: size.h40,
-                                    ),
+                                    SizedBox(height: size.h40),
                                     TabBar(
                                         unselectedLabelColor: Colors.black,
                                         indicatorSize:
@@ -221,15 +218,15 @@ class _ProfileScreenState extends State<ProfileScreen>
                                             ),
                                           ),
                                         ]),
-                                    TabBarView(
-                                      children: [
-                                        Container(
-                                          child: SingleChildScrollView(
+                                    Expanded(
+                                      child: TabBarView(
+                                        children: [
+                                          SingleChildScrollView(
                                             physics:
-                                                NeverScrollableScrollPhysics(),
+                                                const BouncingScrollPhysics(),
                                             child: Column(
                                               children: [
-                                                SizedBox(height: size.h40),
+                                                SizedBox(height: size.h28),
                                                 TitleWithIcon(
                                                   icon: Icons.account_balance,
                                                   // title: label(
@@ -283,9 +280,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                               ],
                                             ),
                                           ),
-                                        ),
-                                        Container()
-                                      ],
+                                          Container()
+                                        ],
+                                      ),
                                     ),
                                     SizedBox(height: size.h64),
                                   ],
