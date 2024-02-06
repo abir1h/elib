@@ -136,8 +136,8 @@ class LanguageEn {
   String seeMoreBookInfo = "See more information about the book";
   String type = "Type";
   String description = "Description :";
-  String personalInformation= "Personal Information";
-  String progressInformation = "Progress information";
+  String personalInformation= "Personal Info";
+  String progressInformation = "Progress Info";
 
 
   String categoryViewAll = "View all books in the category";

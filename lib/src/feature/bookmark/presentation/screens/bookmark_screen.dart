@@ -374,7 +374,8 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: CachedNetworkImageProvider(
-                            widget.item.book!.coverImage.isNotEmpty
+                            widget.item.book != null &&
+                                    widget.item.book!.coverImage.isNotEmpty
                                 ? "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}"
                                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                           ),

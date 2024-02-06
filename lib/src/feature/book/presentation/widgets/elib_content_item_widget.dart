@@ -105,11 +105,11 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                                   child: widget.item.bookMark
                                       ? Icon(
                                           Icons.bookmark,
-                                          color: clr.appPrimaryColorBlack,
+                                          color: clr.appSecondaryColorPurple,
                                         )
                                       : Icon(
                                           Icons.bookmark_border_outlined,
-                                          color: clr.appPrimaryColorBlack,
+                                          color: clr.appSecondaryColorPurple,
                                         )),
                             ),
                           )
