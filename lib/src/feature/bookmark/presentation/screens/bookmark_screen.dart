@@ -362,138 +362,140 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: SizedBox(
-                width: 80.w,
+        child: IntrinsicHeight(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 1,
                 child: GestureDetector(
                   onTap: () => widget.onSelect(widget.item),
-                  child: CachedNetworkImage(
-                    imageUrl: widget.item.book!.coverImage.isNotEmpty
-                        ? "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}"
-                        : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
-                    placeholder: (context, url) => const Offstage(),
-                    errorWidget: (context, url, error) =>
-                        Icon(Icons.image, color: clr.greyColor),
-                    fit: BoxFit.cover,
-                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(
+                          widget.item.book!.coverImage.isNotEmpty
+                              ? "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}"
+                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                        ),
+                      ),
+                    ),
+                  )
                 ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.only(
-                    left: size.w16,
-                    right: size.w8,
-                    top: size.h8,
-                    bottom: size.h8),
-                decoration: BoxDecoration(
-                  color: clr.whiteColor,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(size.r4),
-                      bottomRight: Radius.circular(size.r4)),
-                  border: Border(
-                      bottom: BorderSide(
-                          color: clr.appSecondaryColorPurple, width: size.h2)),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
+              Expanded(flex: 2,
+                child: Container(
+                  width: 1.sw,
+                  padding: EdgeInsets.only(
+                      left: size.w16,
+                      right: size.w8,
+                      top: size.h8,
+                      bottom: size.h8),
+                  decoration: BoxDecoration(
+                    color: clr.whiteColor,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(size.r4),
+                        bottomRight: Radius.circular(size.r4)),
+                    border: Border(
+                        bottom: BorderSide(
+                            color: clr.appSecondaryColorPurple, width: size.h2)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.item.book != null
+                                  ? widget.item.book!.titleEn
+                                  : "",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: clr.textColorAppleBlack,
+                                fontSize: size.textSmall,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: StringData.fontFamilyPoppins,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: size.w8),
+                          InkWell(
+                            onTap: widget.onBookmarkSelect != null
+                                ? () => widget.onBookmarkSelect!(widget.item)
+                                : () {},
+                            child: Icon(
+                              Icons.bookmark,
+                              color: clr.appSecondaryColorPurple,
+                              size: size.r24,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: size.h8),
+                      Text(
+                        widget.item.book != null
+                            ? widget.item.book!.author
+                                .map((c) => c.name)
+                                .toList()
+                                .join(', ')
+                            : "",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: clr.textColorGray,
+                          fontSize: size.textXSmall,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: StringData.fontFamilyPoppins,
+                        ),
+                      ),
+                      SizedBox(height: size.h8),
+                      Text(
+                        "Book Type",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: clr.textColorGray,
+                          fontSize: size.textXSmall,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: StringData.fontFamilyPoppins,
+                        ),
+                      ),
+                      SizedBox(height: size.h8),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            ImageAssets.icTag,
+                            height: size.h20,
+                          ),
+                          SizedBox(width: size.w8),
+                          Text(
                             widget.item.book != null
-                                ? widget.item.book!.titleEn
+                                ? widget.item.book!.category
+                                    .map((c) => label(e: c.nameEn, b: c.nameBn))
+                                    .toList()
+                                    .join(', ')
                                 : "",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: clr.textColorAppleBlack,
-                              fontSize: size.textSmall,
-                              fontWeight: FontWeight.w600,
+                              color: clr.textColorGray,
+                              fontSize: size.textXSmall,
+                              fontWeight: FontWeight.w500,
                               fontFamily: StringData.fontFamilyPoppins,
                             ),
                           ),
-                        ),
-                        SizedBox(height: size.w8),
-                        InkWell(
-                          onTap: widget.onBookmarkSelect != null
-                              ? () => widget.onBookmarkSelect!(widget.item)
-                              : () {},
-                          child: Icon(
-                            Icons.bookmark,
-                            color: clr.appSecondaryColorPurple,
-                            size: size.r24,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.h8),
-                    Text(
-                      widget.item.book != null
-                          ? widget.item.book!.author
-                              .map((c) => c.name)
-                              .toList()
-                              .join(', ')
-                          : "",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: clr.textColorGray,
-                        fontSize: size.textXSmall,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: StringData.fontFamilyPoppins,
-                      ),
-                    ),
-                    SizedBox(height: size.h8),
-                    Text(
-                      "Book Type",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: clr.textColorGray,
-                        fontSize: size.textXSmall,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: StringData.fontFamilyPoppins,
-                      ),
-                    ),
-                    SizedBox(height: size.h8),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          ImageAssets.icTag,
-                          height: size.h20,
-                        ),
-                        SizedBox(width: size.w8),
-                        Text(
-                          widget.item.book != null
-                              ? widget.item.book!.category
-                                  .map((c) => label(e: c.nameEn, b: c.nameBn))
-                                  .toList()
-                                  .join(', ')
-                              : "",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: clr.textColorGray,
-                            fontSize: size.textXSmall,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: StringData.fontFamilyPoppins,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
