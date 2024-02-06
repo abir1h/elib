@@ -11,13 +11,16 @@ class ImageAssets {
   static String get imgModule3 => 'Illustrator_Module_3'.png;
   static String get imgModule4 => 'Illustrator_Module_4'.png;
 
+  static String get imgIllustration => 'illustration'.svg;
+
   static String get icBook => 'book'.svg;
   static String get icSocialLearning => 'social_learning'.svg;
   static String get icLockOpenRight => 'lock_open_right'.svg;
   static String get icEdit => 'edit'.svg;
   static String get icDelete => 'delete'.svg;
   static String get icTag => 'tag'.svg;
-
+  static String get icAddNotes => 'add_notes'.svg;
+  static String get icApproval => 'approval_delegation'.svg;
 
   static String get animEmpty => 'Animation - 1706009676891'.json;
   static String get filterAnim => 'filter'.json;

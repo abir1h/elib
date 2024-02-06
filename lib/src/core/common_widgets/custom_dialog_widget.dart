@@ -10,8 +10,8 @@ mixin CustomDialogWidget {
     required BuildContext context,
     required String infoText,
     String title = "Are You Sure?",
-    String rightButtonText = "Cancel",
-    String leftButtonText = "Yes",
+    String rightButtonText = "Yes",
+    String leftButtonText = "Cancel",
     bool singleButton = false,
   }) {
     Completer<bool> completer = Completer();
@@ -71,7 +71,7 @@ mixin CustomDialogWidget {
                                 ? const Offstage()
                                 : GestureDetector(
                                     onTap: () =>
-                                        Navigator.of(context).pop(true),
+                                        Navigator.of(context).pop(false),
                                     child: Container(
                                       width: double.infinity,
                                       padding: EdgeInsets.symmetric(
@@ -80,18 +80,18 @@ mixin CustomDialogWidget {
                                         borderRadius:
                                             BorderRadius.circular(10.w),
                                         color: ThemeColor
-                                            .instance.shadeWhiteColor2,
+                                            .instance.appSecondaryColorPurple,
                                         border: Border.all(
-                                            color: ThemeColor
-                                                .instance.appPrimaryColorBlack,
+                                            color: ThemeColor.instance
+                                                .appSecondaryColorPurple,
                                             width: 1.w),
                                       ),
                                       child: Center(
                                         child: Text(
                                           leftButtonText,
                                           style: TextStyle(
-                                              color: ThemeColor.instance
-                                                  .appPrimaryColorBlack,
+                                              color: ThemeColor
+                                                  .instance.shadeWhiteColor2,
                                               fontSize:
                                                   ThemeSize.instance.textSmall,
                                               fontWeight: FontWeight.w500,
@@ -105,18 +105,17 @@ mixin CustomDialogWidget {
                           SizedBox(width: 12.w),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () => Navigator.of(context).pop(false),
+                              onTap: () => Navigator.of(context).pop(true),
                               child: Container(
                                 width: double.infinity,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16.w, vertical: 10.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.w),
-                                  color:
-                                      ThemeColor.instance.appPrimaryColorBlack,
+                                  color: ThemeColor.instance.shadeWhiteColor2,
                                   border: Border.all(
                                       color: ThemeColor
-                                          .instance.appPrimaryColorBlack,
+                                          .instance.appSecondaryColorPurple,
                                       width: 1.w),
                                 ),
                                 child: Center(
@@ -124,7 +123,7 @@ mixin CustomDialogWidget {
                                     rightButtonText,
                                     style: TextStyle(
                                         color: ThemeColor
-                                            .instance.shadeWhiteColor2,
+                                            .instance.appSecondaryColorPurple,
                                         fontSize: ThemeSize.instance.textSmall,
                                         fontWeight: FontWeight.w500,
                                         fontFamily:

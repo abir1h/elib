@@ -6,12 +6,11 @@ import '../../data/repositories/category_repository_imp.dart';
 import '../../domain/use_cases/category_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../domain/entities/category_data_entity.dart';
-import '../../../book/domain/entities/book_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
-  void navigateToCategoryDetailsScreen(String categoryName, int id);
-  void navigateToBookDetailsScreen(BookDataEntity data);
+  void navigateToCategoryDetailsScreen(
+      String categoryNameEn, String categoryNameBn, int id);
 }
 
 mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
@@ -62,11 +61,7 @@ mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
   }
 
   ///On Tap See All
-  void onTapSeeAll(String categoryName, int id) {
-    _view.navigateToCategoryDetailsScreen(categoryName, id);
-  }
-
-  void onBookContentSelected(BookDataEntity item) {
-    _view.navigateToBookDetailsScreen(item);
+  void onTapCategory(String categoryNameEn, String categoryNameBn, int id) {
+    _view.navigateToCategoryDetailsScreen(categoryNameEn, categoryNameBn, id);
   }
 }

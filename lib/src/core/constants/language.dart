@@ -59,7 +59,7 @@ class LanguageEn {
   String messageText = "Message";
   String bookRequestText = "Book Request List";
   String bookReportText = "Book Report";
-  String notesText = "Notes";
+  String notesText = "Note List";
 
   String profileAppBarText = "My Profile";
   String userNameText = "Mynul Islam"; //"User Name";
@@ -113,6 +113,7 @@ class LanguageEn {
   String writeYourOpinion = "Write Your Opinion";
 
   String requestForNewBook = "Request for new book";
+  String updateRequestedBook = "Update Request";
   String bookName = "Full name of the book";
   String bookNameHint = "For example: Name of book";
   String authorName = "Name of the author of the book";
@@ -128,10 +129,12 @@ class LanguageEn {
   String author = "Author";
   String tag = "Tag";
   String bookLanguage = "Language";
-  String bookedition = "Edition";
+  String bookEdition = "Edition";
   String bookPublishYear = "Publish year";
   String publisher = "Publisher";
   String isbnNUmber = "ISBN Number";
+
+  String categoryViewAll = "View all books in the category";
 }
 
 class LanguageBn {
@@ -189,7 +192,7 @@ class LanguageBn {
   String tutorial = "টিউটোরিয়াল";
   String messageText = "বার্তা";
   String bookRequestText = "বইয়ের অনুরোধের তালিকা";
-  String notesText = "নোটস";
+  String notesText = "নোটের তালিকা";
 
   String profileAppBarText = "আমার প্রোফাইল";
   String userNameText = "মাইনুল ইসলাম"; //"ব্যবহারকারীর নাম";
@@ -241,6 +244,7 @@ class LanguageBn {
   String writeYourOpinion = "আপনার মতামত লিখুন";
 
   String requestForNewBook = "নতুন বইয়ের জন্য অনুরোধ";
+  String updateRequestedBook = "অনুরোধ আপডেট করুন";
   String bookName = "বইয়ের পূর্ণাঙ্গ নাম";
   String bookNameHint = "উদাহরণ স্বরূপ: বইয়ের নাম";
   String authorName = "বইয়ের লেখকের নাম";
@@ -257,9 +261,10 @@ class LanguageBn {
   String author = "লেখক";
   String tag = "ট্যাগ";
   String bookLanguage = "ভাষা";
-  String bookedition = "সংস্করণ";
+  String bookEdition = "সংস্করণ";
   String bookPublishYear = "প্রকাশনার সন";
   String publisher = "প্রকাশনা";
   String isbnNUmber = "ISBN নম্বর";
 
+  String categoryViewAll = "ক্যাটেগরির সকল বই দেখুন";
 }

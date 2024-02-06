@@ -234,9 +234,7 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
               scale: widget.selected ? 0.8 : 1.0,
               child: Icon(
                 widget.icon,
-                color: widget.selected
-                    ? clr.appSecondaryColorFlagRed
-                    : clr.appPrimaryColorBlack,
+                color: clr.appSecondaryColorPurple,
                 size: widget.size,
               ),
             ),
@@ -251,9 +249,9 @@ class _NavButtonItemState extends State<NavButtonItem> with AppTheme {
                 child: Text(
                   widget.title,
                   style: TextStyle(
-                    color: clr.appSecondaryColorFlagRed,
-                    fontSize: size.textXSmall,
-                    fontWeight: FontWeight.w600,
+                    color: clr.appPrimaryColorBlack,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

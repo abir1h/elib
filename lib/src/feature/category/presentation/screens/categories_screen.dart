@@ -7,7 +7,6 @@ import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 import '../services/category_screen_service.dart';
@@ -100,7 +99,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             buildItem: (BuildContext context, int index, item) {
                               return ItemSectionWidget(
                                 data: item,
-                                onTap: () {},
+                                onTap: () => onTapCategory(
+                                    item.nameEn, item.nameBn, item.id),
                               );
                             });
                       },
@@ -127,19 +127,14 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   }
 
   @override
-  void navigateToCategoryDetailsScreen(String categoryName, int id) {
+  void navigateToCategoryDetailsScreen(
+      String categoryNameEn, String categoryNameBn, int id) {
     Navigator.of(context).pushNamed(
       AppRoute.categoryDetailsScreen,
-      arguments:
-          CategoryDetailsScreenArgs(categoryName: categoryName, categoryId: id),
-    );
-  }
-
-  @override
-  void navigateToBookDetailsScreen(BookDataEntity data) {
-    Navigator.of(context).pushNamed(
-      AppRoute.bookDetailsScreen,
-      arguments: BookDetailsScreenArgs(bookData: data),
+      arguments: CategoryDetailsScreenArgs(
+          categoryNameEn: categoryNameEn,
+          categoryNameBn: categoryNameBn,
+          categoryId: id),
     );
   }
 }
@@ -174,31 +169,31 @@ class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
 class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   final CategoryDataEntity data;
   final VoidCallback onTap;
-  const ItemSectionWidget({
-    Key? key,
-    required this.data,
-    required this.onTap,
-  }) : super(key: key);
+  const ItemSectionWidget({Key? key, required this.data, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: clr.cardFillColorPlaceboPurple,
-          borderRadius: BorderRadius.circular(size.r4),
-          border: Border.all(color: clr.cardStrokeColorBlueMagenta)),
-      alignment: Alignment.center,
-      child: Text(
-        label(e: data.nameEn, b: data.nameBn),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: clr.appPrimaryColorBlack,
-          fontSize: size.textXSmall,
-          fontWeight: FontWeight.w500,
-          fontFamily: StringData.fontFamilyPoppins,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+            color: clr.cardFillColorPlaceboPurple,
+            borderRadius: BorderRadius.circular(size.r4),
+            border: Border.all(color: clr.cardStrokeColorBlueMagenta)),
+        alignment: Alignment.center,
+        child: Text(
+          label(e: data.nameEn, b: data.nameBn),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            color: clr.appPrimaryColorBlack,
+            fontSize: size.textXSmall,
+            fontWeight: FontWeight.w500,
+            fontFamily: StringData.fontFamilyPoppins,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
       ),
     );
   }

@@ -33,10 +33,12 @@ class BookViewerScreenArgs {
 }
 
 class CategoryDetailsScreenArgs {
-  final String categoryName;
+  final String categoryNameEn;
+  final String categoryNameBn;
   final int categoryId;
   CategoryDetailsScreenArgs({
-    required this.categoryName,
+    required this.categoryNameEn,
+    required this.categoryNameBn,
     required this.categoryId,
   });
 }

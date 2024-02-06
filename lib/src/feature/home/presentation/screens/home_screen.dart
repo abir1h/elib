@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
@@ -37,11 +38,11 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: size.h42),
+                  SizedBox(height: size.h56),
 
                   ///Header text and image
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.w20),
+                    padding: EdgeInsets.symmetric(horizontal: size.w16),
                     child: Row(
                       children: [
                         ///Header text
@@ -52,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen>
                               Text(
                                 label(e: en.appBarText, b: bn.appBarText),
                                 style: TextStyle(
-                                  color: clr.appPrimaryColorBlack,
+                                  color: clr.appSecondaryColorPurple,
                                   fontSize: size.textXLarge,
-                                  fontWeight: FontWeight.w900,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               SizedBox(height: size.h8),
@@ -63,27 +64,25 @@ class _HomeScreenState extends State<HomeScreen>
                                     e: en.homeHeaderText, b: bn.homeHeaderText),
                                 style: TextStyle(
                                   color: clr.appPrimaryColorBlack,
-                                  fontWeight: FontWeight.w200,
+                                  fontWeight: FontWeight.w300,
                                   fontSize: size.textSmall,
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        SizedBox(width: size.w8),
 
                         ///Header Image
-                        SizedBox(
-                          width: size.h64 * 2,
-                          height: size.h64 * 2,
-                          child: Image.asset(
-                            ImageAssets.imageHome,
-                            fit: BoxFit.contain,
-                          ),
+                        SvgPicture.asset(
+                          ImageAssets.imgIllustration,
+                          fit: BoxFit.contain,
                         )
                       ],
                     ),
                   ),
-                  SizedBox(height: size.h12),
+
+                  SizedBox(height: size.h16),
 
                   ///Search Box and Bookmark button
                   Padding(
@@ -213,8 +212,8 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Positioned(
-              left: size.w20,
-              top: size.h10,
+              left: size.w16,
+              top: size.h8,
               child: GestureDetector(
                 onTap: () {
                   Scaffold.of(context).openDrawer();
@@ -223,7 +222,8 @@ class _HomeScreenState extends State<HomeScreen>
                   padding: EdgeInsets.all(size.r6),
                   decoration: BoxDecoration(
                     color: clr.whiteColor,
-                    shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(size.r12),
+                    border: Border.all(color: clr.cardStrokeColorPerfume),
                     boxShadow: [
                       BoxShadow(
                         color: clr.appPrimaryColorBlack.withOpacity(.2),
@@ -235,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen>
                   child: Icon(
                     Icons.menu,
                     size: size.r24,
-                    color: clr.appPrimaryColorBlack,
+                    color: clr.textColorMidBlack,
                   ),
                 ),
               ),

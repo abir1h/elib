@@ -39,7 +39,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
       decoration: widget.boxShadow
           ? BoxDecoration(
               borderRadius: BorderRadius.circular(size.r8),
-              color: clr.cardFillColorBlue,
+              color: clr.whiteColor,
               boxShadow: [
                   BoxShadow(
                     color: clr.appPrimaryColorBlack.withOpacity(.2),

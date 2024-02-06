@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/header_widget.dart';
-import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
@@ -367,26 +365,26 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 1,
+              Expanded(
+                flex: 1,
                 child: GestureDetector(
-                  onTap: () => widget.onSelect(widget.item),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(
-                          widget.item.book!.coverImage.isNotEmpty
-                              ? "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}"
-                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                    onTap: () => widget.onSelect(widget.item),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: CachedNetworkImageProvider(
+                            widget.item.book!.coverImage.isNotEmpty
+                                ? "http://103.209.40.89:82/uploads/${widget.item.book?.coverImage}"
+                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ),
+                    )),
               ),
-              Expanded(flex: 2,
+              Expanded(
+                flex: 3,
                 child: Container(
-                  width: 1.sw,
                   padding: EdgeInsets.only(
                       left: size.w16,
                       right: size.w8,
@@ -399,7 +397,8 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                         bottomRight: Radius.circular(size.r4)),
                     border: Border(
                         bottom: BorderSide(
-                            color: clr.appSecondaryColorPurple, width: size.h2)),
+                            color: clr.appSecondaryColorPurple,
+                            width: size.h2)),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

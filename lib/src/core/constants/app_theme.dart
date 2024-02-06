@@ -31,11 +31,13 @@ class ThemeColor {
   Color get iconColorBlack => HexColor("1C1B1F");
   Color get iconColorSweetRed => HexColor("FF4A5F");
   Color get iconColorDimGrey => HexColor("6B6A6A");
+  Color get iconColorGray85 => HexColor("9D9D9D");
 
   Color get textColorAppleBlack => HexColor("1D1D1F");
   Color get textColorBlack => HexColor("414141");
   Color get textColorMidBlack => HexColor("535353");
   Color get textColorGray => HexColor("535056");
+  Color get textColorSilverSconce => HexColor("9E9D9F");
   Color get placeHolderTextColorGray => HexColor("9F9F9F");
 
   Color get boxStrokeColor => HexColor("DFDFDF");
@@ -46,6 +48,7 @@ class ThemeColor {
   Color get cardStrokeColorPurple => HexColor("E5D9F7");
   Color get cardStrokeColorBlue => HexColor("BEDBED");
   Color get cardStrokeColorBlueMagenta => HexColor("D1ADED");
+  Color get cardStrokeColorPerfume => HexColor("C3A8D7");
   Color get dividerStrokeColorGrey => HexColor("B0B0B0");
 
   Color get fromBoxFillColor => HexColor("FCFFFE");
@@ -55,6 +58,7 @@ class ThemeColor {
   Color get cardFillColorBlue => HexColor("D7EEFC");
   Color get cardFillColorCruise => HexColor("B3E0DD");
   Color get cardFillColorPlaceboPurple => HexColor("EAD8F8");
+  Color get cardFillColorMagnolia => HexColor("EADDFF");
 
   Color get clickableLinkColor => HexColor("4A88FF");
   Color get progressBGColor => HexColor("D9D9D9");

@@ -16,7 +16,7 @@ import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../domain/entities/note_data_entity.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
-import '../services/note_service.dart';
+import '../services/note_details_screen_service.dart';
 
 class NoteScreenBeta extends StatefulWidget {
   const NoteScreenBeta({super.key});
@@ -243,16 +243,6 @@ class _NoteEditScreenState extends State<NoteEditScreen>
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: Text(
-            label(e: en.notesText, b: bn.notesText),
-            style: TextStyle(
-                color: clr.appPrimaryColorBlack,
-                fontSize: size.textXMedium,
-                fontWeight: FontWeight.w500,
-                fontFamily: StringData.fontFamilyPoppins),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
           leading: InkWell(
             onTap: () => Navigator.of(context).pop(),
             child: Icon(
@@ -263,8 +253,8 @@ class _NoteEditScreenState extends State<NoteEditScreen>
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
+              padding: EdgeInsets.symmetric(horizontal: size.w12),
+              child: InkWell(
                 onTap: () {
                   controller
                       .getText()
@@ -277,17 +267,10 @@ class _NoteEditScreenState extends State<NoteEditScreen>
                   AppEventsNotifier.notify(EventAction.notes);
                   Navigator.popAndPushNamed(context, AppRoute.noteScreen);
                 },
-                child: Container(
-                  padding: EdgeInsets.all(size.r4),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(size.r8),
-                      color: clr.appPrimaryColorBlack),
-                  child: Icon(
-                    Icons.check,
-                    color: clr.whiteColor,
-                    size: size.r24,
-                  ),
+                child: Icon(
+                  Icons.check,
+                  color: clr.appSecondaryColorPurple,
+                  size: size.r24,
                 ),
               ),
             ),
@@ -295,6 +278,7 @@ class _NoteEditScreenState extends State<NoteEditScreen>
         ),
         body: Column(
           children: [
+            Container(color: clr.cardStrokeColor, height: size.h1),
             Expanded(
               child: HtmlEditor(
                 controller: controller,

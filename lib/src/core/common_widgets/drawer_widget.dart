@@ -46,7 +46,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                       child: Text(
                         label(e: en.userNameText, b: bn.userNameText),
                         style: TextStyle(
-                            color: clr.appPrimaryColorBlack,
+                            color: clr.appSecondaryColorPurple,
                             fontSize: size.textXMedium,
                             fontWeight: FontWeight.w500,
                             fontFamily: StringData.fontFamilyPoppins),
@@ -93,31 +93,24 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 onTap: () {},
               ),
               DrawerLinkWidget(
-                icon: Icons.local_library,
-                text: label(e: en.lms, b: bn.lms),
-                onTap: () {},
+                svgIcon: ImageAssets.icApproval,
+                text: label(e: en.bookRequestText, b: bn.bookRequestText),
+                onTap: () => Navigator.of(context)
+                    .pushNamed(AppRoute.bookRequestListScreen),
               ),
               DrawerLinkWidget(
-                icon: Icons.auto_stories,
-                text: label(e: en.teachersGuide, b: bn.teachersGuide),
-                onTap: () {},
+                svgIcon: ImageAssets.icAddNotes,
+                text: label(e: en.notesText, b: bn.notesText),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoute.noteScreen),
               ),
               DrawerLinkWidget(
-                svgIcon: ImageAssets.icBook,
-                text: label(e: en.eLibrary, b: bn.eLibrary),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                icon: Icons.assignment,
-                text:
-                    label(e: en.formativeAssessment, b: bn.formativeAssessment),
-                onTap: () {},
-              ),
-              DrawerLinkWidget(
-                svgIcon: ImageAssets.icSocialLearning,
-                text: label(
-                    e: en.socialLearningPlatform, b: bn.socialLearningPlatform),
-                onTap: () {},
+                icon: Icons.book,
+                text: label(e: en.bookReportText, b: bn.bookReportText),
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, AppRoute.bookViewDownloadCountScreen);
+                },
               ),
               DrawerLinkWidget(
                 icon: Icons.play_circle,
@@ -128,26 +121,6 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                 icon: Icons.chat_bubble,
                 text: label(e: en.messageText, b: bn.messageText),
                 onTap: () {},
-              ),
-              DrawerLinkWidget(
-                icon: Icons.event_note_sharp,
-                text: label(e: en.notesText, b: bn.notesText),
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRoute.noteScreen),
-              ),
-              DrawerLinkWidget(
-                icon: Icons.book,
-                text: label(e: en.bookRequestText, b: bn.bookRequestText),
-                onTap: () => Navigator.of(context)
-                    .pushNamed(AppRoute.bookRequestListScreen),
-              ),
-              DrawerLinkWidget(
-                icon: Icons.book,
-                text: label(e: en.bookReportText, b: bn.bookReportText),
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, AppRoute.bookViewDownloadCountScreen);
-                },
               ),
               DrawerLinkWidget(
                 icon: Icons.logout,
@@ -170,8 +143,8 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
       infoText: label(
           e: "Your ID login is required for your courses and assessment news.",
           b: "আপনার কোর্সগুলো এবং মূল্যায়নের খবরের জন্য আপনার আইডি লগইন থাকা প্রয়োজন।"),
-      rightButtonText: label(e: en.cancelText, b: bn.cancelText),
-      leftButtonText: label(e: en.exitText, b: bn.exitText),
+      rightButtonText: label(e: en.exitText, b: bn.exitText),
+      leftButtonText: label(e: en.cancelText, b: bn.cancelText),
     ).then((value) {
       if (value) {
         AuthCacheManager.userLogout();
@@ -225,7 +198,6 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
                 padding: EdgeInsets.only(right: size.w10),
                 child: SvgPicture.asset(
                   svgIcon!,
-                  height: size.h24,
                   colorFilter:
                       ColorFilter.mode(clr.iconColorHint, BlendMode.srcIn),
                   // color: clr.hintIconColor,

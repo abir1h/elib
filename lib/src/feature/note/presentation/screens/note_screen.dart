@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/service/notifier/app_events_notifier.dart';
@@ -178,7 +179,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                 ),
               ),
             ),
-            SizedBox(width: size.w4),
+            SizedBox(width: size.w12),
             Expanded(
               flex: 5,
               child: Column(
@@ -187,19 +188,6 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Expanded(
-                      //   child: Text(
-                      //     AppUtility.parseHtmlToText(noteDataEntity.note),
-                      //     style: TextStyle(
-                      //       color: clr.blackColor,
-                      //       fontWeight: FontWeight.w500,
-                      //       fontSize: size.textXSmall,
-                      //       fontFamily: StringData.fontFamilyPoppins,
-                      //     ),
-                      //     maxLines: 2,
-                      //     overflow: TextOverflow.ellipsis,
-                      //   ),
-                      // ),
                       Expanded(
                         child: Html(
                           data: noteDataEntity.note,
@@ -208,7 +196,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                             '#': Style(
                               color: clr.appPrimaryColorBlack,
                               fontWeight: FontWeight.w500,
-                              fontSize: FontSize(size.textXSmall),
+                              fontSize: FontSize(size.textSmall),
                               fontFamily: StringData.fontFamilyPoppins,
                               textAlign: TextAlign.justify,
                               maxLines: 2,
@@ -217,12 +205,13 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           },
                         ),
                       ),
-                      InkWell(
+                      GestureDetector(
                         onTap: onDelete,
-                        child: Icon(
-                          Icons.close,
-                          size: size.r24,
-                          color: Colors.red,
+                        child: SvgPicture.asset(
+                          ImageAssets.icDelete,
+                          height: size.h20,
+                          colorFilter: ColorFilter.mode(
+                              clr.iconColorSweetRed, BlendMode.srcIn),
                         ),
                       )
                     ],
@@ -235,10 +224,10 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           e: noteDataEntity.book!.titleEn,
                           b: noteDataEntity.book!.titleEn),
                       style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: size.textXXSmall,
+                          fontWeight: FontWeight.w500,
+                          fontSize: size.textXSmall,
                           fontFamily: StringData.fontFamilyPoppins,
-                          color: clr.appPrimaryColorBlack),
+                          color: clr.appSecondaryColorPurple),
                     ),
                   ),
                   Row(
@@ -249,7 +238,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           "তারিখ: ${DateFormat('dd MMMM yyyy').format(DateTime.parse(noteDataEntity.createdAt!))}",
                           style: TextStyle(
                             color: clr.placeHolderTextColorGray,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: size.textXXSmall,
                             fontFamily: StringData.fontFamilyPoppins,
                           ),

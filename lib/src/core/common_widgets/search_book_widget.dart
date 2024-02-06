@@ -6,22 +6,25 @@ import 'package:rxdart/rxdart.dart';
 
 import '../constants/app_theme.dart';
 
-class SearchBoxWidget extends StatefulWidget{
+class SearchBoxWidget extends StatefulWidget {
   final String hintText;
   final void Function(String value) onSearchTermChange;
   // final ServiceState serviceState;
-  const SearchBoxWidget({Key? key, required this.hintText,required this.onSearchTermChange,
+  const SearchBoxWidget({
+    Key? key,
+    required this.hintText,
+    required this.onSearchTermChange,
     // required  this.serviceState
   }) : super(key: key);
 
   @override
   State<SearchBoxWidget> createState() => _SearchBoxWidgetState();
 }
-class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
+
+class _SearchBoxWidgetState extends State<SearchBoxWidget> with AppTheme {
   final TextEditingController _textEditingController = TextEditingController();
   late BehaviorSubject<String> _searchSubject;
   StreamSubscription<String>? _subscription;
-
 
   @override
   void initState() {
@@ -49,10 +52,10 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
       decoration: BoxDecoration(
         color: clr.whiteColor,
         border: Border.all(
-          color: clr.appPrimaryColorBlack,
+          color: clr.cardStrokeColorPerfume,
           // width: 1.w,
         ),
-        borderRadius: BorderRadius.circular(size.h24),
+        borderRadius: BorderRadius.circular(size.h12),
       ),
       child: Padding(
         padding: EdgeInsets.only(top: 2.0.w),
@@ -60,14 +63,15 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 2.0.w),
-              child: Icon(
-                Icons.search_rounded,
-                color: clr.appPrimaryColorBlack,
-                size: size.h20,
-              )
+                padding: EdgeInsets.only(top: 2.0.w),
+                child: Icon(
+                  Icons.search_rounded,
+                  color: clr.iconColorGray85,
+                  size: size.h20,
+                )),
+            SizedBox(
+              width: size.h8,
             ),
-            SizedBox(width: size.h8,),
             Expanded(
               child: TextField(
                 controller: _textEditingController,
@@ -85,16 +89,16 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
                   hintText: widget.hintText,
                   contentPadding: const EdgeInsets.all(0),
                   hintStyle: TextStyle(
-                    color: clr.appPrimaryColorBlack,
+                    color: clr.textColorSilverSconce,
                     fontSize: size.textSmall,
                   ),
                 ),
                 onChanged: _onTextChange,
               ),
             ),
-            if(_textEditingController.text.isNotEmpty)
+            if (_textEditingController.text.isNotEmpty)
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   _textEditingController.clear();
                   _onTextChange(_textEditingController.text);
                 },
@@ -110,8 +114,10 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget>  with AppTheme {
   }
 
   void _onTextChange(String value) {
-    if(mounted && !_searchSubject.isClosed){
-      setState(() {debugPrint("StateUpdated");});
+    if (mounted && !_searchSubject.isClosed) {
+      setState(() {
+        debugPrint("StateUpdated");
+      });
       // widget.serviceState.searchTerm = value;
       _searchSubject.add(value);
     }

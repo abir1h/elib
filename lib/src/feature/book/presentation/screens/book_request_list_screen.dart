@@ -57,8 +57,8 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
               ),
             ),
             Positioned(
-              bottom: size.h10,
-              right: size.w10,
+              bottom: size.h12,
+              right: size.w28,
               child: GestureDetector(
                 onTap: () => onTapCreateOrUpdate(
                     bookRequestDataEntity: BookRequestDataEntity(
@@ -72,8 +72,8 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
                 child: Container(
                   padding: EdgeInsets.all(size.r12),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: clr.appPrimaryColorBlack,
+                    color: clr.cardFillColorMagnolia,
+                    borderRadius: BorderRadius.circular(size.r12),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.3),
@@ -87,7 +87,7 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
                   child: Icon(
                     Icons.add,
                     size: size.r24,
-                    color: clr.whiteColor,
+                    color: clr.appSecondaryColorPurple,
                   ),
                 ),
               ),

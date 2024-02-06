@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/text_field_widget.dart';
-import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
@@ -75,7 +74,12 @@ class _DiscussionBottomSheetState extends State<BookRequestBottomSheet>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    label(e: en.requestForNewBook, b: bn.requestForNewBook),
+                    widget.edit
+                        ? label(
+                            e: en.updateRequestedBook,
+                            b: bn.updateRequestedBook)
+                        : label(
+                            e: en.requestForNewBook, b: bn.requestForNewBook),
                     style: TextStyle(
                       fontFamily: StringData.fontFamilyPoppins,
                       fontWeight: FontWeight.w600,

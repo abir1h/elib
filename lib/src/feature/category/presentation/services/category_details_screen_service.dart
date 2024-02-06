@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../book/data/data_sources/remote/book_data_source.dart';
-import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../book/domain/use_cases/book_use_case.dart';
 import '../../../bookmark/data/data_sources/remote/bookmark_data_source.dart';
 import '../../../bookmark/data/repositories/bookmark_repository_imp.dart';
 import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
@@ -26,10 +23,6 @@ mixin CategoryDetailsScreenService<T extends StatefulWidget> on State<T>
     categoryRepository: CategoryRepositoryImp(
         categoryRemoteDataSource: CategoryRemoteDataSourceImp()),
   );
-
-  final BookUseCase _bookUseCase = BookUseCase(
-      bookRepository:
-          BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
 
   Future<ResponseEntity> getCategoryBookList(int id) async {
     return _categoryUseCase.getCategoryByIdUseCase(id);
