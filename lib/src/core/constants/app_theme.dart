@@ -18,6 +18,9 @@ class ThemeColor {
   Color get appSecondaryColorFlagRed => HexColor("F42A41");
   Color get scaffoldBackgroundColor => HexColor("FFFEFE");
   Color get scaffoldSecondaryBackgroundColor => HexColor("F9F0FF");
+  Color get lightPrimaryColorPurple => HexColor("9A64C2");
+  Color get lightPrimaryColorShadePurple => HexColor("ECD7FC");
+  Color get colorShadePurple => HexColor("9775FA");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get profileGradiant1 => HexColor("7D51DA");
@@ -41,6 +44,7 @@ class ThemeColor {
   Color get textColorBlack => HexColor("414141");
   Color get textColorMidBlack => HexColor("535353");
   Color get textColorGray => HexColor("535056");
+  Color get calendarHintGrey => HexColor("AAAAAA");
   Color get textColorSilverSconce => HexColor("9E9D9F");
   Color get placeHolderTextColorGray => HexColor("9F9F9F");
 

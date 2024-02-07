@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/routes/app_route_args.dart';
 import 'package:elibrary/src/feature/report/domain/entities/book_view_download_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,61 +13,12 @@ import '../../domain/use_cases/report_use_case.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
-  void navigationTOListScreen(String startDate,String endDate);
+  void navigationTOListScreen();
 }
 
-mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
+mixin BookViewReportListScreenService<T extends StatefulWidget> on State<T>
     implements _ViewModel {
   late _ViewModel _view;
-  bool isStartFilter = false;
-  String? startDate;
-  String? endDate;
-  DateTime? selectedStartDate;
-  DateTime? selectedEndDate;
-
-  Future<void> selectStartDate() async {
-    final selected = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1998),
-      lastDate: DateTime.now(),
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-      builder: (BuildContext context, Widget? child) {
-        return child!;
-      },
-    );
-
-    if (selected != null) {
-      setState(() {
-        final formattedDate = DateFormat('dd-MM-yyyy').format(selected);
-
-        startDate = formattedDate;
-        selectedStartDate = selected;
-      });
-    }
-  }
-
-  Future<void> selectEndDate() async {
-    final selected = await showDatePicker(
-      context: context,
-      initialDate: selectedStartDate,
-      firstDate: selectedStartDate!,
-      lastDate: DateTime.now(),
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-      builder: (BuildContext context, Widget? child) {
-        return child!;
-      },
-    );
-
-    if (selected != null) {
-      setState(() {
-        final formattedDate = DateFormat('dd-MM-yyyy').format(selected);
-
-        endDate = formattedDate;
-        selectedEndDate = selected;
-      });
-    }
-  }
 
   final ReportUseCase _reportUseCase = ReportUseCase(
       reportRepository: ReportRepositoryImp(
@@ -75,6 +27,12 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
   Future<ResponseEntity> getBookViewDownloadReport(
       String startDate, String endDate) async {
     return _reportUseCase.getBookViewDownloadReportUseCase(startDate, endDate);
+  }
+  // late BookReportListScreenArgs _screenArgs;
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -90,9 +48,10 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
       AppStreamController();
 
   ///Load Category list
-  Future<ResponseEntity> getReportList(String startDate, String endDate) async {
-    ResponseEntity responseEntity =
-        await getBookViewDownloadReport(startDate, endDate);
+  Future<ResponseEntity> getReportList(
+      BookReportListScreenArgs screenArgs) async {
+    ResponseEntity responseEntity = await getBookViewDownloadReport(
+        screenArgs.startDate, screenArgs.endDate);
     if (responseEntity.error == null && responseEntity.data != null) {
       if (responseEntity.data.isNotEmpty) {
         reportDataStreamController.add(
@@ -105,20 +64,14 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
     } else {
       // _view.showWarning(responseEntity.message!);
       CustomToasty.of(context).showWarning("No Data Found");
+      reportDataStreamController.add(EmptyState(message: 'No Book Found'));
 
       ///Todo
     }
     return responseEntity;
   }
 
-  onTapReport() {
-    startDate = null;
-    endDate = null;
-    selectedStartDate = null;
-    reportDataStreamController.add(LoadingState());
-    actionButtonDataStreamController.add(LoadingState());
-  }
-  void onTapCategory(String startDate,String endDate) {
-    _view.navigationTOListScreen(startDate,endDate);
+  void onTapCategory() {
+    // _view.navigationTOListScreen(startDate,endDate);
   }
 }

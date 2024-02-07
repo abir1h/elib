@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
+import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../domain/entities/book_view_download_data_entity.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_action_button.dart';
@@ -26,164 +29,229 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: " Report",
-      actionChild: AppStreamBuilder<bool>(
-        stream: actionButtonDataStreamController.stream,
-        loadingBuilder: (context) {
-          return const Offstage();
-        },
-        dataBuilder: (context, data) {
-          return GestureDetector(
-            onTap: onTapClearButton,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.r),
-                color: clr.appPrimaryColorBlack,
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
-                child: Text(
-                  "Clear",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: clr.whiteColor),
-                ),
-              ),
-            ),
-          );
-        },
-        emptyBuilder: (BuildContext context, String message, IconData icon) {
-          return const Offstage();
-        },
-      ),
+      title: label(e: en.bookReport, b: bn.bookReport),
       child: LayoutBuilder(
-        builder: (context, constraints) =>
-            AppStreamBuilder<List<BookViewDownloadDataEntity>>(
-          stream: reportDataStreamController.stream,
-          loadingBuilder: (context) {
-            return Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.w16, vertical: size.h16),
-                  child: Column(
-                    children: [
-                      Lottie.asset(ImageAssets.filterAnim, height: 200.h),
-                      Padding(
-                        padding: EdgeInsets.all(size.h8),
-                        child: Text(
-                          "Get book download & view count report",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18.sp,
-                              color: clr.appPrimaryColorBlack),
-                        ),
-                      ),
-                      SizedBox(height: size.h16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                selectStartDate();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: clr.cardStrokeColor,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                      child: Text(
-                                    startDate != null
-                                        ? startDate.toString()
-                                        : "Select Start Date",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.textXSmall),
-                                  )),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 16.w,
-                          ),
-                          Text(
-                            'To',
+          builder: (context, constraints) => Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.w16, vertical: size.h16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(ImageAssets.report, height: 200.h),
+                        Padding(
+                          padding: EdgeInsets.all(size.h8),
+                          child: Text(
+                            label(e: en.bookReportTitle, b: bn.bookReportTitle),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: size.textXSmall),
+                                fontSize: size.textXMedium,
+                                fontFamily: StringData.fontFamilyPoppins,
+                                color: clr.appPrimaryColorBlack),
                           ),
-                          SizedBox(
-                            width: 16.w,
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                selectEndDate();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: startDate != null
-                                      ? clr.cardStrokeColor
-                                      : clr.disableColor.withOpacity(.5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                      child: Text(
-                                          endDate != null
-                                              ? endDate.toString()
-                                              : "Select End Date",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: size.textXSmall))),
-                                ),
+                        ),
+                        SizedBox(height: size.h24),
+                        Text(
+                          label(e: en.chooseBookReport, b: bn.chooseBookReport),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: size.textSmall,
+                              fontFamily: StringData.fontFamilyPoppins,
+                              color: clr.appPrimaryColorBlack),
+                        ),
+                        SizedBox(height: size.h20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    label(
+                                        e: en.calendarStartDate,
+                                        b: bn.calendarStartDate),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: size.textSmall,
+                                        fontFamily:
+                                            StringData.fontFamilyPoppins),
+                                  ),
+                                  SizedBox(
+                                    height: size.h4,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      selectStartDate();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: size.w12,
+                                          vertical: size.h8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(size.r8),
+                                          border: Border.all(
+                                              color:
+                                                  clr.lightPrimaryColorPurple)),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_month,
+                                            color: clr.lightPrimaryColorPurple,
+                                            size: size.r24,
+                                          ),
+                                          SizedBox(
+                                            width: size.w4,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              startDate != null
+                                                  ? startDate.toString()
+                                                  : "DD/MM/YYYY",
+                                              style: startDate != null
+                                                  ? TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: size.textXSmall,
+                                                      fontFamily: StringData
+                                                          .fontFamilyPoppins,
+                                                      color: clr
+                                                          .textColorAppleBlack)
+                                                  : TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: size.textXSmall,
+                                                      fontFamily: StringData
+                                                          .fontFamilyPoppins,
+                                                      color:
+                                                          clr.calendarHintGrey),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.h24,
-                      ),
-                    ],
+                            SizedBox(
+                              width: size.w32,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    label(
+                                        e: en.calendarEndDate,
+                                        b: bn.calendarEndDate),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: size.textSmall,
+                                        fontFamily:
+                                            StringData.fontFamilyPoppins),
+                                  ),
+                                  SizedBox(
+                                    height: size.h4,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      selectEndDate();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: size.w12,
+                                          vertical: size.h8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(size.r8),
+                                          border: Border.all(
+                                              color:
+                                                  clr.lightPrimaryColorPurple)),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_month,
+                                            color: clr.lightPrimaryColorPurple,
+                                            size: size.r24,
+                                          ),
+                                          SizedBox(
+                                            width: size.w4,
+                                          ),
+                                          Text(
+                                            endDate != null
+                                                ? endDate.toString()
+                                                : "DD/MM/YYYY",
+                                            style: endDate != null
+                                                ? TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: size.textXSmall,
+                                                    fontFamily: StringData
+                                                        .fontFamilyPoppins,
+                                                    color:
+                                                        clr.textColorAppleBlack)
+                                                : TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: size.textXSmall,
+                                                    fontFamily: StringData
+                                                        .fontFamilyPoppins,
+                                                    color:
+                                                        clr.calendarHintGrey),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.h24,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: size.h10,
-                  left: size.h10,
-                  right: size.h10,
-                  child: CustomActionButton(
-                      enabled: startDate != null && endDate != null,
-                      title: label(e: en.getReport, b: bn.getReport),
-                      onSuccess: (e) {},
-                      tapAction: () => getReportList(startDate!, endDate!)),
-                ),
-              ],
-            );
-          },
-          dataBuilder: (context, data) {
-            return ViewDownloadListWidget(
-                items: data,
-                buildItem: (context, index, item) {
-                  return item.book != null
-                      ? BookCard(
-                          item: item,
-                        )
-                      : Offstage();
-                });
-          },
-          emptyBuilder: (context, message, icon) => EmptyWidget(
-            message: message,
-            offset: 350.w,
-            constraints: constraints,
-          ),
-        ),
-      ),
+                  Positioned(
+                    bottom: size.h10,
+                    left: size.h10,
+                    right: size.h10,
+                    child: GestureDetector(
+                      onTap: ()=>navigationTOListScreen(startDate!, endDate!),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(size.r8),
+                            color: startDate != null && endDate != null
+                                ?clr.appSecondaryColorPurple: clr.disableColor.withOpacity(.5)
+                             ),
+                        child: Center(
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(vertical: size.h8),
+                            child: Text(
+                              label(e: en.getReport, b: bn.getReport),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: size.textSmall,color: Colors.white,
+                                  fontFamily: StringData.fontFamilyPoppins),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // child: CustomActionButton(
+                    //     enabled: startDate != null && endDate != null,
+                    //     title: label(e: en.getReport, b: bn.getReport),
+                    //     onSuccess: (e) {
+                    //       navigationTOListScreen(startDate!,endDate!);
+                    //     },
+                    //     tapAction: () => getReportList(startDate!, endDate!)),
+                  ),
+                ],
+              )),
     );
   }
 
@@ -195,6 +263,13 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
   @override
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void navigationTOListScreen(String startDate, String endDate) {
+    Navigator.of(context).pushNamed(AppRoute.bookViewDownloadCountListScreen,
+        arguments:
+            BookReportListScreenArgs(startDate: startDate, endDate: endDate));
   }
 }
 

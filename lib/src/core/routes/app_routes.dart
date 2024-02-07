@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/report/presentation/screens/book_report_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
@@ -28,6 +29,8 @@ class AppRoute {
   static const String bookViewScreen = 'bookViewScreen';
   static const String bookViewDownloadCountScreen =
       'bookViewDownloadCountScreen';
+  static const String bookViewDownloadCountListScreen =
+      'bookViewDownloadCountListScreen';
   static const String noteScreen = 'noteScreen';
   static const String noteDetailsScreen = 'noteDetailsScreen';
   static const String noteDetailsScreenBeta = 'noteDetailsScreenBeta';
@@ -62,11 +65,17 @@ mixin RouteGenerator {
         case AppRoute.categoryDetailsScreen:
           return CategoryDetailsScreen(arguments: setting.arguments);
 
+      /// Book View Details Screen
         case AppRoute.bookViewScreen:
           return BookViewerScreen(arguments: setting.arguments);
 
+      /// Book Report Details Screen
         case AppRoute.bookViewDownloadCountScreen:
           return const BookVIewDownloadScreen();
+
+      /// Book Report List Details Screen
+        case AppRoute.bookViewDownloadCountListScreen:
+          return BookReportListScreen(arguments: setting.arguments);
 
         ///Notes
         case AppRoute.noteScreen:
