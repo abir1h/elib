@@ -43,6 +43,15 @@ class CategoryDetailsScreenArgs {
   });
 }
 
+class BookReportListScreenArgs {
+  final String startDate;
+  final String endDate;
+  BookReportListScreenArgs({
+    required this.startDate,
+    required this.endDate,
+  });
+}
+
 class NoteDetailsScreenArgs {
   final NoteDataEntity noteDataEntity;
   NoteDetailsScreenArgs({required this.noteDataEntity});

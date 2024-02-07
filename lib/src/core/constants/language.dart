@@ -138,6 +138,12 @@ class LanguageEn {
   String description = "Description :";
   String personalInformation= "Personal Info";
   String progressInformation = "Progress Info";
+  String bookReport = "Book Report";
+  String calendarStartDate = "Start Date";
+  String calendarEndDate = "End Date";
+  String chooseBookReport= "Choose the report period:";
+  String bookReportTitle=  "Get book download & view count report";
+
 
 
   String categoryViewAll = "View all books in the category";
@@ -262,7 +268,7 @@ class LanguageBn {
   String remark = "মন্তব্য লিখুন";
   String requestBook = "বই অনুরোধ করুন";
   String updateRequestBook = "আপডেট করুন";
-  String getReport = "রিপোর্ট পান";
+  String getReport = "রিপোর্ট দেখুন";
   String bookReportText = "বই রিপোর্ট";
   String author = "লেখক";
   String type = "ধরন";
@@ -276,6 +282,12 @@ class LanguageBn {
   String description = "সংক্ষিপ্ত বিবরন : ";
   String personalInformation= "ব্যাক্তিগত তথ্য";
   String progressInformation = "অগ্রগতির তথ্য";
+  String bookReport = "বইয়ের রিপোর্ট";
+  String chooseBookReport= "রিপোর্টের সময়কাল নির্বাচন করুন:";
+  String bookReportTitle= "বই ডাউনলোড করুন এবং গণনার রিপোর্ট দেখুন";
+  String calendarStartDate = "শুরুর তারিখ";
+  String calendarEndDate = "শেষের তারিখ";
+
 
 
   String categoryViewAll = "ক্যাটেগরির সকল বই দেখুন";
