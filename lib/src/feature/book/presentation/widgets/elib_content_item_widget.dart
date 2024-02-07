@@ -123,45 +123,48 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: size.h4),
-              child: GestureDetector(
-                onTap: () => widget.onSelect(widget.item),
-                child: Text(
-                  widget.item.titleEn,
-                  maxLines: 2,
+              child: Text.rich(
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: clr.appPrimaryColorBlack,
-                    fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+                  TextSpan(
+                      text: widget.item.author.isNotEmpty ? "লেখক " : "",
+                      style: TextStyle(
+                          color: clr.textColorGray,
+                          fontSize: size.textXXXSmall,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: StringData.fontFamilyPoppins),
+                      children: [
+                        TextSpan(
+                          text: widget.item.author
+                              .map((c) => c.name)
+                              .toList()
+                              .join(', '),
+                          style: TextStyle(
+                              color: clr.textColorGray,
+                              fontSize: size.textXXXSmall,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: StringData.fontFamilyPoppins),
+                        ),
+                      ])),
             ),
           ),
+          SizedBox(height: size.h4),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.h4),
-            child: Text.rich(
-                textAlign: TextAlign.start,
+            child: GestureDetector(
+              onTap: () => widget.onSelect(widget.item),
+              child: Text(
+                widget.item.titleEn,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                TextSpan(
-                    text: widget.item.author.isNotEmpty ? "by " : "",
-                    style: TextStyle(
-                        color: clr.appPrimaryColorBlack,
-                        fontSize: size.textXXSmall,
-                        fontWeight: FontWeight.w500),
-                    children: [
-                      TextSpan(
-                        text: widget.item.author
-                            .map((c) => c.name)
-                            .toList()
-                            .join(', '),
-                        style: TextStyle(
-                            color: clr.textColorBlack,
-                            fontSize: size.textXXSmall,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ])),
+                style: TextStyle(
+                    color: clr.appPrimaryColorBlack,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: StringData.fontFamilyPoppins),
+              ),
+            ),
           ),
           SizedBox(
             height: size.h4,

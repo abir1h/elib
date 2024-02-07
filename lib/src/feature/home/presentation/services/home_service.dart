@@ -17,6 +17,8 @@ abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
   void navigateToBookDetailsScreen(BookDataEntity data);
+  void navigateToAuthorScreen();
+  void navigateToAuthorDetailsScreen();
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
 }
@@ -140,6 +142,14 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     } else {
       _loadInitialData();
     }
+  }
+
+  void onTapAuthorSeeAll() {
+    _view.navigateToAuthorScreen();
+  }
+
+  void onTapAuthor() {
+    _view.navigateToAuthorDetailsScreen();
   }
 }
 

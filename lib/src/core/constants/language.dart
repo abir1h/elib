@@ -185,7 +185,7 @@ class LanguageBn {
   String pageReloadText = "পেজটি রিলোড দিন";
   String searchText = "অনুসন্ধান করুন..";
   String popularBookText = "জনপ্রিয় বই";
-  String seeAllText = "সবগুলো দেখুন";
+  String seeAllText = "সব দেখুন";
 
   String learningManagementSystem = "লার্নিং ম্যানেজমেন্ট সিস্টেম (এলএমএস)";
   String teachersGuide = "টিচার্স গাইড";

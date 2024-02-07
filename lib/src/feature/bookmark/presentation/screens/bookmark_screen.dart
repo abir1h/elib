@@ -472,20 +472,23 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                             height: size.h20,
                           ),
                           SizedBox(width: size.w8),
-                          Text(
-                            widget.item.book != null
-                                ? widget.item.book!.category
-                                    .map((c) => label(e: c.nameEn, b: c.nameBn))
-                                    .toList()
-                                    .join(', ')
-                                : "",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: clr.textColorGray,
-                              fontSize: size.textXSmall,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: StringData.fontFamilyPoppins,
+                          Expanded(
+                            child: Text(
+                              widget.item.book != null
+                                  ? widget.item.book!.category
+                                      .map((c) =>
+                                          label(e: c.nameEn, b: c.nameBn))
+                                      .toList()
+                                      .join(', ')
+                                  : "",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: clr.textColorGray,
+                                fontSize: size.textXSmall,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: StringData.fontFamilyPoppins,
+                              ),
                             ),
                           ),
                         ],

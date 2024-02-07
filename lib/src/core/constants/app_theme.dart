@@ -54,6 +54,7 @@ class ThemeColor {
   Color get cardStrokeColorBlueMagenta => HexColor("D1ADED");
   Color get cardStrokeColorPerfume => HexColor("C3A8D7");
   Color get cardStrokeColorGrey => HexColor("E8E8E8");
+  Color get cardStrokeColorCylindricalCoordinate => HexColor("ECD7FC");
   Color get dividerStrokeColorGrey => HexColor("B0B0B0");
   Color get dividerStrokeColorGrey2 => HexColor("C5C5C5");
 
@@ -65,6 +66,7 @@ class ThemeColor {
   Color get cardFillColorCruise => HexColor("B3E0DD");
   Color get cardFillColorPlaceboPurple => HexColor("EAD8F8");
   Color get cardFillColorMagnolia => HexColor("EADDFF");
+  Color get cardFillColorBlueMagenta => HexColor("F0DDFF");
 
   Color get clickableLinkColor => HexColor("4A88FF");
   Color get progressBGColor => HexColor("D9D9D9");

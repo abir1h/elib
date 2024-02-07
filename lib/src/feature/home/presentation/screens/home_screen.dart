@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
@@ -100,15 +101,15 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
 
                   ///Results for text
-                  Padding(
+                  /* Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.w20),
-                    child: ItemSectionWidget(
+                    child: ResultItemSectionWidget(
                       stream: resultsForStreamController.stream,
                     ),
-                  ),
+                  ),*/
 
                   ///Content section
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.h12),
                     child: AppStreamBuilder<List<BookDataEntity>>(
                       stream: bookDataStreamController.stream,
@@ -207,7 +208,109 @@ class _HomeScreenState extends State<HomeScreen>
                         );
                       },
                     ),
+                  ),*/
+
+                  SizedBox(height: size.h20),
+
+                  ///
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.h12),
+                    child: AppStreamBuilder<List<BookDataEntity>>(
+                      stream: bookDataStreamController.stream,
+                      loadingBuilder: (context) {
+                        return ShimmerLoader(
+                            child: ItemSectionWidget(
+                                aspectRatio: 1.8,
+                                title: '',
+                                items: const ["", "", ""],
+                                buildItem: (context, index, item) {
+                                  return AspectRatio(
+                                    aspectRatio: .53,
+                                    child: ELibContentItemWidget(
+                                      showBookmark: true,
+                                      item: BookDataEntity(
+                                          id: -1,
+                                          titleEn: "",
+                                          titleBn: "",
+                                          languageEn: "",
+                                          languageBn: "",
+                                          editionEn: "",
+                                          editionBn: "",
+                                          publishYearEn: "",
+                                          publishYearBn: "",
+                                          publisherEn: "",
+                                          publisherBn: "",
+                                          isbnEn: "",
+                                          isbnBn: "",
+                                          slug: "",
+                                          descriptionEn: "",
+                                          descriptionBn: "",
+                                          coverImage: "",
+                                          bookFile: "",
+                                          externalLink: "",
+                                          createdBy: -1,
+                                          isDownload: -1,
+                                          status: -1,
+                                          bookMark: false,
+                                          createdAt: "",
+                                          updatedAt: "",
+                                          deletedAt: "",
+                                          author: [],
+                                          category: []),
+                                      onSelect: (e) {},
+                                      onBookmarkSelect: (e) {},
+                                    ),
+                                  );
+                                },
+                                onTapSeeAll: () {}));
+                      },
+                      dataBuilder: (context, data) {
+                        return ItemSectionWidget(
+                            aspectRatio: 1.8,
+                            title: 'জনপ্রিয় বই',
+                            items: data,
+                            buildItem: (context, index, item) {
+                              return AspectRatio(
+                                aspectRatio: .53,
+                                child: ELibContentItemWidget(
+                                  key: Key(data[index].id.toString()),
+                                  item: data[index],
+                                  onSelect: onBookContentSelected,
+                                  showBookmark: true,
+                                  onBookmarkSelect: onBookmarkContentSelected,
+                                  boxShadow: true,
+                                ),
+                              );
+                            },
+                            onTapSeeAll: () {});
+                      },
+                      emptyBuilder: (context, message, icon) {
+                        return EmptyWidget(
+                          constraints: constraints,
+                          message: message,
+                          icon: icon,
+                          offset: 350.w,
+                        );
+                      },
+                    ),
                   ),
+                  SizedBox(height: size.h20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.h12),
+                    child: ItemSectionWidget(
+                        aspectRatio: 3,
+                        title: "জনপ্রিয় গ্রন্থকার",
+                        items: const ["", "", ""],
+                        buildItem: (context, index, item) {
+                          return AspectRatio(
+                            aspectRatio: 1.1,
+                            child: AuthorItemWidget(
+                              onTap: onTapAuthor,
+                            ),
+                          );
+                        },
+                        onTapSeeAll: onTapAuthorSeeAll),
+                  )
                 ],
               ),
             ),
@@ -240,6 +343,18 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
             ),
+            Positioned(
+              right: size.w16,
+              top: size.h8,
+              child: InkWell(
+                onTap: () {},
+                child: Icon(
+                  Icons.notifications,
+                  size: size.r24,
+                  color: clr.appSecondaryColorPurple,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -263,11 +378,21 @@ class _HomeScreenState extends State<HomeScreen>
   void showSuccess(String message) {
     CustomToasty.of(context).showSuccess(message);
   }
+
+  @override
+  void navigateToAuthorScreen() {
+    Navigator.of(context).pushNamed(AppRoute.authorScreen);
+  }
+
+  @override
+  void navigateToAuthorDetailsScreen() {
+    Navigator.of(context).pushNamed(AppRoute.authorDetailsScreen);
+  }
 }
 
-class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
+class ResultItemSectionWidget<T> extends StatelessWidget with AppTheme {
   final Stream<DataState<ResultsForViewModel>> stream;
-  const ItemSectionWidget({
+  const ResultItemSectionWidget({
     Key? key,
     required this.stream,
   }) : super(key: key);
@@ -321,6 +446,183 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme {
         ),
         SizedBox(height: size.h4),
       ],
+    );
+  }
+}
+
+class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
+  final List<T> items;
+  final Widget Function(BuildContext context, int index, T item) buildItem;
+  const CategorySectionWidget(
+      {Key? key, required this.items, required this.buildItem})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemCount: items.length,
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h12),
+      itemBuilder: (context, index) {
+        return buildItem(context, index, items[index]);
+      },
+      separatorBuilder: (context, index) {
+        return SizedBox(height: size.h12);
+      },
+    );
+  }
+}
+
+class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
+  final String title;
+  final List<T> items;
+  final Widget Function(BuildContext context, int index, T item) buildItem;
+  final VoidCallback onTapSeeAll;
+  final double aspectRatio;
+  const ItemSectionWidget(
+      {Key? key,
+      required this.title,
+      required this.items,
+      required this.buildItem,
+      required this.onTapSeeAll,
+      this.aspectRatio = 2})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: size.h8, horizontal: size.w8),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.r8),
+          color: clr.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: clr.appPrimaryColorBlack.withOpacity(.2),
+              blurRadius: size.r8,
+              offset: Offset(0.0, size.h2),
+            ),
+          ]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ///Header text
+          Padding(
+            padding: EdgeInsets.only(bottom: size.h8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        color: clr.appSecondaryColorPurple,
+                        fontSize: size.textSmall,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: StringData.fontFamilyPoppins),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (items.isNotEmpty)
+                  GestureDetector(
+                    onTap: onTapSeeAll,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.w8, vertical: size.h2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(size.r4),
+                        color: clr.cardFillColorBlueMagenta,
+                      ),
+                      child: Text(
+                        label(e: en.seeAllText, b: bn.seeAllText),
+                        style: TextStyle(
+                          color: clr.appPrimaryColorBlack,
+                          fontSize: size.textSmall,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+          ///Items section
+          items.isNotEmpty
+              ? AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: ListView.separated(
+                    itemCount: items.length < 5 ? items.length : 5,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return buildItem(context, index, items[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: size.w12);
+                    },
+                  ),
+                )
+              : AspectRatio(
+                  aspectRatio: aspectRatio,
+                  child: Column(
+                    children: [
+                      Lottie.asset(ImageAssets.animEmpty, height: size.h56 * 2),
+                      Text(
+                        "No Book Found !",
+                        style: TextStyle(
+                            color: clr.appPrimaryColorBlack,
+                            fontSize: size.textXSmall),
+                      )
+                    ],
+                  ),
+                ),
+        ],
+      ),
+    );
+  }
+}
+
+class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
+  final VoidCallback onTap;
+  const AuthorItemWidget({super.key, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: clr.cardStrokeColorGrey, width: size.r4)),
+            child: CircleAvatar(
+              radius: 35.r,
+              backgroundColor: Colors.transparent,
+              backgroundImage: AssetImage(
+                ImageAssets.imgEmptyProfile,
+              ),
+            ),
+          ),
+          SizedBox(height: size.h8),
+          Text(
+            "আব্দুল্লাহ আবু সায়ীদ",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: clr.textColorBlack,
+                fontSize: size.textXSmall,
+                fontWeight: FontWeight.w500,
+                fontFamily: StringData.fontFamilyPoppins),
+          ),
+        ],
+      ),
     );
   }
 }

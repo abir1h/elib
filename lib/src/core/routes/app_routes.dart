@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
+import '../../feature/author/presentation/screens/author_details_screen.dart';
+import '../../feature/author/presentation/screens/author_screen.dart';
 import '../../feature/book/presentation/screens/book_details_screen.dart';
 import '../../feature/book/presentation/screens/book_request_list_screen.dart';
 import '../../feature/book/presentation/screens/book_view_screen.dart';
@@ -32,6 +34,8 @@ class AppRoute {
   static const String noteDetailsScreen = 'noteDetailsScreen';
   static const String noteDetailsScreenBeta = 'noteDetailsScreenBeta';
   static const String bookRequestListScreen = 'bookRequestListScreen';
+  static const String authorScreen = 'authorScreen';
+  static const String authorDetailsScreen = 'authorDetailsScreen';
 }
 
 mixin RouteGenerator {
@@ -79,6 +83,12 @@ mixin RouteGenerator {
         ///Book Request
         case AppRoute.bookRequestListScreen:
           return const BookRequestListScreen();
+
+        ///Author
+        case AppRoute.authorScreen:
+          return const AuthorScreen();
+        case AppRoute.authorDetailsScreen:
+          return const AuthorDetailsScreen();
 
         ///Default Screen
         default:
