@@ -53,6 +53,7 @@ class ThemeColor {
   Color get cardStrokeColorBlue => HexColor("BEDBED");
   Color get cardStrokeColorBlueMagenta => HexColor("D1ADED");
   Color get cardStrokeColorPerfume => HexColor("C3A8D7");
+  Color get cardStrokeColorGrey => HexColor("E8E8E8");
   Color get dividerStrokeColorGrey => HexColor("B0B0B0");
   Color get dividerStrokeColorGrey2 => HexColor("C5C5C5");
 
