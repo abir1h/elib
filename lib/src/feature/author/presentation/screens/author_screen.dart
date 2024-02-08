@@ -21,7 +21,7 @@ class _AuthorScreenState extends State<AuthorScreen> with AppTheme, Language {
           builder: (context, constraints) => AuthorSectionWidget(
             items: const ["", "", "", "", "", "", "", "", ""],
             buildItem: (BuildContext context, int index, item) {
-              return ItemSectionWidget(
+              return AuthorItemWidget(
                 onTap: () {},
               );
             },
@@ -54,9 +54,9 @@ class AuthorSectionWidget<T> extends StatelessWidget with AppTheme {
   }
 }
 
-class ItemSectionWidget extends StatelessWidget with AppTheme, Language {
+class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
   final VoidCallback onTap;
-  const ItemSectionWidget({super.key, required this.onTap});
+  const AuthorItemWidget({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
