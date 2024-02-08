@@ -13,6 +13,7 @@ import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/note/presentation/screens/note_details_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
 import '../../feature/note/presentation/screens/note_edit_screen.dart';
+import '../../feature/notification/presentation/screens/notification_screen.dart';
 import '../../feature/report/presentation/screens/book_view_report_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
@@ -39,6 +40,7 @@ class AppRoute {
   static const String bookRequestListScreen = 'bookRequestListScreen';
   static const String authorScreen = 'authorScreen';
   static const String authorDetailsScreen = 'authorDetailsScreen';
+  static const String notificationScreen = 'notificationScreen';
 }
 
 mixin RouteGenerator {
@@ -69,15 +71,15 @@ mixin RouteGenerator {
         case AppRoute.categoryDetailsScreen:
           return CategoryDetailsScreen(arguments: setting.arguments);
 
-      /// Book View Details Screen
+        /// Book View Details Screen
         case AppRoute.bookViewScreen:
           return BookViewerScreen(arguments: setting.arguments);
 
-      /// Book Report Details Screen
+        /// Book Report Details Screen
         case AppRoute.bookViewDownloadCountScreen:
           return const BookVIewDownloadScreen();
 
-      /// Book Report List Details Screen
+        /// Book Report List Details Screen
         case AppRoute.bookViewDownloadCountListScreen:
           return BookReportListScreen(arguments: setting.arguments);
 
@@ -98,6 +100,10 @@ mixin RouteGenerator {
           return const AuthorScreen();
         case AppRoute.authorDetailsScreen:
           return const AuthorDetailsScreen();
+
+        ///Notification
+        case AppRoute.notificationScreen:
+          return const NotificationScreen();
 
         ///Default Screen
         default:

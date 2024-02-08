@@ -4,7 +4,9 @@ import '../constants/common_imports.dart';
 
 class HeaderWidget extends StatelessWidget with AppTheme {
   final String title;
-  const HeaderWidget({super.key, required this.title});
+  final VoidCallback onTapNotification;
+  const HeaderWidget(
+      {super.key, required this.title, required this.onTapNotification});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,30 @@ class HeaderWidget extends StatelessWidget with AppTheme {
                   fontFamily: StringData.fontFamilyPoppins),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          InkWell(
+            onTap: onTapNotification,
+            child: Stack(
+              children: [
+                Icon(
+                  Icons.notifications,
+                  color: clr.appSecondaryColorPurple,
+                  size: size.r24,
+                ),
+                Positioned(
+                  right: -1,
+                  top: size.h2,
+                  child: Container(
+                    width: size.w12,
+                    height: size.h12,
+                    decoration: BoxDecoration(
+                        color: clr.appSecondaryColorPurple,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: clr.whiteColor)),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

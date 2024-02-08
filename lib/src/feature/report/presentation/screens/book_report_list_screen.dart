@@ -81,8 +81,7 @@ class _BookReportListScreenState extends State<BookReportListScreen>
                   offset: 350.w,
                   constraints: constraints,
                 ),
-              )
-          ),
+              )),
     );
   }
 
@@ -95,9 +94,6 @@ class _BookReportListScreenState extends State<BookReportListScreen>
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
   }
-
-  @override
-  void navigationTOListScreen() {}
 }
 
 class BookCard extends StatelessWidget with AppTheme, Language {
@@ -108,37 +104,38 @@ class BookCard extends StatelessWidget with AppTheme, Language {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.of(context).pushNamed(
           AppRoute.bookDetailsScreen,
           arguments: BookDetailsScreenArgs(bookData: item.book!),
         );
       },
-      child: Container(
-          padding: EdgeInsets.all(size.h12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.r8),
-            border: Border(
-                left: BorderSide(
-                    color: clr.lightPrimaryColorShadePurple, width: 6)),
-            color: clr.whiteColor,
-            boxShadow: [
-              BoxShadow(
-                color: clr.appSecondaryColorPurple.withOpacity(.2),
-                blurRadius: size.r8,
-                offset: Offset(0.0, size.h2),
-              ),
-            ],
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 150.h, // Set a fixed height for the image
-                width: 110.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
+      child: AspectRatio(
+        aspectRatio: 2.2,
+        child: Container(
+            padding: EdgeInsets.all(size.h12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size.r8),
+              border: Border(
+                  left: BorderSide(
+                      color: clr.lightPrimaryColorShadePurple, width: size.w6)),
+              color: clr.whiteColor,
+              boxShadow: [
+                BoxShadow(
+                  color: clr.appSecondaryColorPurple.withOpacity(.2),
+                  blurRadius: size.r8,
+                  offset: Offset(0.0, size.h2),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(size.r10),
                   child: CachedNetworkImage(
+                    width: 100.w,
+                    height: 200.h,
                     imageUrl:
                         "http://103.209.40.89:82/uploads/${item.book!.coverImage}",
                     fit: BoxFit.cover,
@@ -148,130 +145,43 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                         Image.asset(ImageAssets.imgPlaceholder),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: size.w20,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                   Column(crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Text(
-                         item.book!.titleEn,
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                             fontSize: size.textSmall,
-                             fontWeight: FontWeight.w500,
-                             fontFamily: StringData.fontFamilyPoppins),
-                       ),
-                       SizedBox(
-                         height: size.h4,
-                       ),
-                       Text(
-                         /*item.book!.author
-                      .map((c) => c.name)
-                      .toList()
-                      .join(', '),*/
-                         "সানাউল্লাহ সাগর",
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                             fontSize: size.textSmall,
-                             fontWeight: FontWeight.w400,
-                             fontFamily: StringData.fontFamilyRoboto),
-                       ),
-                     ],
-                   ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: clr.whiteColor,
-                        borderRadius: BorderRadius.circular(size.r10),
-                        border: Border.all(color: clr.colorShadePurple)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.download,
-                                  color: clr.appSecondaryColorPurple,
-                                ),
-                                Text(
-                                  item.bookDownload.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12.sp,color:clr.appSecondaryColorPurple,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.remove_red_eye,
-                                 color:clr.appSecondaryColorPurple,
-                                ),
-                                Text(
-                                  item.viewCount.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12.sp,color:clr.appSecondaryColorPurple,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                  ],
-                ),
-              )
-              /* Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
-                child: SizedBox(
-                  height: 150.h,
-                  width: 1.sw,
+                SizedBox(width: size.w20),
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(
+                        item.book!.titleEn,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: size.textSmall,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: StringData.fontFamilyPoppins),
+                      ),
+                      SizedBox(height: size.h4),
                       Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.book!.titleEn,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 16
-                                      .sp, // Use ScreenUtil for responsive font size
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              SizedBox(height: 12.h),
-                              Text(
-                                item.book!.descriptionEn,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 12.sp),
-                              ),
-                            ],
-                          )),
+                        child: Text(
+                          /*item.book!.author
+                                                .map((c) => c.name)
+                                                .toList()
+                                                .join(', '),*/
+                          "সানাউল্লাহ সাগর",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: size.textSmall,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: StringData.fontFamilyRoboto),
+                        ),
+                      ),
                       Container(
                         decoration: BoxDecoration(
-                          color: clr.cardStrokeColor,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                            color: clr.whiteColor,
+                            borderRadius: BorderRadius.circular(size.r10),
+                            border: Border.all(color: clr.colorShadePurple)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -281,13 +191,16 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                                 children: [
                                   Icon(
                                     Icons.download,
-                                    color: clr.appPrimaryColorBlack,
+                                    color: clr.appSecondaryColorPurple,
                                   ),
                                   Text(
                                     item.bookDownload.toString(),
                                     style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600),
+                                      fontSize: size.textXXSmall,
+                                      color: clr.appSecondaryColorPurple,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: StringData.fontFamilyPoppins,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -295,13 +208,16 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                                 children: [
                                   Icon(
                                     Icons.remove_red_eye,
-                                    color: clr.appPrimaryColorBlack,
+                                    color: clr.appSecondaryColorPurple,
                                   ),
                                   Text(
                                     item.viewCount.toString(),
                                     style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600),
+                                      fontSize: size.textXXSmall,
+                                      color: clr.appSecondaryColorPurple,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: StringData.fontFamilyPoppins,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -311,11 +227,90 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                       ),
                     ],
                   ),
+                )
+                /* Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
+                  child: SizedBox(
+                    height: 150.h,
+                    width: 1.sw,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.book!.titleEn,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 16
+                                        .sp, // Use ScreenUtil for responsive font size
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                SizedBox(height: 12.h),
+                                Text(
+                                  item.book!.descriptionEn,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 12.sp),
+                                ),
+                              ],
+                            )),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: clr.cardStrokeColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.download,
+                                      color: clr.appPrimaryColorBlack,
+                                    ),
+                                    Text(
+                                      item.bookDownload.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.remove_red_eye,
+                                      color: clr.appPrimaryColorBlack,
+                                    ),
+                                    Text(
+                                      item.viewCount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),*/
-            ],
-          )),
+              ),*/
+              ],
+            )),
+      ),
     );
 /*
     return Card(

@@ -221,21 +221,22 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
                     left: size.h10,
                     right: size.h10,
                     child: GestureDetector(
-                      onTap: ()=>navigationTOListScreen(startDate!, endDate!),
+                      onTap: () => onTapSeeReport(startDate.toString(), endDate.toString()),
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(size.r8),
                             color: startDate != null && endDate != null
-                                ?clr.appSecondaryColorPurple: clr.disableColor.withOpacity(.5)
-                             ),
+                                ? clr.appSecondaryColorPurple
+                                : clr.disableColor.withOpacity(.5)),
                         child: Center(
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(vertical: size.h8),
+                            padding: EdgeInsets.symmetric(vertical: size.h8),
                             child: Text(
                               label(e: en.getReport, b: bn.getReport),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: size.textSmall,color: Colors.white,
+                                  fontSize: size.textSmall,
+                                  color: Colors.white,
                                   fontFamily: StringData.fontFamilyPoppins),
                             ),
                           ),
@@ -266,7 +267,7 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
   }
 
   @override
-  void navigationTOListScreen(String startDate, String endDate) {
+  void navigationToListScreen(String startDate, String endDate) {
     Navigator.of(context).pushNamed(AppRoute.bookViewDownloadCountListScreen,
         arguments:
             BookReportListScreenArgs(startDate: startDate, endDate: endDate));

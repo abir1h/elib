@@ -9,6 +9,7 @@ import '../../domain/entities/category_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
+  void navigateToNotificationScreen();
   void navigateToCategoryDetailsScreen(
       String categoryNameEn, String categoryNameBn, int id);
 }
@@ -63,5 +64,9 @@ mixin CategoriesScreenService<T extends StatefulWidget> on State<T>
   ///On Tap See All
   void onTapCategory(String categoryNameEn, String categoryNameBn, int id) {
     _view.navigateToCategoryDetailsScreen(categoryNameEn, categoryNameBn, id);
+  }
+
+  void onTapNotification() {
+    _view.navigateToNotificationScreen();
   }
 }

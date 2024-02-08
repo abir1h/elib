@@ -174,11 +174,16 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
+      padding: EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h12),
       decoration: BoxDecoration(
-          color: AppUtility.getInstance!
-              .getStatusColor(bookRequestDataEntity.status)
-              ?.withOpacity(.64),
-          borderRadius: BorderRadius.circular(size.r12),
+          color: clr.whiteColor,
+          borderRadius: BorderRadius.circular(size.r8),
+          border: Border(
+              top: BorderSide(
+                  color: AppUtility.getInstance!
+                      .getStatusColor(bookRequestDataEntity.status)!
+                      .withOpacity(.64),
+                  width: size.h6)),
           boxShadow: [
             BoxShadow(
               color: clr.appPrimaryColorBlack.withOpacity(.2),
@@ -186,110 +191,99 @@ class BookRequestItemWidget extends StatelessWidget with AppTheme {
               offset: Offset(0.0, size.h2),
             ),
           ]),
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(size.r12),
-          child: Container(
-            margin: EdgeInsets.only(top: size.h6),
-            padding:
-                EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h12),
-            decoration: BoxDecoration(
-              color: clr.whiteColor,
-              borderRadius: BorderRadius.circular(size.r8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: size.w8, vertical: size.h4),
-                      decoration: BoxDecoration(
-                        color: AppUtility.getInstance!
-                            .getStatusColor(bookRequestDataEntity.status),
-                        borderRadius: BorderRadius.circular(size.r24),
-                      ),
-                      child: Text(
-                        AppUtility.getInstance!
-                            .getStatusText(bookRequestDataEntity.status),
-                        style: TextStyle(
-                          fontFamily: StringData.fontFamilyPoppins,
-                          fontWeight: FontWeight.w600,
-                          fontSize: size.textXXSmall,
-                          color: clr.whiteColor,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    if (bookRequestDataEntity.status == 0)
-                      GestureDetector(
-                        onTap: onEdit,
-                        child: SvgPicture.asset(
-                          ImageAssets.icEdit,
-                          height: size.h24,
-                          colorFilter: ColorFilter.mode(
-                              clr.appSecondaryColorPurple, BlendMode.srcIn),
-                        ),
-                      ),
-                    if (bookRequestDataEntity.status == 0)
-                      Padding(
-                        padding: EdgeInsets.only(left: size.w12),
-                        child: GestureDetector(
-                          onTap: onDelete,
-                          child: SvgPicture.asset(
-                            ImageAssets.icDelete,
-                            height: size.h24,
-                            colorFilter: ColorFilter.mode(
-                                clr.iconColorSweetRed, BlendMode.srcIn),
-                          ),
-                        ),
-                      ),
-                  ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.w8, vertical: size.h4),
+                decoration: BoxDecoration(
+                  color: AppUtility.getInstance!
+                      .getStatusColor(bookRequestDataEntity.status),
+                  borderRadius: BorderRadius.circular(size.r24),
                 ),
-                SizedBox(height: size.h8),
-                Text(
-                  bookRequestDataEntity.bookName,
+                child: Text(
+                  AppUtility.getInstance!
+                      .getStatusText(bookRequestDataEntity.status),
                   style: TextStyle(
                     fontFamily: StringData.fontFamilyPoppins,
                     fontWeight: FontWeight.w600,
-                    fontSize: size.textSmall,
-                    color: clr.appSecondaryColorPurple,
-                  ),
-                ),
-                SizedBox(height: size.h12),
-                Text(
-                  "Author: ${bookRequestDataEntity.authorName}",
-                  style: TextStyle(
-                    fontFamily: StringData.fontFamilyPoppins,
-                    fontWeight: FontWeight.w400,
                     fontSize: size.textXXSmall,
-                    color: clr.appPrimaryColorBlack.withOpacity(0.72),
+                    color: clr.whiteColor,
                   ),
                 ),
-                SizedBox(height: size.h4),
-                Text(
-                  "Publish Year: ${bookRequestDataEntity.publishYear}",
-                  style: TextStyle(
-                    fontFamily: StringData.fontFamilyPoppins,
-                    fontWeight: FontWeight.w400,
-                    fontSize: size.textXXSmall,
-                    color: clr.appPrimaryColorBlack.withOpacity(0.72),
+              ),
+              const Spacer(),
+              if (bookRequestDataEntity.status == 0)
+                GestureDetector(
+                  onTap: onEdit,
+                  child: SvgPicture.asset(
+                    ImageAssets.icEdit,
+                    height: size.h24,
+                    colorFilter: ColorFilter.mode(
+                        clr.appSecondaryColorPurple, BlendMode.srcIn),
                   ),
                 ),
-                SizedBox(height: size.h4),
-                Text(
-                  "Edition: ${bookRequestDataEntity.edition}",
-                  style: TextStyle(
-                    fontFamily: StringData.fontFamilyPoppins,
-                    fontWeight: FontWeight.w400,
-                    fontSize: size.textXXSmall,
-                    color: clr.appPrimaryColorBlack.withOpacity(0.72),
+              if (bookRequestDataEntity.status == 0)
+                Padding(
+                  padding: EdgeInsets.only(left: size.w12),
+                  child: GestureDetector(
+                    onTap: onDelete,
+                    child: SvgPicture.asset(
+                      ImageAssets.icDelete,
+                      height: size.h24,
+                      colorFilter: ColorFilter.mode(
+                          clr.iconColorSweetRed, BlendMode.srcIn),
+                    ),
                   ),
                 ),
-              ],
+            ],
+          ),
+          SizedBox(height: size.h8),
+          Text(
+            bookRequestDataEntity.bookName,
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w600,
+              fontSize: size.textSmall,
+              color: clr.appSecondaryColorPurple,
             ),
-          )),
+          ),
+          SizedBox(height: size.h12),
+          Text(
+            "Author: ${bookRequestDataEntity.authorName}",
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w400,
+              fontSize: size.textXXSmall,
+              color: clr.appPrimaryColorBlack.withOpacity(0.72),
+            ),
+          ),
+          SizedBox(height: size.h4),
+          Text(
+            "Publish Year: ${bookRequestDataEntity.publishYear}",
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w400,
+              fontSize: size.textXXSmall,
+              color: clr.appPrimaryColorBlack.withOpacity(0.72),
+            ),
+          ),
+          SizedBox(height: size.h4),
+          Text(
+            "Edition: ${bookRequestDataEntity.edition}",
+            style: TextStyle(
+              fontFamily: StringData.fontFamilyPoppins,
+              fontWeight: FontWeight.w400,
+              fontSize: size.textXXSmall,
+              color: clr.appPrimaryColorBlack.withOpacity(0.72),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

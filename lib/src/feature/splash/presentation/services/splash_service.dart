@@ -26,10 +26,8 @@ mixin SplashService implements _ViewModel {
     await Future.delayed(const Duration(milliseconds: 500));
 
     ///Navigate to logical page
-     await AuthCacheManager.isUserLoggedIn()
-       ?
-    _view.navigateToLandingScreen()
-         : _view.navigateToAuthScreen()
-    ;
+    await AuthCacheManager.isUserLoggedIn()
+        ? _view.navigateToLandingScreen()
+        : _view.navigateToAuthScreen();
   }
 }

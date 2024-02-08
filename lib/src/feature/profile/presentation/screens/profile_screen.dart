@@ -33,7 +33,10 @@ class _ProfileScreenState extends State<ProfileScreen>
       child: LayoutBuilder(
         builder: (context, constraints) => Column(
           children: [
-            HeaderWidget(title: label(e: en.profileText, b: bn.profileText)),
+            HeaderWidget(
+              title: label(e: en.profileText, b: bn.profileText),
+              onTapNotification: onTapNotification,
+            ),
             Expanded(
               child: AppStreamBuilder<ProfileDataEntity>(
                 stream: profileDataStreamController.stream,
@@ -196,5 +199,10 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   void navigateToNotesScreen() {
     Navigator.of(context).pushNamed(AppRoute.noteScreen);
+  }
+
+  @override
+  void navigateToNotificationScreen() {
+    Navigator.of(context).pushNamed(AppRoute.notificationScreen);
   }
 }

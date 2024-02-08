@@ -16,9 +16,11 @@ import '../../../book/domain/entities/book_data_entity.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
+  void navigateToNotificationScreen();
   void navigateToBookDetailsScreen(BookDataEntity data);
   void navigateToAuthorScreen();
   void navigateToAuthorDetailsScreen();
+
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
 }
@@ -150,6 +152,10 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
 
   void onTapAuthor() {
     _view.navigateToAuthorDetailsScreen();
+  }
+
+  void onTapNotification(){
+    _view.navigateToNotificationScreen();
   }
 }
 

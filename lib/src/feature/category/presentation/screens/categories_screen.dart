@@ -32,7 +32,9 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderWidget(
-                title: label(e: en.categoriesText, b: bn.categoriesText)),
+              title: label(e: en.categoriesText, b: bn.categoriesText),
+              onTapNotification: onTapNotification,
+            ),
             Expanded(
               child: AppScrollView(
                 padding: EdgeInsets.symmetric(
@@ -136,6 +138,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           categoryNameBn: categoryNameBn,
           categoryId: id),
     );
+  }
+
+  @override
+  void navigateToNotificationScreen() {
+    Navigator.of(context).pushNamed(AppRoute.notificationScreen);
   }
 }
 

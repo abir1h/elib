@@ -9,8 +9,10 @@ import '../../domain/use_cases/book_mark_use_case.dart';
 
 abstract class _ViewModel {
   void showSuccess(String message);
-  void navigateToBookDetailsScreen(BookmarkDataEntity data);
   void showWarning(String message);
+  void navigateToNotificationScreen();
+  void navigateToBookDetailsScreen(BookmarkDataEntity data);
+
 /*  void showWarning(String message);
   void navigateToCategoryDetailsScreen(
       String categoryName, List<BookDataEntity> data);
@@ -95,5 +97,9 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
         _view.showWarning(value.message!);
       }
     });
+  }
+
+  void onTapNotification() {
+    _view.navigateToNotificationScreen();
   }
 }

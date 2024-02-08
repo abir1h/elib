@@ -10,6 +10,7 @@ import '../../domain/entities/profile_data_entity.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void navigateToNotesScreen();
+  void navigateToNotificationScreen();
 }
 
 mixin ProfileScreenService<T extends StatefulWidget> on State<T>
@@ -60,5 +61,9 @@ mixin ProfileScreenService<T extends StatefulWidget> on State<T>
   ///On Tap Notes
   void onTapNotes() {
     _view.navigateToNotesScreen();
+  }
+
+  void onTapNotification() {
+    _view.navigateToNotificationScreen();
   }
 }

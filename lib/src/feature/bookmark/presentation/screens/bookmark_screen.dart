@@ -33,7 +33,10 @@ class _BookmarkScreenState extends State<BookmarkScreen>
         builder: (context, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HeaderWidget(title: label(e: en.bookmarkText, b: bn.bookmarkText)),
+            HeaderWidget(
+              title: label(e: en.bookmarkText, b: bn.bookmarkText),
+              onTapNotification: onTapNotification,
+            ),
             Expanded(
               child: AppStreamBuilder<List<BookmarkDataEntity>>(
                 stream: bookmarkDataStreamController.stream,
@@ -158,6 +161,11 @@ class _BookmarkScreenState extends State<BookmarkScreen>
   @override
   void showWarning(String message) {
     CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void navigateToNotificationScreen() {
+    Navigator.of(context).pushNamed(AppRoute.notificationScreen);
   }
 }
 

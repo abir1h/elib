@@ -347,11 +347,27 @@ class _HomeScreenState extends State<HomeScreen>
               right: size.w16,
               top: size.h8,
               child: InkWell(
-                onTap: () {},
-                child: Icon(
-                  Icons.notifications,
-                  size: size.r24,
-                  color: clr.appSecondaryColorPurple,
+                onTap: onTapNotification,
+                child: Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications,
+                      color: clr.appSecondaryColorPurple,
+                      size: size.r24,
+                    ),
+                    Positioned(
+                      right: -1,
+                      top: 2.w,
+                      child: Container(
+                        width: size.w12,
+                        height: size.h12,
+                        decoration: BoxDecoration(
+                            color: clr.appSecondaryColorPurple,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: clr.whiteColor)),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -387,6 +403,11 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void navigateToAuthorDetailsScreen() {
     Navigator.of(context).pushNamed(AppRoute.authorDetailsScreen);
+  }
+
+  @override
+  void navigateToNotificationScreen() {
+    Navigator.of(context).pushNamed(AppRoute.notificationScreen);
   }
 }
 

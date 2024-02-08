@@ -13,7 +13,6 @@ import '../../domain/use_cases/report_use_case.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
-  void navigationTOListScreen();
 }
 
 mixin BookViewReportListScreenService<T extends StatefulWidget> on State<T>
@@ -69,9 +68,5 @@ mixin BookViewReportListScreenService<T extends StatefulWidget> on State<T>
       ///Todo
     }
     return responseEntity;
-  }
-
-  void onTapCategory() {
-    // _view.navigationTOListScreen(startDate,endDate);
   }
 }

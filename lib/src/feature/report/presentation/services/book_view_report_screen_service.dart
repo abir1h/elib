@@ -12,7 +12,7 @@ import '../../domain/use_cases/report_use_case.dart';
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
-  void navigationTOListScreen(String startDate,String endDate);
+  void navigationToListScreen(String startDate, String endDate);
 }
 
 mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
@@ -77,6 +77,13 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
     return _reportUseCase.getBookViewDownloadReportUseCase(startDate, endDate);
   }
 
+  ///Service configurations
+  @override
+  void initState() {
+    _view = this;
+    super.initState();
+  }
+
   @override
   void dispose() {
     reportDataStreamController.dispose();
@@ -118,7 +125,12 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
     reportDataStreamController.add(LoadingState());
     actionButtonDataStreamController.add(LoadingState());
   }
-  void onTapCategory(String startDate,String endDate) {
-    _view.navigationTOListScreen(startDate,endDate);
+
+  void onTapCategory(String startDate, String endDate) {
+    _view.navigationToListScreen(startDate, endDate);
+  }
+
+  void onTapSeeReport(String startDate, String endDate) {
+    _view.navigationToListScreen(startDate, endDate);
   }
 }
