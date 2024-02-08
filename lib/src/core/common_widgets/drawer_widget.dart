@@ -23,7 +23,6 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: clr.shadeWhiteColor,
-
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(topRight: Radius.circular(size.w8)),
       ),
@@ -34,7 +33,8 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
@@ -116,49 +116,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                             context, AppRoute.bookViewDownloadCountScreen);
                       },
                     ),
-
-
                     DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),  DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),  DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),  DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),  DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),  DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),  DrawerLinkWidget(
                       icon: Icons.logout,
                       iconColor: clr.textColorBlack,
                       text: label(e: en.logoutText, b: bn.logoutText),
@@ -167,71 +125,90 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                   ],
                 ),
               ),
-             Padding(
-               padding:  EdgeInsets.symmetric(horizontal: size.w16),
-
-               child: Column(
-                 children: [
-                  Text(label(e: en.drawerFooter, b: bn.drawerFooter),style: TextStyle(fontWeight: FontWeight.w500,fontSize: size.textSmall,fontFamily: StringData.fontFamilyPoppins),),
-                  Divider(color: clr.appSecondaryColorPurple,),SizedBox(height: size.h16,),
-                   Row(
-                     children: [
-                       Expanded(
-                         child: Container(
-                           height:size.h42+size.h10,
-
-                           decoration: BoxDecoration(
-                             image: DecorationImage(
-                               image: AssetImage(ImageAssets.imgModule1),fit: BoxFit.contain
-                             ),
-                             border: Border.all(color: clr.appSecondaryColorPurple),
-                             borderRadius: BorderRadius.circular(size.r8)
-                           ),
-                         ),
-                       ),   SizedBox(width: size.w16,), Expanded(
-                         child: Container(
-                           height:size.h42+size.h10,
-
-                           decoration: BoxDecoration(
-                             image: DecorationImage(
-                               image: AssetImage(ImageAssets.imgModule5),fit: BoxFit.contain
-                             ),
-                             border: Border.all(color: clr.appSecondaryColorPurple),
-                             borderRadius: BorderRadius.circular(size.r8)
-                           ),
-                         ),
-                       ),   SizedBox(width: size.w16,), Expanded(
-                         child: Container(
-                           height:size.h42+size.h10,
-
-                           decoration: BoxDecoration(
-                             image: DecorationImage(
-                               image: AssetImage(ImageAssets.imgModule6),fit: BoxFit.contain
-                             ),
-                             border: Border.all(color: clr.appSecondaryColorPurple),
-                             borderRadius: BorderRadius.circular(size.r8)
-                           ),
-                         ),
-                       ),    SizedBox(width: size.w16,),Expanded(
-                         child: Container(
-                           height:size.h42+size.h10,
-
-                           decoration: BoxDecoration(
-                             image: DecorationImage(
-                               image: AssetImage(ImageAssets.imgModule1),fit: BoxFit.contain
-                             ),
-                             border: Border.all(color: clr.appSecondaryColorPurple),
-                             borderRadius: BorderRadius.circular(size.r8)
-                           ),
-                         ),
-                       ),
-                     ],
-                   )
-                 ],
-               ),
-             ),SizedBox(height: size.h20,)
-
-
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.w16),
+                child: Column(
+                  children: [
+                    Text(
+                      label(e: en.drawerFooter, b: bn.drawerFooter),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: size.textSmall,
+                          fontFamily: StringData.fontFamilyPoppins),
+                    ),
+                    Divider(
+                      color: clr.appSecondaryColorPurple,
+                    ),
+                    SizedBox(
+                      height: size.h16,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: size.h42 + size.h10,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(ImageAssets.imgModule1),
+                                    fit: BoxFit.contain),
+                                border: Border.all(
+                                    color: clr.appSecondaryColorPurple),
+                                borderRadius: BorderRadius.circular(size.r8)),
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.w16,
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: size.h42 + size.h10,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(ImageAssets.imgModule5),
+                                    fit: BoxFit.contain),
+                                border: Border.all(
+                                    color: clr.appSecondaryColorPurple),
+                                borderRadius: BorderRadius.circular(size.r8)),
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.w16,
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: size.h42 + size.h10,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(ImageAssets.imgModule6),
+                                    fit: BoxFit.contain),
+                                border: Border.all(
+                                    color: clr.appSecondaryColorPurple),
+                                borderRadius: BorderRadius.circular(size.r8)),
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.w16,
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: size.h42 + size.h10,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(ImageAssets.imgModule1),
+                                    fit: BoxFit.contain),
+                                border: Border.all(
+                                    color: clr.appSecondaryColorPurple),
+                                borderRadius: BorderRadius.circular(size.r8)),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: size.h20,
+              )
             ],
           ),
         ),
