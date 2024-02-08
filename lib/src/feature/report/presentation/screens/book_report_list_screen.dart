@@ -130,147 +130,69 @@ class BookCard extends StatelessWidget with AppTheme, Language {
               ),
             ],
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 150.h, // Set a fixed height for the image
-                width: 110.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "http://103.209.40.89:82/uploads/${item.book!.coverImage}",
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        Image.asset(ImageAssets.imgPlaceholder),
-                    errorWidget: (context, url, error) =>
-                        Image.asset(ImageAssets.imgPlaceholder),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 150.h, // Set a fixed height for the image
+                  width: 110.w,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "http://103.209.40.89:82/uploads/${item.book!.coverImage}",
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          Image.asset(ImageAssets.imgPlaceholder),
+                      errorWidget: (context, url, error) =>
+                          Image.asset(ImageAssets.imgPlaceholder),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: size.w20,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                   Column(crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Text(
-                         item.book!.titleEn,
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                             fontSize: size.textSmall,
-                             fontWeight: FontWeight.w500,
-                             fontFamily: StringData.fontFamilyPoppins),
-                       ),
-                       SizedBox(
-                         height: size.h4,
-                       ),
-                       Text(
-                         /*item.book!.author
-                      .map((c) => c.name)
-                      .toList()
-                      .join(', '),*/
-                         "সানাউল্লাহ সাগর",
-                         maxLines: 2,
-                         overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                             fontSize: size.textSmall,
-                             fontWeight: FontWeight.w400,
-                             fontFamily: StringData.fontFamilyRoboto),
-                       ),
-                     ],
-                   ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: clr.whiteColor,
-                        borderRadius: BorderRadius.circular(size.r10),
-                        border: Border.all(color: clr.colorShadePurple)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.download,
-                                  color: clr.appSecondaryColorPurple,
-                                ),
-                                Text(
-                                  item.bookDownload.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12.sp,color:clr.appSecondaryColorPurple,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.remove_red_eye,
-                                 color:clr.appSecondaryColorPurple,
-                                ),
-                                Text(
-                                  item.viewCount.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12.sp,color:clr.appSecondaryColorPurple,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                  ],
+                SizedBox(
+                  width: size.w20,
                 ),
-              )
-              /* Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
-                child: SizedBox(
-                  height: 150.h,
-                  width: 1.sw,
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.book!.titleEn,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 16
-                                      .sp, // Use ScreenUtil for responsive font size
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              SizedBox(height: 12.h),
-                              Text(
-                                item.book!.descriptionEn,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 12.sp),
-                              ),
-                            ],
-                          )),
+                     Column(crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(
+                           item.book!.titleEn,
+                           maxLines: 2,
+                           overflow: TextOverflow.ellipsis,
+                           style: TextStyle(
+                               fontSize: size.textSmall,
+                               fontWeight: FontWeight.w500,
+                               fontFamily: StringData.fontFamilyPoppins),
+                         ),
+                         SizedBox(
+                           height: size.h4,
+                         ),
+                         Text(
+                           /*item.book!.author
+                        .map((c) => c.name)
+                        .toList()
+                        .join(', '),*/
+                           "সানাউল্লাহ সাগর",
+                           maxLines: 2,
+                           overflow: TextOverflow.ellipsis,
+                           style: TextStyle(
+                               fontSize: size.textSmall,
+                               fontWeight: FontWeight.w400,
+                               fontFamily: StringData.fontFamilyRoboto),
+                         ),
+                       ],
+                     ),
                       Container(
                         decoration: BoxDecoration(
-                          color: clr.cardStrokeColor,
-                          borderRadius: BorderRadius.circular(10.0),
+                          color: clr.whiteColor,
+                          borderRadius: BorderRadius.circular(size.r10),
+                          border: Border.all(color: clr.colorShadePurple)
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -281,12 +203,12 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                                 children: [
                                   Icon(
                                     Icons.download,
-                                    color: clr.appPrimaryColorBlack,
+                                    color: clr.appSecondaryColorPurple,
                                   ),
                                   Text(
                                     item.bookDownload.toString(),
                                     style: TextStyle(
-                                        fontSize: 12.sp,
+                                        fontSize: 12.sp,color:clr.appSecondaryColorPurple,
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ],
@@ -295,12 +217,12 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                                 children: [
                                   Icon(
                                     Icons.remove_red_eye,
-                                    color: clr.appPrimaryColorBlack,
+                                   color:clr.appSecondaryColorPurple,
                                   ),
                                   Text(
                                     item.viewCount.toString(),
                                     style: TextStyle(
-                                        fontSize: 12.sp,
+                                        fontSize: 12.sp,color:clr.appSecondaryColorPurple,
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ],
@@ -309,12 +231,92 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                           ),
                         ),
                       ),
+
                     ],
                   ),
+                )
+                /* Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
+                  child: SizedBox(
+                    height: 150.h,
+                    width: 1.sw,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.book!.titleEn,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 16
+                                        .sp, // Use ScreenUtil for responsive font size
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                SizedBox(height: 12.h),
+                                Text(
+                                  item.book!.descriptionEn,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 12.sp),
+                                ),
+                              ],
+                            )),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: clr.cardStrokeColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.download,
+                                      color: clr.appPrimaryColorBlack,
+                                    ),
+                                    Text(
+                                      item.bookDownload.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.remove_red_eye,
+                                      color: clr.appPrimaryColorBlack,
+                                    ),
+                                    Text(
+                                      item.viewCount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),*/
-            ],
+              ),*/
+              ],
+            ),
           )),
     );
 /*

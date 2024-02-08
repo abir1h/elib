@@ -143,6 +143,7 @@ class LanguageEn {
   String calendarEndDate = "End Date";
   String chooseBookReport= "Choose the report period:";
   String bookReportTitle=  "Get book download & view count report";
+  String drawerFooter=  "CLMS-Other Components:";
 
 
 
@@ -287,6 +288,8 @@ class LanguageBn {
   String bookReportTitle= "বই ডাউনলোড করুন এবং গণনার রিপোর্ট দেখুন";
   String calendarStartDate = "শুরুর তারিখ";
   String calendarEndDate = "শেষের তারিখ";
+  String drawerFooter=  "CLMS - এর অন্যান্য কম্পনেন্ট সমূহ:";
+
 
 
 
