@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class ProgressDataModel {
-  final int? bookRequests;
-  final int? bookViews;
+  final int bookRequests;
+  final int bookViews;
 
   const ProgressDataModel({
-    this.bookRequests,
-    this.bookViews,
+    required this.bookRequests,
+    required this.bookViews,
   });
 
   factory ProgressDataModel.fromJson(Map<String, dynamic> json) =>

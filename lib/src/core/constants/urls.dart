@@ -31,5 +31,6 @@ class ApiCredential {
   static String bookRequest = "/book-requests";
   static String bookViewDownloadReport = "/book-view-download-report";
   static String getAuthors = "/authors";
+  static String userProgressCount = "/users/progress";
 
 }
