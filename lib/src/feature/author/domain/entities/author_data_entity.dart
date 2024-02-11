@@ -35,7 +35,7 @@ class AuthorDataEntity {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    required this.pivot,
-    required this.authorType,
+    this.pivot,
+    this.authorType,
   });
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/search_book_widget.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
+import '../../../author/domain/entities/author_data_entity.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../book/presentation/widgets/elib_content_item_widget.dart';
 import '../services/home_service.dart';
@@ -269,6 +271,7 @@ class _HomeScreenState extends State<HomeScreen>
                             aspectRatio: 1.8,
                             title: 'জনপ্রিয় বই',
                             items: data,
+                            emptyText: "No Book Found !",
                             buildItem: (context, index, item) {
                               return AspectRatio(
                                 aspectRatio: .53,
@@ -296,21 +299,64 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   SizedBox(height: size.h20),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.h12),
-                    child: ItemSectionWidget(
-                        aspectRatio: 3,
-                        title: "জনপ্রিয় গ্রন্থকার",
-                        items: const ["", "", ""],
-                        buildItem: (context, index, item) {
-                          return AspectRatio(
-                            aspectRatio: 1.1,
-                            child: AuthorItemWidget(
-                              onTap: onTapAuthor,
-                            ),
+                      padding: EdgeInsets.symmetric(horizontal: size.h12),
+                      child: AppStreamBuilder<List<AuthorDataEntity>>(
+                        stream: authorDataStreamController.stream,
+                        loadingBuilder: (context) {
+                          return ShimmerLoader(
+                              child: ItemSectionWidget(
+                                  aspectRatio: 2.5,
+                                  title: "জনপ্রিয় গ্রন্থকার",
+                                  items: const ["", "", ""],
+                                  buildItem: (context, index, item) {
+                                    return AspectRatio(
+                                      aspectRatio: 1.1,
+                                      child: AuthorItemWidget(
+                                        authorDataEntity:
+                                            const AuthorDataEntity(
+                                          id: -1,
+                                          authorTypeId: -1,
+                                          name: "",
+                                          slug: "",
+                                          email: "",
+                                          phone: "",
+                                          address: "",
+                                          country: "",
+                                          photo: "",
+                                          status: -1,
+                                          createdAt: "",
+                                          updatedAt: "",
+                                          deletedAt: "",
+                                        ),
+                                        onTap: onTapAuthor,
+                                      ),
+                                    );
+                                  },
+                                  onTapSeeAll: () {}));
+                        },
+                        dataBuilder: (context, data) {
+                          return ItemSectionWidget(
+                            aspectRatio: 2.5,
+                            title: "জনপ্রিয় গ্রন্থকার",
+                            items: data,
+                            horizontalPadding: size.w12,
+                            verticalPadding: size.h16,
+                            emptyText: "No Author Found !",
+                            buildItem: (context, index, item) {
+                              return AuthorItemWidget(
+                                authorDataEntity: item,
+                                onTap: () {},
+                              );
+                            },
+                            onTapSeeAll: onTapAuthorSeeAll,
                           );
                         },
-                        onTapSeeAll: onTapAuthorSeeAll),
-                  )
+                        emptyBuilder: (context, message, icon) => EmptyWidget(
+                          message: message,
+                          constraints: constraints,
+                          offset: 350.w,
+                        ),
+                      ))
                 ],
               ),
             ),
@@ -379,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void showWarning(String message) {
-    // TODO: implement showWarning
+    CustomToasty.of(context).showWarning(message);
   }
 
   @override
@@ -501,19 +547,27 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   final Widget Function(BuildContext context, int index, T item) buildItem;
   final VoidCallback onTapSeeAll;
   final double aspectRatio;
+  final double? horizontalPadding;
+  final double? verticalPadding;
+  final String emptyText;
   const ItemSectionWidget(
       {Key? key,
       required this.title,
       required this.items,
       required this.buildItem,
       required this.onTapSeeAll,
-      this.aspectRatio = 2})
+      this.aspectRatio = 2,
+      this.horizontalPadding,
+      this.verticalPadding,
+      this.emptyText = "No Item Found"})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: size.h8, horizontal: size.w8),
+      padding: EdgeInsets.symmetric(
+          vertical: verticalPadding ?? size.h8,
+          horizontal: horizontalPadding ?? size.w8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(size.r8),
           color: clr.whiteColor,
@@ -578,11 +632,13 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                     itemCount: items.length < 5 ? items.length : 5,
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.w8, vertical: size.h12),
                     itemBuilder: (context, index) {
                       return buildItem(context, index, items[index]);
                     },
                     separatorBuilder: (context, index) {
-                      return SizedBox(width: size.w12);
+                      return SizedBox(width: size.w20);
                     },
                   ),
                 )
@@ -592,7 +648,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                     children: [
                       Lottie.asset(ImageAssets.animEmpty, height: size.h56 * 2),
                       Text(
-                        "No Book Found !",
+                        emptyText,
                         style: TextStyle(
                             color: clr.appPrimaryColorBlack,
                             fontSize: size.textXSmall),
@@ -607,42 +663,54 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
 }
 
 class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
+  final AuthorDataEntity authorDataEntity;
   final VoidCallback onTap;
-  const AuthorItemWidget({super.key, required this.onTap});
+  const AuthorItemWidget(
+      {super.key, required this.authorDataEntity, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border:
-                    Border.all(color: clr.cardStrokeColorGrey, width: size.r4)),
-            child: CircleAvatar(
-              radius: 35.r,
-              backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage(
-                ImageAssets.imgEmptyProfile,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: clr.cardStrokeColorGrey, width: size.r4)),
+              child: CircleAvatar(
+                radius: 28..r,
+                backgroundColor: Colors.transparent,
+                child: CachedNetworkImage(
+                  imageUrl: authorDataEntity.photo.isNotEmpty
+                      ? "http://103.209.40.89:82/uploads/${authorDataEntity.photo}"
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                  placeholder: (context, url) => const Offstage(),
+                  errorWidget: (context, url, error) =>
+                      Icon(Icons.image, color: clr.greyColor),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: size.h8),
-          Text(
-            "আব্দুল্লাহ আবু সায়ীদ",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: clr.textColorBlack,
-                fontSize: size.textXSmall,
-                fontWeight: FontWeight.w500,
-                fontFamily: StringData.fontFamilyPoppins),
-          ),
-        ],
+            SizedBox(height: size.h8),
+            Text(
+              authorDataEntity.name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: clr.textColorBlack,
+                  fontSize: size.textXSmall,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: StringData.fontFamilyPoppins),
+            ),
+          ],
+        ),
       ),
     );
   }

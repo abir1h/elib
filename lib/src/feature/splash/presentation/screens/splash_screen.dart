@@ -5,7 +5,6 @@ import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../author/presentation/services/author_service.dart';
 import '../services/splash_service.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
@@ -19,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with AppTheme, Language, SplashService, BookService, AuthorService {
+    with AppTheme, Language, SplashService, BookService {
   @override
   void initState() {
     super.initState();

@@ -8,9 +8,9 @@ import '../../../book/domain/entities/book_data_entity.dart';
 class AuthorBookWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item)? onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
-  final BookDataEntity? item;
-  final bool? showBookmark;
-  final double? aspectRatio;
+  final BookDataEntity?                     item;
+  final bool?                                showBookmark;
+  final double?                              aspectRatio;
   const AuthorBookWidget({
     Key? key,
      this.onSelect,

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/paginated_gridview_widget.dart';
+import '../../../author/data/data_sources/remote/author_data_source.dart';
+import '../../../author/data/repositories/author_repository_imp.dart';
+import '../../../author/domain/entities/author_data_entity.dart';
+import '../../../author/domain/use_cases/author_use_case.dart';
 import '../../../book/data/data_sources/remote/book_data_source.dart';
 import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
@@ -52,6 +56,14 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
+  final AuthorUseCase _authorUseCase = AuthorUseCase(
+      authorRepository: AuthorRepositoryImp(
+          authorRemoteDataSource: AuthorRemoteDataSourceImp()));
+
+  Future<ResponseEntity> getAuthors() async {
+    return _authorUseCase.getAuthorsUseCase();
+  }
+
   ///Service configurations
   @override
   void initState() {
@@ -59,10 +71,12 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     // paginationController.onLoadMore = _onLoadMoreItems;
     super.initState();
     _loadInitialData();
+    _loadAuthorData();
   }
 
   @override
   void dispose() {
+    authorDataStreamController.dispose();
     // eLibraryDataStreamController.dispose();
     // resultsForStreamController.dispose();
     // paginationController.dispose();
@@ -76,6 +90,8 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   final AppStreamController<List<BookDataEntity>> bookDataStreamController =
       AppStreamController();
   final AppStreamController<ResultsForViewModel> resultsForStreamController =
+      AppStreamController();
+  final AppStreamController<List<AuthorDataEntity>> authorDataStreamController =
       AppStreamController();
 
   List<BookDataEntity> _bookData = [];
@@ -94,6 +110,22 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
             .add(DataLoadedState<List<BookDataEntity>>(_bookData));
       } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
         bookDataStreamController.add(EmptyState(message: 'No Book Found'));
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
+  }
+
+  ///Load Auth list
+  void _loadAuthorData() {
+    if (!mounted) return;
+    authorDataStreamController.add(LoadingState());
+    getAuthors().then((value) {
+      if (value.error == null && value.data.authorDataEntity.isNotEmpty) {
+        authorDataStreamController.add(DataLoadedState<List<AuthorDataEntity>>(
+            value.data.authorDataEntity));
+      } else if (value.error == null && value.data.authorDataEntity.isEmpty) {
+        authorDataStreamController.add(EmptyState(message: 'No Author Found'));
       } else {
         _view.showWarning(value.message!);
       }
@@ -154,7 +186,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     _view.navigateToAuthorDetailsScreen();
   }
 
-  void onTapNotification(){
+  void onTapNotification() {
     _view.navigateToNotificationScreen();
   }
 }

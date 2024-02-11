@@ -1,11 +1,11 @@
-import 'package:elibrary/src/core/common_widgets/app_scroll_widget.dart';
-import 'package:elibrary/src/core/constants/app_theme.dart';
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:elibrary/src/feature/author/presentation/screens/author_screen.dart';
-import 'package:elibrary/src/feature/author/presentation/widgets/author_book_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/custom_scaffold.dart';
+import '../../../../core/common_widgets/app_scroll_widget.dart';
+import '../../../../core/constants/app_theme.dart';
+import '../../../../core/constants/language.dart';
+import 'author_screen.dart';
+import '../widgets/author_book_widget.dart';
 
 class AuthorDetailsScreen extends StatefulWidget {
   const AuthorDetailsScreen({super.key});
@@ -28,11 +28,13 @@ class _AuthorDetailsScreenState extends State<AuthorDetailsScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AuthorItemWidget(
-                          onTap: () {},
-                        ),GridView.builder(
+                        // AuthorItemWidget(
+                        //   onTap: () {},
+                        // ),
+                        GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             childAspectRatio: 0.5,
                             crossAxisSpacing: size.h12,
