@@ -5,6 +5,7 @@ import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/image_assets.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_routes.dart';
+import '../../../author/presentation/services/author_service.dart';
 import '../services/splash_service.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
@@ -18,7 +19,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with AppTheme, Language, SplashService, BookService {
+    with AppTheme, Language, SplashService, BookService, AuthorService {
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   _callMethod() async {
-    // ResponseEntity responseEntity = await getBookViewDownloadReport("2024-01-17", "2024-01-19");
+    // ResponseEntity responseEntity = await getAuthors();
     // print(responseEntity.message);
   }
 

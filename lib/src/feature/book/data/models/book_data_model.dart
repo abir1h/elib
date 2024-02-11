@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'author_data_model.dart';
+import '../../../author/data/models/author_data_model.dart';
 import '../../../category/data/models/category_data_model.dart';
 
 @immutable

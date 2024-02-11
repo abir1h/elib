@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../book/data/models/pivot_data_model.dart';
 import 'author_type_data_model.dart';
-import 'pivot_data_model.dart';
 
 @immutable
 class AuthorDataModel {

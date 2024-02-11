@@ -1,5 +1,5 @@
 import '../../../category/domain/entities/category_data_entity.dart';
-import 'author_data_entity.dart';
+import '../../../author/domain/entities/author_data_entity.dart';
 
 class BookDataEntity {
   final int id;

@@ -1,5 +1,5 @@
 import 'author_type_data_mapper.dart';
-import 'pivot_data.mapper.dart';
+import '../../../book/data/mapper/pivot_data.mapper.dart';
 import '../../domain/entities/author_data_entity.dart';
 import '../models/author_data_model.dart';
 

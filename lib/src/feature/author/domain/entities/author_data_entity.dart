@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'pivot_data_entity.dart';
+import '../../../book/domain/entities/pivot_data_entity.dart';
 import 'author_type_data_entity.dart';
 
 @immutable

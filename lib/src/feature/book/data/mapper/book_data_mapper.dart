@@ -1,9 +1,9 @@
 import '../../../category/data/mapper/category_data_mapper.dart';
 import '../../../category/data/models/category_data_model.dart';
 import '../../../category/domain/entities/category_data_entity.dart';
-import 'author_data_mapper.dart';
-import '../models/author_data_model.dart';
-import '../../domain/entities/author_data_entity.dart';
+import '../../../author/data/mapper/author_data_mapper.dart';
+import '../../../author/data/models/author_data_model.dart';
+import '../../../author/domain/entities/author_data_entity.dart';
 import '../models/book_data_model.dart';
 import '../../domain/entities/book_data_entity.dart';
 
