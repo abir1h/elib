@@ -33,6 +33,7 @@ class ApiCredential {
   static String getAuthors = "/authors";
   static String userProgressCount = "/users/progress";
   static String userReadBooks = "/users/book/read";
+  static String getHome = "/home";
 
 
 }

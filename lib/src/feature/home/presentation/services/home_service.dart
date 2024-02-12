@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/paginated_gridview_widget.dart';
 import '../../../book/data/data_sources/remote/book_data_source.dart';
 import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
@@ -12,6 +11,9 @@ import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
+import '../../data/data_sources/remote/home_data_source.dart';
+import '../../data/repositories/home_repository_imp.dart';
+import '../../domain/use_cases/home_use_case.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
@@ -35,6 +37,10 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
       bookRepository:
           BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
 
+  final HomeUseCase _homeUseCase = HomeUseCase(
+      homeRepository:
+      HomeRepositoryImp(homeRemoteDataSource: HomeRemoteDataSourceImp()));
+
   Future<ResponseEntity> getPopularBooks(int pageNumber) async {
     return _bookUseCase.getPopularBooksUseCase(pageNumber);
   }
@@ -50,6 +56,10 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   Future<ResponseEntity> bookmarkBookAction(
       {required int bookId, required int eMISUserId}) async {
     return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
+  }
+
+  Future<ResponseEntity> getHome() async {
+    return _homeUseCase.getHomeUseCase();
   }
 
   ///Service configurations
