@@ -9,7 +9,7 @@ import '../../domain/entities/author_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
-  void navigateToAuthorDetailsScreen();
+  void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity);
 }
 
 mixin AuthorService<T extends StatefulWidget> on State<T>
@@ -59,7 +59,7 @@ mixin AuthorService<T extends StatefulWidget> on State<T>
   }
 
   ///On Tap Author
-  void onTapAuthor() {
-    _view.navigateToAuthorDetailsScreen();
+  void onTapAuthor(AuthorDataEntity authorDataEntity) {
+    _view.navigateToAuthorBooksScreen(authorDataEntity);
   }
 }

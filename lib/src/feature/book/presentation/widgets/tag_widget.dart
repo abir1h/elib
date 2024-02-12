@@ -5,21 +5,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/utility/app_label.dart';
-class TagWidget extends StatelessWidget with AppTheme,Language {
-  const TagWidget({super.key, required this.firstItem, required this.secondItem});
+
+class TagWidget extends StatelessWidget with AppTheme, Language {
+  const TagWidget(
+      {super.key, required this.firstItem, required this.secondItem});
   final String firstItem;
   final Widget secondItem;
 
   @override
   Widget build(BuildContext context) {
-    return   Padding(
-      padding: EdgeInsets.only(
-          left: 26.w, right: 26.w,bottom: size.h8),
+    return Padding(
+      padding: EdgeInsets.only(left: 26.w, right: 26.w, bottom: size.h8),
       child: Row(
-        mainAxisAlignment:
-        MainAxisAlignment.spaceBetween,
-        crossAxisAlignment:
-        CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 35,
@@ -29,29 +28,23 @@ class TagWidget extends StatelessWidget with AppTheme,Language {
                 color: clr.appPrimaryColorBlack,
                 fontWeight: FontWeight.w600,
                 fontSize: size.textSmall,
-                fontFamily:
-                StringData.fontFamilyPoppins,
+                fontFamily: StringData.fontFamilyPoppins,
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: size.w8),
+            padding: EdgeInsets.symmetric(horizontal: size.w8),
             child: Text(
               ":",
               style: TextStyle(
                 color: clr.appPrimaryColorBlack,
                 fontWeight: FontWeight.w500,
                 fontSize: size.textSmall,
-                fontFamily:
-                StringData.fontFamilyPoppins,
+                fontFamily: StringData.fontFamilyPoppins,
               ),
             ),
           ),
-          Expanded(
-            flex: 60,
-            child: secondItem
-          ),
+          Expanded(flex: 60, child: secondItem),
         ],
       ),
     );

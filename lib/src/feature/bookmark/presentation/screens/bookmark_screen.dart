@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/feature/book/domain/entities/tag_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -89,6 +90,7 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                                 category: [])),
                         onSelect: (e) {},
                         onBookmarkSelect: (e) {},
+                        onTapTag: (e) {},
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -105,6 +107,7 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                         item: item,
                         onSelect: onBookContentSelected,
                         onBookmarkSelect: onBookmarkContentSelected,
+                        onTapTag: (e) {},
                       );
                     },
                   );
@@ -166,6 +169,14 @@ class _BookmarkScreenState extends State<BookmarkScreen>
   @override
   void navigateToNotificationScreen() {
     Navigator.of(context).pushNamed(AppRoute.notificationScreen);
+  }
+
+  @override
+  void navigateToTagBookScreen(TagDataEntity data) {
+    Navigator.of(context).pushNamed(
+      AppRoute.tagBookScreen,
+      arguments: TagBookScreenArgs(tagDataEntity: data),
+    );
   }
 }
 
@@ -338,12 +349,13 @@ class BookmarkItemWidget extends StatefulWidget {
   final BookmarkDataEntity item;
   final void Function(BookmarkDataEntity item) onSelect;
   final void Function(BookmarkDataEntity item)? onBookmarkSelect;
-
+  final void Function(TagDataEntity item)? onTapTag;
   const BookmarkItemWidget(
       {super.key,
       required this.item,
       required this.onSelect,
-      this.onBookmarkSelect});
+      this.onBookmarkSelect,
+      required this.onTapTag});
 
   @override
   State<BookmarkItemWidget> createState() => _BookmarkItemWidgetState();
@@ -446,7 +458,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                       SizedBox(height: size.h8),
                       Text(
                         widget.item.book != null
-                            ? widget.item.book!.author
+                            ? widget.item.book!.author!
                                 .map((c) => c.name)
                                 .toList()
                                 .join(', ')
@@ -462,7 +474,12 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                       ),
                       SizedBox(height: size.h8),
                       Text(
-                        "Book Type",
+                        widget.item.book != null
+                            ? widget.item.book!.category!
+                                .map((c) => label(e: c.nameEn, b: c.nameBn))
+                                .toList()
+                                .join(', ')
+                            : "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -480,10 +497,35 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                             height: size.h20,
                           ),
                           SizedBox(width: size.w8),
+                          /*Expanded(
+                              child: Wrap(
+                            children: widget.item.book!.tag!
+                                .map((c) => GestureDetector(
+                                      onTap: () => widget.onTapTag!(c),
+                                      child: Container(
+                                        color: clr.whiteColor,
+                                        padding:
+                                            EdgeInsets.only(bottom: size.h4),
+                                        child: Text(
+                                          label(e: c.nameEn, b: c.nameBn),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            color: clr.textColorGray,
+                                            fontSize: size.textXSmall,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily:
+                                                StringData.fontFamilyPoppins,
+                                          ),
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                          )),*/
                           Expanded(
                             child: Text(
                               widget.item.book != null
-                                  ? widget.item.book!.category
+                                  ? widget.item.book!.tag!
                                       .map((c) =>
                                           label(e: c.nameEn, b: c.nameBn))
                                       .toList()

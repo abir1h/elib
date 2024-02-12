@@ -10,4 +10,9 @@ class AuthorUseCase {
     final response = _authorRepository.getAuthors();
     return response;
   }
+
+  Future<ResponseEntity> getBookByAuthorsUseCase(int authorId) async {
+    final response = _authorRepository.getBookByAuthors(authorId);
+    return response;
+  }
 }

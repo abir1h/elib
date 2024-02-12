@@ -13,9 +13,9 @@ class ApiCredential {
   static String getCategoryWithBook = "/category-book";
   static String getBooks = "/books";
   static String getBookDetails = "/book-details";
-  static String bookmarkBook = "/boorkmark-book";
+  static String bookmarkBook = "/bookmark-book";
   static String popularBooks = "/category-popular?page=";
-  static String getBookmarkBooks = "/all-boorkmark";
+  static String getBookmarkBooks = "/all-bookmark";
   static String bookCountUser = "/book-count-user";
   static String downloadCountUser = "/book-download-count";
   static String globalSearch = "/global-search?search=";
@@ -31,5 +31,6 @@ class ApiCredential {
   static String bookRequest = "/book-requests";
   static String bookViewDownloadReport = "/book-view-download-report";
   static String getAuthors = "/authors";
-
+  static String getBookByAuthors = "/authors/books";
+  static String getBookByTags = "/tags/books";
 }

@@ -19,4 +19,5 @@ abstract class BookRepository {
       BookRequestDataEntity bookRequestDataEntity);
   Future<ResponseEntity> deleteBookRequest(int bookRequestId);
   Future<ResponseEntity> getBookRequestDetails(int bookRequestId);
+  Future<ResponseEntity> getBooksByTags(int tagId);
 }

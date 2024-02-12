@@ -6,12 +6,14 @@ import '../../../bookmark/domain/entities/bookmark_data_entity.dart';
 import '../../data/data_sources/remote/bookmark_data_source.dart';
 import '../../data/repositories/bookmark_repository_imp.dart';
 import '../../domain/use_cases/book_mark_use_case.dart';
+import '../../../book/domain/entities/tag_data_entity.dart';
 
 abstract class _ViewModel {
   void showSuccess(String message);
   void showWarning(String message);
   void navigateToNotificationScreen();
   void navigateToBookDetailsScreen(BookmarkDataEntity data);
+  void navigateToTagBookScreen(TagDataEntity data);
 
 /*  void showWarning(String message);
   void navigateToCategoryDetailsScreen(
@@ -101,5 +103,9 @@ mixin BookmarkScreenService<T extends StatefulWidget> on State<T>
 
   void onTapNotification() {
     _view.navigateToNotificationScreen();
+  }
+
+  void onTapTag(TagDataEntity data) {
+    _view.navigateToTagBookScreen(data);
   }
 }

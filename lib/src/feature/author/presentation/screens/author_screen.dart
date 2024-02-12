@@ -9,6 +9,8 @@ import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
+import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../domain/entities/author_data_entity.dart';
 import '../services/author_service.dart';
 
@@ -73,7 +75,7 @@ class _AuthorScreenState extends State<AuthorScreen>
                   buildItem: (BuildContext context, int index, item) {
                     return AuthorItemWidget(
                       authorDataEntity: item,
-                      onTap: () {},
+                      onTap: () => onTapAuthor(item),
                     );
                   });
             },
@@ -87,8 +89,9 @@ class _AuthorScreenState extends State<AuthorScreen>
   }
 
   @override
-  void navigateToAuthorDetailsScreen() {
-    // TODO: implement navigateToAuthorDetailsScreen
+  void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity) {
+    Navigator.of(context).pushNamed(AppRoute.authorBooksScreen,
+        arguments: AuthorBookScreenArgs(authorDataEntity: authorDataEntity));
   }
 
   @override

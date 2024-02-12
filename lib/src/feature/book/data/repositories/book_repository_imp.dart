@@ -152,4 +152,17 @@ class BookRepositoryImp extends BookRepository {
         .toEntityFromModel(responseModel,
             (BookRequestDataModel model) => model.toBookRequestDataEntity);
   }
+
+  @override
+  Future<ResponseEntity> getBooksByTags(int tagId) async {
+    ResponseModel responseModel =
+        (await bookRemoteDataSource.getBooksByTagsAction(tagId));
+    return ResponseModelToEntityMapper<List<BookDataEntity>,
+            List<BookDataModel>>()
+        .toEntityFromModel(
+            responseModel,
+            (List<BookDataModel> models) => List<BookDataModel>.from(models)
+                .map((e) => e.toBookDataEntity)
+                .toList());
+  }
 }

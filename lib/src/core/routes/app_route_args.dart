@@ -1,3 +1,5 @@
+import '../../feature/book/domain/entities/tag_data_entity.dart';
+import '../../feature/author/domain/entities/author_data_entity.dart';
 import '../../feature/note/domain/entities/note_data_entity.dart';
 import '../../feature/book/domain/entities/book_data_entity.dart';
 
@@ -55,4 +57,14 @@ class BookReportListScreenArgs {
 class NoteDetailsScreenArgs {
   final NoteDataEntity noteDataEntity;
   NoteDetailsScreenArgs({required this.noteDataEntity});
+}
+
+class AuthorBookScreenArgs {
+  final AuthorDataEntity authorDataEntity;
+  AuthorBookScreenArgs({required this.authorDataEntity});
+}
+
+class TagBookScreenArgs {
+  final TagDataEntity tagDataEntity;
+  TagBookScreenArgs({required this.tagDataEntity});
 }

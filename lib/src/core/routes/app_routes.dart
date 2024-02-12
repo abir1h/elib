@@ -2,11 +2,12 @@ import 'package:elibrary/src/feature/report/presentation/screens/book_report_lis
 import 'package:flutter/material.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
-import '../../feature/author/presentation/screens/author_details_screen.dart';
+import '../../feature/author/presentation/screens/author_books_screen.dart';
 import '../../feature/author/presentation/screens/author_screen.dart';
 import '../../feature/book/presentation/screens/book_details_screen.dart';
 import '../../feature/book/presentation/screens/book_request_list_screen.dart';
 import '../../feature/book/presentation/screens/book_view_screen.dart';
+import '../../feature/book/presentation/screens/tag_book_screen.dart';
 import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
@@ -39,8 +40,9 @@ class AppRoute {
   static const String noteDetailsScreenBeta = 'noteDetailsScreenBeta';
   static const String bookRequestListScreen = 'bookRequestListScreen';
   static const String authorScreen = 'authorScreen';
-  static const String authorDetailsScreen = 'authorDetailsScreen';
+  static const String authorBooksScreen = 'authorBooksScreen';
   static const String notificationScreen = 'notificationScreen';
+  static const String tagBookScreen = 'tagBookScreen';
 }
 
 mixin RouteGenerator {
@@ -98,8 +100,12 @@ mixin RouteGenerator {
         ///Author
         case AppRoute.authorScreen:
           return const AuthorScreen();
-        case AppRoute.authorDetailsScreen:
-          return const AuthorDetailsScreen();
+        case AppRoute.authorBooksScreen:
+          return AuthorBooksScreen(arguments: setting.arguments);
+
+        ///Books By Tag
+        case AppRoute.tagBookScreen:
+          return TagBookScreen(arguments: setting.arguments);
 
         ///Notification
         case AppRoute.notificationScreen:

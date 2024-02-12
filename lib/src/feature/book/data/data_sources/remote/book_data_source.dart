@@ -27,6 +27,7 @@ abstract class BookRemoteDataSource {
       BookRequestDataModel bookRequestDataModel);
   Future<ResponseModel> deleteBookRequestAction(int bookRequestId);
   Future<ResponseModel> getBookRequestDetailsAction(int bookRequestId);
+  Future<ResponseModel> getBooksByTagsAction(int tagId);
 }
 
 class BookRemoteDataSourceImp extends BookRemoteDataSource {
@@ -166,6 +167,15 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
         .getRequest(url: "${ApiCredential.bookRequest}/$bookRequestId");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => BookRequestDataModel.fromJson(json));
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> getBooksByTagsAction(int tagId) async {
+    final responseJson = await Server.instance
+        .getRequest(url: "${ApiCredential.getBookByTags}/$tagId");
+    ResponseModel responseModel = ResponseModel.fromJson(
+        responseJson, (dynamic json) => BookDataModel.listFromJson(json));
     return responseModel;
   }
 }

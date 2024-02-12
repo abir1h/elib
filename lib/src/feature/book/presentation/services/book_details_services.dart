@@ -21,12 +21,14 @@ import '../../../book/data/data_sources/remote/book_data_source.dart';
 import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../../domain/entities/tag_data_entity.dart';
 import 'book_view_screen_service.dart';
 
 abstract class _ViewModel {
   void showSuccess(String message);
   void showWarning(String message);
   void navigateToBookViewerScreen(BookDataEntity bookData);
+  void navigateToTagBooksScreen(TagDataEntity tagDataEntity);
 }
 
 mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
@@ -127,6 +129,10 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
 
   void onNavigateToBookViewerScreen(BookDataEntity item) {
     _view.navigateToBookViewerScreen(item);
+  }
+
+  void onTapTag(TagDataEntity tagDataEntity) {
+    _view.navigateToTagBooksScreen(tagDataEntity);
   }
 
   void downloadBook(BookDataEntity item) {}

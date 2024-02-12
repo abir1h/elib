@@ -328,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen>
                                           updatedAt: "",
                                           deletedAt: "",
                                         ),
-                                        onTap: onTapAuthor,
+                                        onTap: () {},
                                       ),
                                     );
                                   },
@@ -345,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen>
                             buildItem: (context, index, item) {
                               return AuthorItemWidget(
                                 authorDataEntity: item,
-                                onTap: () {},
+                                onTap: () => onTapAuthor(item),
                               );
                             },
                             onTapSeeAll: onTapAuthorSeeAll,
@@ -442,13 +442,14 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   @override
-  void navigateToAuthorScreen() {
+  void navigateToAllAuthorScreen() {
     Navigator.of(context).pushNamed(AppRoute.authorScreen);
   }
 
   @override
-  void navigateToAuthorDetailsScreen() {
-    Navigator.of(context).pushNamed(AppRoute.authorDetailsScreen);
+  void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity) {
+    Navigator.of(context).pushNamed(AppRoute.authorBooksScreen,
+        arguments: AuthorBookScreenArgs(authorDataEntity: authorDataEntity));
   }
 
   @override

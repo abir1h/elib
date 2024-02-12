@@ -65,4 +65,9 @@ class BookUseCase {
     final response = _bookRepository.getBookRequestDetails(bookRequestId);
     return response;
   }
+
+  Future<ResponseEntity> getBooksByTagsUseCase(int tagId) async {
+    final response = _bookRepository.getBooksByTags(tagId);
+    return response;
+  }
 }

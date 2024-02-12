@@ -22,8 +22,8 @@ abstract class _ViewModel {
   void showSuccess(String message);
   void navigateToNotificationScreen();
   void navigateToBookDetailsScreen(BookDataEntity data);
-  void navigateToAuthorScreen();
-  void navigateToAuthorDetailsScreen();
+  void navigateToAllAuthorScreen();
+  void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity);
 
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
@@ -179,11 +179,11 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   }
 
   void onTapAuthorSeeAll() {
-    _view.navigateToAuthorScreen();
+    _view.navigateToAllAuthorScreen();
   }
 
-  void onTapAuthor() {
-    _view.navigateToAuthorDetailsScreen();
+  void onTapAuthor(AuthorDataEntity authorDataEntity) {
+    _view.navigateToAuthorBooksScreen(authorDataEntity);
   }
 
   void onTapNotification() {

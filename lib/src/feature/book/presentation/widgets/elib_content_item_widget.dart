@@ -128,7 +128,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   TextSpan(
-                      text: widget.item.author.isNotEmpty ? "লেখক " : "",
+                      text: widget.item.author!.isNotEmpty ? "লেখক " : "",
                       style: TextStyle(
                           color: clr.textColorGray,
                           fontSize: size.textXXXSmall,
@@ -136,7 +136,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
                           fontFamily: StringData.fontFamilyPoppins),
                       children: [
                         TextSpan(
-                          text: widget.item.author
+                          text: widget.item.author!
                               .map((c) => c.name)
                               .toList()
                               .join(', '),

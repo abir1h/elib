@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../author/data/models/author_data_model.dart';
 import '../../../category/data/models/category_data_model.dart';
+import 'tag_data_model.dart';
 
 @immutable
 class BookDataModel {
@@ -33,6 +34,7 @@ class BookDataModel {
   final String deletedAt;
   final List<AuthorDataModel> author;
   final List<CategoryDataModel> category;
+  final List<TagDataModel> tag;
 
   const BookDataModel({
     required this.id,
@@ -63,43 +65,49 @@ class BookDataModel {
     required this.deletedAt,
     required this.author,
     required this.category,
+    required this.tag,
   });
 
   factory BookDataModel.fromJson(Map<String, dynamic> json) => BookDataModel(
-      id: json["id"] ?? -1,
-      titleEn: json["title_en"] ?? "",
-      titleBn: json["title_bn"] ?? "",
-      languageEn: json["language_en"] ?? "",
-      languageBn: json["language_bn"] ?? "",
-      editionEn: json["edition_en"] ?? "",
-      editionBn: json["edition_bn"] ?? "",
-      publishYearEn: json["publish_year_en"] ?? "",
-      publishYearBn: json["publish_year_bn"] ?? "",
-      publisherEn: json["publisher_en"] ?? "",
-      publisherBn: json["publisher_bn"] ?? "",
-      isbnEn: json["isbn_en"] ?? "",
-      isbnBn: json["isbn_bn"] ?? "",
-      slug: json["slug"] ?? "",
-      descriptionEn: json["description_en"] ?? "",
-      descriptionBn: json["description_bn"] ?? "",
-      coverImage: json["cover_image"] ?? "",
-      bookFile: json["book_file"] ?? "",
-      externalLink: json["external_link"] ?? "",
-      createdBy: json["created_by"] ?? -1,
-      isDownload: json["is_download"] ?? -1,
-      status: json["status"] ?? -1,
-      bookmark: json["book_mark"] ?? false,
-      createdAt: json["created_at"] ?? "",
-      updatedAt: json["updated_at"] ?? "",
-      deletedAt: json["deleted_at"] ?? "",
-      author: json["author"] != null
-          ? List<AuthorDataModel>.from(
-              (json["author"]).map((x) => AuthorDataModel.fromJson(x)))
-          : [],
-      category: json['category'] != null
-          ? List<CategoryDataModel>.from(
-              (json["category"]).map((x) => CategoryDataModel.fromJson(x)))
-          : []);
+        id: json["id"] ?? -1,
+        titleEn: json["title_en"] ?? "",
+        titleBn: json["title_bn"] ?? "",
+        languageEn: json["language_en"] ?? "",
+        languageBn: json["language_bn"] ?? "",
+        editionEn: json["edition_en"] ?? "",
+        editionBn: json["edition_bn"] ?? "",
+        publishYearEn: json["publish_year_en"] ?? "",
+        publishYearBn: json["publish_year_bn"] ?? "",
+        publisherEn: json["publisher_en"] ?? "",
+        publisherBn: json["publisher_bn"] ?? "",
+        isbnEn: json["isbn_en"] ?? "",
+        isbnBn: json["isbn_bn"] ?? "",
+        slug: json["slug"] ?? "",
+        descriptionEn: json["description_en"] ?? "",
+        descriptionBn: json["description_bn"] ?? "",
+        coverImage: json["cover_image"] ?? "",
+        bookFile: json["book_file"] ?? "",
+        externalLink: json["external_link"] ?? "",
+        createdBy: json["created_by"] ?? -1,
+        isDownload: json["is_download"] ?? -1,
+        status: json["status"] ?? -1,
+        bookmark: json["book_mark"] ?? false,
+        createdAt: json["created_at"] ?? "",
+        updatedAt: json["updated_at"] ?? "",
+        deletedAt: json["deleted_at"] ?? "",
+        author: json["author"] != null
+            ? List<AuthorDataModel>.from(
+                (json["author"]).map((x) => AuthorDataModel.fromJson(x)))
+            : [],
+        category: json['category'] != null
+            ? List<CategoryDataModel>.from(
+                (json["category"]).map((x) => CategoryDataModel.fromJson(x)))
+            : [],
+        tag: json['tag'] != null
+            ? List<TagDataModel>.from(
+                (json["tag"]).map((x) => TagDataModel.fromJson(x)))
+            : [],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -130,6 +138,7 @@ class BookDataModel {
         "deleted_at": deletedAt,
         "author": List<dynamic>.from(author.map((x) => x.toJson())),
         "category": List<dynamic>.from(category.map((x) => x.toJson())),
+        "tag": List<dynamic>.from(tag.map((x) => x.toJson())),
       };
   static List<BookDataModel> listFromJson(List<dynamic> json) {
     return json.isNotEmpty

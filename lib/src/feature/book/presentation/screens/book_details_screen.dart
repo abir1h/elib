@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elibrary/src/core/constants/language.dart';
-import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,6 +8,7 @@ import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../domain/entities/book_data_entity.dart';
+import '../../domain/entities/tag_data_entity.dart';
 import '../services/book_details_services.dart';
 import '../../../../core/common_widgets/custom_button.dart';
 import '../../../../core/constants/common_imports.dart';
@@ -17,6 +16,8 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../widgets/book_info_item_widget.dart';
 import '../widgets/tag_widget.dart';
+import '../../../../core/constants/language.dart';
+import '../../../../core/utility/app_label.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   final Object? arguments;
@@ -376,24 +377,24 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                   SizedBox(
                                     height: size.h8,
                                   ),
-                                  if (data.author.isNotEmpty)
+                                  if (data.author!.isNotEmpty)
                                     BookInfoItemWidget(
                                         firstItem:
                                             label(e: en.author, b: bn.author),
-                                        secondItem: data.author
+                                        secondItem: data.author!
                                             .map((c) => c.name)
                                             .toList()
                                             .join(', ')),
-                                  if (data.category.isNotEmpty)
+                                  if (data.category!.isNotEmpty)
                                     BookInfoItemWidget(
                                         firstItem:
                                             label(e: en.type, b: bn.type),
-                                        secondItem: data.category
+                                        secondItem: data.category!
                                             .map((c) => c.name)
                                             .toList()
                                             .join(', ')),
                                   AnimatedSwitcher(
-                                    duration: Duration(
+                                    duration: const Duration(
                                         milliseconds:
                                             300), // Adjust the duration as needed
                                     switchInCurve: Curves
@@ -402,48 +403,57 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         .easeInOut, // Animation curve for disappearing
                                     child: isExpanded
                                         ? Column(
-                                            key: Key(
+                                            key: const Key(
                                                 'expanded'), // Key to differentiate between different children of AnimatedSwitcher
                                             children: [
-                                              if (data.category.isNotEmpty)
+                                              if (data.category!.isNotEmpty)
                                                 TagWidget(
                                                   firstItem: label(
                                                       e: en.tag, b: bn.tag),
                                                   secondItem: Wrap(
-                                                    children: data.category
-                                                        .map((c) => Container(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      bottom: size
-                                                                          .h4),
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                border: Border(
-                                                                  bottom:
-                                                                      BorderSide(
-                                                                    color: clr
-                                                                        .appSecondaryColorPurple,
-                                                                    width: 2.w,
+                                                    children: data.tag!
+                                                        .map(
+                                                            (c) =>
+                                                                GestureDetector(
+                                                                  onTap: () =>
+                                                                      onTapTag(
+                                                                          c),
+                                                                  child:
+                                                                      Container(
+                                                                    padding: EdgeInsets.only(
+                                                                        bottom:
+                                                                            size.h4),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border:
+                                                                          Border(
+                                                                        bottom:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              clr.appSecondaryColorPurple,
+                                                                          width:
+                                                                              2.w,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    child: Text(
+                                                                      label(
+                                                                          e: c.nameEn,
+                                                                          b: c.nameBn),
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: clr
+                                                                            .appPrimaryColorBlack,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontSize:
+                                                                            size.textSmall,
+                                                                        fontFamily:
+                                                                            StringData.fontFamilyPoppins,
+                                                                      ),
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ),
-                                                              child: Text(
-                                                                c.name,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: clr
-                                                                      .appPrimaryColorBlack,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize: size
-                                                                      .textSmall,
-                                                                  fontFamily:
-                                                                      StringData
-                                                                          .fontFamilyPoppins,
-                                                                ),
-                                                              ),
-                                                            ))
+                                                                ))
                                                         .toList(),
                                                   ),
                                                 ),
@@ -647,5 +657,13 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   @override
   void showSuccess(String message) {
     CustomToasty.of(context).showSuccess(message);
+  }
+
+  @override
+  void navigateToTagBooksScreen(TagDataEntity tagDataEntity) {
+    Navigator.of(context).pushNamed(
+      AppRoute.tagBookScreen,
+      arguments: TagBookScreenArgs(tagDataEntity: tagDataEntity),
+    );
   }
 }

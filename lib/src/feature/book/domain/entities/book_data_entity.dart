@@ -1,3 +1,4 @@
+import 'tag_data_entity.dart';
 import '../../../category/domain/entities/category_data_entity.dart';
 import '../../../author/domain/entities/author_data_entity.dart';
 
@@ -24,14 +25,15 @@ class BookDataEntity {
   final int createdBy;
   final int isDownload;
   final int status;
-   bool bookMark;
+  bool bookMark;
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  final List<AuthorDataEntity> author;
-  final List<CategoryDataEntity> category;
+  final List<AuthorDataEntity>? author;
+  final List<CategoryDataEntity>? category;
+  final List<TagDataEntity>? tag;
 
-   BookDataEntity({
+  BookDataEntity({
     required this.id,
     required this.titleEn,
     required this.titleBn,
@@ -58,7 +60,8 @@ class BookDataEntity {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
-    required this.author,
-    required this.category,
+    this.author,
+    this.category,
+    this.tag,
   });
 }

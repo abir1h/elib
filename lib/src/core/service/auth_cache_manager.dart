@@ -21,7 +21,7 @@ class AuthCacheManager {
     LocalStorageService localStorageService =
         await LocalStorageService.getInstance();
     String token =
-        localStorageService.getStringValue(StringData.accessTokenKey) ?? "";
+        localStorageService.getStringValue(StringData.accessTokenKey) ?? "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoie1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJlbXBpZFwiOlwiMTAxMzUzNzY0XCJ9IiwiaXNzIjoiaHR0cDovLzEwMy4yMDkuNDAuODk6ODEvIiwiYXVkIjoiaHR0cDovLzEwMy4yMDkuNDAuODk6ODEvIiwiaWF0IjoxNzA3NzE2NTk5LCJuYmYiOjE3MDc3MTY1OTksImV4cCI6MTcwNzcyNzM5OX0.3pFP19DiuxvGVRnMNj2hjO6q7fKFzcM1MBEtykNSCzQ";
     return token;
   }
 
