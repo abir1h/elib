@@ -1,4 +1,4 @@
-import '../../models/book_view_download_data_model.dart';
+import '../../models/book_report_data_model.dart';
 import '../../../../../core/constants/common_imports.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../shared/data/models/response_model.dart';
@@ -15,7 +15,7 @@ class ReportRemoteDataSourceImp extends ReportRemoteDataSource {
     final responseJson = await Server.instance.getRequest(
         url: "${ApiCredential.bookViewDownloadReport}?startDate=$startDate&endDate=$endDate");
     ResponseModel responseModel = ResponseModel.fromJson(responseJson,
-        (dynamic json) => BookViewDownloadDataModel.listFromJson(json));
+        (dynamic json) => BookReportDataModel.listFromJson(json));
     return responseModel;
   }
 }

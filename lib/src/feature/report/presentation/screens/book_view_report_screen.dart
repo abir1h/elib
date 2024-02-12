@@ -10,7 +10,7 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../domain/entities/book_view_download_data_entity.dart';
+import '../../domain/entities/book_report_data_entity.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_action_button.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
@@ -275,7 +275,7 @@ class _BookVIewDownloadScreenState extends State<BookVIewDownloadScreen>
 }
 
 class BookCard extends StatelessWidget with AppTheme, Language {
-  final BookViewDownloadDataEntity item;
+  final BookReportDataEntity item;
 
   BookCard({super.key, required this.item});
 

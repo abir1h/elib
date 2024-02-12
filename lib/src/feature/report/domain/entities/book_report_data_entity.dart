@@ -1,6 +1,6 @@
 import '../../../book/domain/entities/book_data_entity.dart';
 
-class BookViewDownloadDataEntity {
+class BookReportDataEntity {
   final int id;
   final int bookId;
   final int userId;
@@ -10,7 +10,7 @@ class BookViewDownloadDataEntity {
   final int bookDownload;
   final BookDataEntity? book;
 
-  BookViewDownloadDataEntity({
+  BookReportDataEntity({
     required this.id,
     required this.bookId,
     required this.userId,

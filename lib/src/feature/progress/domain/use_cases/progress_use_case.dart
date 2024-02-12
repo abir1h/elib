@@ -10,4 +10,9 @@ class ProgressUseCase {
     final response = _progressRepository.getProgressCounts();
     return response;
   }
+  Future<ResponseEntity> getUserReadBooksUseCase() async {
+    final response = _progressRepository.getUserReadBooks();
+    return response;
+  }
+
 }

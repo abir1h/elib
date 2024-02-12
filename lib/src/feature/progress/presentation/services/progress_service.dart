@@ -12,4 +12,8 @@ mixin class ProgressService {
   Future<ResponseEntity> getProgressCounts() async {
     return _progressUseCase.getProgressCountsUseCase();
   }
+
+  Future<ResponseEntity> getUserReadBooks() async {
+    return _progressUseCase.getUserReadBooksUseCase();
+  }
 }

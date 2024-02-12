@@ -1,4 +1,4 @@
-import 'package:elibrary/src/feature/report/domain/entities/book_view_download_data_entity.dart';
+import 'package:elibrary/src/feature/report/domain/entities/book_report_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -91,7 +91,7 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
   }
 
   ///Stream controllers
-  final AppStreamController<List<BookViewDownloadDataEntity>>
+  final AppStreamController<List<BookReportDataEntity>>
       reportDataStreamController = AppStreamController();
   final AppStreamController<bool> actionButtonDataStreamController =
       AppStreamController();
@@ -103,7 +103,7 @@ mixin BookViewReportScreenService<T extends StatefulWidget> on State<T>
     if (responseEntity.error == null && responseEntity.data != null) {
       if (responseEntity.data.isNotEmpty) {
         reportDataStreamController.add(
-            DataLoadedState<List<BookViewDownloadDataEntity>>(
+            DataLoadedState<List<BookReportDataEntity>>(
                 responseEntity.data));
       } else {
         reportDataStreamController.add(EmptyState(message: 'No Book Found'));

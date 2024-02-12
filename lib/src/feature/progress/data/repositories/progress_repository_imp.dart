@@ -1,3 +1,6 @@
+import '../../../report/data/mapper/book_report_data_mapper.dart';
+import '../../../report/data/models/book_report_data_model.dart';
+import '../../../report/domain/entities/book_report_data_entity.dart';
 import '../mapper/progress_data_mapper.dart';
 import '../models/progress_data_model.dart';
 import '../../domain/entities/progress_data_entity.dart';
@@ -18,5 +21,19 @@ class ProgressRepositoryImp extends ProgressRepository {
     return ResponseModelToEntityMapper<ProgressDataEntity, ProgressDataModel>()
         .toEntityFromModel(responseModel,
             (ProgressDataModel model) => model.toProgressDataEntity);
+  }
+
+  @override
+  Future<ResponseEntity> getUserReadBooks() async {
+    ResponseModel responseModel =
+        (await progressRemoteDataSource.getUserReadBooksAction());
+    return ResponseModelToEntityMapper<List<BookReportDataEntity>,
+            List<BookReportDataModel>>()
+        .toEntityFromModel(
+            responseModel,
+            (List<BookReportDataModel> models) =>
+                List<BookReportDataModel>.from(models)
+                    .map((e) => e.toBookReportDataEntity)
+                    .toList());
   }
 }
