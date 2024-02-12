@@ -45,8 +45,8 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     return _bookUseCase.getPopularBooksUseCase(pageNumber);
   }
 
-  Future<ResponseEntity> globalSearch(String searchQuery) async {
-    return _bookUseCase.globalSearchUseCase(searchQuery);
+  Future<ResponseEntity> globalSearch(String searchQuery, String type) async {
+    return _bookUseCase.globalSearchUseCase(searchQuery, type);
   }
 
   final BookmarkUseCase _bookmarkUseCase = BookmarkUseCase(
@@ -137,7 +137,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     if (value.isNotEmpty) {
       resultsForStreamController
           .add(DataLoadedState(ResultsForViewModel.search(value)));
-      globalSearch(value).then((value) {
+      globalSearch(value, "all").then((value) {
         if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
           _bookData = value.data!.bookDataEntity;
           bookDataStreamController

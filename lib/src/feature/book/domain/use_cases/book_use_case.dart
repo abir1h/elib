@@ -32,8 +32,8 @@ class BookUseCase {
     return response;
   }
 
-  Future<ResponseEntity> globalSearchUseCase(String searchQuery) async {
-    final response = _bookRepository.globalSearch(searchQuery);
+  Future<ResponseEntity> globalSearchUseCase(String searchQuery, String type) async {
+    final response = _bookRepository.globalSearch(searchQuery, type);
     return response;
   }
 

@@ -80,9 +80,9 @@ class BookRepositoryImp extends BookRepository {
   }
 
   @override
-  Future<ResponseEntity> globalSearch(String searchQuery) async {
+  Future<ResponseEntity> globalSearch(String searchQuery, String type) async {
     ResponseModel responseModel =
-        (await bookRemoteDataSource.globalSearchAction(searchQuery));
+        (await bookRemoteDataSource.globalSearchAction(searchQuery, type));
     return ResponseModelToEntityMapper<PaginatedBookDataEntity,
             PaginatedBookDataModel>()
         .toEntityFromModel(responseModel,

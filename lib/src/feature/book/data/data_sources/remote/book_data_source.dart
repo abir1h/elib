@@ -18,7 +18,7 @@ abstract class BookRemoteDataSource {
   Future<ResponseModel> getBookmarkBooksAction();
   Future<ResponseModel> userBookViewCountAction(int bookId);
   Future<ResponseModel> userBookDownloadCountAction(int bookId);
-  Future<ResponseModel> globalSearchAction(String searchQuery);
+  Future<ResponseModel> globalSearchAction(String searchQuery, String type);
   Future<ResponseModel> getBookRequestsAction(bool enablePagination,
       {int? pageNumber});
   Future<ResponseModel> createBookRequestAction(
@@ -104,9 +104,9 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> globalSearchAction(String searchQuery) async {
+  Future<ResponseModel> globalSearchAction(String searchQuery, String type) async {
     final responseJson = await Server.instance
-        .getRequest(url: ApiCredential.globalSearch + searchQuery);
+        .getRequest(url: "${ApiCredential.globalSearch}$searchQuery&type=$type");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
     return responseModel;
