@@ -1,4 +1,3 @@
-import 'package:elibrary/src/feature/profile/presentation/widgets/progress_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,6 +16,7 @@ import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../domain/entities/profile_data_entity.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../widgets/tab_section_widget.dart';
+import '../widgets/progress_info_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

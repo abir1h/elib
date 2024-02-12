@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
-import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
@@ -14,36 +14,22 @@ import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../book/presentation/widgets/elib_content_item_widget.dart';
 import '../../../category/presentation/screens/category_details_screen.dart';
-import '../services/author_books_screen_service.dart';
-import 'author_screen.dart';
+import '../services/read_book_screen_service.dart';
+import '../../../report/domain/entities/book_report_data_entity.dart';
 
-class AuthorBooksScreen extends StatefulWidget {
-  final Object? arguments;
-  const AuthorBooksScreen({super.key, this.arguments});
+class ReadBooksScreen extends StatefulWidget {
+  const ReadBooksScreen({super.key});
 
   @override
-  State<AuthorBooksScreen> createState() => _AuthorBooksScreenState();
+  State<ReadBooksScreen> createState() => _ReadBooksScreenState();
 }
 
-class _AuthorBooksScreenState extends State<AuthorBooksScreen>
-    with AppTheme, Language, AuthorBooksScreenService {
-  late AuthorBookScreenArgs _screenArgs;
-
-  @override
-  void initState() {
-    _screenArgs = widget.arguments as AuthorBookScreenArgs;
-    super.initState();
-
-    ///Initially load course details
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      loadAuthorBooksData(_screenArgs.authorDataEntity.id);
-    });
-  }
-
+class _ReadBooksScreenState extends State<ReadBooksScreen>
+    with AppTheme, Language, ReadBooksScreenService {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        title: _screenArgs.authorDataEntity.name,
+        title: "পঠিত বইসমূহ",
         child: LayoutBuilder(
             builder: (context, constraints) => Padding(
                   padding: EdgeInsets.symmetric(
@@ -52,12 +38,12 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AuthorItemWidget(
+                        /*AuthorItemWidget(
                           authorDataEntity: _screenArgs.authorDataEntity,
                           onTap: () {},
-                        ),
-                        AppStreamBuilder<List<BookDataEntity>>(
-                          stream: authorBooksDataStreamController.stream,
+                        ),*/
+                        AppStreamBuilder<List<BookReportDataEntity>>(
+                          stream: readBookDataStreamController.stream,
                           loadingBuilder: (context) {
                             return ShimmerLoader(
                                 child: BookSectionWidget(
@@ -107,14 +93,18 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                               items: data,
                               buildItem:
                                   (BuildContext context, int index, item) {
-                                return ELibContentItemWidget(
-                                  showBookmark: true,
-                                  key: Key(data[index].id.toString()),
-                                  item: data[index],
-                                  onSelect: onBookContentSelected,
-                                  onBookmarkSelect: onBookmarkSelected,
-                                  boxShadow: true,
-                                );
+                                if (data[index].book != null) {
+                                  return ELibContentItemWidget(
+                                    showBookmark: true,
+                                    key: Key(data[index].book!.id.toString()),
+                                    item: item.book!,
+                                    onSelect: onBookContentSelected,
+                                    onBookmarkSelect: onBookmarkSelected,
+                                    boxShadow: true,
+                                  );
+                                } else {
+                                  return Container();
+                                }
                               },
                             );
                           },

@@ -1,21 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:math' as math;
 
-import '../../../../core/constants/app_theme.dart';
+import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/circuler_widget.dart';
+import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../../core/common_widgets/empty_widget.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../../../progress/domain/entities/progress_data_entity.dart';
+import '../service/progress_info_service.dart';
 
-class ProgressInfoWidget extends StatelessWidget with AppTheme, Language {
+class ProgressInfoWidget extends StatefulWidget {
   const ProgressInfoWidget({super.key});
 
   @override
+  State<ProgressInfoWidget> createState() => _ProgressInfoWidgetState();
+}
+
+class _ProgressInfoWidgetState extends State<ProgressInfoWidget>
+    with AppTheme, Language, ProgressInfoService {
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: size.h24),
-          Container(
+    return AppStreamBuilder<ProgressDataEntity>(
+      stream: progressDataStreamController.stream,
+      loadingBuilder: (context) {
+        return const Center(child: CircularLoader());
+      },
+      dataBuilder: (context, data) {
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: size.h24),
+              /*Container(
             height: 100,
             decoration: BoxDecoration(
               // gradient: LinearGradient(
@@ -50,8 +70,116 @@ class ProgressInfoWidget extends StatelessWidget with AppTheme, Language {
                 )
               ],
             ),
+          ),*/
+              ProgressCardWidget(
+                title: "অগ্রগতির রিপোর্ট",
+                subTitle: "সর্বাধিক পঠিত বই এবং জনপ্রিয় বই গুলো দেখুন",
+                subTitleTextSize: size.textXXSmall,
+                onTap: onTapBookReport,
+              ),
+              SizedBox(height: size.h28),
+              ProgressCardWidget(
+                title: "অনুরোধকৃত বইয়ের তালিকা",
+                subTitle: data.bookRequests.toString(),
+                onTap: onTapRequestedBook,
+              ),
+              SizedBox(height: size.h28),
+              ProgressCardWidget(
+                title: "পঠিত বইয়ের তালিকা",
+                subTitle: data.bookViews.toString(),
+                onTap: onTapReadBook,
+              ),
+              SizedBox(height: size.h64),
+            ],
           ),
-        ],
+        );
+      },
+      emptyBuilder: (context, message, icon) => EmptyWidget(
+        message: message,
+        offset: 350.w,
+      ),
+    );
+  }
+
+  @override
+  void showWarning(String message) {
+    CustomToasty.of(context).showWarning(message);
+  }
+
+  @override
+  void navigateToBookReportScreen() {
+    Navigator.of(context).pushNamed(AppRoute.bookViewDownloadCountScreen);
+  }
+
+  @override
+  void navigateToRequestedBookScreen() {
+    Navigator.of(context).pushNamed(AppRoute.bookRequestListScreen);
+  }
+
+  @override
+  void navigateToReadBookScreen() {
+    Navigator.of(context).pushNamed(AppRoute.readBooksScreen);
+  }
+}
+
+class ProgressCardWidget extends StatelessWidget with AppTheme {
+  final String title;
+  final String subTitle;
+  final double? subTitleTextSize;
+  final VoidCallback onTap;
+  const ProgressCardWidget(
+      {super.key,
+      required this.title,
+      required this.subTitle,
+      this.subTitleTextSize,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h28),
+        decoration: BoxDecoration(
+          color: clr.whiteColor,
+          borderRadius: BorderRadius.circular(size.r16),
+          border: Border.all(color: clr.cardStrokeColorGrey),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: const Offset(0, 5), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  color: clr.appPrimaryColorBlack,
+                  fontSize: size.textSmall,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: StringData.fontFamilyPoppins),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: size.h2),
+            Text(
+              subTitle,
+              style: TextStyle(
+                  color: clr.textColorGray,
+                  fontSize: subTitleTextSize ?? size.textSmall,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: StringData.fontFamilyPoppins),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -78,7 +206,7 @@ class BGClipper2 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.lineTo(size.width*.5, size.width * 0.4);
+    path.lineTo(size.width * .5, size.width * 0.4);
     path.quadraticBezierTo(
         size.width * .5, size.height * 1.1, size.width, size.height * .02);
     path.lineTo(size.width, 0);

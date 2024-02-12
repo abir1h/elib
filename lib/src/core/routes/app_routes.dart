@@ -15,6 +15,7 @@ import '../../feature/note/presentation/screens/note_details_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
 import '../../feature/note/presentation/screens/note_edit_screen.dart';
 import '../../feature/notification/presentation/screens/notification_screen.dart';
+import '../../feature/progress/presentation/screens/read_books_screen.dart';
 import '../../feature/report/presentation/screens/book_view_report_screen.dart';
 import '../../feature/splash/presentation/screens/splash_screen.dart';
 
@@ -43,6 +44,7 @@ class AppRoute {
   static const String authorBooksScreen = 'authorBooksScreen';
   static const String notificationScreen = 'notificationScreen';
   static const String tagBookScreen = 'tagBookScreen';
+  static const String readBooksScreen = 'readBooksScreen';
 }
 
 mixin RouteGenerator {
@@ -106,6 +108,9 @@ mixin RouteGenerator {
         ///Books By Tag
         case AppRoute.tagBookScreen:
           return TagBookScreen(arguments: setting.arguments);
+
+        case AppRoute.readBooksScreen:
+          return const ReadBooksScreen();
 
         ///Notification
         case AppRoute.notificationScreen:

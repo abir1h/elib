@@ -5,13 +5,13 @@ import 'package:lottie/lottie.dart';
 import '../constants/common_imports.dart';
 
 class EmptyWidget extends StatelessWidget with AppTheme {
-  final BoxConstraints constraints;
+  final BoxConstraints? constraints;
   final String message;
   final double? offset;
   final IconData icon;
   const EmptyWidget(
       {Key? key,
-      required this.constraints,
+      this.constraints,
       required this.message,
       this.icon = Icons.weekend_outlined,
       this.offset})
@@ -20,7 +20,7 @@ class EmptyWidget extends StatelessWidget with AppTheme {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: constraints.maxHeight - (offset ?? 242.w),
+        height: constraints!.maxHeight - (offset ?? 242.w),
         child: Padding(
             padding: EdgeInsets.all(size.h24),
             child: Center(

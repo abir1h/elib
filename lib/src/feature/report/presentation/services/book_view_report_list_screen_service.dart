@@ -54,8 +54,7 @@ mixin BookViewReportListScreenService<T extends StatefulWidget> on State<T>
     if (responseEntity.error == null && responseEntity.data != null) {
       if (responseEntity.data.isNotEmpty) {
         reportDataStreamController.add(
-            DataLoadedState<List<BookReportDataEntity>>(
-                responseEntity.data));
+            DataLoadedState<List<BookReportDataEntity>>(responseEntity.data));
       } else {
         reportDataStreamController.add(EmptyState(message: 'No Book Found'));
       }

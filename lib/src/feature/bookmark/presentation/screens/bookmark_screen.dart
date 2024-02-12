@@ -524,7 +524,8 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                           )),*/
                           Expanded(
                             child: Text(
-                              widget.item.book != null
+                              widget.item.book != null &&
+                                      widget.item.book!.tag != null
                                   ? widget.item.book!.tag!
                                       .map((c) =>
                                           label(e: c.nameEn, b: c.nameBn))
