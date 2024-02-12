@@ -19,6 +19,7 @@ import '../../../book/domain/entities/book_data_entity.dart';
 import '../../data/data_sources/remote/home_data_source.dart';
 import '../../data/repositories/home_repository_imp.dart';
 import '../../domain/use_cases/home_use_case.dart';
+import '../../domain/entities/home_data_entity.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
@@ -27,6 +28,9 @@ abstract class _ViewModel {
   void navigateToBookDetailsScreen(BookDataEntity data);
   void navigateToAllAuthorScreen();
   void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity);
+  void navigateToCategoryDetailsScreen(
+      String categoryNameEn, String categoryNameBn, int id);
+  void navigateToLatestBookScreen(List<BookDataEntity> items);
 
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
@@ -44,7 +48,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
 
   final HomeUseCase _homeUseCase = HomeUseCase(
       homeRepository:
-      HomeRepositoryImp(homeRemoteDataSource: HomeRemoteDataSourceImp()));
+          HomeRepositoryImp(homeRemoteDataSource: HomeRemoteDataSourceImp()));
 
   Future<ResponseEntity> getPopularBooks(int pageNumber) async {
     return _bookUseCase.getPopularBooksUseCase(pageNumber);
@@ -81,11 +85,13 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     _view = this;
     // paginationController.onLoadMore = _onLoadMoreItems;
     super.initState();
+    _loadHomeData();
     _loadInitialData();
   }
 
   @override
   void dispose() {
+    homeDataStreamController.dispose();
     // eLibraryDataStreamController.dispose();
     // resultsForStreamController.dispose();
     // paginationController.dispose();
@@ -96,6 +102,8 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   ///Stream controllers
   // final AppStreamController<PaginatedGridViewController<BookDataEntity>> eLibraryDataStreamController = AppStreamController();
   // final AppStreamController<ResultsForViewModel> resultsForStreamController = AppStreamController();
+  final AppStreamController<HomeDataEntity> homeDataStreamController =
+      AppStreamController();
   final AppStreamController<List<BookDataEntity>> bookDataStreamController =
       AppStreamController();
   final AppStreamController<ResultsForViewModel> resultsForStreamController =
@@ -104,6 +112,21 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
       AppStreamController();
 
   List<BookDataEntity> _bookData = [];
+
+  ///Load Home Data
+  void _loadHomeData() {
+    if (!mounted) return;
+    homeDataStreamController.add(LoadingState());
+    getHome().then((value) {
+      if (value.error == null && value.data != null) {
+        homeDataStreamController
+            .add(DataLoadedState<HomeDataEntity>(value.data));
+      } else if (value.error == null && value.data == null) {
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
+  }
 
   ///Load Book list
   void _loadInitialData() {
@@ -171,16 +194,26 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     }
   }
 
+  void onTapNotification() {
+    _view.navigateToNotificationScreen();
+  }
+
+  ///On Tap Latest See All
+  void onTapLatestSeeAll(List<BookDataEntity> items) {
+    _view.navigateToLatestBookScreen(items);
+  }
+
+  ///On Tap Category See All
+  void onTapCategory(String categoryNameEn, String categoryNameBn, int id) {
+    _view.navigateToCategoryDetailsScreen(categoryNameEn, categoryNameBn, id);
+  }
+
   void onTapAuthorSeeAll() {
     _view.navigateToAllAuthorScreen();
   }
 
   void onTapAuthor(AuthorDataEntity authorDataEntity) {
     _view.navigateToAuthorBooksScreen(authorDataEntity);
-  }
-
-  void onTapNotification() {
-    _view.navigateToNotificationScreen();
   }
 }
 

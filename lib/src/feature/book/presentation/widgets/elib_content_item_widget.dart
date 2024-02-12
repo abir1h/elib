@@ -38,15 +38,18 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
     return Container(
       decoration: widget.boxShadow
           ? BoxDecoration(
-              borderRadius: BorderRadius.circular(size.r8),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(size.r4),
+                  topLeft: Radius.circular(size.r4)),
               color: clr.whiteColor,
-              boxShadow: [
-                  BoxShadow(
-                    color: clr.appPrimaryColorBlack.withOpacity(.2),
-                    blurRadius: size.r8,
-                    offset: Offset(0.0, size.h2),
-                  ),
-                ])
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: clr.appPrimaryColorBlack.withOpacity(.2),
+              //     blurRadius: size.r8,
+              //     offset: Offset(0.0, size.h2),
+              //   ),
+              // ],
+            )
           : const BoxDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,15 +58,25 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
             aspectRatio: widget.aspectRatio,
             child: Container(
               decoration: BoxDecoration(
-                // color: clr.iconColorRed,
-                borderRadius: BorderRadius.circular(size.h8),
-                border: Border.all(
-                  color: clr.appPrimaryColorBlack.withOpacity(.1),
-                  width: 1.w,
-                ),
-              ),
+                  // color: clr.iconColorRed,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(size.r4),
+                      topLeft: Radius.circular(size.r4)),
+                  border: Border.all(
+                    color: clr.appPrimaryColorBlack.withOpacity(.1),
+                    width: 1.w,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: clr.appPrimaryColorBlack.withOpacity(.2),
+                      blurRadius: size.r8,
+                      offset: Offset(0.0, size.h2),
+                    ),
+                  ]),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(7.w),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(size.r4),
+                    topLeft: Radius.circular(size.r4)),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [

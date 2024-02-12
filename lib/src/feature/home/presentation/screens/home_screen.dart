@@ -20,6 +20,7 @@ import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/common_imports.dart';
+import '../../domain/entities/home_data_entity.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -213,9 +214,128 @@ class _HomeScreenState extends State<HomeScreen>
                   ),*/
 
                   SizedBox(height: size.h20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.h12),
+                    child: AppStreamBuilder<HomeDataEntity>(
+                      stream: homeDataStreamController.stream,
+                      loadingBuilder: (context) {
+                        return ShimmerLoader(
+                            child: CategorySectionWidget(
+                                items: const ["", "", ""],
+                                buildItem: (context, index, item) =>
+                                    ItemSectionWidget(
+                                        title: "",
+                                        items: const ["", ""],
+                                        buildItem: (context, index, item) =>
+                                            const AspectRatio(aspectRatio: .53),
+                                        onTapSeeAll: () {})));
+                      },
+                      dataBuilder: (context, data) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ItemSectionWidget(
+                                aspectRatio: 1.6,
+                                title: "সাম্প্রতিক বই সমূহ",
+                                items: data.latestBook,
+                                emptyText: "No Book Found !",
+                                buildItem: (context, index, item) {
+                                  return AspectRatio(
+                                    aspectRatio: .53,
+                                    child: ELibContentItemWidget(
+                                      key: Key(item.id.toString()),
+                                      item: item,
+                                      onSelect: onBookContentSelected,
+                                      showBookmark: true,
+                                      onBookmarkSelect:
+                                          onBookmarkContentSelected,
+                                      boxShadow: true,
+                                    ),
+                                  );
+                                },
+                                onTapSeeAll: () =>
+                                    onTapLatestSeeAll(data.latestBook)),
+                            CategorySectionWidget(
+                                items: data.categoriesOne,
+                                buildItem: (context, index, item) =>
+                                    ItemSectionWidget(
+                                      aspectRatio: 1.6,
+                                      title: item.name,
+                                      items: item.books,
+                                      emptyText: "No Book Found !",
+                                      buildItem: (context, index, item) {
+                                        return AspectRatio(
+                                          aspectRatio: .53,
+                                          child: ELibContentItemWidget(
+                                            key: Key(item.id.toString()),
+                                            item: item,
+                                            onSelect: onBookContentSelected,
+                                            showBookmark: true,
+                                            onBookmarkSelect:
+                                                onBookmarkContentSelected,
+                                            boxShadow: true,
+                                          ),
+                                        );
+                                      },
+                                      onTapSeeAll: () => onTapCategory(
+                                          item.nameEn, item.nameBn, item.id),
+                                    )),
+                            ItemSectionWidget(
+                              aspectRatio: 2.5,
+                              title: "জনপ্রিয় গ্রন্থকার",
+                              items: data.authors,
+                              horizontalPadding: size.w12,
+                              verticalPadding: size.h16,
+                              emptyText: "No Author Found !",
+                              buildItem: (context, index, item) {
+                                return AuthorItemWidget(
+                                  authorDataEntity: item,
+                                  onTap: () => onTapAuthor(item),
+                                );
+                              },
+                              onTapSeeAll: onTapAuthorSeeAll,
+                            ),
+                            CategorySectionWidget(
+                                items: data.categoriesTwo,
+                                buildItem: (context, index, item) =>
+                                    ItemSectionWidget(
+                                      aspectRatio: 1.6,
+                                      title: item.name,
+                                      items: item.books,
+                                      emptyText: "No Book Found !",
+                                      buildItem: (context, index, item) {
+                                        return AspectRatio(
+                                          aspectRatio: .53,
+                                          child: ELibContentItemWidget(
+                                            key: Key(item.id.toString()),
+                                            item: item,
+                                            onSelect: onBookContentSelected,
+                                            showBookmark: true,
+                                            onBookmarkSelect:
+                                                onBookmarkContentSelected,
+                                            boxShadow: true,
+                                          ),
+                                        );
+                                      },
+                                      onTapSeeAll: () => onTapCategory(
+                                          item.nameEn, item.nameBn, item.id),
+                                    )),
+                          ],
+                        );
+                      },
+                      emptyBuilder: (context, message, icon) {
+                        return EmptyWidget(
+                          constraints: constraints,
+                          message: message,
+                          icon: icon,
+                          offset: 350.w,
+                        );
+                      },
+                    ),
+                  ),
 
                   ///
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.h12),
                     child: AppStreamBuilder<List<BookDataEntity>>(
                       stream: bookDataStreamController.stream,
@@ -356,7 +476,7 @@ class _HomeScreenState extends State<HomeScreen>
                           constraints: constraints,
                           offset: 350.w,
                         ),
-                      ))
+                      ))*/
                 ],
               ),
             ),
@@ -456,6 +576,26 @@ class _HomeScreenState extends State<HomeScreen>
   void navigateToNotificationScreen() {
     Navigator.of(context).pushNamed(AppRoute.notificationScreen);
   }
+
+  @override
+  void navigateToCategoryDetailsScreen(
+      String categoryNameEn, String categoryNameBn, int id) {
+    Navigator.of(context).pushNamed(
+      AppRoute.categoryDetailsScreen,
+      arguments: CategoryDetailsScreenArgs(
+          categoryNameEn: categoryNameEn,
+          categoryNameBn: categoryNameBn,
+          categoryId: id),
+    );
+  }
+
+  @override
+  void navigateToLatestBookScreen(List<BookDataEntity> items) {
+    Navigator.of(context).pushNamed(
+      AppRoute.latestBookScreen,
+      arguments: LatestBookScreenArgs(items: items),
+    );
+  }
 }
 
 class ResultItemSectionWidget<T> extends StatelessWidget with AppTheme {
@@ -531,7 +671,7 @@ class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
       itemCount: items.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h12),
+      padding: EdgeInsets.symmetric(vertical: size.h12),
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },
@@ -570,15 +710,16 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
           vertical: verticalPadding ?? size.h8,
           horizontal: horizontalPadding ?? size.w8),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.r8),
-          color: clr.whiteColor,
-          boxShadow: [
-            BoxShadow(
-              color: clr.appPrimaryColorBlack.withOpacity(.2),
-              blurRadius: size.r8,
-              offset: Offset(0.0, size.h2),
-            ),
-          ]),
+        borderRadius: BorderRadius.circular(size.r8),
+        color: clr.whiteColor,
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: clr.appPrimaryColorBlack.withOpacity(.2),
+        //     blurRadius: size.r8,
+        //     offset: Offset(0.0, size.h2),
+        //   ),
+        // ],
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -30,7 +30,7 @@ mixin ProfileScreenService<T extends StatefulWidget> on State<T>
   void initState() {
     _view = this;
     super.initState();
-    _loadCategoryData();
+    _loadProfileData();
   }
 
   @override
@@ -43,8 +43,8 @@ mixin ProfileScreenService<T extends StatefulWidget> on State<T>
   final AppStreamController<ProfileDataEntity> profileDataStreamController =
       AppStreamController();
 
-  ///Load Notes list
-  void _loadCategoryData() {
+  ///Load Profile
+  void _loadProfileData() {
     if (!mounted) return;
     profileDataStreamController.add(LoadingState());
     getProfileInformation().then((value) {

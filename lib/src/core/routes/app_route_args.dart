@@ -68,3 +68,8 @@ class TagBookScreenArgs {
   final TagDataEntity tagDataEntity;
   TagBookScreenArgs({required this.tagDataEntity});
 }
+
+class LatestBookScreenArgs {
+  final List<BookDataEntity> items;
+  LatestBookScreenArgs({required this.items});
+}

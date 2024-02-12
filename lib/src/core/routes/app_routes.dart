@@ -11,6 +11,7 @@ import '../../feature/book/presentation/screens/tag_book_screen.dart';
 import '../../feature/category/presentation/screens/category_details_screen.dart';
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
+import '../../feature/home/presentation/screens/latest_books_screen.dart';
 import '../../feature/note/presentation/screens/note_details_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
 import '../../feature/note/presentation/screens/note_edit_screen.dart';
@@ -45,6 +46,7 @@ class AppRoute {
   static const String notificationScreen = 'notificationScreen';
   static const String tagBookScreen = 'tagBookScreen';
   static const String readBooksScreen = 'readBooksScreen';
+  static const String latestBookScreen = 'latestBookScreen';
 }
 
 mixin RouteGenerator {
@@ -111,6 +113,9 @@ mixin RouteGenerator {
 
         case AppRoute.readBooksScreen:
           return const ReadBooksScreen();
+
+        case AppRoute.latestBookScreen:
+          return LatestBookScreen(arguments: setting.arguments);
 
         ///Notification
         case AppRoute.notificationScreen:
