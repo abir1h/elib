@@ -1,6 +1,6 @@
 import '../../../book/data/models/book_data_model.dart';
 
-class BookViewDownloadDataModel {
+class BookReportDataModel {
   final int id;
   final int bookId;
   final int userId;
@@ -10,7 +10,7 @@ class BookViewDownloadDataModel {
   final int bookDownload;
   final BookDataModel? book;
 
-  BookViewDownloadDataModel({
+  BookReportDataModel({
     required this.id,
     required this.bookId,
     required this.userId,
@@ -21,8 +21,8 @@ class BookViewDownloadDataModel {
     this.book,
   });
 
-  factory BookViewDownloadDataModel.fromJson(Map<String, dynamic> json) =>
-      BookViewDownloadDataModel(
+  factory BookReportDataModel.fromJson(Map<String, dynamic> json) =>
+      BookReportDataModel(
         id: json["id"] ?? -1,
         bookId: json["book_id"] ?? -1,
         userId: json["user_id"] ?? -1,
@@ -44,10 +44,10 @@ class BookViewDownloadDataModel {
         "book_download": bookDownload,
         "book": book?.toJson(),
       };
-  static List<BookViewDownloadDataModel> listFromJson(List<dynamic> json) {
+  static List<BookReportDataModel> listFromJson(List<dynamic> json) {
     return json.isNotEmpty
-        ? List.castFrom<dynamic, BookViewDownloadDataModel>(
-            json.map((x) => BookViewDownloadDataModel.fromJson(x)).toList())
+        ? List.castFrom<dynamic, BookReportDataModel>(
+            json.map((x) => BookReportDataModel.fromJson(x)).toList())
         : [];
   }
 }
