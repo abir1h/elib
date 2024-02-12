@@ -30,8 +30,8 @@ mixin class BookService {
     return _bookUseCase.userBookDownloadCountActionUseCase(bookId);
   }
 
-  Future<ResponseEntity> globalSearch(String searchQuery) async {
-    return _bookUseCase.globalSearchUseCase(searchQuery);
+  Future<ResponseEntity> globalSearch(String searchQuery, String type) async {
+    return _bookUseCase.globalSearchUseCase(searchQuery, type);
   }
 
   Future<ResponseEntity> getBookRequests(bool enablePagination,

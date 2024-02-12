@@ -9,7 +9,7 @@ abstract class BookRepository {
   Future<ResponseEntity> userBookViewCountAction(int bookId);
   Future<ResponseEntity> userBookDownloadCountAction(int bookId);
 
-  Future<ResponseEntity> globalSearch(String searchQuery);
+  Future<ResponseEntity> globalSearch(String searchQuery, String type);
 
   Future<ResponseEntity> getBookRequests(bool enablePagination,
       {int? pageNumber});
