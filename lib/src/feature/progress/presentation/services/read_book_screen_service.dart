@@ -64,9 +64,12 @@ mixin ReadBooksScreenService<T extends StatefulWidget> on State<T>
     readBookDataStreamController.add(LoadingState());
     getUserReadBooks().then((value) {
       if (value.error == null && value.data.isNotEmpty) {
-        _bookList = value.data;
+        _bookList = value.data as List<BookReportDataEntity>;
+        var dataList =
+            _bookList.where((element) => (element.book != null)).toList();
+
         readBookDataStreamController
-            .add(DataLoadedState<List<BookReportDataEntity>>(value.data));
+            .add(DataLoadedState<List<BookReportDataEntity>>(dataList));
       } else if (value.error == null && value.data.isEmpty) {
         readBookDataStreamController.add(EmptyState(message: 'No Book Found'));
       } else {
