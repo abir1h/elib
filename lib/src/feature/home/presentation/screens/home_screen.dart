@@ -85,21 +85,55 @@ class _HomeScreenState extends State<HomeScreen>
                       ],
                     ),
                   ),
-
                   SizedBox(height: size.h16),
-
                   ///Search Box and Bookmark button
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.w20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SearchBoxWidget(
-                            hintText: label(e: en.searchText, b: bn.searchText),
-                            onSearchTermChange: onSearchTermChanged,
+                  GestureDetector(
+                    onTap: onTapSearchScreen,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: size.w20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: double.maxFinite,
+                              height: size.h42,
+                              padding: EdgeInsets.symmetric(horizontal: size.h12, vertical: size.h4),
+                              decoration: BoxDecoration(
+                                color: clr.whiteColor,
+                                border: Border.all(
+                                  color: clr.cardStrokeColorPerfume,
+                                  // width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(size.h12),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 2.0.w),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                        padding: EdgeInsets.only(top: 2.0.w),
+                                        child: Icon(
+                                          Icons.search_rounded,
+                                          color: clr.iconColorGray85,
+                                          size: size.h20,
+                                        )),
+                                    SizedBox(
+                                      width: size.h8,
+                                    ),
+                                    Expanded(child: Text("Search Kor"))
+                                  ],
+                                ),
+                              ),
+                            )
+
+                            // SearchBoxWidget(
+                            //   hintText: label(e: en.searchText, b: bn.searchText),
+                            //   onSearchTermChange: onSearchTermChanged,
+                            // ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
 
@@ -594,67 +628,16 @@ class _HomeScreenState extends State<HomeScreen>
       arguments: LatestBookScreenArgs(items: items),
     );
   }
-}
-
-class ResultItemSectionWidget<T> extends StatelessWidget with AppTheme {
-  final Stream<DataState<ResultsForViewModel>> stream;
-  const ResultItemSectionWidget({
-    Key? key,
-    required this.stream,
-  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///Header text
-        Padding(
-          padding: EdgeInsets.only(
-            top: size.h32,
-            bottom: size.h8,
-          ),
-          child: StreamBuilder<DataState<ResultsForViewModel>>(
-            stream: stream,
-            initialData: DataLoadedState<ResultsForViewModel>(
-                ResultsForViewModel.newUploads()),
-            builder: (context, snapshot) {
-              var data =
-                  (snapshot.data! as DataLoadedState<ResultsForViewModel>).data;
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data.title,
-                    style: TextStyle(
-                        color: clr.appPrimaryColorBlack,
-                        fontSize: size.textSmall,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: 2.w,
-                  ),
-                  if (data.subTitle.isNotEmpty)
-                    Text(
-                      data.subTitle,
-                      style: TextStyle(
-                        color: clr.textColorBlack,
-                        fontSize: size.textXXSmall,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
-        ),
-        SizedBox(height: size.h4),
-      ],
+  void navigateToSearchScreen() {
+    Navigator.of(context).pushNamed(
+      AppRoute.searchScreen,
     );
   }
 }
+
+
 
 class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
   final List<T> items;

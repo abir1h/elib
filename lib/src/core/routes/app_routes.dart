@@ -1,4 +1,5 @@
 import 'package:elibrary/src/feature/report/presentation/screens/book_report_list_screen.dart';
+import 'package:elibrary/src/feature/search/presentation/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
@@ -47,6 +48,7 @@ class AppRoute {
   static const String tagBookScreen = 'tagBookScreen';
   static const String readBooksScreen = 'readBooksScreen';
   static const String latestBookScreen = 'latestBookScreen';
+  static const String searchScreen = 'searchScreen';
 }
 
 mixin RouteGenerator {
@@ -116,6 +118,8 @@ mixin RouteGenerator {
 
         case AppRoute.latestBookScreen:
           return LatestBookScreen(arguments: setting.arguments);
+        case AppRoute.searchScreen:
+          return const BookSearchScreen();
 
         ///Notification
         case AppRoute.notificationScreen:

@@ -31,6 +31,7 @@ abstract class _ViewModel {
   void navigateToCategoryDetailsScreen(
       String categoryNameEn, String categoryNameBn, int id);
   void navigateToLatestBookScreen(List<BookDataEntity> items);
+  void navigateToSearchScreen();
 
   // void showVideoPlayerDialog(ELibraryEntity item);
   // void navigateToDocumentViewerScreen(ELibraryEntity item);
@@ -171,28 +172,28 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     });
   }
 
-  onSearchTermChanged(String value) {
-    if (value.isNotEmpty) {
-      resultsForStreamController
-          .add(DataLoadedState(ResultsForViewModel.search(value)));
-      globalSearch(value, "all").then((value) {
-        if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
-          _bookData = value.data!.bookDataEntity;
-          bookDataStreamController
-              .add(DataLoadedState<List<BookDataEntity>>(_bookData));
-        } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
-          bookDataStreamController.add(EmptyState(
-            message: "No Book found!",
-            icon: Icons.search_rounded,
-          ));
-        } else {
-          _view.showWarning(value.message!);
-        }
-      });
-    } else {
-      _loadInitialData();
-    }
-  }
+  // onSearchTermChanged(String value) {
+  //   if (value.isNotEmpty) {
+  //     resultsForStreamController
+  //         .add(DataLoadedState(ResultsForViewModel.search(value)));
+  //     globalSearch(value, "all").then((value) {
+  //       if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
+  //         _bookData = value.data!.bookDataEntity;
+  //         bookDataStreamController
+  //             .add(DataLoadedState<List<BookDataEntity>>(_bookData));
+  //       } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
+  //         bookDataStreamController.add(EmptyState(
+  //           message: "No Book found!",
+  //           icon: Icons.search_rounded,
+  //         ));
+  //       } else {
+  //         _view.showWarning(value.message!);
+  //       }
+  //     });
+  //   } else {
+  //     _loadInitialData();
+  //   }
+  // }
 
   void onTapNotification() {
     _view.navigateToNotificationScreen();
@@ -215,6 +216,9 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   void onTapAuthor(AuthorDataEntity authorDataEntity) {
     _view.navigateToAuthorBooksScreen(authorDataEntity);
   }
+ void  onTapSearchScreen(){
+   _view.navigateToSearchScreen();
+ }
 }
 
 class ResultsForViewModel {
