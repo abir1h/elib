@@ -14,12 +14,12 @@ class CheckBoxWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CheckBoxWidgetState createState() => _CheckBoxWidgetState();
+  State<CheckBoxWidget> createState() => _CheckBoxWidgetState();
 }
 
 class _CheckBoxWidgetState extends State<CheckBoxWidget>
     with AppTheme, Language {
-  CheckBoxSelection? _selectedValue;
+  CheckBoxSelection _selectedValue=CheckBoxSelection.all;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget>
             groupValue: _selectedValue,
             onChanged: (CheckBoxSelection? value) {
               setState(() {
-                _selectedValue = value;
-                widget.onValueChanged(value!);
+                _selectedValue = value!;
+                widget.onValueChanged(value);
               });
             },
           ),
@@ -50,8 +50,8 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget>
             groupValue: _selectedValue,
             onChanged: (CheckBoxSelection? value) {
               setState(() {
-                _selectedValue = value;
-                widget.onValueChanged(value!);
+                _selectedValue = value!;
+                widget.onValueChanged(value);
               });
             },
           ),
@@ -65,8 +65,8 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget>
             groupValue: _selectedValue,
             onChanged: (CheckBoxSelection? value) {
               setState(() {
-                _selectedValue = value;
-                widget.onValueChanged(value!);
+                _selectedValue = value!;
+                widget.onValueChanged(value);
               });
             },
           ),
