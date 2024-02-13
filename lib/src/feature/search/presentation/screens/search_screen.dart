@@ -39,9 +39,9 @@ class _BookSearchScreenState extends State<BookSearchScreen>
                 hintText: label(e: en.searchText, b: bn.searchText),
                 onSearchTermChange: onSearchTermChanged,
               ),
-              CheckBoxWidget(onValueChanged: (v) {
-                print(v.name);
-              }),
+              CheckBoxWidget(
+                onValueChanged: (v) => onCheckBoxValue(v.name),
+              ),
 
               ///Results for text
               Padding(

@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/search/presentation/widgets/checkbox_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -14,17 +15,16 @@ abstract class _ViewModel {
 }
 
 mixin SearchScreenService<T extends StatefulWidget> on State<T>
-implements _ViewModel {
+    implements _ViewModel {
   late _ViewModel _view;
 
   final BookUseCase _bookUseCase = BookUseCase(
       bookRepository:
-      BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
+          BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
 
   Future<ResponseEntity> globalSearch(String searchQuery, String type) async {
     return _bookUseCase.globalSearchUseCase(searchQuery, type);
   }
-
 
   ///Service configurations
   @override
@@ -39,16 +39,21 @@ implements _ViewModel {
   }
 
   List<BookDataEntity> _bookData = [];
+  String _selectedCheckBoxValue = CheckBoxSelection.all.name;
   final AppStreamController<ResultsForViewModel> resultsForStreamController =
-  AppStreamController();
+      AppStreamController();
   final AppStreamController<List<BookDataEntity>> bookDataStreamController =
-  AppStreamController();
+      AppStreamController();
+
+  onCheckBoxValue(String value) {
+    _selectedCheckBoxValue = value;
+  }
 
   onSearchTermChanged(String value) {
     if (value.isNotEmpty) {
       resultsForStreamController
           .add(DataLoadedState(ResultsForViewModel.search(value)));
-      globalSearch(value, "all").then((value) {
+      globalSearch(value, _selectedCheckBoxValue).then((value) {
         if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
           _bookData = value.data!.bookDataEntity;
           bookDataStreamController
@@ -69,6 +74,4 @@ implements _ViewModel {
       ));
     }
   }
-
-
 }
