@@ -21,6 +21,7 @@ class ThemeColor {
   Color get lightPrimaryColorPurple => HexColor("9A64C2");
   Color get lightPrimaryColorShadePurple => HexColor("ECD7FC");
   Color get colorShadePurple => HexColor("9775FA");
+  Color get colorShadeGrey => HexColor("757575");
 
   Color get whiteColor => HexColor("FFFFFF");
   Color get profileGradiant1 => HexColor("7D51DA");
