@@ -46,7 +46,7 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
                           stream: readBookDataStreamController.stream,
                           loadingBuilder: (context) {
                             return ShimmerLoader(
-                                child: BookSectionWidget(
+                                child: ReadBookSectionWidget(
                               items: const ["", "", "", "", "", "", "", "", ""],
                               buildItem:
                                   (BuildContext context, int index, item) {
@@ -89,7 +89,7 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
                             ));
                           },
                           dataBuilder: (context, data) {
-                            return BookSectionWidget(
+                            return ReadBookSectionWidget(
                               items: data,
                               buildItem:
                                   (BuildContext context, int index, item) {
@@ -136,5 +136,32 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
   @override
   void showSuccess(String message) {
     CustomToasty.of(context).showSuccess(message);
+  }
+}
+class ReadBookSectionWidget<T> extends StatelessWidget with AppTheme {
+  final List<T> items;
+  final Widget Function(BuildContext context, int index, T item) buildItem;
+  const ReadBookSectionWidget(
+      {Key? key, required this.items, required this.buildItem})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+  return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 0.5,
+        crossAxisSpacing: size.h12,
+        mainAxisSpacing: size.h12,
+      ),
+      itemCount: items.length,
+      shrinkWrap: true,
+      padding: EdgeInsets.symmetric(vertical: size.h20),
+      itemBuilder: (context, index) {
+        return buildItem(context, index, items[index]);
+      },
+    );
   }
 }
