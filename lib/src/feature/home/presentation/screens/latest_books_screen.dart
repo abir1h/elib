@@ -6,7 +6,7 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../book/presentation/widgets/book_item_widget.dart';
-import '../../../category/presentation/screens/category_details_screen.dart';
+import '../../../category/presentation/widgets/book_section_widget.dart';
 
 class LatestBookScreen extends StatefulWidget {
   final Object? arguments;
@@ -49,6 +49,7 @@ class _LatestBookScreenState extends State<LatestBookScreen>
                 ),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(height: size.h20),
               BookSectionWidget(
                 items: _screenArgs.items,
                 buildItem: (BuildContext context, int index, item) {

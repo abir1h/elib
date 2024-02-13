@@ -13,7 +13,7 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../book/presentation/widgets/book_item_widget.dart';
-import '../../../category/presentation/screens/category_details_screen.dart';
+import '../../../category/presentation/widgets/book_section_widget.dart';
 import '../services/author_books_screen_service.dart';
 import 'author_screen.dart';
 
@@ -54,8 +54,10 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                       children: [
                         AuthorItemWidget(
                           authorDataEntity: _screenArgs.authorDataEntity,
+                          subTitle: "সকল বই সমূহ",
                           onTap: () {},
                         ),
+                        SizedBox(height: size.h20),
                         AppStreamBuilder<List<BookDataEntity>>(
                           stream: authorBooksDataStreamController.stream,
                           loadingBuilder: (context) {

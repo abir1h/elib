@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/book_data_entity.dart';
@@ -207,34 +206,37 @@ class BookItemWidget extends StatelessWidget with AppTheme {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 0.2.sh,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(size.r4),
-                        topLeft: Radius.circular(size.r4)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: clr.appPrimaryColorBlack.withOpacity(.2),
-                        blurRadius: size.r8,
-                        offset: Offset(0.0, size.h2),
+                AspectRatio(
+                  aspectRatio: .75,
+                  child: Container(
+                    // height: 0.2.sh,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(size.r4),
+                          topLeft: Radius.circular(size.r4)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: clr.appPrimaryColorBlack.withOpacity(.2),
+                          blurRadius: size.r8,
+                          offset: Offset(0.0, size.h2),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(size.r4),
+                          topLeft: Radius.circular(size.r4)),
+                      child: CachedNetworkImage(
+                        imageUrl: item.coverImage.isNotEmpty
+                            ? "http://103.209.40.89:82/uploads/${item.coverImage}"
+                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                        placeholder: (context, url) =>
+                            Icon(Icons.image, color: clr.greyColor),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.image, color: clr.greyColor),
+                        fit: BoxFit.fill,
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(size.r4),
-                        topLeft: Radius.circular(size.r4)),
-                    child: CachedNetworkImage(
-                      imageUrl: item.coverImage.isNotEmpty
-                          ? "http://103.209.40.89:82/uploads/${item.coverImage}"
-                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
-                      placeholder: (context, url) =>
-                          Icon(Icons.image, color: clr.greyColor),
-                      errorWidget: (context, url, error) =>
-                          Icon(Icons.image, color: clr.greyColor),
-                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -268,40 +270,37 @@ class BookItemWidget extends StatelessWidget with AppTheme {
               ],
             ),
             SizedBox(height: size.h8),
-            Text.rich(
-                textAlign: TextAlign.start,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: clr.textColorMamba,
-                    fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: StringData.fontFamilyPoppins),
-                TextSpan(
-                    text: item.author!.isNotEmpty ? "লেখক " : "",
-                    children: [
-                      TextSpan(
-                        text:
-                            item.author!.map((c) => c.name).toList().join(', '),
-                      ),
-                    ])),
+            if (item.author!.isNotEmpty)
+              Text.rich(
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: clr.textColorMamba,
+                      fontSize: size.textXXSmall,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: StringData.fontFamilyPoppins),
+                  TextSpan(
+                      text: item.author!.isNotEmpty ? "লেখক " : "",
+                      children: [
+                        TextSpan(
+                          text: item.author!
+                              .map((c) => c.name)
+                              .toList()
+                              .join(', '),
+                        ),
+                      ])),
             SizedBox(height: size.h4),
-            GestureDetector(
-              onTap: () => onSelect(item),
-              child: Text(
-                item.titleEn,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: clr.textColorGray27,
-                    fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: StringData.fontFamilyPoppins),
-              ),
+            Text(
+              item.titleEn,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: clr.textColorGray27,
+                  fontSize: size.textXXSmall,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: StringData.fontFamilyPoppins),
             ),
-            SizedBox(
-              height: size.h4,
-            )
           ],
         ),
       ),
