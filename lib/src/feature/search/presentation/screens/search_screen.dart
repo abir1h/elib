@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
@@ -7,9 +8,11 @@ import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/search_book_widget.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/constants/app_theme.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../../../home/presentation/services/home_service.dart';
 import '../services/search_screen_services.dart';
 import '../widgets/checkbox_widget.dart';
@@ -50,7 +53,189 @@ class _BookSearchScreenState extends State<BookSearchScreen>
                   stream: resultsForStreamController.stream,
                 ),
               ),
-
+              SearchCardSectionWidget(
+                items: [
+                  BookDataEntity(
+                      id: -1,
+                      titleEn: "",
+                      titleBn: "",
+                      languageEn: "",
+                      languageBn: "",
+                      editionEn: "",
+                      editionBn: "",
+                      publishYearEn: "",
+                      publishYearBn: "",
+                      publisherEn: "",
+                      publisherBn: "",
+                      isbnEn: "",
+                      isbnBn: "",
+                      slug: "",
+                      descriptionEn: "",
+                      descriptionBn: "",
+                      coverImage: "",
+                      bookFile: "",
+                      externalLink: "",
+                      createdBy: -1,
+                      isDownload: -1,
+                      status: -1,
+                      bookMark: false,
+                      createdAt: "",
+                      updatedAt: "",
+                      deletedAt: "",
+                      author: [],
+                      category: []),
+                  BookDataEntity(
+                      id: -1,
+                      titleEn: "",
+                      titleBn: "",
+                      languageEn: "",
+                      languageBn: "",
+                      editionEn: "",
+                      editionBn: "",
+                      publishYearEn: "",
+                      publishYearBn: "",
+                      publisherEn: "",
+                      publisherBn: "",
+                      isbnEn: "",
+                      isbnBn: "",
+                      slug: "",
+                      descriptionEn: "",
+                      descriptionBn: "",
+                      coverImage: "",
+                      bookFile: "",
+                      externalLink: "",
+                      createdBy: -1,
+                      isDownload: -1,
+                      status: -1,
+                      bookMark: false,
+                      createdAt: "",
+                      updatedAt: "",
+                      deletedAt: "",
+                      author: [],
+                      category: []),
+                  BookDataEntity(
+                      id: -1,
+                      titleEn: "",
+                      titleBn: "",
+                      languageEn: "",
+                      languageBn: "",
+                      editionEn: "",
+                      editionBn: "",
+                      publishYearEn: "",
+                      publishYearBn: "",
+                      publisherEn: "",
+                      publisherBn: "",
+                      isbnEn: "",
+                      isbnBn: "",
+                      slug: "",
+                      descriptionEn: "",
+                      descriptionBn: "",
+                      coverImage: "",
+                      bookFile: "",
+                      externalLink: "",
+                      createdBy: -1,
+                      isDownload: -1,
+                      status: -1,
+                      bookMark: false,
+                      createdAt: "",
+                      updatedAt: "",
+                      deletedAt: "",
+                      author: [],
+                      category: []),
+                  BookDataEntity(
+                      id: -1,
+                      titleEn: "",
+                      titleBn: "",
+                      languageEn: "",
+                      languageBn: "",
+                      editionEn: "",
+                      editionBn: "",
+                      publishYearEn: "",
+                      publishYearBn: "",
+                      publisherEn: "",
+                      publisherBn: "",
+                      isbnEn: "",
+                      isbnBn: "",
+                      slug: "",
+                      descriptionEn: "",
+                      descriptionBn: "",
+                      coverImage: "",
+                      bookFile: "",
+                      externalLink: "",
+                      createdBy: -1,
+                      isDownload: -1,
+                      status: -1,
+                      bookMark: false,
+                      createdAt: "",
+                      updatedAt: "",
+                      deletedAt: "",
+                      author: [],
+                      category: []),
+                  BookDataEntity(
+                      id: -1,
+                      titleEn: "",
+                      titleBn: "",
+                      languageEn: "",
+                      languageBn: "",
+                      editionEn: "",
+                      editionBn: "",
+                      publishYearEn: "",
+                      publishYearBn: "",
+                      publisherEn: "",
+                      publisherBn: "",
+                      isbnEn: "",
+                      isbnBn: "",
+                      slug: "",
+                      descriptionEn: "",
+                      descriptionBn: "",
+                      coverImage: "",
+                      bookFile: "",
+                      externalLink: "",
+                      createdBy: -1,
+                      isDownload: -1,
+                      status: -1,
+                      bookMark: false,
+                      createdAt: "",
+                      updatedAt: "",
+                      deletedAt: "",
+                      author: [],
+                      category: []),
+                ],
+                buildItem: (context, index, item) {
+                  return SearchCardItemWidget(
+                    item: BookDataEntity(
+                        id: -1,
+                        titleEn: "",
+                        titleBn: "",
+                        languageEn: "",
+                        languageBn: "",
+                        editionEn: "",
+                        editionBn: "",
+                        publishYearEn: "",
+                        publishYearBn: "",
+                        publisherEn: "",
+                        publisherBn: "",
+                        isbnEn: "",
+                        isbnBn: "",
+                        slug: "",
+                        descriptionEn: "",
+                        descriptionBn: "",
+                        coverImage: "",
+                        bookFile: "",
+                        externalLink: "",
+                        createdBy: -1,
+                        isDownload: -1,
+                        status: -1,
+                        bookMark: false,
+                        createdAt: "",
+                        updatedAt: "",
+                        deletedAt: "",
+                        author: [],
+                        category: []),
+                    onSelect: (v) {},
+                  );
+                },
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.h12),
                 child: AppStreamBuilder<List<BookDataEntity>>(
@@ -216,12 +401,83 @@ class ResultItemSectionWidget<T> extends StatelessWidget with AppTheme {
   }
 }
 
-class SearchCard extends StatelessWidget {
-  const SearchCard({super.key});
+class SearchCardItemWidget extends StatefulWidget {
+  final BookDataEntity item;
+  final void Function(BookDataEntity item) onSelect;
+  final void Function(BookDataEntity item)? onBookmarkSelect;
+
+  const SearchCardItemWidget({
+    Key? key,
+    required this.item,
+    required this.onSelect,
+    this.onBookmarkSelect,
+  }) : super(key: key);
 
   @override
+  State<SearchCardItemWidget> createState() => _SearchCardItemWidgetState();
+}
+
+class _SearchCardItemWidgetState extends State<SearchCardItemWidget>
+    with AppTheme {
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return GestureDetector(
+      onTap: () => widget.onSelect(widget.item),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child: SizedBox(
+              height: 120,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: CachedNetworkImage(
+                  imageUrl:
+                      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D",
+                  placeholder: (context, url) => const Offstage(),
+                  errorWidget: (context, url, error) =>
+                      Icon(Icons.image, color: clr.greyColor),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 10), // Add space between image and text
+          Padding(
+            padding:  EdgeInsets.symmetric(vertical: size.h16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Book Name",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: clr.appPrimaryColorBlack,
+                    fontSize: size.textSmall,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: StringData.fontFamilyPoppins,
+                  ),
+                ),
+                Text(
+                  "Author Name",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: clr.colorShadeGrey,
+                    fontSize: size.textSmall,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: StringData.fontFamilyPoppins,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -238,12 +494,15 @@ class SearchCardSectionWidget<T> extends StatelessWidget with AppTheme {
       itemCount: items.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: size.h16),
+      padding: EdgeInsets.symmetric(horizontal: size.h16,vertical: size.h16),
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(height: size.h16);
+        return Padding(
+          padding:  EdgeInsets.symmetric(vertical: size.h8),
+          child: Divider(color: clr.lightPrimaryColorShadePurple,thickness: size.w1,),
+        );
       },
     );
   }
