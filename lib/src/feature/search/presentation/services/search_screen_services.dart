@@ -50,9 +50,10 @@ mixin SearchScreenService<T extends StatefulWidget> on State<T>
   }
 
   onSearchTermChanged(String value) {
+    resultsForStreamController
+        .add(DataLoadedState(ResultsForViewModel.search(value)));
+    bookDataStreamController.add(LoadingState());
     if (value.isNotEmpty) {
-      resultsForStreamController
-          .add(DataLoadedState(ResultsForViewModel.search(value)));
       globalSearch(value, _selectedCheckBoxValue).then((value) {
         if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
           _bookData = value.data!.bookDataEntity;

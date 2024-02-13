@@ -53,195 +53,15 @@ class _BookSearchScreenState extends State<BookSearchScreen>
                   stream: resultsForStreamController.stream,
                 ),
               ),
-              SearchCardSectionWidget(
-                items: [
-                  BookDataEntity(
-                      id: -1,
-                      titleEn: "",
-                      titleBn: "",
-                      languageEn: "",
-                      languageBn: "",
-                      editionEn: "",
-                      editionBn: "",
-                      publishYearEn: "",
-                      publishYearBn: "",
-                      publisherEn: "",
-                      publisherBn: "",
-                      isbnEn: "",
-                      isbnBn: "",
-                      slug: "",
-                      descriptionEn: "",
-                      descriptionBn: "",
-                      coverImage: "",
-                      bookFile: "",
-                      externalLink: "",
-                      createdBy: -1,
-                      isDownload: -1,
-                      status: -1,
-                      bookMark: false,
-                      createdAt: "",
-                      updatedAt: "",
-                      deletedAt: "",
-                      author: [],
-                      category: []),
-                  BookDataEntity(
-                      id: -1,
-                      titleEn: "",
-                      titleBn: "",
-                      languageEn: "",
-                      languageBn: "",
-                      editionEn: "",
-                      editionBn: "",
-                      publishYearEn: "",
-                      publishYearBn: "",
-                      publisherEn: "",
-                      publisherBn: "",
-                      isbnEn: "",
-                      isbnBn: "",
-                      slug: "",
-                      descriptionEn: "",
-                      descriptionBn: "",
-                      coverImage: "",
-                      bookFile: "",
-                      externalLink: "",
-                      createdBy: -1,
-                      isDownload: -1,
-                      status: -1,
-                      bookMark: false,
-                      createdAt: "",
-                      updatedAt: "",
-                      deletedAt: "",
-                      author: [],
-                      category: []),
-                  BookDataEntity(
-                      id: -1,
-                      titleEn: "",
-                      titleBn: "",
-                      languageEn: "",
-                      languageBn: "",
-                      editionEn: "",
-                      editionBn: "",
-                      publishYearEn: "",
-                      publishYearBn: "",
-                      publisherEn: "",
-                      publisherBn: "",
-                      isbnEn: "",
-                      isbnBn: "",
-                      slug: "",
-                      descriptionEn: "",
-                      descriptionBn: "",
-                      coverImage: "",
-                      bookFile: "",
-                      externalLink: "",
-                      createdBy: -1,
-                      isDownload: -1,
-                      status: -1,
-                      bookMark: false,
-                      createdAt: "",
-                      updatedAt: "",
-                      deletedAt: "",
-                      author: [],
-                      category: []),
-                  BookDataEntity(
-                      id: -1,
-                      titleEn: "",
-                      titleBn: "",
-                      languageEn: "",
-                      languageBn: "",
-                      editionEn: "",
-                      editionBn: "",
-                      publishYearEn: "",
-                      publishYearBn: "",
-                      publisherEn: "",
-                      publisherBn: "",
-                      isbnEn: "",
-                      isbnBn: "",
-                      slug: "",
-                      descriptionEn: "",
-                      descriptionBn: "",
-                      coverImage: "",
-                      bookFile: "",
-                      externalLink: "",
-                      createdBy: -1,
-                      isDownload: -1,
-                      status: -1,
-                      bookMark: false,
-                      createdAt: "",
-                      updatedAt: "",
-                      deletedAt: "",
-                      author: [],
-                      category: []),
-                  BookDataEntity(
-                      id: -1,
-                      titleEn: "",
-                      titleBn: "",
-                      languageEn: "",
-                      languageBn: "",
-                      editionEn: "",
-                      editionBn: "",
-                      publishYearEn: "",
-                      publishYearBn: "",
-                      publisherEn: "",
-                      publisherBn: "",
-                      isbnEn: "",
-                      isbnBn: "",
-                      slug: "",
-                      descriptionEn: "",
-                      descriptionBn: "",
-                      coverImage: "",
-                      bookFile: "",
-                      externalLink: "",
-                      createdBy: -1,
-                      isDownload: -1,
-                      status: -1,
-                      bookMark: false,
-                      createdAt: "",
-                      updatedAt: "",
-                      deletedAt: "",
-                      author: [],
-                      category: []),
-                ],
-                buildItem: (context, index, item) {
-                  return SearchCardItemWidget(
-                    item: BookDataEntity(
-                        id: -1,
-                        titleEn: "",
-                        titleBn: "",
-                        languageEn: "",
-                        languageBn: "",
-                        editionEn: "",
-                        editionBn: "",
-                        publishYearEn: "",
-                        publishYearBn: "",
-                        publisherEn: "",
-                        publisherBn: "",
-                        isbnEn: "",
-                        isbnBn: "",
-                        slug: "",
-                        descriptionEn: "",
-                        descriptionBn: "",
-                        coverImage: "",
-                        bookFile: "",
-                        externalLink: "",
-                        createdBy: -1,
-                        isDownload: -1,
-                        status: -1,
-                        bookMark: false,
-                        createdAt: "",
-                        updatedAt: "",
-                        deletedAt: "",
-                        author: [],
-                        category: []),
-                    onSelect: (v) {},
-                  );
-                },
-              ),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.h12),
                 child: AppStreamBuilder<List<BookDataEntity>>(
                   stream: bookDataStreamController.stream,
                   loadingBuilder: (context) {
-                    return ShimmerLoader(child: Container()
+                    return ShimmerLoader(child:
+
+                    Container()
                         // ItemSectionWidget(
                         //     aspectRatio: 1.8,
                         //     title: '',
@@ -290,27 +110,15 @@ class _BookSearchScreenState extends State<BookSearchScreen>
                         );
                   },
                   dataBuilder: (context, data) {
-                    print(data);
-                    return Container();
-                    // return ItemSectionWidget(
-                    //     aspectRatio: 1.8,
-                    //     title: 'জনপ্রিয় বই',
-                    //     items: data,
-                    //     emptyText: "No Book Found !",
-                    //     buildItem: (context, index, item) {
-                    //       return AspectRatio(
-                    //         aspectRatio: .53,
-                    //         child: ELibContentItemWidget(
-                    //           key: Key(data[index].id.toString()),
-                    //           item: data[index],
-                    //           onSelect: onBookContentSelected,
-                    //           showBookmark: true,
-                    //           onBookmarkSelect: onBookmarkContentSelected,
-                    //           boxShadow: true,
-                    //         ),
-                    //       );
-                    //     },
-                    //     onTapSeeAll: () {});
+                    return SearchCardSectionWidget(
+                      items: data,
+                      buildItem: (context, index, item) {
+                        return SearchCardItemWidget(
+                          item: item,
+                          onSelect: (v) {},
+                        );
+                      },
+                    );
                   },
                   emptyBuilder: (context, message, icon) {
                     return EmptyWidget(
@@ -365,9 +173,10 @@ class ResultItemSectionWidget<T> extends StatelessWidget with AppTheme {
             initialData: DataLoadedState<ResultsForViewModel>(
                 ResultsForViewModel.newUploads()),
             builder: (context, snapshot) {
+
               var data =
                   (snapshot.data! as DataLoadedState<ResultsForViewModel>).data;
-              return Column(
+              return data.subTitle!='Showing results for ""'? Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -391,7 +200,7 @@ class ResultItemSectionWidget<T> extends StatelessWidget with AppTheme {
                       ),
                     ),
                 ],
-              );
+              ):const Offstage();
             },
           ),
         ),
@@ -445,7 +254,7 @@ class _SearchCardItemWidgetState extends State<SearchCardItemWidget>
           ),
           SizedBox(width: 10), // Add space between image and text
           Padding(
-            padding:  EdgeInsets.symmetric(vertical: size.h16),
+            padding: EdgeInsets.symmetric(vertical: size.h16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -494,14 +303,17 @@ class SearchCardSectionWidget<T> extends StatelessWidget with AppTheme {
       itemCount: items.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: size.h16,vertical: size.h16),
+      padding: EdgeInsets.symmetric(horizontal: size.h16, vertical: size.h16),
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
         return Padding(
-          padding:  EdgeInsets.symmetric(vertical: size.h8),
-          child: Divider(color: clr.lightPrimaryColorShadePurple,thickness: size.w1,),
+          padding: EdgeInsets.symmetric(vertical: size.h8),
+          child: Divider(
+            color: clr.lightPrimaryColorShadePurple,
+            thickness: size.w1,
+          ),
         );
       },
     );
