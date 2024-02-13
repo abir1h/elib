@@ -12,7 +12,7 @@ import '../../../../core/constants/language.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../book/presentation/widgets/elib_content_item_widget.dart';
+import '../../../book/presentation/widgets/book_item_widget.dart';
 import '../../../category/presentation/screens/category_details_screen.dart';
 import '../services/author_books_screen_service.dart';
 import 'author_screen.dart';
@@ -64,7 +64,7 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                               items: const ["", "", "", "", "", "", "", "", ""],
                               buildItem:
                                   (BuildContext context, int index, item) {
-                                return ELibContentItemWidget(
+                                return BookItemWidget(
                                   showBookmark: true,
                                   item: BookDataEntity(
                                       id: -1,
@@ -97,7 +97,6 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                                       category: []),
                                   onSelect: (e) {},
                                   onBookmarkSelect: (e) {},
-                                  boxShadow: true,
                                 );
                               },
                             ));
@@ -107,13 +106,11 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                               items: data,
                               buildItem:
                                   (BuildContext context, int index, item) {
-                                return ELibContentItemWidget(
-                                  showBookmark: true,
+                                return BookItemWidget(
                                   key: Key(data[index].id.toString()),
                                   item: data[index],
                                   onSelect: onBookContentSelected,
                                   onBookmarkSelect: onBookmarkSelected,
-                                  boxShadow: true,
                                 );
                               },
                             );

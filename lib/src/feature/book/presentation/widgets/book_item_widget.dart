@@ -5,19 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/book_data_entity.dart';
 
-class ELibContentItemWidget extends StatefulWidget with AppTheme {
+/*class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
   final bool boxShadow;
-  final bool? showBookmark;
+  final bool showBookmark;
   final double aspectRatio;
   const ELibContentItemWidget({
     Key? key,
     required this.onSelect,
     required this.item,
     this.onBookmarkSelect,
-    this.showBookmark,
+    this.showBookmark = true,
     this.boxShadow = false,
     this.aspectRatio = .8,
   }) : super(key: key);
@@ -28,11 +28,6 @@ class ELibContentItemWidget extends StatefulWidget with AppTheme {
 
 class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
     with AppTheme {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -183,6 +178,132 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
             height: size.h4,
           )
         ],
+      ),
+    );
+  }
+}*/
+
+class BookItemWidget extends StatelessWidget with AppTheme {
+  final void Function(BookDataEntity item) onSelect;
+  final void Function(BookDataEntity item)? onBookmarkSelect;
+  final BookDataEntity item;
+  final bool showBookmark;
+  const BookItemWidget({
+    super.key,
+    required this.onSelect,
+    this.onBookmarkSelect,
+    required this.item,
+    this.showBookmark = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => onSelect(item),
+      child: Container(
+        color: clr.whiteColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 0.2.sh,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(size.r4),
+                        topLeft: Radius.circular(size.r4)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: clr.appPrimaryColorBlack.withOpacity(.2),
+                        blurRadius: size.r8,
+                        offset: Offset(0.0, size.h2),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(size.r4),
+                        topLeft: Radius.circular(size.r4)),
+                    child: CachedNetworkImage(
+                      imageUrl: item.coverImage.isNotEmpty
+                          ? "http://103.209.40.89:82/uploads/${item.coverImage}"
+                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                      placeholder: (context, url) =>
+                          Icon(Icons.image, color: clr.greyColor),
+                      errorWidget: (context, url, error) =>
+                          Icon(Icons.image, color: clr.greyColor),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+
+                ///Bookmark
+                if (showBookmark)
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: onBookmarkSelect != null
+                          ? () => onBookmarkSelect!(item)
+                          : () {},
+                      child: Container(
+                          margin: EdgeInsets.only(top: size.h4, right: size.w4),
+                          padding: EdgeInsets.all(size.h2),
+                          decoration: BoxDecoration(
+                            color: clr.whiteColor,
+                            borderRadius: BorderRadius.circular(size.r4),
+                          ),
+                          child: item.bookMark
+                              ? Icon(
+                                  Icons.bookmark,
+                                  color: clr.appSecondaryColorPurple,
+                                )
+                              : Icon(
+                                  Icons.bookmark_border_outlined,
+                                  color: clr.appSecondaryColorPurple,
+                                )),
+                    ),
+                  ),
+              ],
+            ),
+            SizedBox(height: size.h8),
+            Text.rich(
+                textAlign: TextAlign.start,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: clr.textColorMamba,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: StringData.fontFamilyPoppins),
+                TextSpan(
+                    text: item.author!.isNotEmpty ? "লেখক " : "",
+                    children: [
+                      TextSpan(
+                        text:
+                            item.author!.map((c) => c.name).toList().join(', '),
+                      ),
+                    ])),
+            SizedBox(height: size.h4),
+            GestureDetector(
+              onTap: () => onSelect(item),
+              child: Text(
+                item.titleEn,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: clr.textColorGray27,
+                    fontSize: size.textXXSmall,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: StringData.fontFamilyPoppins),
+              ),
+            ),
+            SizedBox(
+              height: size.h4,
+            )
+          ],
+        ),
       ),
     );
   }

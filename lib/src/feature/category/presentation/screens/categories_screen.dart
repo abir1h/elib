@@ -75,7 +75,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             ],
                                 buildItem:
                                     (BuildContext context, int index, item) {
-                                  return ItemSectionWidget(
+                                  return CategoryItemWidget(
                                     data: CategoryDataEntity(
                                       id: -1,
                                       parentId: -1,
@@ -99,7 +99,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                         return CategorySectionWidget(
                             items: data,
                             buildItem: (BuildContext context, int index, item) {
-                              return ItemSectionWidget(
+                              return CategoryItemWidget(
                                 data: item,
                                 onTap: () => onTapCategory(
                                     item.nameEn, item.nameBn, item.id),
@@ -173,10 +173,10 @@ class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
   }
 }
 
-class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
+class CategoryItemWidget<T> extends StatelessWidget with AppTheme, Language {
   final CategoryDataEntity data;
   final VoidCallback onTap;
-  const ItemSectionWidget({Key? key, required this.data, required this.onTap})
+  const CategoryItemWidget({Key? key, required this.data, required this.onTap})
       : super(key: key);
 
   @override

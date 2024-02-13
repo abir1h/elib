@@ -12,7 +12,7 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../author/domain/entities/author_data_entity.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../book/presentation/widgets/elib_content_item_widget.dart';
+import '../../../book/presentation/widgets/book_item_widget.dart';
 import '../services/home_service.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
@@ -234,6 +234,7 @@ class _HomeScreenState extends State<HomeScreen>
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            ///Latest Book
                             ItemSectionWidget(
                                 aspectRatio: 1.6,
                                 title: "সাম্প্রতিক বই সমূহ",
@@ -241,20 +242,20 @@ class _HomeScreenState extends State<HomeScreen>
                                 emptyText: "No Book Found !",
                                 buildItem: (context, index, item) {
                                   return AspectRatio(
-                                    aspectRatio: .53,
-                                    child: ELibContentItemWidget(
+                                    aspectRatio: .47,
+                                    child: BookItemWidget(
                                       key: Key(item.id.toString()),
                                       item: item,
                                       onSelect: onBookContentSelected,
-                                      showBookmark: true,
                                       onBookmarkSelect:
                                           onBookmarkContentSelected,
-                                      boxShadow: true,
                                     ),
                                   );
                                 },
                                 onTapSeeAll: () =>
                                     onTapLatestSeeAll(data.latestBook)),
+
+                            ///First Category
                             CategorySectionWidget(
                                 items: data.categoriesOne,
                                 buildItem: (context, index, item) =>
@@ -265,15 +266,13 @@ class _HomeScreenState extends State<HomeScreen>
                                       emptyText: "No Book Found !",
                                       buildItem: (context, index, item) {
                                         return AspectRatio(
-                                          aspectRatio: .53,
-                                          child: ELibContentItemWidget(
+                                          aspectRatio: .47,
+                                          child: BookItemWidget(
                                             key: Key(item.id.toString()),
                                             item: item,
                                             onSelect: onBookContentSelected,
-                                            showBookmark: true,
                                             onBookmarkSelect:
                                                 onBookmarkContentSelected,
-                                            boxShadow: true,
                                           ),
                                         );
                                       },
@@ -305,15 +304,14 @@ class _HomeScreenState extends State<HomeScreen>
                                       emptyText: "No Book Found !",
                                       buildItem: (context, index, item) {
                                         return AspectRatio(
-                                          aspectRatio: .53,
-                                          child: ELibContentItemWidget(
+                                          aspectRatio: .47,
+                                          child: BookItemWidget(
                                             key: Key(item.id.toString()),
                                             item: item,
                                             onSelect: onBookContentSelected,
                                             showBookmark: true,
                                             onBookmarkSelect:
                                                 onBookmarkContentSelected,
-                                            boxShadow: true,
                                           ),
                                         );
                                       },
@@ -671,12 +669,11 @@ class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
       itemCount: items.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(vertical: size.h12),
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(height: size.h12);
+        return const SizedBox(height: 0.0);
       },
     );
   }
@@ -688,8 +685,8 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   final Widget Function(BuildContext context, int index, T item) buildItem;
   final VoidCallback onTapSeeAll;
   final double aspectRatio;
-  final double? horizontalPadding;
-  final double? verticalPadding;
+  final double horizontalPadding;
+  final double verticalPadding;
   final String emptyText;
   const ItemSectionWidget(
       {Key? key,
@@ -698,8 +695,8 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
       required this.buildItem,
       required this.onTapSeeAll,
       this.aspectRatio = 2,
-      this.horizontalPadding,
-      this.verticalPadding,
+      this.horizontalPadding = 0.0,
+      this.verticalPadding = 0.0,
       this.emptyText = "No Item Found"})
       : super(key: key);
 
@@ -707,64 +704,52 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: verticalPadding ?? size.h8,
-          horizontal: horizontalPadding ?? size.w8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(size.r8),
-        color: clr.whiteColor,
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: clr.appPrimaryColorBlack.withOpacity(.2),
-        //     blurRadius: size.r8,
-        //     offset: Offset(0.0, size.h2),
-        //   ),
-        // ],
-      ),
+          vertical: verticalPadding, horizontal: horizontalPadding),
+      color: clr.whiteColor,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///Header text
-          Padding(
-            padding: EdgeInsets.only(bottom: size.h8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                        color: clr.appSecondaryColorPurple,
-                        fontSize: size.textSmall,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: StringData.fontFamilyPoppins),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      color: clr.appSecondaryColorPurple,
+                      fontSize: size.textSmall,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: StringData.fontFamilyPoppins),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                if (items.isNotEmpty)
-                  GestureDetector(
-                    onTap: onTapSeeAll,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: size.w8, vertical: size.h2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(size.r4),
-                        color: clr.cardFillColorBlueMagenta,
-                      ),
-                      child: Text(
-                        label(e: en.seeAllText, b: bn.seeAllText),
-                        style: TextStyle(
-                          color: clr.appPrimaryColorBlack,
-                          fontSize: size.textSmall,
-                          fontWeight: FontWeight.w400,
-                        ),
+              ),
+              if (items.isNotEmpty)
+                GestureDetector(
+                  onTap: onTapSeeAll,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.w8, vertical: size.h2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(size.r4),
+                      color: clr.cardFillColorBlueMagenta,
+                    ),
+                    child: Text(
+                      label(e: en.seeAllText, b: bn.seeAllText),
+                      style: TextStyle(
+                        color: clr.appPrimaryColorBlack,
+                        fontSize: size.textSmall,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
+
+          SizedBox(height: size.h12),
 
           ///Items section
           items.isNotEmpty
@@ -774,8 +759,6 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                     itemCount: items.length < 5 ? items.length : 5,
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: size.w8, vertical: size.h12),
                     itemBuilder: (context, index) {
                       return buildItem(context, index, items[index]);
                     },

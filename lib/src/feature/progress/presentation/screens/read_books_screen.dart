@@ -8,11 +8,12 @@ import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/constants/app_theme.dart';
+import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../book/presentation/widgets/elib_content_item_widget.dart';
+import '../../../book/presentation/widgets/book_item_widget.dart';
 import '../../../category/presentation/screens/category_details_screen.dart';
 import '../services/read_book_screen_service.dart';
 import '../../../report/domain/entities/book_report_data_entity.dart';
@@ -38,10 +39,18 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /*AuthorItemWidget(
-                          authorDataEntity: _screenArgs.authorDataEntity,
-                          onTap: () {},
-                        ),*/
+                        Text(
+                          "আমার পড়া বই সমূহ:",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: clr.appPrimaryColorBlack,
+                            fontSize: size.textSmall,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: StringData.fontFamilyPoppins,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                         AppStreamBuilder<List<BookReportDataEntity>>(
                           stream: readBookDataStreamController.stream,
                           loadingBuilder: (context) {
@@ -50,8 +59,7 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
                               items: const ["", "", "", "", "", "", "", "", ""],
                               buildItem:
                                   (BuildContext context, int index, item) {
-                                return ELibContentItemWidget(
-                                  showBookmark: true,
+                                return BookItemWidget(
                                   item: BookDataEntity(
                                       id: -1,
                                       titleEn: "",
@@ -83,7 +91,6 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
                                       category: []),
                                   onSelect: (e) {},
                                   onBookmarkSelect: (e) {},
-                                  boxShadow: true,
                                 );
                               },
                             ));
@@ -94,13 +101,11 @@ class _ReadBooksScreenState extends State<ReadBooksScreen>
                               buildItem:
                                   (BuildContext context, int index, item) {
                                 if (data[index].book != null) {
-                                  return ELibContentItemWidget(
-                                    showBookmark: true,
+                                  return BookItemWidget(
                                     key: Key(data[index].book!.id.toString()),
                                     item: item.book!,
                                     onSelect: onBookContentSelected,
                                     onBookmarkSelect: onBookmarkSelected,
-                                    boxShadow: true,
                                   );
                                 } else {
                                   return Container();

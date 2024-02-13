@@ -15,7 +15,7 @@ import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../category/presentation/screens/category_details_screen.dart';
 import '../services/tag_book_screen_service.dart';
-import '../widgets/elib_content_item_widget.dart';
+import '../widgets/book_item_widget.dart';
 
 class TagBookScreen extends StatefulWidget {
   final Object? arguments;
@@ -60,7 +60,7 @@ class _TagBookScreenState extends State<TagBookScreen>
                               child: BookSectionWidget(
                             items: const ["", "", "", "", "", "", "", "", ""],
                             buildItem: (BuildContext context, int index, item) {
-                              return ELibContentItemWidget(
+                              return BookItemWidget(
                                 showBookmark: true,
                                 item: BookDataEntity(
                                     id: -1,
@@ -93,7 +93,6 @@ class _TagBookScreenState extends State<TagBookScreen>
                                     category: []),
                                 onSelect: (e) {},
                                 onBookmarkSelect: (e) {},
-                                boxShadow: true,
                               );
                             },
                           ));
@@ -102,13 +101,11 @@ class _TagBookScreenState extends State<TagBookScreen>
                           return BookSectionWidget(
                             items: data,
                             buildItem: (BuildContext context, int index, item) {
-                              return ELibContentItemWidget(
-                                showBookmark: true,
+                              return BookItemWidget(
                                 key: Key(data[index].id.toString()),
                                 item: data[index],
                                 onSelect: onBookContentSelected,
                                 onBookmarkSelect: onBookmarkSelected,
-                                boxShadow: true,
                               );
                             },
                           );

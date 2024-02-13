@@ -10,7 +10,7 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
-import '../../../book/presentation/widgets/elib_content_item_widget.dart';
+import '../../../book/presentation/widgets/book_item_widget.dart';
 import '../services/category_details_screen_service.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/constants/language.dart';
@@ -59,6 +59,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                 ),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(height: size.h20),
               AppStreamBuilder<List<BookDataEntity>>(
                 stream: bookDataStreamController.stream,
                 loadingBuilder: (context) {
@@ -66,8 +67,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                       child: BookSectionWidget(
                     items: const ["", "", "", "", "", "", "", "", ""],
                     buildItem: (BuildContext context, int index, item) {
-                      return ELibContentItemWidget(
-                        showBookmark: true,
+                      return BookItemWidget(
                         item: BookDataEntity(
                             id: -1,
                             titleEn: "",
@@ -99,7 +99,6 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                             category: []),
                         onSelect: onBookContentSelected,
                         onBookmarkSelect: onBookmarkSelected,
-                        boxShadow: true,
                       );
                     },
                   ));
@@ -108,13 +107,11 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
                   return BookSectionWidget(
                     items: data,
                     buildItem: (BuildContext context, int index, item) {
-                      return ELibContentItemWidget(
-                        showBookmark: true,
+                      return BookItemWidget(
                         key: Key(data[index].id.toString()),
                         item: data[index],
                         onSelect: onBookContentSelected,
                         onBookmarkSelect: onBookmarkSelected,
-                        boxShadow: true,
                       );
                     },
                   );
@@ -164,13 +161,13 @@ class BookSectionWidget<T> extends StatelessWidget with AppTheme {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        childAspectRatio: 0.5,
         crossAxisSpacing: size.h12,
         mainAxisSpacing: size.h12,
+        mainAxisExtent: .29.sh,
       ),
       itemCount: items.length,
       shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: size.h20),
+      // padding: EdgeInsets.symmetric(vertical: size.h20),
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },

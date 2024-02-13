@@ -42,8 +42,10 @@ class ThemeColor {
 
   Color get textColorAppleBlack => HexColor("1D1D1F");
   Color get textColorBlack => HexColor("414141");
+  Color get textColorGray27 => HexColor("454545");
   Color get textColorMidBlack => HexColor("535353");
   Color get textColorGray => HexColor("535056");
+  Color get textColorMamba => HexColor("746D7B");
   Color get calendarHintGrey => HexColor("AAAAAA");
   Color get textColorSilverSconce => HexColor("9E9D9F");
   Color get placeHolderTextColorGray => HexColor("9F9F9F");
