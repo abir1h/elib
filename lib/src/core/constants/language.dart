@@ -144,7 +144,9 @@ class LanguageEn {
   String chooseBookReport= "Choose the report period:";
   String bookReportTitle=  "Get book download & view count report";
   String drawerFooter=  "CLMS-Other Components:";
-
+  String checkBoxAll=  "All";
+  String checkBoxBook=  "Book";
+  String checkBoxAuthor=  "Author";
 
 
   String categoryViewAll = "View all books in the category";
@@ -289,6 +291,9 @@ class LanguageBn {
   String calendarStartDate = "শুরুর তারিখ";
   String calendarEndDate = "শেষের তারিখ";
   String drawerFooter=  "CLMS - এর অন্যান্য কম্পনেন্ট সমূহ:";
+  String checkBoxAll=  "সকল";
+  String checkBoxBook=  "বই";
+  String checkBoxAuthor=  "লেখক";
 
 
 
