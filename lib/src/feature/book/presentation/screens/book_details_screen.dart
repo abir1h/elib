@@ -44,7 +44,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: 'Book Details',
+      title: "বইয়ের বিবরণ",
       child: AppStreamBuilder<BookDataEntity>(
         stream: bookDataStreamController.stream,
         loadingBuilder: (context) {
@@ -66,85 +66,69 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: size.h16,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    16.0.w), // Adjust horizontal padding
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // Flexible container for image
-                                Flexible(
-                                  flex: 2, // Adjust the flex value as needed
-                                  child: SizedBox(
-                                    height: 230.h, // Responsive height
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            "http://103.209.40.89:82/uploads/${data.coverImage}",
-                                        placeholder: (context, url) =>
-                                            const Offstage(),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.image,
-                                                color: clr.greyColor),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
+                          SizedBox(height: size.h16),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Flexible container for image
+                              SizedBox(
+                                height: .25.sh,
+                                width: .45.sw, // Responsive height
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(size.r4),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        "http://103.209.40.89:82/uploads/${data.coverImage}",
+                                    placeholder: (context, url) =>
+                                        Icon(Icons.image, color: clr.greyColor),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.image, color: clr.greyColor),
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
-                                SizedBox(
-                                    width: 16.0.w), // Adjust horizontal spacing
+                              ),
+                              SizedBox(
+                                  width: 16.0.w), // Adjust horizontal spacing
 
-                                // Flexible container for bookmark icon
-                                Flexible(
-                                  flex: 1, // Adjust the flex value as needed
-                                  child: GestureDetector(
-                                    onTap: () =>
-                                        onBookmarkContentSelected(data),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 8.0.h,
-                                        horizontal: 10.0.w,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: clr.whiteColor,
-                                        border: Border.all(
-                                            color: clr.greyStokeColor,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: clr.appPrimaryColorBlack
-                                                .withOpacity(0.2),
-                                            blurRadius: 3,
-                                            offset: const Offset(0.0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: data.bookMark
-                                          ? Icon(
-                                              Icons.bookmark,
-                                              color:
-                                                  clr.appSecondaryColorPurple,
-                                              size: 24.0,
-                                            )
-                                          : Icon(
-                                              Icons.bookmark_border_outlined,
-                                              color:
-                                                  clr.appSecondaryColorPurple,
-                                              size: 24.0,
-                                            ),
-                                    ),
+                              // Flexible container for bookmark icon
+                              GestureDetector(
+                                onTap: () => onBookmarkContentSelected(data),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: size.h8,
+                                    horizontal: size.w10,
                                   ),
+                                  decoration: BoxDecoration(
+                                    color: clr.whiteColor,
+                                    border: Border.all(
+                                        color: clr.greyStokeColor,
+                                        width: size.r1),
+                                    borderRadius:
+                                        BorderRadius.circular(size.r4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: clr.appPrimaryColorBlack
+                                            .withOpacity(0.2),
+                                        blurRadius: 3,
+                                        offset: const Offset(0.0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: data.bookMark
+                                      ? Icon(
+                                          Icons.bookmark,
+                                          color: clr.appSecondaryColorPurple,
+                                          size: 24.0,
+                                        )
+                                      : Icon(
+                                          Icons.bookmark_border_outlined,
+                                          color: clr.appSecondaryColorPurple,
+                                          size: 24.0,
+                                        ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           /* Row(
                             crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,6 +15,7 @@ import '../services/category_details_screen_service.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
+import '../widgets/book_section_widget.dart';
 
 class CategoryDetailsScreen extends StatefulWidget {
   final Object? arguments;
@@ -145,32 +146,5 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen>
   @override
   void showSuccess(String message) {
     CustomToasty.of(context).showSuccess(message);
-  }
-}
-
-class BookSectionWidget<T> extends StatelessWidget with AppTheme {
-  final List<T> items;
-  final Widget Function(BuildContext context, int index, T item) buildItem;
-  const BookSectionWidget(
-      {Key? key, required this.items, required this.buildItem})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: size.h12,
-        mainAxisSpacing: size.h12,
-        mainAxisExtent: .29.sh,
-      ),
-      itemCount: items.length,
-      shrinkWrap: true,
-      // padding: EdgeInsets.symmetric(vertical: size.h20),
-      itemBuilder: (context, index) {
-        return buildItem(context, index, items[index]);
-      },
-    );
   }
 }
