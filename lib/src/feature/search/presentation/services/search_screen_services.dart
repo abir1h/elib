@@ -41,6 +41,8 @@ mixin SearchScreenService<T extends StatefulWidget> on State<T>
   @override
   void dispose() {
     super.dispose();
+    resultsForStreamController.dispose();
+    bookDataStreamController.dispose();
   }
 
   List<BookDataEntity> _bookData = [];
