@@ -71,6 +71,7 @@ class _ProgressInfoWidgetState extends State<ProgressInfoWidget>
               ],
             ),
           ),*/
+
               ProgressCardWidget(
                 title: "অগ্রগতির রিপোর্ট",
                 subTitle: "সর্বাধিক পঠিত বই এবং জনপ্রিয় বই গুলো দেখুন",
@@ -216,5 +217,30 @@ class BGClipper2 extends CustomClipper<Path> {
   @override
   bool shouldReclip(BGClipper2 oldClipper) {
     return true;
+  }
+}
+
+class MyPolygon extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(size.width * .8, 0);
+    path.lineTo(size.width * .7, size.height * .2);
+    path.lineTo(size.width * .85, size.height * .6);
+    path.lineTo(size.width, size.height * .4);
+    path.lineTo(size.width, 0);
+    path.close();
+
+    ///
+    // path.lineTo(size.width * 0.8, 0);
+    // path.quadraticBezierTo(
+    //     size.width *.7, size.height * .5, size.width, size.height * .4);
+    // path.lineTo(size.width, 0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

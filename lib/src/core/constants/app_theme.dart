@@ -61,7 +61,9 @@ class ThemeColor {
   Color get cardStrokeColorBlueMagenta => HexColor("D1ADED");
   Color get cardStrokeColorPerfume => HexColor("C3A8D7");
   Color get cardStrokeColorGrey => HexColor("E8E8E8");
+  Color get cardStrokeColorLavender => HexColor("B283D5");
   Color get cardStrokeColorCylindricalCoordinate => HexColor("ECD7FC");
+  Color get cardStrokeColorFloral => HexColor("B378FF");
   Color get dividerStrokeColorGrey => HexColor("B0B0B0");
   Color get dividerStrokeColorGrey2 => HexColor("C5C5C5");
 
@@ -91,6 +93,7 @@ class ThemeColor {
   Color get toastAskBackgroundColor => HexColor("E7F6FF");
   Color get backgroundColorMintCream => HexColor("F2FCFA");
   Color get backgroundColorGreenCyan => HexColor("E7FDF8");
+  Color get backgroundColorBlueMagenta => HexColor("FAF3FF");
 
   Color get statusColorGray => HexColor("737373");
   Color get statusColorMediumGreen => HexColor("3DB650");

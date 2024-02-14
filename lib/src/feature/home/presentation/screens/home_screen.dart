@@ -85,56 +85,54 @@ class _HomeScreenState extends State<HomeScreen>
                       ],
                     ),
                   ),
+
                   SizedBox(height: size.h16),
 
                   ///Search Box and Bookmark button
                   GestureDetector(
                     onTap: onTapSearchScreen,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: size.w20),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                            width: double.maxFinite,
-                            height: size.h42,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.h12, vertical: size.h4),
-                            decoration: BoxDecoration(
-                              color: clr.whiteColor,
-                              border: Border.all(
-                                color: clr.cardStrokeColorPerfume,
-                                // width: 1.w,
-                              ),
-                              borderRadius: BorderRadius.circular(size.h12),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 2.0.w),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(top: 2.0.w),
-                                      child: Icon(
-                                        Icons.search_rounded,
-                                        color: clr.iconColorGray85,
-                                        size: size.h20,
-                                      )),
-                                  SizedBox(
-                                    width: size.h8,
-                                  ),
-                                  Expanded(child: Text("Search Kor"))
-                                ],
-                              ),
-                            ),
-                          )
-
-                              // SearchBoxWidget(
-                              //   hintText: label(e: en.searchText, b: bn.searchText),
-                              //   onSearchTermChange: onSearchTermChanged,
-                              // ),
-                              ),
-                        ],
+                      padding: EdgeInsets.symmetric(horizontal: size.w16),
+                      child: Container(
+                        width: double.maxFinite,
+                        height: size.h42,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.h12, vertical: size.h4),
+                        decoration: BoxDecoration(
+                          color: clr.whiteColor,
+                          border: Border.all(
+                            color: clr.cardStrokeColorPerfume,
+                            // width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(size.h12),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: size.h2),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(top: size.h2),
+                                  child: Icon(
+                                    Icons.search_rounded,
+                                    color: clr.iconColorGray85,
+                                    size: size.h20,
+                                  )),
+                              SizedBox(width: size.h8),
+                              Expanded(
+                                  child: Text(
+                                "Search by title, author",
+                                style: TextStyle(
+                                    color: clr.textColorSilverSconce,
+                                    fontSize: size.textSmall,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: StringData.fontFamilyPoppins),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ))
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -541,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Positioned(
-              left: size.w16,
+              left: size.w12,
               top: size.h8,
               child: GestureDetector(
                 onTap: () {

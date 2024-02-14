@@ -22,195 +22,208 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: clr.shadeWhiteColor,
+      backgroundColor: clr.shadeWhiteColor2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(topRight: Radius.circular(size.w8)),
       ),
-      child: SafeArea(
-        child: SizedBox(
-          height: 1.sh,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.w16, top: size.h32, right: size.w16),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            ImageAssets.imgEmptyProfile,
-                            height: size.h32,
-                          ),
-                          SizedBox(width: size.w12),
-                          Expanded(
-                            child: Text(
-                              label(e: en.userNameText, b: bn.userNameText),
-                              style: TextStyle(
-                                  color: clr.appSecondaryColorPurple,
-                                  fontSize: size.textXMedium,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: StringData.fontFamilyPoppins),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: size.h24),
-                    Padding(
-                      padding: EdgeInsets.only(left: size.w16),
-                      child: CustomSwitchButton(
-                        value: App.currentAppLanguage == AppLanguage.english,
-                        textOn: 'EN',
-                        textSize: size.textXXSmall,
-                        textOff: 'বাং',
-                        bgColor: clr.whiteColor,
-                        width: 64.w,
-                        animationDuration: const Duration(milliseconds: 300),
-                        onChanged: (bool state) {
-                          App.setAppLanguage(state ? 1 : 0).then((value) {
-                            if (mounted) {
-                              setState(() {});
-                            }
-                            AppEventsNotifier.notify(EventAction.bottomNavBar);
-                          });
-                        },
-                        buttonHolder: const Icon(
-                          Icons.check,
-                          color: Colors.transparent,
-                        ),
-                        onTap: () {},
-                        onDoubleTap: () {},
-                        onSwipe: () {},
-                      ),
-                    ),
-                    SizedBox(height: size.h12),
-                    Container(height: size.h1, color: clr.cardStrokeColorMauve),
-                    DrawerLinkWidget(
-                      svgIcon: ImageAssets.icBook,
-                      text: label(e: en.eLibrary, b: bn.eLibrary),
-                      onTap: () {},
-                    ),
-                    DrawerLinkWidget(
-                      svgIcon: ImageAssets.icApproval,
-                      text: label(e: en.bookRequestText, b: bn.bookRequestText),
-                      onTap: () => Navigator.of(context)
-                          .pushNamed(AppRoute.bookRequestListScreen),
-                    ),
-                    DrawerLinkWidget(
-                      svgIcon: ImageAssets.icAddNotes,
-                      text: label(e: en.notesText, b: bn.notesText),
-                      onTap: () =>
-                          Navigator.of(context).pushNamed(AppRoute.noteScreen),
-                    ),
-                    DrawerLinkWidget(
-                      icon: Icons.book,
-                      text: label(e: en.bookReportText, b: bn.bookReportText),
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, AppRoute.bookViewDownloadCountScreen);
-                      },
-                    ),
-                    DrawerLinkWidget(
-                      icon: Icons.logout,
-                      iconColor: clr.textColorBlack,
-                      text: label(e: en.logoutText, b: bn.logoutText),
-                      onTap: showLogoutPromptDialog,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.w16),
-                child: Column(
-                  children: [
-                    Text(
-                      label(e: en.drawerFooter, b: bn.drawerFooter),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: size.textSmall,
-                          fontFamily: StringData.fontFamilyPoppins),
-                    ),
-                    Divider(
-                      color: clr.appSecondaryColorPurple,
-                    ),
-                    SizedBox(
-                      height: size.h16,
-                    ),
-                    Row(
+      child: SizedBox(
+        height: 1.sh,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: clr.backgroundColorBlueMagenta,
+                        border: Border(
+                            bottom: BorderSide(
+                                color: clr.cardStrokeColorFloral,
+                                width: size.w1))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: size.h42 + size.h10,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(ImageAssets.imgModule1),
-                                    fit: BoxFit.contain),
-                                border: Border.all(
-                                    color: clr.appSecondaryColorPurple),
-                                borderRadius: BorderRadius.circular(size.r8)),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: size.w16, top: size.h56, right: size.w16),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                ImageAssets.imgEmptyProfile,
+                                height: size.h32,
+                              ),
+                              SizedBox(width: size.w12),
+                              Expanded(
+                                child: Text(
+                                  label(e: en.userNameText, b: bn.userNameText),
+                                  style: TextStyle(
+                                      color: clr.appSecondaryColorPurple,
+                                      fontSize: size.textXMedium,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: StringData.fontFamilyPoppins),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          width: size.w16,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: size.h42 + size.h10,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(ImageAssets.imgModule5),
-                                    fit: BoxFit.contain),
-                                border: Border.all(
-                                    color: clr.appSecondaryColorPurple),
-                                borderRadius: BorderRadius.circular(size.r8)),
+                        SizedBox(height: size.h24),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.w16),
+                          child: CustomSwitchButton(
+                            value:
+                                App.currentAppLanguage == AppLanguage.english,
+                            textOn: 'EN',
+                            textSize: size.textXXSmall,
+                            textOff: 'বাং',
+                            bgColor: clr.whiteColor,
+                            width: 64.w,
+                            animationDuration:
+                                const Duration(milliseconds: 300),
+                            onChanged: (bool state) {
+                              App.setAppLanguage(state ? 1 : 0).then((value) {
+                                if (mounted) {
+                                  setState(() {});
+                                }
+                                AppEventsNotifier.notify(
+                                    EventAction.bottomNavBar);
+                              });
+                            },
+                            buttonHolder: const Icon(
+                              Icons.check,
+                              color: Colors.transparent,
+                            ),
+                            onTap: () {},
+                            onDoubleTap: () {},
+                            onSwipe: () {},
                           ),
                         ),
-                        SizedBox(
-                          width: size.w16,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: size.h42 + size.h10,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(ImageAssets.imgModule6),
-                                    fit: BoxFit.contain),
-                                border: Border.all(
-                                    color: clr.appSecondaryColorPurple),
-                                borderRadius: BorderRadius.circular(size.r8)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.w16,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: size.h42 + size.h10,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(ImageAssets.imgModule1),
-                                    fit: BoxFit.contain),
-                                border: Border.all(
-                                    color: clr.appSecondaryColorPurple),
-                                borderRadius: BorderRadius.circular(size.r8)),
-                          ),
-                        ),
+                        SizedBox(height: size.h12),
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  DrawerLinkWidget(
+                    svgIcon: ImageAssets.icBook,
+                    text: label(e: en.eLibrary, b: bn.eLibrary),
+                    onTap: () {},
+                  ),
+                  DrawerLinkWidget(
+                    svgIcon: ImageAssets.icApproval,
+                    text: label(e: en.bookRequestText, b: bn.bookRequestText),
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoute.bookRequestListScreen),
+                  ),
+                  DrawerLinkWidget(
+                    svgIcon: ImageAssets.icAddNotes,
+                    text: label(e: en.notesText, b: bn.notesText),
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(AppRoute.noteScreen),
+                  ),
+                  DrawerLinkWidget(
+                    icon: Icons.book,
+                    text: label(e: en.bookReportText, b: bn.bookReportText),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, AppRoute.bookViewDownloadCountScreen);
+                    },
+                  ),
+                  DrawerLinkWidget(
+                    icon: Icons.logout,
+                    iconColor: clr.textColorBlack,
+                    text: label(e: en.logoutText, b: bn.logoutText),
+                    onTap: showLogoutPromptDialog,
+                  ),
+                ],
               ),
-              SizedBox(
-                height: size.h20,
-              )
-            ],
-          ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.w16),
+              child: Column(
+                children: [
+                  Text(
+                    label(e: en.drawerFooter, b: bn.drawerFooter),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: size.textSmall,
+                        fontFamily: StringData.fontFamilyPoppins),
+                  ),
+                  Divider(
+                    color: clr.appSecondaryColorPurple,
+                  ),
+                  SizedBox(
+                    height: size.h16,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: size.h42 + size.h10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(ImageAssets.imgModule1),
+                                  fit: BoxFit.contain),
+                              border: Border.all(
+                                  color: clr.appSecondaryColorPurple),
+                              borderRadius: BorderRadius.circular(size.r8)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.w16,
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: size.h42 + size.h10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(ImageAssets.imgModule5),
+                                  fit: BoxFit.contain),
+                              border: Border.all(
+                                  color: clr.appSecondaryColorPurple),
+                              borderRadius: BorderRadius.circular(size.r8)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.w16,
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: size.h42 + size.h10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(ImageAssets.imgModule6),
+                                  fit: BoxFit.contain),
+                              border: Border.all(
+                                  color: clr.appSecondaryColorPurple),
+                              borderRadius: BorderRadius.circular(size.r8)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.w16,
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: size.h42 + size.h10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(ImageAssets.imgModule1),
+                                  fit: BoxFit.contain),
+                              border: Border.all(
+                                  color: clr.appSecondaryColorPurple),
+                              borderRadius: BorderRadius.circular(size.r8)),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: size.h20,
+            )
+          ],
         ),
       ),
     );
@@ -260,7 +273,7 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
           color: Colors.transparent,
           border: Border(
               bottom:
-                  BorderSide(width: size.h1, color: clr.cardStrokeColorMauve)),
+                  BorderSide(width: size.h1, color: clr.cardStrokeColorFloral)),
         ),
         child: Row(
           children: [
