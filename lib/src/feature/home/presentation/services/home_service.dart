@@ -226,7 +226,7 @@ class ResultsForViewModel {
   late final String subTitle;
 
   ResultsForViewModel.newUploads() {
-    title = label(e: "Popular Books", b: "জনপ্রিয় বই");
+    title = label(e: "", b: "");
     subTitle = "";
   }
   ResultsForViewModel.search(String searchTerm) {
