@@ -32,7 +32,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderWidget(
-              title: label(e: en.categoriesText, b: bn.categoriesText),
+              title: label(e: en.allCategoriesText, b: bn.allCategoriesText),
               onTapNotification: onTapNotification,
             ),
             Expanded(

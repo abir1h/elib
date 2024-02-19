@@ -35,7 +35,7 @@ class _BookmarkScreenState extends State<BookmarkScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderWidget(
-              title: label(e: en.bookmarkText, b: bn.bookmarkText),
+              title: label(e: en.listOfBookmarkText, b: bn.listOfBookmarkText),
               onTapNotification: onTapNotification,
             ),
             Expanded(

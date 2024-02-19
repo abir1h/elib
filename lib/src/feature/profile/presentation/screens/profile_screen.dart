@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         builder: (context, constraints) => Column(
           children: [
             HeaderWidget(
-              title: label(e: en.profileText, b: bn.profileText),
+              title: label(e: en.myProfileText, b: bn.myProfileText),
               onTapNotification: onTapNotification,
             ),
             Expanded(
