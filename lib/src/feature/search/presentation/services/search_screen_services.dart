@@ -32,11 +32,17 @@ mixin SearchScreenService<T extends StatefulWidget> on State<T>
   void initState() {
     _view = this;
     super.initState();
+    bookDataStreamController.add(EmptyState(
+      message: "",
+      icon: Icons.search_rounded,
+    ));
   }
 
   @override
   void dispose() {
     super.dispose();
+    resultsForStreamController.dispose();
+    bookDataStreamController.dispose();
   }
 
   List<BookDataEntity> _bookData = [];
