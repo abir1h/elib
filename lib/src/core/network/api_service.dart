@@ -3,7 +3,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
+import '../../feature/authentication/data/data_sources/remote/auth_data_source.dart';
 import '../utility/log.dart';
 import '../service/auth_cache_manager.dart';
 import '../constants/common_imports.dart';
@@ -52,6 +54,112 @@ class Server {
     }
   }
 
+  Future<dynamic> getRequestForAuth({required String url}) async {
+    try {
+      String token = await AuthCacheManager.getUserToken();
+      // var response = await _client.get(Uri.parse(host + url), headers: {
+      //   "Accept": "application/json",
+      //   "Content-Type": "application/json",
+      //   "Authorization": "Bearer $token"
+      // });
+
+      var response = await RetryClient(
+        _client,
+        retries: 1,
+        when: (response) {
+          print("When");
+          return response.statusCode == 400;
+        },
+        onRetry: (req, res, retryCount) async {
+          if (res?.statusCode == 400) {
+            await AuthRemoteDataSourceImp().refreshTokenAction();
+            // remove old token
+            req.headers.remove('Authorization');
+            print("onRetry");
+            // add new token
+            String token = await AuthCacheManager.getUserToken();
+            Map<String, String> tokenHeader = {"Authorization": "Bearer $token"};
+            req.headers.addEntries(tokenHeader.entries);
+          }
+        },
+      ).get(Uri.parse(url), headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+      debugPrint(
+          "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
+      return _returnResponse(response);
+    } on SocketException catch (_) {
+      dynamic response = {
+        "message": "Request failed! Check internet connection.",
+        "error": "Error message"
+      };
+      return response;
+    } on Exception catch (_) {
+      dynamic response = {
+        "message": "Request failed! Unknown error occurred.",
+        "error": "Error message"
+      };
+      return response;
+    }
+  }
+
+  Future<dynamic> postRequestForAuth({required String url}) async {
+    try {
+      String token = await AuthCacheManager.getUserToken();
+      // var response = await _client.get(Uri.parse(host + url), headers: {
+      //   "Accept": "application/json",
+      //   "Content-Type": "application/json",
+      //   "Authorization": "Bearer $token"
+      // });
+
+      var response = await RetryClient(
+        _client,
+        retries: 1,
+        when: (response) {
+          print("When");
+          return response.statusCode == 400;
+        },
+        onRetry: (req, res, retryCount) async {
+          if (res?.statusCode == 400) {
+            String refreshToken = await AuthCacheManager.getRefreshToken();
+            req.headers.remove('Authorization');
+            Map<String, String> refreshTokenHeader = {"Authorization": "Bearer $refreshToken"};
+            req.headers.addEntries(refreshTokenHeader.entries);
+            await AuthRemoteDataSourceImp().refreshTokenAction();
+            // remove old token
+            req.headers.remove('Authorization');
+            print("onRetry");
+            // add new token
+            String token = await AuthCacheManager.getUserToken();
+            Map<String, String> tokenHeader = {"Authorization": "Bearer $token"};
+            req.headers.addEntries(tokenHeader.entries);
+          }
+        },
+      ).post(Uri.parse(url), headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+      debugPrint(
+          "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
+      return _returnResponse(response);
+    } on SocketException catch (_) {
+      dynamic response = {
+        "message": "Request failed! Check internet connection.",
+        "error": "Error message"
+      };
+      return response;
+    } on Exception catch (_) {
+      dynamic response = {
+        "message": "Request failed! Unknown error occurred.",
+        "error": "Error message"
+      };
+      return response;
+    }
+  }
+
   Future<dynamic> getRequest({required String url}) async {
     try {
       String token = await AuthCacheManager.getUserToken();
@@ -79,32 +187,32 @@ class Server {
   }
 
   ///Todo must be modify later
-  Future<dynamic> getRequestForAuth({required String url}) async {
-    try {
-      String token = await AuthCacheManager.getUserToken();
-      var response = await _client.get(Uri.parse(url), headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization":
-            "Bearer $token"
-      });
-      debugPrint(
-          "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
-      return _returnResponse(response);
-    } on SocketException catch (_) {
-      dynamic response = {
-        "message": "Request failed! Check internet connection.",
-        "error": "Error message"
-      };
-      return response;
-    } on Exception catch (_) {
-      dynamic response = {
-        "message": "Request failed! Unknown error occurred.",
-        "error": "Error message"
-      };
-      return response;
-    }
-  }
+  // Future<dynamic> getRequestForAuth({required String url}) async {
+  //   try {
+  //     String token = await AuthCacheManager.getUserToken();
+  //     var response = await _client.get(Uri.parse(url), headers: {
+  //       "Accept": "application/json",
+  //       "Content-Type": "application/json",
+  //       "Authorization":
+  //           "Bearer $token"
+  //     });
+  //     debugPrint(
+  //         "REQUEST => ${response.request.toString()}\nRESPONSE DATA => ${response.body.toString()}");
+  //     return _returnResponse(response);
+  //   } on SocketException catch (_) {
+  //     dynamic response = {
+  //       "message": "Request failed! Check internet connection.",
+  //       "error": "Error message"
+  //     };
+  //     return response;
+  //   } on Exception catch (_) {
+  //     dynamic response = {
+  //       "message": "Request failed! Unknown error occurred.",
+  //       "error": "Error message"
+  //     };
+  //     return response;
+  //   }
+  // }
 
   Future<dynamic> deleteRequest({required String url}) async {
     try {
