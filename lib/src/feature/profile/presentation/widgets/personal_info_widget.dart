@@ -65,27 +65,27 @@ class PersonalInfoWidget extends StatelessWidget with AppTheme, Language {
                     ),
                   ],
                 ),
-                ClipPath(
-                  clipper: MyPolygon(),
-                  child: Container(
-                    height: MediaQuery.of(context).size.width * .4,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: clr.whiteColor,
-                      borderRadius: BorderRadius.circular(size.r16),
-                      border: Border.all(color: clr.cardStrokeColorGrey),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          offset: const Offset(0, 5), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    color: clr.appSecondaryColorPurple,
-                  ),
-                )
+                // ClipPath(
+                //   clipper: MyPolygon(),
+                //   child: Container(
+                //     height: MediaQuery.of(context).size.width * .4,
+                //     width: double.maxFinite,
+                //     decoration: BoxDecoration(
+                //       color: clr.whiteColor,
+                //       borderRadius: BorderRadius.circular(size.r16),
+                //       border: Border.all(color: clr.cardStrokeColorGrey),
+                //       boxShadow: [
+                //         BoxShadow(
+                //           color: Colors.grey.withOpacity(0.3),
+                //           spreadRadius: 2,
+                //           blurRadius: 3,
+                //           offset: const Offset(0, 5), // changes position of shadow
+                //         ),
+                //       ],
+                //     ),
+                //     color: clr.appSecondaryColorPurple,
+                //   ),
+                // )
               ],
             ),
           ),

@@ -144,6 +144,18 @@ class ProgressCardWidget extends StatelessWidget with AppTheme {
         padding: EdgeInsets.symmetric(horizontal: size.w16, vertical: size.h28),
         decoration: BoxDecoration(
           color: clr.whiteColor,
+          gradient:   LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              clr.lightPrimaryColorPurple,
+              clr.whiteColor,
+            ],
+            stops: [
+              0.0,
+              0.7,
+            ]
+          ),
           borderRadius: BorderRadius.circular(size.r16),
           border: Border.all(color: clr.cardStrokeColorGrey),
           boxShadow: [
@@ -186,39 +198,6 @@ class ProgressCardWidget extends StatelessWidget with AppTheme {
   }
 }
 
-class BGClipper1 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.width * 0.43);
-    path.quadraticBezierTo(
-        size.width * .5, size.height * 1.2, size.width, size.height * .4);
-    path.lineTo(size.width, 0);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(BGClipper1 oldClipper) {
-    return true;
-  }
-}
-
-class BGClipper2 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(size.width * .5, size.width * 0.4);
-    path.quadraticBezierTo(
-        size.width * .5, size.height * 1.1, size.width, size.height * .02);
-    path.lineTo(size.width, 0);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(BGClipper2 oldClipper) {
-    return true;
-  }
-}
 
 class MyPolygon extends CustomClipper<Path> {
   @override
