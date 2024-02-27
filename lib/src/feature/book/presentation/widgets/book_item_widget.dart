@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/book_data_entity.dart';
+import '../services/book_widget_services.dart';
 
 /*class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
@@ -182,7 +183,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
   }
 }*/
 
-class BookItemWidget extends StatelessWidget with AppTheme {
+class BookItemWidget extends StatefulWidget {
   final void Function(BookDataEntity item) onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
@@ -196,9 +197,14 @@ class BookItemWidget extends StatelessWidget with AppTheme {
   });
 
   @override
+  State<BookItemWidget> createState() => _BookItemWidgetState();
+}
+
+class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkWidgetService{
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onSelect(item),
+      onTap: () => widget.onSelect(widget.item),
       child: Container(
         color: clr.whiteColor,
         child: Column(
@@ -228,8 +234,8 @@ class BookItemWidget extends StatelessWidget with AppTheme {
                           topRight: Radius.circular(size.r4),
                           topLeft: Radius.circular(size.r4)),
                       child: CachedNetworkImage(
-                        imageUrl: item.coverImage.isNotEmpty
-                            ? "http://103.209.40.89:82/uploads/${item.coverImage}"
+                        imageUrl: widget.item.coverImage.isNotEmpty
+                            ? "http://103.209.40.89:82/uploads/${widget.item.coverImage}"
                             : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                         placeholder: (context, url) =>
                             Icon(Icons.image, color: clr.greyColor),
@@ -240,15 +246,39 @@ class BookItemWidget extends StatelessWidget with AppTheme {
                     ),
                   ),
                 ),
-
-                ///Bookmark
-                if (showBookmark)
+                // StreamBuilder(
+                //   stream: bookMarkIconController.stream,
+                //   initialData:widget.showBookmark,
+                //   builder: (context, snapshot) {
+                //     return   Align(
+                //         alignment: Alignment.topRight,
+                //         child: GestureDetector(
+                //           onTap:()=> onBookmarkContentSelected(widget.item),
+                //           child: Container(
+                //               margin: EdgeInsets.only(top: size.h4, right: size.w4),
+                //               padding: EdgeInsets.all(size.h2),
+                //               decoration: BoxDecoration(
+                //                 color: clr.whiteColor,
+                //                 borderRadius: BorderRadius.circular(size.r4),
+                //               ),
+                //               child: snapshot.data!
+                //                   ? Icon(
+                //                       Icons.bookmark,
+                //                       color: clr.appSecondaryColorPurple,
+                //                     )
+                //                   : Icon(
+                //                       Icons.bookmark_border_outlined,
+                //                       color: clr.appSecondaryColorPurple,
+                //                     )),
+                //         ),
+                //       );
+                //   },
+                // )
+                if (widget.showBookmark)
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
-                      onTap: onBookmarkSelect != null
-                          ? () => onBookmarkSelect!(item)
-                          : () {},
+                      onTap:()=> onBookmarkContentSelected(widget.item),
                       child: Container(
                           margin: EdgeInsets.only(top: size.h4, right: size.w4),
                           padding: EdgeInsets.all(size.h2),
@@ -256,21 +286,65 @@ class BookItemWidget extends StatelessWidget with AppTheme {
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
                           ),
-                          child: item.bookMark
-                              ? Icon(
-                                  Icons.bookmark,
-                                  color: clr.appSecondaryColorPurple,
-                                )
-                              : Icon(
-                                  Icons.bookmark_border_outlined,
-                                  color: clr.appSecondaryColorPurple,
-                                )),
+                          child:  StreamBuilder(
+                            stream: bookMarkIconController.stream,
+                            initialData: widget.item.bookMark,
+                            builder: (context, snapshot) {
+                              widget.item.bookMark=snapshot.data!;
+                              return  snapshot.data!
+                                  ? Icon(
+                                Icons.bookmark,
+                                color: clr.appSecondaryColorPurple,
+                              )
+                                  : Icon(
+                                Icons.bookmark_border_outlined,
+                                color: clr.appSecondaryColorPurple,
+                              );
+                            },
+                          )
+
+
+                          // widget.item.bookMark
+                          //     ? Icon(
+                          //         Icons.bookmark,
+                          //         color: clr.appSecondaryColorPurple,
+                          //       )
+                          //     : Icon(
+                          //         Icons.bookmark_border_outlined,
+                          //         color: clr.appSecondaryColorPurple,
+                          //       )),
                     ),
+                  ),
+                // ///Bookmark
+                // if (widget.showBookmark)
+                //   Align(
+                //     alignment: Alignment.topRight,
+                //     child: GestureDetector(
+                //       onTap: widget.onBookmarkSelect != null
+                //           ? () =>widget. onBookmarkSelect!(widget.item)
+                //           : () {},
+                //       child: Container(
+                //           margin: EdgeInsets.only(top: size.h4, right: size.w4),
+                //           padding: EdgeInsets.all(size.h2),
+                //           decoration: BoxDecoration(
+                //             color: clr.whiteColor,
+                //             borderRadius: BorderRadius.circular(size.r4),
+                //           ),
+                //           child: widget.item.bookMark
+                //               ? Icon(
+                //                   Icons.bookmark,
+                //                   color: clr.appSecondaryColorPurple,
+                //                 )
+                //               : Icon(
+                //                   Icons.bookmark_border_outlined,
+                //                   color: clr.appSecondaryColorPurple,
+                //                 )),
+                //     ),
                   ),
               ],
             ),
             SizedBox(height: size.h8),
-            if (item.author!.isNotEmpty)
+            if (widget.item.author!.isNotEmpty)
               Text.rich(
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -281,10 +355,10 @@ class BookItemWidget extends StatelessWidget with AppTheme {
                       fontWeight: FontWeight.w400,
                       fontFamily: StringData.fontFamilyPoppins),
                   TextSpan(
-                      text: item.author!.isNotEmpty ? "লেখক " : "",
+                      text: widget.item.author!.isNotEmpty ? "লেখক " : "",
                       children: [
                         TextSpan(
-                          text: item.author!
+                          text: widget.item.author!
                               .map((c) => c.name)
                               .toList()
                               .join(', '),
@@ -292,7 +366,7 @@ class BookItemWidget extends StatelessWidget with AppTheme {
                       ])),
             SizedBox(height: size.h4),
             Text(
-              item.titleEn,
+              widget.item.titleEn,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -305,5 +379,15 @@ class BookItemWidget extends StatelessWidget with AppTheme {
         ),
       ),
     );
+  }
+
+  @override
+  void showWarning(String message) {
+    // TODO: implement showWarning
+  }
+
+  @override
+  void showSuccess(String message) {
+    // TODO: implement showSuccess
   }
 }
