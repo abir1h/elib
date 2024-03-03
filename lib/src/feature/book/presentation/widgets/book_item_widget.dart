@@ -224,8 +224,8 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                       boxShadow: [
                         BoxShadow(
                           color: clr.appPrimaryColorBlack.withOpacity(.2),
-                          blurRadius: size.r8,
-                          offset: Offset(0.0, size.h2),
+                          blurRadius: size.r4,
+                          offset: Offset(0.0, size.r1*3),
                         ),
                       ],
                     ),
@@ -285,6 +285,13 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                           decoration: BoxDecoration(
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
+                            boxShadow: [
+                              BoxShadow(
+                                color: clr.appPrimaryColorBlack.withOpacity(.2),
+                                blurRadius: size.r8,
+                                offset: Offset(size.r8, size.h8),
+                              ),
+                            ],
                           ),
                           child:  StreamBuilder(
                             stream: bookMarkIconController.stream,
@@ -295,10 +302,12 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                                   ? Icon(
                                 Icons.bookmark,
                                 color: clr.appSecondaryColorPurple,
+                                size: size.h16,
                               )
                                   : Icon(
                                 Icons.bookmark_border_outlined,
                                 color: clr.appSecondaryColorPurple,
+                                size: size.h16,
                               );
                             },
                           )
@@ -351,7 +360,7 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       color: clr.textColorMamba,
-                      fontSize: size.textXXSmall,
+                      fontSize: size.textXXXSmall,
                       fontWeight: FontWeight.w400,
                       fontFamily: StringData.fontFamilyPoppins),
                   TextSpan(

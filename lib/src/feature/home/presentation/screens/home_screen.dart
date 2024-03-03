@@ -333,16 +333,17 @@ class _HomeScreenState extends State<HomeScreen>
 
                             ///Author
                             ItemSectionWidget(
-                              aspectRatio: 2.7,
-                              title: "জনপ্রিয় গ্রন্থকার",
+                              aspectRatio: 2.5,
+                              title: "জনপ্রিয় লেখক",
+                              contentPaddingSize: size.h24,
                               items: data.authors,
                               horizontalPadding: size.w12,
-                              verticalPadding: size.h16,
+                              verticalPadding: size.h12,
                               emptyText: "No Author Found !",
                               boxDecoration: true,
                               buildItem: (context, index, item) {
                                 return AspectRatio(
-                                  aspectRatio: .8,
+                                  aspectRatio: .85,
                                   child: AuthorItemWidget(
                                     authorDataEntity: item,
                                     onTap: () => onTapAuthor(item),
@@ -696,6 +697,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   final double verticalPadding;
   final String emptyText;
   final bool boxDecoration;
+  final double? contentPaddingSize;
   const ItemSectionWidget(
       {Key? key,
       required this.title,
@@ -706,7 +708,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
       this.horizontalPadding = 0.0,
       this.verticalPadding = 0.0,
       this.emptyText = "No Item Found",
-      this.boxDecoration = false})
+      this.boxDecoration = false,  this.contentPaddingSize})
       : super(key: key);
 
   @override
@@ -722,7 +724,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                 BoxShadow(
                   color: clr.appPrimaryColorBlack.withOpacity(.2),
                   blurRadius: size.r8,
-                  offset: Offset(0.0, size.h2),
+                  offset: Offset(0.0, size.h6),
                 ),
               ],
             )
@@ -752,17 +754,24 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                   onTap: onTapSeeAll,
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: size.w8, vertical: size.h2),
+                        horizontal: size.w8, vertical: size.h4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(size.r4),
                       color: clr.cardFillColorBlueMagenta,
+                      boxShadow: [
+                        BoxShadow(
+                          color: clr.appPrimaryColorBlack.withOpacity(.2),
+                          blurRadius: size.r1,
+                          offset: Offset(0  ,size.r1*2),
+                        ),
+                      ],
                     ),
                     child: Text(
                       label(e: en.seeAllText, b: bn.seeAllText),
                       style: TextStyle(
                         color: clr.appPrimaryColorBlack,
-                        fontSize: size.textSmall,
-                        fontWeight: FontWeight.w400,
+                        fontSize: size.textXXSmall,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -770,7 +779,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
             ],
           ),
 
-          SizedBox(height: size.h12),
+          SizedBox(height:contentPaddingSize??size.h12),
 
           ///Items section
           items.isNotEmpty

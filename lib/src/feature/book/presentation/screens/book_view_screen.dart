@@ -4,9 +4,11 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import 'package:elibrary/src/core/utility/log.dart';
+import '../../../home/presentation/widgets/animated_fab_button.dart';
 import '../../../note/domain/entities/note_data_entity.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
@@ -92,75 +94,102 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                   ),
 
                   ///Download button
-                  if (data.canDownload)
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (context) => NoteBottomSheet(
-                                        noteDataEntity: NoteDataEntity(
-                                          bookId: (widget.arguments!
-                                                  as BookViewerScreenArgs)
-                                              .bookId,
-                                          emisUserId: 1,
-                                          note: '',
-                                        ),
-                                      ));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(size.h8),
-                              margin: EdgeInsets.only(
-                                  right: size.h16, bottom: size.h16),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: clr.appPrimaryColorBlack,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: clr.appPrimaryColorBlack.withOpacity(.5),
-                                    blurRadius: size.h12,
-                                  )
-                                ],
-                              ),
-                              child: FittedBox(
-                                child: Icon(
-                                  Icons.note,
-                                  color: clr.whiteColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () => onSaveFileToLocalStorage(data.file),
-                            child: Container(
-                              padding: EdgeInsets.all(size.h8),
-                              margin: EdgeInsets.only(
-                                  right: size.h16, bottom: size.h16),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: clr.appPrimaryColorBlack,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: clr.appPrimaryColorBlack.withOpacity(.5),
-                                    blurRadius: size.h12,
-                                  )
-                                ],
-                              ),
-                              child: FittedBox(
-                                child: Icon(
-                                  Icons.download_rounded,
-                                  color: clr.whiteColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                  // if (data.canDownload)
+                  //   Align(
+                  //     alignment: Alignment.bottomRight,
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.end,
+                  //       children: [
+                  //         GestureDetector(
+                  //           onTap: () {
+                  //             showCupertinoModalPopup(
+                  //                 context: context,
+                  //                 builder: (context) => NoteBottomSheet(
+                  //                       noteDataEntity: NoteDataEntity(
+                  //                         bookId: (widget.arguments!
+                  //                                 as BookViewerScreenArgs)
+                  //                             .bookId,
+                  //                         emisUserId: 1,
+                  //                         note: '',
+                  //                       ),
+                  //                     ));
+                  //           },
+                  //           child: Container(
+                  //             padding: EdgeInsets.all(size.h8),
+                  //             margin: EdgeInsets.only(
+                  //                 right: size.h16, bottom: size.h16),
+                  //             decoration: BoxDecoration(
+                  //               shape: BoxShape.circle,
+                  //               color: clr.appPrimaryColorBlack,
+                  //               boxShadow: [
+                  //                 BoxShadow(
+                  //                   color: clr.appPrimaryColorBlack.withOpacity(.5),
+                  //                   blurRadius: size.h12,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: FittedBox(
+                  //               child: Icon(
+                  //                 Icons.note,
+                  //                 color: clr.whiteColor,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         GestureDetector(
+                  //           onTap: () => onSaveFileToLocalStorage(data.file),
+                  //           child: Container(
+                  //             padding: EdgeInsets.all(size.h8),
+                  //             margin: EdgeInsets.only(
+                  //                 right: size.h16, bottom: size.h16),
+                  //             decoration: BoxDecoration(
+                  //               shape: BoxShape.circle,
+                  //               color: clr.appPrimaryColorBlack,
+                  //               boxShadow: [
+                  //                 BoxShadow(
+                  //                   color: clr.appPrimaryColorBlack.withOpacity(.5),
+                  //                   blurRadius: size.h12,
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             child: FittedBox(
+                  //               child: Icon(
+                  //                 Icons.download_rounded,
+                  //                 color: clr.whiteColor,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.w),
+                      child: AnimatedFabButton(
+                        isDownload: (widget.arguments! as BookViewerScreenArgs).canDownload,
+                        onPressed: (e) {
+                          if (e == "download") {
+                            onSaveFileToLocalStorage(data.file);
+                          } else {
+                            showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) => NoteBottomSheet(
+                                      noteDataEntity: NoteDataEntity(
+                                        bookId: (widget.arguments!
+                                                as BookViewerScreenArgs)
+                                            .bookId,
+                                        emisUserId: 1,
+                                        note: '',
+                                      ),
+                                    ));
+                          }
+                        },
+                        tooltip: "Filters",
                       ),
                     ),
+                  ),
                 ],
               );
             }

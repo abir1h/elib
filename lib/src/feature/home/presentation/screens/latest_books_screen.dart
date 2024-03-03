@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_scroll_widget.dart';
@@ -5,8 +6,10 @@ import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/routes/app_route_args.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../book/presentation/widgets/book_item_widget.dart';
 import '../../../category/presentation/widgets/book_section_widget.dart';
+import '../services/latest_book_screen_service.dart';
 
 class LatestBookScreen extends StatefulWidget {
   final Object? arguments;
@@ -17,7 +20,7 @@ class LatestBookScreen extends StatefulWidget {
 }
 
 class _LatestBookScreenState extends State<LatestBookScreen>
-    with AppTheme, Language {
+    with AppTheme, Language ,LatestBookScreenService{
   late LatestBookScreenArgs _screenArgs;
 
   @override
@@ -56,8 +59,9 @@ class _LatestBookScreenState extends State<LatestBookScreen>
                   return BookItemWidget(
                     key: Key(item.id.toString()),
                     item: item,
-                    onSelect: (e) {},
+                    onSelect: (e)=>onBookContentSelected(e),
                     onBookmarkSelect: (e) {},
+
                     // onSelect: onBookContentSelected,
                     // onBookmarkSelect: onBookmarkSelected,
                   );
@@ -68,5 +72,23 @@ class _LatestBookScreenState extends State<LatestBookScreen>
         ),
       ),
     );
+  }
+
+  @override
+  void navigateToBookDetailsScreen(BookDataEntity data) {
+    Navigator.of(context).pushNamed(
+      AppRoute.bookDetailsScreen,
+      arguments: BookDetailsScreenArgs(bookData: data),
+    );
+  }
+
+  @override
+  void showSuccess(String message) {
+    // TODO: implement showSuccess
+  }
+
+  @override
+  void showWarning(String message) {
+    // TODO: implement showWarning
   }
 }

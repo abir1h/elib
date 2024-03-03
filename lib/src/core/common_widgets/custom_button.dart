@@ -43,8 +43,7 @@ class CustomButton extends StatelessWidget with AppTheme {
           decoration: BoxDecoration(
               color: buttonColor ?? clr.appSecondaryColorPurple,
               borderRadius: BorderRadius.circular(radius ?? size.w10),
-              border:
-                  Border.all(color: clr.appPrimaryColorBlack, width: size.w1)),
+           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

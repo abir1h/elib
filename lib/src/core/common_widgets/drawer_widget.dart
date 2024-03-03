@@ -40,7 +40,7 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                         color: clr.backgroundColorBlueMagenta,
                         border: Border(
                             bottom: BorderSide(
-                                color: clr.cardStrokeColorFloral,
+                                color: clr.cardStrokeColorFloral.withOpacity(.4),
                                 width: size.w1))),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +273,7 @@ class DrawerLinkWidget extends StatelessWidget with AppTheme {
           color: Colors.transparent,
           border: Border(
               bottom:
-                  BorderSide(width: size.h1, color: clr.cardStrokeColorFloral)),
+                  BorderSide(width: size.h1, color: clr.cardStrokeColorFloral.withOpacity(.4))),
         ),
         child: Row(
           children: [

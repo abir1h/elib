@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
@@ -51,7 +52,7 @@ class _TabSectionWidgetState extends State<TabSectionWidget>
               fontSize: size.textSmall,
               fontWeight: FontWeight.w500,
               fontFamily: StringData.fontFamilyPoppins),
-          indicatorPadding: EdgeInsets.symmetric(horizontal: size.w16),
+          indicatorPadding: EdgeInsets.symmetric(horizontal: 13.w),
           indicatorColor: Colors.transparent,
           indicator: BoxDecoration(
               gradient: LinearGradient(colors: [
@@ -67,7 +68,9 @@ class _TabSectionWidgetState extends State<TabSectionWidget>
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(size.r12),
                     border: Border.all(
-                        color: clr.appSecondaryColorPurple, width: size.r1)),
+                      color: clr.appSecondaryColorPurple.withOpacity(.3),
+                      width: size.r1,
+                    )),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -82,7 +85,7 @@ class _TabSectionWidgetState extends State<TabSectionWidget>
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(size.r12),
                     border: Border.all(
-                        color: clr.appSecondaryColorPurple, width: size.r1)),
+                        color: clr.appSecondaryColorPurple.withOpacity(.3), width: size.r1)),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(

@@ -118,7 +118,7 @@ class AuthorItemSectionWidget<T> extends StatelessWidget with AppTheme {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(height: size.h12);
+        return SizedBox(height: size.h20);
       },
     );
   }
@@ -154,7 +154,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 3,
-              offset: const Offset(0, 5), // changes position of shadow
+              offset: const Offset(0, 4), // changes position of shadow
             ),
           ],
         ),
@@ -166,7 +166,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                   border: Border.all(
                       color: clr.cardStrokeColorGrey, width: size.r4)),
               child: CircleAvatar(
-                radius: 28.r,
+                radius: 24.r,
                 backgroundColor: Colors.transparent,
                 child: CachedNetworkImage(
                   imageUrl: authorDataEntity.photo.isNotEmpty
