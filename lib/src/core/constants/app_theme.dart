@@ -66,6 +66,7 @@ class ThemeColor {
   Color get cardStrokeColorFloral => HexColor("B378FF");
   Color get dividerStrokeColorGrey => HexColor("B0B0B0");
   Color get dividerStrokeColorGrey2 => HexColor("C5C5C5");
+  Color get tabStrokeColor=> HexColor("8722AB");
 
   Color get fromBoxFillColor => HexColor("FCFFFE");
   Color get cardFillColorOrange => HexColor("FFE9D6");
