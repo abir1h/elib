@@ -19,6 +19,8 @@ class ThemeColor {
   Color get scaffoldBackgroundColor => HexColor("FFFEFE");
   Color get scaffoldSecondaryBackgroundColor => HexColor("F9F0FF");
   Color get lightPrimaryColorPurple => HexColor("9A64C2");
+  Color get gradientGreen => HexColor("9FFD88");
+  Color get gradientOrange => HexColor("FEC6B5");
   Color get lightPrimaryColorShadePurple => HexColor("ECD7FC");
   Color get colorShadePurple => HexColor("9775FA");
   Color get colorShadeGrey => HexColor("757575");
