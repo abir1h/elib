@@ -7,7 +7,7 @@ class ApiCredential {
   static String getEMISLink = "http://103.209.40.89:81/api/auth/dev/emis-link";
   static String getToken = "http://103.209.40.89:81/api/auth/dev/emis-auth";
   static String refreshToken = "/auth/dev/token/refresh";
-  static String userProfile = "http://103.209.40.89/api/clms/dev/profile";
+  static String userProfile = "http://103.209.40.89:70/api/clms/dev/profile";
 
   static String getCategories = "/category";
   static String getCategoryWithBook = "/category-book";
