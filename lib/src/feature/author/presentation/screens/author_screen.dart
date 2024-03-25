@@ -33,7 +33,7 @@ class _AuthorScreenState extends State<AuthorScreen>
             stream: authorDataStreamController.stream,
             loadingBuilder: (context) {
               return ShimmerLoader(
-                  child: AuthorSectionWidget(
+                  child: AuthorItemSectionWidget(
                       items: const [
                     "",
                     "",
@@ -70,7 +70,7 @@ class _AuthorScreenState extends State<AuthorScreen>
                       }));
             },
             dataBuilder: (context, data) {
-              return AuthorSectionWidget(
+              return AuthorItemSectionWidget(
                   items: data,
                   buildItem: (BuildContext context, int index, item) {
                     return AuthorItemWidget(
@@ -100,10 +100,10 @@ class _AuthorScreenState extends State<AuthorScreen>
   }
 }
 
-class AuthorSectionWidget<T> extends StatelessWidget with AppTheme {
+class AuthorItemSectionWidget<T> extends StatelessWidget with AppTheme {
   final List<T> items;
   final Widget Function(BuildContext context, int index, T item) buildItem;
-  const AuthorSectionWidget(
+  const AuthorItemSectionWidget(
       {Key? key, required this.items, required this.buildItem})
       : super(key: key);
 
@@ -118,7 +118,7 @@ class AuthorSectionWidget<T> extends StatelessWidget with AppTheme {
         return buildItem(context, index, items[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(height: size.h12);
+        return SizedBox(height: size.h20);
       },
     );
   }
@@ -126,10 +126,13 @@ class AuthorSectionWidget<T> extends StatelessWidget with AppTheme {
 
 class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
   final AuthorDataEntity authorDataEntity;
+  final String subTitle;
   final VoidCallback onTap;
+
   const AuthorItemWidget({
     super.key,
     required this.authorDataEntity,
+    this.subTitle = "সকল বই দেখুন",
     required this.onTap,
   });
 
@@ -151,7 +154,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 3,
-              offset: const Offset(0, 5), // changes position of shadow
+              offset: const Offset(0, 4), // changes position of shadow
             ),
           ],
         ),
@@ -163,7 +166,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                   border: Border.all(
                       color: clr.cardStrokeColorGrey, width: size.r4)),
               child: CircleAvatar(
-                radius: 28.r,
+                radius: 24.r,
                 backgroundColor: Colors.transparent,
                 child: CachedNetworkImage(
                   imageUrl: authorDataEntity.photo.isNotEmpty
@@ -195,7 +198,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                     ),
                     SizedBox(height: size.h8),
                     Text(
-                      "সকল বই দেখুন",
+                      subTitle,
                       style: TextStyle(
                           color: clr.textColorBlack,
                           fontSize: size.textSmall,

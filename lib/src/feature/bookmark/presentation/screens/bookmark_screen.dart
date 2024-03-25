@@ -35,7 +35,7 @@ class _BookmarkScreenState extends State<BookmarkScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderWidget(
-              title: label(e: en.bookmarkText, b: bn.bookmarkText),
+              title: label(e: en.listOfBookmarkText, b: bn.listOfBookmarkText),
               onTapNotification: onTapNotification,
             ),
             Expanded(
@@ -392,7 +392,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           image: CachedNetworkImageProvider(
                             widget.item.book != null &&
                                     widget.item.book!.coverImage.isNotEmpty
@@ -456,48 +456,52 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                         ],
                       ),
                       SizedBox(height: size.h8),
-                      Text(
-                        widget.item.book != null
-                            ? widget.item.book!.author!
-                                .map((c) => c.name)
-                                .toList()
-                                .join(', ')
-                            : "",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: clr.textColorGray,
-                          fontSize: size.textXSmall,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: StringData.fontFamilyPoppins,
-                        ),
-                      ),
-                      SizedBox(height: size.h8),
-                      Text(
-                        widget.item.book != null
-                            ? widget.item.book!.category!
-                                .map((c) => label(e: c.nameEn, b: c.nameBn))
-                                .toList()
-                                .join(', ')
-                            : "",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: clr.textColorGray,
-                          fontSize: size.textXSmall,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: StringData.fontFamilyPoppins,
-                        ),
-                      ),
-                      SizedBox(height: size.h8),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            ImageAssets.icTag,
-                            height: size.h20,
+                      if (widget.item.book!.author!.isNotEmpty)
+                        Text(
+                          widget.item.book != null
+                              ? widget.item.book!.author!
+                                  .map((c) => c.name)
+                                  .toList()
+                                  .join(', ')
+                              : "",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: clr.textColorGray,
+                            fontSize: size.textXSmall,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: StringData.fontFamilyPoppins,
                           ),
-                          SizedBox(width: size.w8),
-                          /*Expanded(
+                        ),
+                      SizedBox(height: size.h8),
+                      if (widget.item.book!.category!.isNotEmpty)
+                        Text(
+                          widget.item.book != null
+                              ? widget.item.book!.category!
+                                  .map((c) => label(e: c.nameEn, b: c.nameBn))
+                                  .toList()
+                                  .join(', ')
+                              : "",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: clr.textColorGray,
+                            fontSize: size.textXSmall,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: StringData.fontFamilyPoppins,
+                          ),
+                        ),
+                      SizedBox(height: size.h8),
+                      if (widget.item.book!.tag != null &&
+                          widget.item.book!.tag!.isNotEmpty)
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              ImageAssets.icTag,
+                              height: size.h20,
+                            ),
+                            SizedBox(width: size.w8),
+                            /*Expanded(
                               child: Wrap(
                             children: widget.item.book!.tag!
                                 .map((c) => GestureDetector(
@@ -522,28 +526,28 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                                     ))
                                 .toList(),
                           )),*/
-                          Expanded(
-                            child: Text(
-                              widget.item.book != null &&
-                                      widget.item.book!.tag != null
-                                  ? widget.item.book!.tag!
-                                      .map((c) =>
-                                          label(e: c.nameEn, b: c.nameBn))
-                                      .toList()
-                                      .join(', ')
-                                  : "",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: clr.textColorGray,
-                                fontSize: size.textXSmall,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: StringData.fontFamilyPoppins,
+                            Expanded(
+                              child: Text(
+                                widget.item.book != null &&
+                                        widget.item.book!.tag != null
+                                    ? widget.item.book!.tag!
+                                        .map((c) =>
+                                            label(e: c.nameEn, b: c.nameBn))
+                                        .toList()
+                                        .join(', ')
+                                    : "",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: clr.textColorGray,
+                                  fontSize: size.textXSmall,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: StringData.fontFamilyPoppins,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
+                          ],
+                        )
                     ],
                   ),
                 ),

@@ -30,8 +30,11 @@ class LanguageEn {
 
   String homeText = "Home";
   String homeHeaderText = "Enriching life with knowledge of the world";
+  String allCategoriesText = "All Categories";
   String categoriesText = "Categories";
+  String listOfBookmarkText = "List of bookmarked books";
   String bookmarkText = "Bookmark";
+  String myProfileText = "My Profile";
   String profileText = "Profile";
 
   String cancelText = "Cancel";
@@ -136,18 +139,17 @@ class LanguageEn {
   String seeMoreBookInfo = "See more information about the book";
   String type = "Type";
   String description = "Description :";
-  String personalInformation= "Personal Info";
+  String personalInformation = "Personal Info";
   String progressInformation = "Progress Info";
   String bookReport = "Book Report";
   String calendarStartDate = "Start Date";
   String calendarEndDate = "End Date";
-  String chooseBookReport= "Choose the report period:";
-  String bookReportTitle=  "Get book download & view count report";
-  String drawerFooter=  "CLMS-Other Components:";
-  String checkBoxAll=  "All";
-  String checkBoxBook=  "Book";
-  String checkBoxAuthor=  "Author";
-
+  String chooseBookReport = "Choose the report period:";
+  String bookReportTitle = "Get book download & view count report";
+  String drawerFooter = "CLMS-Other Components:";
+  String checkBoxAll = "All";
+  String checkBoxBook = "Book";
+  String checkBoxAuthor = "Author";
 
   String categoryViewAll = "View all books in the category";
 }
@@ -179,8 +181,11 @@ class LanguageBn {
 
   String homeText = "হোম";
   String homeHeaderText = "বিশ্বের জ্ঞান দিয়ে জীবনকে সমৃদ্ধ করা";
-  String categoriesText = "ক্যাটাগরি";
+  String allCategoriesText = "সকল ক্যাটেগরি";
+  String categoriesText = "ক্যাটেগরি";
+  String listOfBookmarkText = "বুকমার্ক বইয়ের তালিকা";
   String bookmarkText = "বুকমার্ক";
+  String myProfileText = "আমার প্রোফাইল";
   String profileText = "প্রোফাইল";
 
   String cancelText = "বাতিল করুন";
@@ -283,20 +288,17 @@ class LanguageBn {
   String isbnNUmber = "ISBN নম্বর";
   String seeMoreBookInfo = "বই সম্পর্কে আরো তথ্য দেখুন";
   String description = "সংক্ষিপ্ত বিবরন : ";
-  String personalInformation= "ব্যাক্তিগত তথ্য";
+  String personalInformation = "ব্যাক্তিগত তথ্য";
   String progressInformation = "অগ্রগতির তথ্য";
   String bookReport = "বইয়ের রিপোর্ট";
-  String chooseBookReport= "রিপোর্টের সময়কাল নির্বাচন করুন:";
-  String bookReportTitle= "বই ডাউনলোড করুন এবং গণনার রিপোর্ট দেখুন";
+  String chooseBookReport = "রিপোর্টের সময়কাল নির্বাচন করুন:";
+  String bookReportTitle = "বই ডাউনলোড করুন এবং গণনার রিপোর্ট দেখুন";
   String calendarStartDate = "শুরুর তারিখ";
   String calendarEndDate = "শেষের তারিখ";
-  String drawerFooter=  "CLMS - এর অন্যান্য কম্পনেন্ট সমূহ:";
-  String checkBoxAll=  "সকল";
-  String checkBoxBook=  "বই";
-  String checkBoxAuthor=  "লেখক";
-
-
-
+  String drawerFooter = "CLMS - এর অন্যান্য কম্পনেন্ট সমূহ:";
+  String checkBoxAll = "সকল";
+  String checkBoxBook = "বই";
+  String checkBoxAuthor = "লেখক";
 
   String categoryViewAll = "ক্যাটেগরির সকল বই দেখুন";
 }

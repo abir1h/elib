@@ -60,33 +60,38 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(color: clr.cardStrokeColor, height: size.h1),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      label(
-                          e: _screenArgs.noteDataEntity.book!.titleEn,
-                          b: _screenArgs.noteDataEntity.book!.titleEn),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: size.textSmall,
-                          fontFamily: StringData.fontFamilyPoppins,
-                          color: clr.appSecondaryColorPurple),
+            InkWell(
+                onTap: () =>
+                    onTapBookName(_screenArgs.noteDataEntity.book!),
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: size.w12, vertical: size.h8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        label(
+                            e: _screenArgs.noteDataEntity.book!.titleEn,
+                            b: _screenArgs.noteDataEntity.book!.titleEn),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: size.textSmall,
+                            fontFamily: StringData.fontFamilyPoppins,
+                            color: clr.appSecondaryColorPurple),
+                      ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () =>
-                        onTapBookName(_screenArgs.noteDataEntity.book!),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      size: size.r24,
-                      color: clr.appSecondaryColorPurple,
-                    ),
-                  ),
-                ],
+                    // InkWell(
+                    //   onTap: () =>
+                    //       onTapBookName(_screenArgs.noteDataEntity.book!),
+                    //   child:
+                      Icon(
+                        Icons.arrow_forward,
+                        size: size.r24,
+                        color: clr.appSecondaryColorPurple,
+                      ),
+                    // ),
+                  ],
+                ),
               ),
             ),
             Expanded(

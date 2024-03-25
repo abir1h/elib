@@ -85,54 +85,54 @@ class _HomeScreenState extends State<HomeScreen>
                       ],
                     ),
                   ),
+
                   SizedBox(height: size.h16),
+
                   ///Search Box and Bookmark button
                   GestureDetector(
                     onTap: onTapSearchScreen,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: size.w20),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: double.maxFinite,
-                              height: size.h42,
-                              padding: EdgeInsets.symmetric(horizontal: size.h12, vertical: size.h4),
-                              decoration: BoxDecoration(
-                                color: clr.whiteColor,
-                                border: Border.all(
-                                  color: clr.cardStrokeColorPerfume,
-                                  // width: 1.w,
-                                ),
-                                borderRadius: BorderRadius.circular(size.h12),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 2.0.w),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                        padding: EdgeInsets.only(top: 2.0.w),
-                                        child: Icon(
-                                          Icons.search_rounded,
-                                          color: clr.iconColorGray85,
-                                          size: size.h20,
-                                        )),
-                                    SizedBox(
-                                      width: size.h8,
-                                    ),
-                                    Expanded(child: Text("Search Kor"))
-                                  ],
-                                ),
-                              ),
-                            )
-
-                            // SearchBoxWidget(
-                            //   hintText: label(e: en.searchText, b: bn.searchText),
-                            //   onSearchTermChange: onSearchTermChanged,
-                            // ),
+                      padding: EdgeInsets.symmetric(horizontal: size.w16),
+                      child: Container(
+                        width: double.maxFinite,
+                        height: size.h42,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.h12, vertical: size.h4),
+                        decoration: BoxDecoration(
+                          color: clr.whiteColor,
+                          border: Border.all(
+                            color: clr.cardStrokeColorPerfume,
+                            // width: 1.w,
                           ),
-                        ],
+                          borderRadius: BorderRadius.circular(size.h12),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: size.h2),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(top: size.h2),
+                                  child: Icon(
+                                    Icons.search_rounded,
+                                    color: clr.iconColorGray85,
+                                    size: size.h20,
+                                  )),
+                              SizedBox(width: size.h8),
+                              Expanded(
+                                  child: Text(
+                                "Search by title, author",
+                                style: TextStyle(
+                                    color: clr.textColorSilverSconce,
+                                    fontSize: size.textSmall,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: StringData.fontFamilyPoppins),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ))
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -253,16 +253,33 @@ class _HomeScreenState extends State<HomeScreen>
                     child: AppStreamBuilder<HomeDataEntity>(
                       stream: homeDataStreamController.stream,
                       loadingBuilder: (context) {
-                        return ShimmerLoader(
-                            child: CategorySectionWidget(
-                                items: const ["", "", ""],
-                                buildItem: (context, index, item) =>
-                                    ItemSectionWidget(
-                                        title: "",
-                                        items: const ["", ""],
-                                        buildItem: (context, index, item) =>
-                                            const AspectRatio(aspectRatio: .53),
-                                        onTapSeeAll: () {})));
+                        return Column(
+                          children: [
+                            ShimmerLoader(
+                                child: ItemSectionWidget(
+                                    title: "",
+                                    items: const ["", ""],
+                                    buildItem: (context, index, item) =>
+                                        const AspectRatio(aspectRatio: .4),
+                                    onTapSeeAll: () {})),
+                            SizedBox(height: size.h12),
+                            ShimmerLoader(
+                                child: ItemSectionWidget(
+                                    title: "",
+                                    items: const ["", ""],
+                                    buildItem: (context, index, item) =>
+                                        const AspectRatio(aspectRatio: .4),
+                                    onTapSeeAll: () {})),
+                            SizedBox(height: size.h12),
+                            ShimmerLoader(
+                                child: ItemSectionWidget(
+                                    title: "",
+                                    items: const ["", ""],
+                                    buildItem: (context, index, item) =>
+                                        const AspectRatio(aspectRatio: .4),
+                                    onTapSeeAll: () {})),
+                          ],
+                        );
                       },
                       dataBuilder: (context, data) {
                         return Column(
@@ -270,13 +287,13 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             ///Latest Book
                             ItemSectionWidget(
-                                aspectRatio: 1.6,
+                                aspectRatio: 1.45,
                                 title: "সাম্প্রতিক বই সমূহ",
                                 items: data.latestBook,
                                 emptyText: "No Book Found !",
                                 buildItem: (context, index, item) {
                                   return AspectRatio(
-                                    aspectRatio: .47,
+                                    aspectRatio: .45,
                                     child: BookItemWidget(
                                       key: Key(item.id.toString()),
                                       item: item,
@@ -294,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 items: data.categoriesOne,
                                 buildItem: (context, index, item) =>
                                     ItemSectionWidget(
-                                      aspectRatio: 1.6,
+                                      aspectRatio: 1.45,
                                       title: item.name,
                                       items: item.books,
                                       emptyText: "No Book Found !",
@@ -313,26 +330,37 @@ class _HomeScreenState extends State<HomeScreen>
                                       onTapSeeAll: () => onTapCategory(
                                           item.nameEn, item.nameBn, item.id),
                                     )),
+
+                            ///Author
                             ItemSectionWidget(
                               aspectRatio: 2.5,
-                              title: "জনপ্রিয় গ্রন্থকার",
+                              title: "জনপ্রিয় লেখক",
+                              contentPaddingSize: size.h24,
                               items: data.authors,
                               horizontalPadding: size.w12,
-                              verticalPadding: size.h16,
+                              verticalPadding: size.h12,
                               emptyText: "No Author Found !",
+                              boxDecoration: true,
                               buildItem: (context, index, item) {
-                                return AuthorItemWidget(
-                                  authorDataEntity: item,
-                                  onTap: () => onTapAuthor(item),
+                                return AspectRatio(
+                                  aspectRatio: .85,
+                                  child: AuthorItemWidget(
+                                    authorDataEntity: item,
+                                    onTap: () => onTapAuthor(item),
+                                  ),
                                 );
                               },
                               onTapSeeAll: onTapAuthorSeeAll,
                             ),
+
+                            SizedBox(height: size.h20),
+
+                            ///Second Category
                             CategorySectionWidget(
                                 items: data.categoriesTwo,
                                 buildItem: (context, index, item) =>
                                     ItemSectionWidget(
-                                      aspectRatio: 1.6,
+                                      aspectRatio: 1.45,
                                       title: item.name,
                                       items: item.books,
                                       emptyText: "No Book Found !",
@@ -343,7 +371,6 @@ class _HomeScreenState extends State<HomeScreen>
                                             key: Key(item.id.toString()),
                                             item: item,
                                             onSelect: onBookContentSelected,
-                                            showBookmark: true,
                                             onBookmarkSelect:
                                                 onBookmarkContentSelected,
                                           ),
@@ -513,7 +540,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Positioned(
-              left: size.w16,
+              left: size.w12,
               top: size.h8,
               child: GestureDetector(
                 onTap: () {
@@ -637,8 +664,6 @@ class _HomeScreenState extends State<HomeScreen>
   }
 }
 
-
-
 class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
   final List<T> items;
   final Widget Function(BuildContext context, int index, T item) buildItem;
@@ -651,7 +676,7 @@ class CategorySectionWidget<T> extends StatelessWidget with AppTheme {
     return ListView.separated(
       itemCount: items.length,
       shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return buildItem(context, index, items[index]);
       },
@@ -671,6 +696,8 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
   final double horizontalPadding;
   final double verticalPadding;
   final String emptyText;
+  final bool boxDecoration;
+  final double? contentPaddingSize;
   const ItemSectionWidget(
       {Key? key,
       required this.title,
@@ -680,7 +707,8 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
       this.aspectRatio = 2,
       this.horizontalPadding = 0.0,
       this.verticalPadding = 0.0,
-      this.emptyText = "No Item Found"})
+      this.emptyText = "No Item Found",
+      this.boxDecoration = false,  this.contentPaddingSize})
       : super(key: key);
 
   @override
@@ -688,7 +716,19 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: verticalPadding, horizontal: horizontalPadding),
-      color: clr.whiteColor,
+      decoration: boxDecoration
+          ? BoxDecoration(
+              color: clr.whiteColor,
+              borderRadius: BorderRadius.circular(size.r8),
+              boxShadow: [
+                BoxShadow(
+                  color: clr.appPrimaryColorBlack.withOpacity(.2),
+                  blurRadius: size.r8,
+                  offset: Offset(0.0, size.h6),
+                ),
+              ],
+            )
+          : BoxDecoration(color: clr.whiteColor),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -714,17 +754,24 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                   onTap: onTapSeeAll,
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: size.w8, vertical: size.h2),
+                        horizontal: size.w8, vertical: size.h4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(size.r4),
                       color: clr.cardFillColorBlueMagenta,
+                      boxShadow: [
+                        BoxShadow(
+                          color: clr.appPrimaryColorBlack.withOpacity(.2),
+                          blurRadius: size.r1,
+                          offset: Offset(0  ,size.r1*2),
+                        ),
+                      ],
                     ),
                     child: Text(
                       label(e: en.seeAllText, b: bn.seeAllText),
                       style: TextStyle(
                         color: clr.appPrimaryColorBlack,
-                        fontSize: size.textSmall,
-                        fontWeight: FontWeight.w400,
+                        fontSize: size.textXXSmall,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -732,7 +779,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
             ],
           ),
 
-          SizedBox(height: size.h12),
+          SizedBox(height:contentPaddingSize??size.h12),
 
           ///Items section
           items.isNotEmpty
@@ -780,45 +827,42 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      color: clr.cardStrokeColorGrey, width: size.r4)),
-              child: CircleAvatar(
-                radius: 28..r,
-                backgroundColor: Colors.transparent,
-                child: CachedNetworkImage(
-                  imageUrl: authorDataEntity.photo.isNotEmpty
-                      ? "http://103.209.40.89:82/uploads/${authorDataEntity.photo}"
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
-                  placeholder: (context, url) => const Offstage(),
-                  errorWidget: (context, url, error) =>
-                      Icon(Icons.image, color: clr.greyColor),
-                  fit: BoxFit.fill,
-                ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: clr.cardStrokeColorGrey, width: size.r4)),
+            child: CircleAvatar(
+              radius: 28..r,
+              backgroundColor: Colors.transparent,
+              child: CachedNetworkImage(
+                imageUrl: authorDataEntity.photo.isNotEmpty
+                    ? "http://103.209.40.89:82/uploads/${authorDataEntity.photo}"
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                placeholder: (context, url) => const Offstage(),
+                errorWidget: (context, url, error) =>
+                    Icon(Icons.image, color: clr.greyColor),
+                fit: BoxFit.fill,
               ),
             ),
-            SizedBox(height: size.h8),
-            Text(
-              authorDataEntity.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: clr.textColorBlack,
-                  fontSize: size.textXSmall,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: StringData.fontFamilyPoppins),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(height: size.h8),
+          Text(
+            authorDataEntity.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: clr.textColorBlack,
+                fontSize: size.textXSmall,
+                fontWeight: FontWeight.w500,
+                fontFamily: StringData.fontFamilyPoppins),
+          ),
+        ],
       ),
     );
   }

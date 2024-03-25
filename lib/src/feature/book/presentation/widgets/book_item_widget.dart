@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/common_imports.dart';
 import '../../domain/entities/book_data_entity.dart';
+import '../services/book_widget_services.dart';
 
 /*class ELibContentItemWidget extends StatefulWidget with AppTheme {
   final void Function(BookDataEntity item) onSelect;
@@ -183,7 +183,7 @@ class _ELibContentItemWidgetState extends State<ELibContentItemWidget>
   }
 }*/
 
-class BookItemWidget extends StatelessWidget with AppTheme {
+class BookItemWidget extends StatefulWidget {
   final void Function(BookDataEntity item) onSelect;
   final void Function(BookDataEntity item)? onBookmarkSelect;
   final BookDataEntity item;
@@ -197,9 +197,14 @@ class BookItemWidget extends StatelessWidget with AppTheme {
   });
 
   @override
+  State<BookItemWidget> createState() => _BookItemWidgetState();
+}
+
+class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkWidgetService{
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onSelect(item),
+      onTap: () => widget.onSelect(widget.item),
       child: Container(
         color: clr.whiteColor,
         child: Column(
@@ -207,104 +212,191 @@ class BookItemWidget extends StatelessWidget with AppTheme {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 0.2.sh,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(size.r4),
-                        topLeft: Radius.circular(size.r4)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: clr.appPrimaryColorBlack.withOpacity(.2),
-                        blurRadius: size.r8,
-                        offset: Offset(0.0, size.h2),
+                AspectRatio(
+                  aspectRatio: .75,
+                  child: Container(
+                    // height: 0.2.sh,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(size.r4),
+                          topLeft: Radius.circular(size.r4)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: clr.appPrimaryColorBlack.withOpacity(.2),
+                          blurRadius: size.r4,
+                          offset: Offset(0.0, size.r1*3),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(size.r4),
+                          topLeft: Radius.circular(size.r4)),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.item.coverImage.isNotEmpty
+                            ? "http://103.209.40.89:82/uploads/${widget.item.coverImage}"
+                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                        placeholder: (context, url) =>
+                            Icon(Icons.image, color: clr.greyColor),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.image, color: clr.greyColor),
+                        fit: BoxFit.fill,
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(size.r4),
-                        topLeft: Radius.circular(size.r4)),
-                    child: CachedNetworkImage(
-                      imageUrl: item.coverImage.isNotEmpty
-                          ? "http://103.209.40.89:82/uploads/${item.coverImage}"
-                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
-                      placeholder: (context, url) =>
-                          Icon(Icons.image, color: clr.greyColor),
-                      errorWidget: (context, url, error) =>
-                          Icon(Icons.image, color: clr.greyColor),
-                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
-
-                ///Bookmark
-                if (showBookmark)
+                // StreamBuilder(
+                //   stream: bookMarkIconController.stream,
+                //   initialData:widget.showBookmark,
+                //   builder: (context, snapshot) {
+                //     return   Align(
+                //         alignment: Alignment.topRight,
+                //         child: GestureDetector(
+                //           onTap:()=> onBookmarkContentSelected(widget.item),
+                //           child: Container(
+                //               margin: EdgeInsets.only(top: size.h4, right: size.w4),
+                //               padding: EdgeInsets.all(size.h2),
+                //               decoration: BoxDecoration(
+                //                 color: clr.whiteColor,
+                //                 borderRadius: BorderRadius.circular(size.r4),
+                //               ),
+                //               child: snapshot.data!
+                //                   ? Icon(
+                //                       Icons.bookmark,
+                //                       color: clr.appSecondaryColorPurple,
+                //                     )
+                //                   : Icon(
+                //                       Icons.bookmark_border_outlined,
+                //                       color: clr.appSecondaryColorPurple,
+                //                     )),
+                //         ),
+                //       );
+                //   },
+                // )
+                if (widget.showBookmark)
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
-                      onTap: onBookmarkSelect != null
-                          ? () => onBookmarkSelect!(item)
-                          : () {},
+                      onTap:()=> onBookmarkContentSelected(widget.item),
                       child: Container(
                           margin: EdgeInsets.only(top: size.h4, right: size.w4),
                           padding: EdgeInsets.all(size.h2),
                           decoration: BoxDecoration(
                             color: clr.whiteColor,
                             borderRadius: BorderRadius.circular(size.r4),
+                            boxShadow: [
+                              BoxShadow(
+                                color: clr.appPrimaryColorBlack.withOpacity(.2),
+                                blurRadius: size.r8,
+                                offset: Offset(size.r8, size.h8),
+                              ),
+                            ],
                           ),
-                          child: item.bookMark
-                              ? Icon(
-                                  Icons.bookmark,
-                                  color: clr.appSecondaryColorPurple,
-                                )
-                              : Icon(
-                                  Icons.bookmark_border_outlined,
-                                  color: clr.appSecondaryColorPurple,
-                                )),
+                          child:  StreamBuilder(
+                            stream: bookMarkIconController.stream,
+                            initialData: widget.item.bookMark,
+                            builder: (context, snapshot) {
+                              widget.item.bookMark=snapshot.data!;
+                              return  snapshot.data!
+                                  ? Icon(
+                                Icons.bookmark,
+                                color: clr.appSecondaryColorPurple,
+                                size: size.h16,
+                              )
+                                  : Icon(
+                                Icons.bookmark_border_outlined,
+                                color: clr.appSecondaryColorPurple,
+                                size: size.h16,
+                              );
+                            },
+                          )
+
+
+                          // widget.item.bookMark
+                          //     ? Icon(
+                          //         Icons.bookmark,
+                          //         color: clr.appSecondaryColorPurple,
+                          //       )
+                          //     : Icon(
+                          //         Icons.bookmark_border_outlined,
+                          //         color: clr.appSecondaryColorPurple,
+                          //       )),
                     ),
+                  ),
+                // ///Bookmark
+                // if (widget.showBookmark)
+                //   Align(
+                //     alignment: Alignment.topRight,
+                //     child: GestureDetector(
+                //       onTap: widget.onBookmarkSelect != null
+                //           ? () =>widget. onBookmarkSelect!(widget.item)
+                //           : () {},
+                //       child: Container(
+                //           margin: EdgeInsets.only(top: size.h4, right: size.w4),
+                //           padding: EdgeInsets.all(size.h2),
+                //           decoration: BoxDecoration(
+                //             color: clr.whiteColor,
+                //             borderRadius: BorderRadius.circular(size.r4),
+                //           ),
+                //           child: widget.item.bookMark
+                //               ? Icon(
+                //                   Icons.bookmark,
+                //                   color: clr.appSecondaryColorPurple,
+                //                 )
+                //               : Icon(
+                //                   Icons.bookmark_border_outlined,
+                //                   color: clr.appSecondaryColorPurple,
+                //                 )),
+                //     ),
                   ),
               ],
             ),
             SizedBox(height: size.h8),
-            Text.rich(
-                textAlign: TextAlign.start,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: clr.textColorMamba,
-                    fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: StringData.fontFamilyPoppins),
-                TextSpan(
-                    text: item.author!.isNotEmpty ? "লেখক " : "",
-                    children: [
-                      TextSpan(
-                        text:
-                            item.author!.map((c) => c.name).toList().join(', '),
-                      ),
-                    ])),
+            if (widget.item.author!.isNotEmpty)
+              Text.rich(
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: clr.textColorMamba,
+                      fontSize: size.textXXXSmall,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: StringData.fontFamilyPoppins),
+                  TextSpan(
+                      text: widget.item.author!.isNotEmpty ? "লেখক " : "",
+                      children: [
+                        TextSpan(
+                          text: widget.item.author!
+                              .map((c) => c.name)
+                              .toList()
+                              .join(', '),
+                        ),
+                      ])),
             SizedBox(height: size.h4),
-            GestureDetector(
-              onTap: () => onSelect(item),
-              child: Text(
-                item.titleEn,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: clr.textColorGray27,
-                    fontSize: size.textXXSmall,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: StringData.fontFamilyPoppins),
-              ),
+            Text(
+              widget.item.titleEn,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: clr.textColorGray27,
+                  fontSize: size.textXXSmall,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: StringData.fontFamilyPoppins),
             ),
-            SizedBox(
-              height: size.h4,
-            )
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void showWarning(String message) {
+    // TODO: implement showWarning
+  }
+
+  @override
+  void showSuccess(String message) {
+    // TODO: implement showSuccess
   }
 }

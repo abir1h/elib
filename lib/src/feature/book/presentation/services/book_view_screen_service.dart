@@ -189,6 +189,7 @@ mixin BookViewerScreenService<T extends StatefulWidget> on State<T>
     return Future.value(false);
   }
 
+
   void onSaveFileToLocalStorage(File file, [bool restartTimer = false]) async {
     if (Platform.isAndroid) {
       await saveFileToAndroidStorage(file: file);

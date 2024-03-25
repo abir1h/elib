@@ -1,4 +1,3 @@
-import 'package:elibrary/src/feature/search/presentation/widgets/checkbox_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
@@ -8,10 +7,12 @@ import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
 import '../../../home/presentation/services/home_service.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../widgets/checkbox_widget.dart';
 
 abstract class _ViewModel {
   void showWarning(String message);
   void showSuccess(String message);
+  void navigateToBookDetailsScreen(BookDataEntity data);
 }
 
 mixin SearchScreenService<T extends StatefulWidget> on State<T>
@@ -31,11 +32,17 @@ mixin SearchScreenService<T extends StatefulWidget> on State<T>
   void initState() {
     _view = this;
     super.initState();
+    bookDataStreamController.add(EmptyState(
+      message: "",
+      icon: Icons.search_rounded,
+    ));
   }
 
   @override
   void dispose() {
     super.dispose();
+    resultsForStreamController.dispose();
+    bookDataStreamController.dispose();
   }
 
   List<BookDataEntity> _bookData = [];
@@ -74,5 +81,9 @@ mixin SearchScreenService<T extends StatefulWidget> on State<T>
         icon: Icons.search_rounded,
       ));
     }
+  }
+
+  void onTapBook(BookDataEntity item) {
+    _view.navigateToBookDetailsScreen(item);
   }
 }

@@ -87,7 +87,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     // paginationController.onLoadMore = _onLoadMoreItems;
     super.initState();
     _loadHomeData();
-    _loadInitialData();
+    // _loadInitialData();
   }
 
   @override
@@ -129,25 +129,25 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
     });
   }
 
-  ///Load Book list
-  void _loadInitialData() {
-    ///Loading state
-    if (!mounted) return;
-    bookDataStreamController.add(LoadingState());
-    resultsForStreamController
-        .add(DataLoadedState(ResultsForViewModel.newUploads()));
-    getPopularBooks(1).then((value) {
-      if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
-        _bookData = value.data!.bookDataEntity;
-        bookDataStreamController
-            .add(DataLoadedState<List<BookDataEntity>>(_bookData));
-      } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
-        bookDataStreamController.add(EmptyState(message: 'No Book Found'));
-      } else {
-        _view.showWarning(value.message!);
-      }
-    });
-  }
+  // ///Load Book list
+  // void _loadInitialData() {
+  //   ///Loading state
+  //   if (!mounted) return;
+  //   bookDataStreamController.add(LoadingState());
+  //   resultsForStreamController
+  //       .add(DataLoadedState(ResultsForViewModel.newUploads()));
+  //   getPopularBooks(1).then((value) {
+  //     if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
+  //       _bookData = value.data!.bookDataEntity;
+  //       bookDataStreamController
+  //           .add(DataLoadedState<List<BookDataEntity>>(_bookData));
+  //     } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
+  //       bookDataStreamController.add(EmptyState(message: 'No Book Found'));
+  //     } else {
+  //       _view.showWarning(value.message!);
+  //     }
+  //   });
+  // }
 
   void onBookContentSelected(BookDataEntity item) {
     _view.navigateToBookDetailsScreen(item);
@@ -226,7 +226,7 @@ class ResultsForViewModel {
   late final String subTitle;
 
   ResultsForViewModel.newUploads() {
-    title = label(e: "Popular Books", b: "জনপ্রিয় বই");
+    title = label(e: "", b: "");
     subTitle = "";
   }
   ResultsForViewModel.search(String searchTerm) {

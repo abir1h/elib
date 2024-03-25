@@ -21,7 +21,8 @@ class HeaderWidget extends StatelessWidget with AppTheme {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GestureDetector(
+          ///Drawer
+          /*GestureDetector(
             onTap: () {
               Scaffold.of(context).openDrawer();
             },
@@ -45,7 +46,8 @@ class HeaderWidget extends StatelessWidget with AppTheme {
               ),
             ),
           ),
-          SizedBox(width: size.w12),
+          SizedBox(width: size.w12),*/
+
           Expanded(
             child: Text(
               title,
