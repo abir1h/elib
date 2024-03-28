@@ -54,7 +54,8 @@ class Server {
 
   Future<dynamic> getRequest({required String url}) async {
     try {
-      String token = await AuthCacheManager.getUserToken();
+      // String token = await AuthCacheManager.getUserToken();
+      String token = "ABCD";
       var response = await _client.get(Uri.parse(host + url), headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",

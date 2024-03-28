@@ -105,9 +105,10 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> globalSearchAction(String searchQuery, String type) async {
-    final responseJson = await Server.instance
-        .getRequest(url: "${ApiCredential.globalSearch}$searchQuery&type=$type");
+  Future<ResponseModel> globalSearchAction(
+      String searchQuery, String type) async {
+    final responseJson = await Server.instance.getRequest(
+        url: "${ApiCredential.globalSearch}$searchQuery&type=$type");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
     return responseModel;
@@ -119,11 +120,15 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     String url = pageNumber != null
         ? "${ApiCredential.getBookRequests}$enablePagination&page=$pageNumber"
         : "${ApiCredential.getBookRequests}$enablePagination";
-    final responseJson = await Server.instance.getRequest(url: url);
-    ResponseModel responseModel = enablePagination
-        ? ResponseModel.fromJson(responseJson,
-            (dynamic json) => PaginatedBookRequestDataModel.fromJson(json))
-        : ResponseModel.fromJson(responseJson,
+    final responseJson =
+        await Server.instance.getRequest(url: ApiCredential.getBookRequests);
+    ResponseModel responseModel =
+        // enablePagination
+        //     ?
+        // ResponseModel.fromJson(responseJson,
+        //         (dynamic json) => PaginatedBookRequestDataModel.fromJson(json))
+        //     :
+        ResponseModel.fromJson(responseJson,
             (dynamic json) => BookRequestDataModel.listFromJson(json));
     return responseModel;
   }
