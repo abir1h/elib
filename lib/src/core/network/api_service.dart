@@ -31,7 +31,8 @@ class Server {
   }) async {
     try {
       var body = json.encode(postData);
-      String token = await AuthCacheManager.getUserToken();
+      // String token = await AuthCacheManager.getUserToken();
+      String token = "ABCD";
       var response = await _client.post(
         Uri.parse(host + url),
         headers: {
@@ -109,7 +110,8 @@ class Server {
 
   Future<dynamic> deleteRequest({required String url}) async {
     try {
-      String token = await AuthCacheManager.getUserToken();
+      // String token = await AuthCacheManager.getUserToken();
+      String token = "ABCD";
       var response = await _client.delete(Uri.parse(host + url), headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",

@@ -708,7 +708,8 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
       this.horizontalPadding = 0.0,
       this.verticalPadding = 0.0,
       this.emptyText = "No Item Found",
-      this.boxDecoration = false,  this.contentPaddingSize})
+      this.boxDecoration = false,
+      this.contentPaddingSize})
       : super(key: key);
 
   @override
@@ -762,7 +763,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                         BoxShadow(
                           color: clr.appPrimaryColorBlack.withOpacity(.2),
                           blurRadius: size.r1,
-                          offset: Offset(0  ,size.r1*2),
+                          offset: Offset(0, size.r1 * 2),
                         ),
                       ],
                     ),
@@ -779,7 +780,7 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
             ],
           ),
 
-          SizedBox(height:contentPaddingSize??size.h12),
+          SizedBox(height: contentPaddingSize ?? size.h12),
 
           ///Items section
           items.isNotEmpty
@@ -801,7 +802,8 @@ class ItemSectionWidget<T> extends StatelessWidget with AppTheme, Language {
                   aspectRatio: aspectRatio,
                   child: Column(
                     children: [
-                      Lottie.asset(ImageAssets.animEmpty, height: size.h56 * 2),
+                      Lottie.asset(ImageAssets.animEmpty,
+                          height: size.h56 * 1.2),
                       Text(
                         emptyText,
                         style: TextStyle(
@@ -841,7 +843,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
               backgroundColor: Colors.transparent,
               child: CachedNetworkImage(
                 imageUrl: authorDataEntity.photo.isNotEmpty
-                    ? "http://103.209.40.89:82/uploads/${authorDataEntity.photo}"
+                    ? "http://103.209.40.89:82/${authorDataEntity.photo}"
                     : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                 placeholder: (context, url) => const Offstage(),
                 errorWidget: (context, url, error) =>

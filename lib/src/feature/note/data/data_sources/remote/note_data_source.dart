@@ -17,9 +17,10 @@ class NoteRemoteDataSourceImp extends NoteRemoteDataSource {
   Future<ResponseModel> getNoteListAction(bool enablePagination,
       {int? pageNumber}) async {
     String url = pageNumber != null
-        ? "${ApiCredential.noteBooks}$enablePagination&page=$pageNumber"
-        : "${ApiCredential.noteBooks}$enablePagination";
-    final responseJson = await Server.instance.getRequest(url: url);
+        ? "${ApiCredential.getNoteBooks}$enablePagination&page=$pageNumber"
+        : "${ApiCredential.getNoteBooks}$enablePagination";
+    final responseJson =
+        await Server.instance.getRequest(url: ApiCredential.getNoteBooks);
     ResponseModel responseModel = enablePagination
         ? ResponseModel.fromJson(responseJson,
             (dynamic json) => PaginatedNoteDataModel.fromJson(json))
@@ -30,8 +31,8 @@ class NoteRemoteDataSourceImp extends NoteRemoteDataSource {
 
   @override
   Future<ResponseModel> createNotesAction(NoteDataModel noteDataModel) async {
-    final responseJson = await Server.instance.postRequest(
-        url: ApiCredential.noteBookCreate, postData: noteDataModel);
+    final responseJson = await Server.instance
+        .postRequest(url: ApiCredential.noteBook, postData: noteDataModel);
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => NoteDataModel.fromJson(json));
     return responseModel;
@@ -42,8 +43,7 @@ class NoteRemoteDataSourceImp extends NoteRemoteDataSource {
     Map<String, dynamic> data = noteDataModel.toJson();
     data["_method"] = "PUT";
     final responseJson = await Server.instance.postRequest(
-        url: "${ApiCredential.noteBookUpdate}${noteDataModel.id}",
-        postData: data);
+        url: "${ApiCredential.noteBook}/${noteDataModel.id}", postData: data);
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => NoteDataModel.fromJson(json));
     return responseModel;
@@ -52,7 +52,7 @@ class NoteRemoteDataSourceImp extends NoteRemoteDataSource {
   @override
   Future<ResponseModel> deleteNotesAction(int noteId) async {
     final responseJson = await Server.instance
-        .deleteRequest(url: "${ApiCredential.noteBookDelete}$noteId");
+        .deleteRequest(url: "${ApiCredential.noteBook}/$noteId");
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => NoteDataModel.fromJson(json));
     return responseModel;

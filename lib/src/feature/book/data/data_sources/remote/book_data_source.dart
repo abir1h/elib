@@ -1,3 +1,4 @@
+import '../../models/book_details_data_model.dart';
 import '../../models/paginated_book_request_data_model.dart';
 import '../../models/book_request_data_model.dart';
 import '../../models/download_count_response_model.dart';
@@ -45,7 +46,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.getBookDetails}/$bookId");
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => BookDataModel.fromJson(json));
+        responseJson, (dynamic json) => BookDetailsDataModel.fromJson(json));
     return responseModel;
   }
 
@@ -118,18 +119,18 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   Future<ResponseModel> getBookRequestsAction(bool enablePagination,
       {int? pageNumber}) async {
     String url = pageNumber != null
-        ? "${ApiCredential.getBookRequests}$enablePagination&page=$pageNumber"
-        : "${ApiCredential.getBookRequests}$enablePagination";
+        ? "${ApiCredential.bookRequest}$enablePagination&page=$pageNumber"
+        : "${ApiCredential.bookRequest}$enablePagination";
     final responseJson =
-        await Server.instance.getRequest(url: ApiCredential.getBookRequests);
+        await Server.instance.getRequest(url: ApiCredential.bookRequest);
     ResponseModel responseModel =
         // enablePagination
         //     ?
-        // ResponseModel.fromJson(responseJson,
-        //         (dynamic json) => PaginatedBookRequestDataModel.fromJson(json))
-        //     :
         ResponseModel.fromJson(responseJson,
-            (dynamic json) => BookRequestDataModel.listFromJson(json));
+            (dynamic json) => PaginatedBookRequestDataModel.fromJson(json))
+        // : ResponseModel.fromJson(responseJson,
+        //     (dynamic json) => BookRequestDataModel.listFromJson(json))
+        ;
     return responseModel;
   }
 

@@ -23,12 +23,11 @@ class ApiCredential {
 
   static String categoryDetailsById = "/category/details/";
 
-  static String noteBooks = "/book-notes?pagination=";
-  static String noteBookCreate = "/note-books";
-  static String noteBookUpdate = "/note-books/";
-  static String noteBookDelete = "/note-books/";
+  static String getNoteBooks = "/book-notes";
+  static String noteBook = "/book-note";
+  // static String noteBookUpdate = "/note-books/";
+  // static String noteBookDelete = "/note-books/";
 
-  static String getBookRequests = "/book-requests";
   static String bookRequest = "/book-requests";
   static String bookViewDownloadReport = "/book-view-download-report";
   static String getAuthors = "/authors";

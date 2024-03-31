@@ -1,4 +1,8 @@
+import 'package:elibrary/src/feature/book/data/mapper/book_details_data_mapper.dart';
+
+import '../../domain/entities/book_details_data_entity.dart';
 import '../mapper/paginated_book_request_data_mapper.dart';
+import '../models/book_details_data_model.dart';
 import '../models/paginated_book_request_data_model.dart';
 import '../../domain/entities/paginated_book_request_data_entity.dart';
 import '../mapper/book_request_data_mapper.dart';
@@ -42,9 +46,10 @@ class BookRepositoryImp extends BookRepository {
   Future<ResponseEntity> getBookDetails(int bookId) async {
     ResponseModel responseModel =
         (await bookRemoteDataSource.getBookDetailsAction(bookId));
-    return ResponseModelToEntityMapper<BookDataEntity, BookDataModel>()
-        .toEntityFromModel(
-            responseModel, (BookDataModel model) => model.toBookDataEntity);
+    return ResponseModelToEntityMapper<BookDetailsDataEntity,
+            BookDetailsDataModel>()
+        .toEntityFromModel(responseModel,
+            (BookDetailsDataModel model) => model.toBookDetailsDataEntity);
   }
 
   @override
@@ -94,21 +99,24 @@ class BookRepositoryImp extends BookRepository {
       {int? pageNumber}) async {
     ResponseModel responseModel = (await bookRemoteDataSource
         .getBookRequestsAction(enablePagination, pageNumber: pageNumber));
-    return enablePagination
-        ? ResponseModelToEntityMapper<PaginatedBookRequestDataEntity,
+    return
+        // enablePagination
+        //   ?
+        ResponseModelToEntityMapper<PaginatedBookRequestDataEntity,
                 PaginatedBookRequestDataModel>()
             .toEntityFromModel(
                 responseModel,
                 (PaginatedBookRequestDataModel model) =>
                     model.toPaginatedBookRequestDataEntity)
-        : ResponseModelToEntityMapper<List<BookRequestDataEntity>,
-                List<BookRequestDataModel>>()
-            .toEntityFromModel(
-                responseModel,
-                (List<BookRequestDataModel> models) =>
-                    List<BookRequestDataModel>.from(models)
-                        .map((e) => e.toBookRequestDataEntity)
-                        .toList());
+        // : ResponseModelToEntityMapper<List<BookRequestDataEntity>,
+        //         List<BookRequestDataModel>>()
+        //     .toEntityFromModel(
+        //         responseModel,
+        //         (List<BookRequestDataModel> models) =>
+        //             List<BookRequestDataModel>.from(models)
+        //                 .map((e) => e.toBookRequestDataEntity)
+        //                 .toList())
+        ;
   }
 
   @override
