@@ -102,7 +102,7 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
     bookDataStreamController.add(LoadingState());
     getBookDetails(args.bookData.id).then((value) {
       if (value.error == null && value.data != null) {
-        bookData = value.data!.BookDataEntity;
+        // bookData = value.data!.BookDataEntity;
         bookDataStreamController
             .add(DataLoadedState<BookDetailsDataEntity>(value.data!));
       } else {

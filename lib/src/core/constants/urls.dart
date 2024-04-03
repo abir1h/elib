@@ -14,7 +14,7 @@ class ApiCredential {
   static String getCategoryWithBook = "/category-book";
   static String getBooks = "/books";
   static String getBookDetails = "/book-details";
-  static String bookmarkBook = "/bookmark-book";
+  static String bookmarkBook = "/bookmark";
   static String popularBooks = "/category-popular?page=";
   static String getBookmarkBooks = "/all-bookmarks";
   static String bookCountUser = "/book-count-user";
