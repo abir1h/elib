@@ -73,7 +73,7 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
           authorRemoteDataSource: AuthorRemoteDataSourceImp()));
 
   Future<ResponseEntity> getAuthors() async {
-    return _authorUseCase.getAuthorsUseCase();
+    return _authorUseCase.getAuthorsUseCase(1);
   }
 
   Future<ResponseEntity> getHome() async {
