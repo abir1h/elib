@@ -8,6 +8,7 @@ import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../domain/entities/book_data_entity.dart';
+import '../../domain/entities/book_details_data_entity.dart';
 import '../../domain/entities/tag_data_entity.dart';
 import '../services/book_details_services.dart';
 import '../../../../core/common_widgets/custom_button.dart';
@@ -45,7 +46,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: "বইয়ের বিবরণ",
-      child: AppStreamBuilder<BookDataEntity>(
+      child: AppStreamBuilder<BookDetailsDataEntity>(
         stream: bookDataStreamController.stream,
         loadingBuilder: (context) {
           return const Center(
@@ -66,80 +67,88 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                       children: [
                         SizedBox(height: size.h16),
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: size.w16),
+                          padding: EdgeInsets.symmetric(horizontal: size.w16),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Expanded(flex: 23, child: Container()),
                               Expanded(
-                                  flex:23,
-                                  child: Container(
-                              )),
-                              Expanded(flex: 54,
+                                  flex: 54,
                                   child: AspectRatio(
                                     aspectRatio: .84,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
                                           BoxShadow(
-                                            color: clr.greyColor.withOpacity(.8),
+                                            color:
+                                                clr.greyColor.withOpacity(.8),
                                             blurRadius: size.r16,
                                             offset: Offset(0.0, size.r12),
                                           ),
                                         ],
-                                      )
-                                      ,child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(size.r4),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(size.r4),
                                         child: CachedNetworkImage(
-                                          imageUrl:
-                                          "http://103.209.40.89:82/uploads/${data.coverImage}",
-                                          placeholder: (context, url) =>
-                                              Icon(Icons.image, color: clr.greyColor),
+                                          imageUrl: data.bookDetails.coverImage.isNotEmpty
+                                              ? "http://103.209.40.89:82/${data.bookDetails.coverImage}"
+                                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
+                                          placeholder: (context, url) => Icon(
+                                              Icons.image,
+                                              color: clr.greyColor),
                                           errorWidget: (context, url, error) =>
-                                              Icon(Icons.image, color: clr.greyColor),
+                                              Icon(Icons.image,
+                                                  color: clr.greyColor),
                                           fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
                                   )),
                               Expanded(
-                                  flex:23,
-                                  child: GestureDetector(
-                                    onTap: () => onBookmarkContentSelected(data),
-                                    child: SizedBox(
-                                      child: Container(
-                                        margin: EdgeInsets.symmetric(horizontal: size.h16+size.h2),
-                                        padding: EdgeInsets.symmetric(vertical: size.h8),
-                                        decoration: BoxDecoration(
-                                          color: clr.whiteColor,
-                                          border: Border.all(
-                                              color: clr.greyStokeColor,
-                                              width: size.r1),
-                                          borderRadius:
-                                          BorderRadius.circular(size.r8),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: clr.appPrimaryColorBlack
-                                                  .withOpacity(0.2),
-                                              blurRadius: 3,
-                                              offset: const Offset(0.0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        child: data.bookMark
-                                            ? Icon(
-                                          Icons.bookmark,
-                                          color: clr.appSecondaryColorPurple,
-                                          size: size.h24,
-                                        )
-                                            : Icon(
-                                          Icons.bookmark_border_outlined,
-                                          color: clr.appSecondaryColorPurple,
-                                          size: size.h24,
-                                        ),
+                                flex: 23,
+                                child: GestureDetector(
+                                  onTap: () => onBookmarkContentSelected(data.bookDetails),
+                                  child: SizedBox(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: size.h16 + size.h2),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: size.h8),
+                                      decoration: BoxDecoration(
+                                        color: clr.whiteColor,
+                                        border: Border.all(
+                                            color: clr.greyStokeColor,
+                                            width: size.r1),
+                                        borderRadius:
+                                            BorderRadius.circular(size.r8),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: clr.appPrimaryColorBlack
+                                                .withOpacity(0.2),
+                                            blurRadius: 3,
+                                            offset: const Offset(0.0, 2),
+                                          ),
+                                        ],
                                       ),
+                                      child: data.bookDetails.bookMark
+                                          ? Icon(
+                                              Icons.bookmark,
+                                              color:
+                                                  clr.appSecondaryColorPurple,
+                                              size: size.h24,
+                                            )
+                                          : Icon(
+                                              Icons.bookmark_border_outlined,
+                                              color:
+                                                  clr.appSecondaryColorPurple,
+                                              size: size.h24,
+                                            ),
                                     ),
-                                  ),),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -342,50 +351,51 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             width: 1.sw,
                             clipBehavior: Clip.none,
                             decoration: BoxDecoration(
-                                color: clr.whiteColor,
-                                borderRadius: BorderRadius.circular(size.r16),
+                              color: clr.whiteColor,
+                              borderRadius: BorderRadius.circular(size.r16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: clr.appPrimaryColorBlack.withOpacity(.2),
+                                  color:
+                                      clr.appPrimaryColorBlack.withOpacity(.2),
                                   blurRadius: size.r8,
                                   offset: Offset(0.0, size.h6),
                                 ),
-                              ],),
+                              ],
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
                                   height: size.h16,
                                 ),
-                                data.titleEn.isNotEmpty
+                                data.bookDetails.titleEn.isNotEmpty
                                     ? Center(
                                         child: Text(
-                                          data.titleEn,
+                                          data.bookDetails.titleEn,
                                           style: TextStyle(
                                               color: clr.appPrimaryColorBlack,
                                               fontWeight: FontWeight.w600,
                                               fontSize: size.textMedium,
-                                              fontFamily: StringData
-                                                  .fontFamilyPoppins),
+                                              fontFamily:
+                                                  StringData.fontFamilyPoppins),
                                         ),
                                       )
                                     : const SizedBox(),
                                 SizedBox(
                                   height: size.h8,
                                 ),
-                                if (data.author!.isNotEmpty)
+                                if (data.bookDetails.author!.isNotEmpty)
                                   BookInfoItemWidget(
                                       firstItem:
                                           label(e: en.author, b: bn.author),
-                                      secondItem: data.author!
+                                      secondItem: data.bookDetails.author!
                                           .map((c) => c.name)
                                           .toList()
                                           .join(', ')),
-                                if (data.category!.isNotEmpty)
+                                if (data.bookDetails.category!.isNotEmpty)
                                   BookInfoItemWidget(
-                                      firstItem:
-                                          label(e: en.type, b: bn.type),
-                                      secondItem: data.category!
+                                      firstItem: label(e: en.type, b: bn.type),
+                                      secondItem: data.bookDetails.category!
                                           .map((c) => c.name)
                                           .toList()
                                           .join(', ')),
@@ -402,33 +412,29 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                           key: const Key(
                                               'expanded'), // Key to differentiate between different children of AnimatedSwitcher
                                           children: [
-                                            if (data.tag!.isNotEmpty)
+                                            if (data.bookDetails.tag!.isNotEmpty)
                                               TagWidget(
-                                                firstItem: label(
-                                                    e: en.tag, b: bn.tag),
+                                                firstItem:
+                                                    label(e: en.tag, b: bn.tag),
                                                 secondItem: Wrap(
-                                                  children: data.tag!
-                                                      .map(
-                                                          (c) =>
+                                                  children: data.bookDetails.tag!
+                                                      .map((c) =>
                                                           GestureDetector(
                                                             onTap: () =>
-                                                                onTapTag(
-                                                                    c),
-                                                            child:
-                                                            Container(
-                                                              padding: EdgeInsets.only(
-                                                                  bottom:
-                                                                  size.h1),
+                                                                onTapTag(c),
+                                                            child: Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      bottom: size
+                                                                          .h1),
                                                               decoration:
-                                                              BoxDecoration(
-                                                                border:
-                                                                Border(
+                                                                  BoxDecoration(
+                                                                border: Border(
                                                                   bottom:
-                                                                  BorderSide(
-                                                                    color:
-                                                                    clr.appSecondaryColorPurple,
-                                                                    width:
-                                                                    2.w,
+                                                                      BorderSide(
+                                                                    color: clr
+                                                                        .appSecondaryColorPurple,
+                                                                    width: 2.w,
                                                                   ),
                                                                 ),
                                                               ),
@@ -437,16 +443,20 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                                     e: c.nameEn,
                                                                     b: c.nameBn),
                                                                 style:
-                                                                TextStyle(
+                                                                    TextStyle(
                                                                   color: clr
                                                                       .appPrimaryColorBlack,
-                                                                  fontStyle: FontStyle.italic,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic,
                                                                   fontWeight:
-                                                                  FontWeight.w500,
-                                                                  fontSize:
-                                                                  size.textXSmall,
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: size
+                                                                      .textXSmall,
                                                                   fontFamily:
-                                                                  StringData.fontFamilyPoppins,
+                                                                      StringData
+                                                                          .fontFamilyPoppins,
                                                                 ),
                                                               ),
                                                             ),
@@ -454,39 +464,37 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                       .toList(),
                                                 ),
                                               ),
-                                            if (data.languageEn.isNotEmpty)
+                                            if (data.bookDetails.languageEn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.bookLanguage,
                                                       b: bn.bookLanguage),
-                                                  secondItem:
-                                                      data.languageEn),
-                                            if (data.editionEn.isNotEmpty)
+                                                  secondItem: data.bookDetails.languageEn),
+                                            if (data.bookDetails.editionEn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.bookEdition,
                                                       b: bn.bookEdition),
-                                                  secondItem: data.editionEn),
-                                            if (data.publishYearEn.isNotEmpty)
+                                                  secondItem: data.bookDetails.editionEn),
+                                            if (data.bookDetails.publishYearEn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.bookPublishYear,
                                                       b: bn.bookPublishYear),
                                                   secondItem:
-                                                      data.publishYearEn),
-                                            if (data.publisherEn.isNotEmpty)
+                                                      data.bookDetails.publishYearEn),
+                                            if (data.bookDetails.publisherEn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.publisher,
                                                       b: bn.publisher),
-                                                  secondItem:
-                                                      data.publisherEn),
-                                            if (data.isbnEn.isNotEmpty)
+                                                  secondItem: data.bookDetails.publisherEn),
+                                            if (data.bookDetails.isbnEn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.isbnNUmber,
                                                       b: bn.isbnNUmber),
-                                                  secondItem: data.isbnEn),
+                                                  secondItem: data.bookDetails.isbnEn),
                                           ],
                                         )
                                       : const SizedBox(), // Use SizedBox to make sure there's no visual artifact when the column is not expanded
@@ -498,8 +506,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     });
                                   },
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         label(
@@ -521,8 +528,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                           switchOutCurve: Curves
                                               .easeInOut, // Animation curve for disappearing
                                           child: isExpanded
-                                              ? const Icon(Icons
-                                                  .keyboard_arrow_up_sharp)
+                                              ? const Icon(
+                                                  Icons.keyboard_arrow_up_sharp)
                                               : const Icon(Icons
                                                   .keyboard_arrow_down_sharp))
                                     ],
@@ -537,7 +544,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 SizedBox(
                                   height: size.h20,
                                 ),
-                                data.descriptionEn.isNotEmpty
+                                data.bookDetails.descriptionEn.isNotEmpty
                                     ? Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: size.h16),
@@ -554,13 +561,12 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         ),
                                       )
                                     : const SizedBox(),
-                                data.descriptionEn.isNotEmpty
+                                data.bookDetails.descriptionEn.isNotEmpty
                                     ? Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: size.h16),
                                         child: Text(
-                                          data.descriptionEn,
-
+                                          data.bookDetails.descriptionEn,
                                           style: TextStyle(
                                               color: clr.appPrimaryColorBlack,
                                               fontWeight: FontWeight.w400,
@@ -586,7 +592,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: size.w16),
+                    padding: EdgeInsets.symmetric(horizontal: size.w16),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -603,21 +609,22 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           height: size.h8,
                           color: clr.whiteColor,
                         ),
-                        if(data.isDownload==1)
-                        Container(
-                          color: clr.whiteColor,
-                          child: CustomButton(
-                              onTap: () {
-                                downloadFile(
-                                    "http://103.209.40.89:82/uploads/${data.bookFile}",
-                                    filename: data.bookFile
-                                        .substring(
-                                            data.bookFile.lastIndexOf("/") + 1)
-                                        .replaceAll("?", "")
-                                        .replaceAll("=", ""));
-                              },
-                              title: "Download Book"),
-                        ),
+                        if (data.bookDetails.isDownload == 1)
+                          Container(
+                            color: clr.whiteColor,
+                            child: CustomButton(
+                                onTap: () {
+                                  downloadFile(
+                                      "http://103.209.40.89:82/${data.bookDetails.bookFile}",
+                                      filename: data.bookDetails.bookFile
+                                          .substring(
+                                              data.bookDetails.bookFile.lastIndexOf("/") +
+                                                  1)
+                                          .replaceAll("?", "")
+                                          .replaceAll("=", ""));
+                                },
+                                title: "Download Book"),
+                          ),
                         Container(
                           height: size.h32,
                           color: clr.whiteColor,
@@ -644,7 +651,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
         bookId: item.id,
         title: item.titleEn,
         canDownload: item.isDownload == 1 ? true : false,
-        url: "http://103.209.40.89:82/uploads/${item.bookFile}",
+        url: "http://103.209.40.89:82/${item.bookFile}",
       ),
     );
   }

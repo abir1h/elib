@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
+import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/common_widgets/empty_widget.dart';
+import '../../../../core/common_widgets/paginated_list_view.dart';
 import '../../../../core/common_widgets/shimmer_loader.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
@@ -29,8 +31,8 @@ class _AuthorScreenState extends State<AuthorScreen>
         title: "গ্রন্থকারের তালিকা",
         child: LayoutBuilder(
           builder: (context, constraints) =>
-              AppStreamBuilder<List<AuthorDataEntity>>(
-            stream: authorDataStreamController.stream,
+              AppStreamBuilder<PaginatedListViewController<AuthorDataEntity>>(
+            stream: pageStateStreamController.stream,
             loadingBuilder: (context) {
               return ShimmerLoader(
                   child: AuthorItemSectionWidget(
@@ -70,14 +72,36 @@ class _AuthorScreenState extends State<AuthorScreen>
                       }));
             },
             dataBuilder: (context, data) {
-              return AuthorItemSectionWidget(
-                  items: data,
-                  buildItem: (BuildContext context, int index, item) {
-                    return AuthorItemWidget(
-                      authorDataEntity: item,
-                      onTap: () => onTapAuthor(item),
-                    );
-                  });
+              return PaginatedListView<AuthorDataEntity>(
+                controller: paginationController,
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: size.h20,vertical: size.h20),
+                itemBuilder: (context, item,index) {
+                  return AuthorItemWidget(
+                    authorDataEntity: item,
+                    onTap: () => onTapAuthor(item),
+                  );
+                },
+                separatorBuilder: (context) {
+                  return SizedBox(
+                    height: size.h16,
+                  );
+                },
+                loaderBuilder: (context)=> Padding(
+                  padding: EdgeInsets.all(4.0.w),
+                  child: Center(
+                    child: CircularLoader(loaderSize: 16.w,),
+                  ),
+                ),
+              );
+              // return AuthorItemSectionWidget(
+              //     items: data,
+              //     buildItem: (BuildContext context, int index, item) {
+              //       return AuthorItemWidget(
+              //         authorDataEntity: item,
+              //         onTap: () => onTapAuthor(item),
+              //       );
+              //     });
             },
             emptyBuilder: (context, message, icon) => EmptyWidget(
               message: message,
@@ -170,7 +194,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                 backgroundColor: Colors.transparent,
                 child: CachedNetworkImage(
                   imageUrl: authorDataEntity.photo.isNotEmpty
-                      ? "http://103.209.40.89:82/uploads/${authorDataEntity.photo}"
+                      ? "http://103.209.40.89:82/${authorDataEntity.photo}"
                       : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                   placeholder: (context, url) => const Offstage(),
                   errorWidget: (context, url, error) =>

@@ -15,9 +15,9 @@ class AuthorRepositoryImp extends AuthorRepository {
   AuthorRepositoryImp({required this.authorRemoteDataSource});
 
   @override
-  Future<ResponseEntity> getAuthors() async {
+  Future<ResponseEntity> getAuthors(int currentPage) async {
     ResponseModel responseModel =
-        (await authorRemoteDataSource.getAuthorsAction());
+        (await authorRemoteDataSource.getAuthorsAction(currentPage));
     return ResponseModelToEntityMapper<PaginatedAuthorDataEntity,
             PaginatedAuthorDataModel>()
         .toEntityFromModel(

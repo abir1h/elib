@@ -56,11 +56,13 @@ mixin BookRequestListScreenService<T extends StatefulWidget> on State<T>
     if (!mounted) return;
     bookRequestDataStreamController.add(LoadingState());
     getBookRequestList(enablePagination, pageNumber: pageNumber).then((value) {
-      if (value.error == null && value.data.isNotEmpty) {
-        _bookList = value.data;
-        bookRequestDataStreamController
-            .add(DataLoadedState<List<BookRequestDataEntity>>(value.data));
-      } else if (value.error == null && value.data.isEmpty) {
+      if (value.error == null && value.data.bookRequestDataEntity.isNotEmpty) {
+        _bookList = value.data.bookRequestDataEntity;
+        bookRequestDataStreamController.add(
+            DataLoadedState<List<BookRequestDataEntity>>(
+                value.data.bookRequestDataEntity));
+      } else if (value.error == null &&
+          value.data.bookRequestDataEntity.isEmpty) {
         bookRequestDataStreamController
             .add(EmptyState(message: 'No Requested Book Found'));
       } else {

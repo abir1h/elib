@@ -298,7 +298,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                 borderRadius: BorderRadius.circular(10.0),
                 child: CachedNetworkImage(
                   imageUrl:
-                      "http://103.209.40.89:82/uploads/${item.book!.coverImage}",
+                      "http://103.209.40.89:82/${item.book!.coverImage}",
                   fit: BoxFit.cover,
                   placeholder: (context, url) =>
                       Image.asset(ImageAssets.imgPlaceholder),

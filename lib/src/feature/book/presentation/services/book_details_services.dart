@@ -21,6 +21,7 @@ import '../../../book/data/data_sources/remote/book_data_source.dart';
 import '../../../book/data/repositories/book_repository_imp.dart';
 import '../../../book/domain/use_cases/book_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../../domain/entities/book_details_data_entity.dart';
 import '../../domain/entities/tag_data_entity.dart';
 import 'book_view_screen_service.dart';
 
@@ -65,7 +66,7 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
   }
 
   ///Stream controllers
-  final AppStreamController<BookDataEntity> bookDataStreamController =
+  final AppStreamController<BookDetailsDataEntity> bookDataStreamController =
       AppStreamController();
   int _readingTime = 0;
   Timer? _timer;
@@ -101,9 +102,9 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
     bookDataStreamController.add(LoadingState());
     getBookDetails(args.bookData.id).then((value) {
       if (value.error == null && value.data != null) {
-        bookData = value.data!;
+        // bookData = value.data!.BookDataEntity;
         bookDataStreamController
-            .add(DataLoadedState<BookDataEntity>(value.data!));
+            .add(DataLoadedState<BookDetailsDataEntity>(value.data!));
       } else {
         _view.showWarning(value.message!);
       }
@@ -117,7 +118,8 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
     ).then((value) {
       if (value.error == null && value.data != null) {
         bookData.bookMark = !bookData.bookMark;
-        bookDataStreamController.add(DataLoadedState<BookDataEntity>(bookData));
+        bookDataStreamController.add(
+            DataLoadedState<BookDetailsDataEntity>(value.data!.BookDataEntity));
         _view.showSuccess(item.bookMark
             ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
             : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");

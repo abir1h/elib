@@ -244,7 +244,7 @@ class SearchCardItemWidget extends StatelessWidget with AppTheme {
               height: size.h64,
               child: CachedNetworkImage(
                 imageUrl: item.coverImage.isNotEmpty
-                    ? "http://103.209.40.89:82/uploads/${item.coverImage}"
+                    ? "http://103.209.40.89:82/${item.coverImage}"
                     : "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D",
                 placeholder: (context, url) => const Offstage(),
                 errorWidget: (context, url, error) =>

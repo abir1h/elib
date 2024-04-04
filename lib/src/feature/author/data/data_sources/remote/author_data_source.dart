@@ -5,15 +5,15 @@ import '../../../../shared/data/models/response_model.dart';
 import '../../models/paginated_author_data_model.dart';
 
 abstract class AuthorRemoteDataSource {
-  Future<ResponseModel> getAuthorsAction();
+  Future<ResponseModel> getAuthorsAction(int currentPage);
   Future<ResponseModel> getBookByAuthorsAction(int authorId);
 }
 
 class AuthorRemoteDataSourceImp extends AuthorRemoteDataSource {
   @override
-  Future<ResponseModel> getAuthorsAction() async {
+  Future<ResponseModel> getAuthorsAction(int currentPage) async {
     final responseJson =
-        await Server.instance.getRequest(url: ApiCredential.getAuthors);
+        await Server.instance.getRequest(url: "${ApiCredential.getAuthors}?page=$currentPage");
     ResponseModel responseModel = ResponseModel.fromJson(responseJson,
         (dynamic json) => PaginatedAuthorDataModel.fromJson(json));
     return responseModel;
