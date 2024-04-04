@@ -389,7 +389,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                       firstItem:
                                           label(e: en.author, b: bn.author),
                                       secondItem: data.bookDetails.author!
-                                          .map((c) => c.name)
+                                          .map((c) => c.nameEn)
                                           .toList()
                                           .join(', ')),
                                 if (data.bookDetails.category!.isNotEmpty)

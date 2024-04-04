@@ -7,7 +7,8 @@ import 'author_type_data_entity.dart';
 class AuthorDataEntity {
   final int id;
   final int authorTypeId;
-  final String name;
+  final String nameEn;
+  final String nameBn;
   final String slug;
   final String email;
   final String phone;
@@ -24,7 +25,8 @@ class AuthorDataEntity {
   const AuthorDataEntity({
     required this.id,
     required this.authorTypeId,
-    required this.name,
+    required this.nameEn,
+    required this.nameBn,
     required this.slug,
     required this.email,
     required this.phone,

@@ -7,7 +7,8 @@ import 'author_type_data_model.dart';
 class AuthorDataModel {
   final int id;
   final int authorTypeId;
-  final String name;
+  final String nameEn;
+  final String nameBn;
   final String slug;
   final String email;
   final String phone;
@@ -24,7 +25,8 @@ class AuthorDataModel {
   const AuthorDataModel({
     required this.id,
     required this.authorTypeId,
-    required this.name,
+    required this.nameEn,
+    required this.nameBn,
     required this.slug,
     required this.email,
     required this.phone,
@@ -43,7 +45,8 @@ class AuthorDataModel {
       AuthorDataModel(
         id: json["id"] ?? -1,
         authorTypeId: json["author_type_id"] ?? -1,
-        name: json["name"] ?? "",
+        nameEn: json["name_en"] ?? "",
+        nameBn: json["name_bn"] ?? "",
         slug: json["slug"] ?? "",
         email: json["email"] ?? "",
         phone: json["phone"] ?? "",
@@ -65,7 +68,8 @@ class AuthorDataModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "author_type_id": authorTypeId,
-        "name": name,
+        "name_en": nameEn,
+        "name_bn": nameBn,
         "slug": slug,
         "email": email,
         "phone": phone,

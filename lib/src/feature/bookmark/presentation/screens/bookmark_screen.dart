@@ -460,7 +460,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                         Text(
                           widget.item.book != null
                               ? widget.item.book!.author!
-                                  .map((c) => c.name)
+                                  .map((c) => c.nameEn)
                                   .toList()
                                   .join(', ')
                               : "",

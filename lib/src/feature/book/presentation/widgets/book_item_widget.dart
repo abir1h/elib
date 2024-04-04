@@ -368,7 +368,7 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                       children: [
                         TextSpan(
                           text: widget.item.author!
-                              .map((c) => c.name)
+                              .map((c) => c.nameEn)
                               .toList()
                               .join(', '),
                         ),

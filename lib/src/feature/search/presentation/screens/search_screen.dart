@@ -272,7 +272,7 @@ class SearchCardItemWidget extends StatelessWidget with AppTheme {
                   ),
                   Text(
                     item.author != null && item.author!.isNotEmpty
-                        ? item.author!.map((c) => c.name).toList().join(', ')
+                        ? item.author!.map((c) => c.nameEn).toList().join(', ')
                         : "",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

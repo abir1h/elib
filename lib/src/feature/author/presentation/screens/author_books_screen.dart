@@ -43,7 +43,7 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        title: _screenArgs.authorDataEntity.name,
+        title: _screenArgs.authorDataEntity.nameEn,
         child: LayoutBuilder(
             builder: (context, constraints) => Padding(
                   padding: EdgeInsets.symmetric(

@@ -15,7 +15,8 @@ class _AuthorDataModelToEntityMapper
     return AuthorDataModel(
         id: entity.id,
         authorTypeId: entity.authorTypeId,
-        name: entity.name,
+        nameEn: entity.nameEn,
+        nameBn: entity.nameBn,
         slug: entity.slug,
         email: entity.email,
         phone: entity.phone,
@@ -35,7 +36,8 @@ class _AuthorDataModelToEntityMapper
     return AuthorDataEntity(
         id: model.id,
         authorTypeId: model.authorTypeId,
-        name: model.name,
+        nameEn: model.nameEn,
+        nameBn: model.nameBn,
         slug: model.slug,
         email: model.email,
         phone: model.phone,

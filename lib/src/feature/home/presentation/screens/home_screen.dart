@@ -854,7 +854,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
           ),
           SizedBox(height: size.h8),
           Text(
-            authorDataEntity.name,
+            authorDataEntity.nameEn,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,

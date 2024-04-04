@@ -55,7 +55,8 @@ class _AuthorScreenState extends State<AuthorScreen>
                           authorDataEntity: const AuthorDataEntity(
                             id: -1,
                             authorTypeId: -1,
-                            name: "",
+                            nameEn: "",
+                            nameBn: "",
                             slug: "",
                             email: "",
                             phone: "",
@@ -211,7 +212,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      authorDataEntity.name,
+                      authorDataEntity.nameEn,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
