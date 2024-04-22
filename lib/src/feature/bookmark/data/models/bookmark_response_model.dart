@@ -7,7 +7,7 @@ class BookmarkResponseModel {
   final String updatedAt;
   final String createdAt;
   final int id;
-  final int status;
+  final bool status;
 
   const BookmarkResponseModel(
       {required this.emisUserId,
@@ -21,10 +21,10 @@ class BookmarkResponseModel {
       BookmarkResponseModel(
           emisUserId: json["emis_user_id"] ?? -1,
           bookId: json["book_id"] ?? -1,
-          updatedAt: json["updated_at"],
-          createdAt: json["created_at"],
+          updatedAt: json["updated_at"]??"",
+          createdAt: json["created_at"]??"",
           id: json["id"] ?? -1,
-          status: json['status'] ?? -1);
+          status: json['status'] ?? false);
 
   Map<String, dynamic> toJson() => {
         "emis_user_id": emisUserId,
