@@ -4,7 +4,7 @@ class BookmarkResponseEntity {
   final String updatedAt;
   final String createdAt;
   final int id;
-  final int status;
+  final bool status;
 
   BookmarkResponseEntity(
       {required this.emisUserId,

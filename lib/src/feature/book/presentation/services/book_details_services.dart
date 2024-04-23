@@ -93,7 +93,10 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
       ? _loadingSizeStreamController.sink
       : null;
 
-  late BookDataEntity bookData;
+  // final AppStreamController<List<BookDataEntity>> bookDataStreamController =
+  // AppStreamController();
+
+  late BookDetailsDataEntity bookData;
 
   ///Load Book list
   void loadInitialData(BookDetailsScreenArgs args) {
@@ -102,7 +105,7 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
     bookDataStreamController.add(LoadingState());
     getBookDetails(args.bookData.id).then((value) {
       if (value.error == null && value.data != null) {
-        // bookData = value.data!.BookDataEntity;
+        bookData = value.data!;
         bookDataStreamController
             .add(DataLoadedState<BookDetailsDataEntity>(value.data!));
       } else {
@@ -117,9 +120,9 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
       eMISUserId: 1,
     ).then((value) {
       if (value.error == null && value.data != null) {
-        bookData.bookMark = !bookData.bookMark;
-        bookDataStreamController.add(
-            DataLoadedState<BookDetailsDataEntity>(value.data!.BookDataEntity));
+        bookData.bookDetails.bookMark = !bookData.bookDetails.bookMark;
+        bookDataStreamController
+            .add(DataLoadedState<BookDetailsDataEntity>(bookData));
         _view.showSuccess(item.bookMark
             ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
             : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
@@ -187,8 +190,8 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
                   "application/pdf") {
                 ///PDF File loaded to screen
                 if (!_pageStateStreamController.isClosed) {
-                  _pageStateSink?.add(PdfLoadedState(
-                      file, bookData.isDownload == 1 ? true : false));
+                  _pageStateSink?.add(PdfLoadedState(file,
+                      bookData.bookDetails.isDownload == 1 ? true : false));
 
                   ///Start timer
                   _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -198,8 +201,8 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
               } else {
                 ///Unknown File loaded to screen
                 if (!_pageStateStreamController.isClosed) {
-                  _pageStateSink
-                      ?.add(UnknownFileLoadedState(file, bookData.titleEn));
+                  _pageStateSink?.add(UnknownFileLoadedState(
+                      file, bookData.bookDetails.titleEn));
                 }
               }
               CustomToasty.of(context).releaseUI();
