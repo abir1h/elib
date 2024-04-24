@@ -195,7 +195,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                 backgroundColor: Colors.transparent,
                 child: CachedNetworkImage(
                   imageUrl: authorDataEntity.photo.isNotEmpty
-                      ? "http://103.209.40.89:82/${authorDataEntity.photo}"
+                      ? "http://103.209.40.89:8012/uploads/${authorDataEntity.photo}"
                       : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                   placeholder: (context, url) => const Offstage(),
                   errorWidget: (context, url, error) =>

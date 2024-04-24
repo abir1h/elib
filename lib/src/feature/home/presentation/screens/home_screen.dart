@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -288,7 +287,9 @@ class _HomeScreenState extends State<HomeScreen>
                             ///Latest Book
                             ItemSectionWidget(
                                 aspectRatio: 1.45,
-                                title: "সাম্প্রতিক বই সমূহ",
+                                title: label(
+                                    e: en.latestBookHomeText,
+                                    b: bn.latestBookHomeText),
                                 items: data.latestBook,
                                 emptyText: "No Book Found !",
                                 buildItem: (context, index, item) {
@@ -302,6 +303,29 @@ class _HomeScreenState extends State<HomeScreen>
                                           onBookmarkContentSelected,
                                     ),
                                   );
+                                },
+                                onTapSeeAll: () =>
+                                    onTapLatestSeeAll(data.latestBook)),
+
+                            ///Most Viewed Book
+                            ItemSectionWidget(
+                                aspectRatio: 1.45,
+                                title: label(
+                                    e: en.mostViewedBookHomeText,
+                                    b: bn.mostViewedBookHomeText),
+                                items: data.mostViewedBooks,
+                                emptyText: "No Book Found !",
+                                buildItem: (context, index, item) {
+                                  return item.book != null ? AspectRatio(
+                                    aspectRatio: .45,
+                                    child: BookItemWidget(
+                                      key: Key(item.id.toString()),
+                                      item: item.book!,
+                                      onSelect: onBookContentSelected,
+                                      onBookmarkSelect:
+                                      onBookmarkContentSelected,
+                                    ),
+                                  ) : const Offstage();
                                 },
                                 onTapSeeAll: () =>
                                     onTapLatestSeeAll(data.latestBook)),
@@ -843,7 +867,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
               backgroundColor: Colors.transparent,
               child: CachedNetworkImage(
                 imageUrl: authorDataEntity.photo.isNotEmpty
-                    ? "http://103.209.40.89:82/${authorDataEntity.photo}"
+                    ? "http://103.209.40.89:8012/uploads/${authorDataEntity.photo}"
                     : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                 placeholder: (context, url) => const Offstage(),
                 errorWidget: (context, url, error) =>

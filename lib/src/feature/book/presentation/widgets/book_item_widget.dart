@@ -235,7 +235,7 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                           topLeft: Radius.circular(size.r4)),
                       child: CachedNetworkImage(
                         imageUrl: widget.item.coverImage.isNotEmpty
-                            ? "http://103.209.40.89:82/${widget.item.coverImage}"
+                            ? "http://103.209.40.89:8012/uploads/${widget.item.coverImage}"
                             : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                         placeholder: (context, url) =>
                             Icon(Icons.image, color: clr.greyColor),

@@ -396,7 +396,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                           image: CachedNetworkImageProvider(
                             widget.item.book != null &&
                                     widget.item.book!.coverImage.isNotEmpty
-                                ? "http://103.209.40.89:82/${widget.item.book?.coverImage}"
+                                ? "http://103.209.40.89:8012/uploads/${widget.item.book?.coverImage}"
                                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                           ),
                         ),
@@ -456,7 +456,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                         ],
                       ),
                       SizedBox(height: size.h8),
-                      if (widget.item.book!.author!.isNotEmpty)
+                      if (widget.item.book != null && widget.item.book!.author!.isNotEmpty)
                         Text(
                           widget.item.book != null
                               ? widget.item.book!.author!
@@ -474,7 +474,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                           ),
                         ),
                       SizedBox(height: size.h8),
-                      if (widget.item.book!.category!.isNotEmpty)
+                      if (widget.item.book != null && widget.item.book!.category!.isNotEmpty)
                         Text(
                           widget.item.book != null
                               ? widget.item.book!.category!
@@ -492,7 +492,7 @@ class _BookmarkItemWidgetState extends State<BookmarkItemWidget> with AppTheme {
                           ),
                         ),
                       SizedBox(height: size.h8),
-                      if (widget.item.book!.tag != null &&
+                      if (widget.item.book != null && widget.item.book!.tag != null &&
                           widget.item.book!.tag!.isNotEmpty)
                         Row(
                           children: [

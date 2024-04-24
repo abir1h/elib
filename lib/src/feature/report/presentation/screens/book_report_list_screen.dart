@@ -137,7 +137,7 @@ class BookCard extends StatelessWidget with AppTheme, Language {
                     width: 100.w,
                     height: 200.h,
                     imageUrl:
-                        "http://103.209.40.89:82/${item.book!.coverImage}",
+                        "http://103.209.40.89:8012/uploads/${item.book!.coverImage}",
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
                         Image.asset(ImageAssets.imgPlaceholder),

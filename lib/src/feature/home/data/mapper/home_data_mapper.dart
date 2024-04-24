@@ -1,3 +1,6 @@
+import '../../../report/data/models/book_report_data_model.dart';
+import '../../../report/data/mapper/book_report_data_mapper.dart';
+import '../../../report/domain/entities/book_report_data_entity.dart';
 import '../../../book/data/mapper/book_data_mapper.dart';
 import '../../../book/data/models/book_data_model.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
@@ -23,6 +26,9 @@ class _HomeDataModelToEntityMapper
         latestBook: List<BookDataEntity>.from(entity.latestBook)
             .map((entity) => entity.toBookDataModel)
             .toList(),
+        mostViewedBooks: List<BookReportDataEntity>.from(entity.mostViewedBooks)
+            .map((entity) => entity.toBookReportDataModel)
+            .toList(),
         categoriesOne: List<CategoryDataEntity>.from(entity.categoriesOne)
             .map((entity) => entity.toCategoryDataModel)
             .toList(),
@@ -39,6 +45,9 @@ class _HomeDataModelToEntityMapper
     return HomeDataEntity(
         latestBook: List<BookDataModel>.from(model.latestBook)
             .map((model) => model.toBookDataEntity)
+            .toList(),
+        mostViewedBooks: List<BookReportDataModel>.from(model.mostViewedBooks)
+            .map((model) => model.toBookReportDataEntity)
             .toList(),
         categoriesOne: List<CategoryDataModel>.from(model.categoriesOne)
             .map((model) => model.toCategoryDataEntity)

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../report/data/models/book_report_data_model.dart';
 import '../../../author/data/models/author_data_model.dart';
 import '../../../book/data/models/book_data_model.dart';
 import '../../../category/data/models/category_data_model.dart';
@@ -7,20 +8,26 @@ import '../../../category/data/models/category_data_model.dart';
 @immutable
 class HomeDataModel {
   final List<BookDataModel> latestBook;
+  final List<BookReportDataModel> mostViewedBooks;
   final List<CategoryDataModel> categoriesOne;
   final List<CategoryDataModel> categoriesTwo;
   final List<AuthorDataModel> authors;
 
   const HomeDataModel(
       {required this.latestBook,
+      required this.mostViewedBooks,
       required this.categoriesOne,
       required this.categoriesTwo,
       required this.authors});
 
   factory HomeDataModel.fromJson(Map<String, dynamic> json) => HomeDataModel(
-        latestBook: json["latestBook"] != null
+        latestBook: json["latestBooks"] != null
             ? List<BookDataModel>.from(
-                (json["latestBook"]).map((x) => BookDataModel.fromJson(x)))
+                (json["latestBooks"]).map((x) => BookDataModel.fromJson(x)))
+            : [],
+        mostViewedBooks: json["mostViewedBooks"] != null
+            ? List<BookReportDataModel>.from((json["mostViewedBooks"])
+                .map((x) => BookReportDataModel.fromJson(x)))
             : [],
         categoriesOne: json["categories1"] != null
             ? List<CategoryDataModel>.from(
@@ -37,7 +44,9 @@ class HomeDataModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "latestBook": List<dynamic>.from(latestBook.map((x) => x.toJson())),
+        "latestBooks": List<dynamic>.from(latestBook.map((x) => x.toJson())),
+        "mostViewedBooks":
+            List<dynamic>.from(mostViewedBooks.map((x) => x.toJson())),
         "categories1": List<dynamic>.from(categoriesOne.map((x) => x.toJson())),
         "categories2": List<dynamic>.from(categoriesTwo.map((x) => x.toJson())),
         "authors": List<dynamic>.from(authors.map((x) => x.toJson())),

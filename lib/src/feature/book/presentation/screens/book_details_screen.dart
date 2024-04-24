@@ -93,7 +93,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                             BorderRadius.circular(size.r4),
                                         child: CachedNetworkImage(
                                           imageUrl: data.bookDetails.coverImage.isNotEmpty
-                                              ? "http://103.209.40.89:82/${data.bookDetails.coverImage}"
+                                              ? "http://103.209.40.89:8012/uploads/${data.bookDetails.coverImage}"
                                               : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                                           placeholder: (context, url) => Icon(
                                               Icons.image,
@@ -615,7 +615,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             child: CustomButton(
                                 onTap: () {
                                   downloadFile(
-                                      "http://103.209.40.89:82/${data.bookDetails.bookFile}",
+                                      "http://103.209.40.89:8012/uploads/${data.bookDetails.bookFile}",
                                       filename: data.bookDetails.bookFile
                                           .substring(
                                               data.bookDetails.bookFile.lastIndexOf("/") +
@@ -651,7 +651,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
         bookId: item.id,
         title: item.titleEn,
         canDownload: item.isDownload == 1 ? true : false,
-        url: "http://103.209.40.89:82/${item.bookFile}",
+        url: "http://103.209.40.89:8012/uploads/${item.bookFile}",
       ),
     );
   }

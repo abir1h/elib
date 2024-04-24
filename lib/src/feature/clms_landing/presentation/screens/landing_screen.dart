@@ -80,20 +80,21 @@ class _LandingScreenState extends State<LandingScreen>
                     text: label(e: en.eLibrary, b: bn.eLibrary),
                     onTap: onNavigateToELibraryScreen),
                 rightChild: ModuleCardWidget(
-                  image: ImageAssets.imgModule4,
+                  image: ImageAssets.imgModule2,
                   text: label(
-                      e: en.formativeAssessment, b: bn.formativeAssessment),
+                      e: en.socialLearningPlatform,
+                      b: bn.socialLearningPlatform),
                 ),
               ),
-              SizedBox(height: size.h16),
-              RowItemTemplate(
-                  leftChild: ModuleCardWidget(
-                    image: ImageAssets.imgModule2,
-                    text: label(
-                        e: en.socialLearningPlatform,
-                        b: bn.socialLearningPlatform),
-                  ),
-                  rightChild: Container()),
+              // SizedBox(height: size.h16),
+              // RowItemTemplate(
+              //     leftChild: ModuleCardWidget(
+              //       image: ImageAssets.imgModule2,
+              //       text: label(
+              //           e: en.socialLearningPlatform,
+              //           b: bn.socialLearningPlatform),
+              //     ),
+              //     rightChild: Container()),
             ],
           ),
         ));

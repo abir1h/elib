@@ -29,6 +29,8 @@ class LanguageEn {
   String copyRightText5 = "Conditions";
 
   String homeText = "Home";
+  String latestBookHomeText = "Latest Books";
+  String mostViewedBookHomeText = "Most Viewed Books";
   String homeHeaderText = "Enriching life with knowledge of the world";
   String allCategoriesText = "All Categories";
   String categoriesText = "Categories";
@@ -180,6 +182,8 @@ class LanguageBn {
   String copyRightText5 = "শর্তাবলী";
 
   String homeText = "হোম";
+  String latestBookHomeText = "সাম্প্রতিক বই সমূহ";
+  String mostViewedBookHomeText = "সর্বাধিক পঠিত বই";
   String homeHeaderText = "বিশ্বের জ্ঞান দিয়ে জীবনকে সমৃদ্ধ করা";
   String allCategoriesText = "সকল ক্যাটেগরি";
   String categoriesText = "ক্যাটেগরি";
