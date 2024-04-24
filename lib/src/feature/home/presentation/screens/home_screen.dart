@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../report/domain/entities/book_report_data_entity.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/search_book_widget.dart';
@@ -328,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   ) : const Offstage();
                                 },
                                 onTapSeeAll: () =>
-                                    onTapLatestSeeAll(data.latestBook)),
+                                    onTapMostViewedSeeAll(data.mostViewedBooks)),
 
                             ///First Category
                             CategorySectionWidget(
@@ -684,6 +685,14 @@ class _HomeScreenState extends State<HomeScreen>
   void navigateToSearchScreen() {
     Navigator.of(context).pushNamed(
       AppRoute.searchScreen,
+    );
+  }
+
+  @override
+  void navigateToMostViewedBookScreen(List<BookReportDataEntity> items) {
+    Navigator.of(context).pushNamed(
+      AppRoute.mostViewedBookScreen,
+      arguments: MostViewedBookScreenArgs(items: items),
     );
   }
 }

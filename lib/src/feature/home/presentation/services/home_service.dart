@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
-import '../../../../core/common_widgets/paginated_gridview_widget.dart';
 import '../../../author/data/data_sources/remote/author_data_source.dart';
 import '../../../author/data/repositories/author_repository_imp.dart';
 import '../../../author/domain/entities/author_data_entity.dart';
@@ -13,6 +12,7 @@ import '../../../book/domain/use_cases/book_use_case.dart';
 import '../../../bookmark/data/data_sources/remote/bookmark_data_source.dart';
 import '../../../bookmark/data/repositories/bookmark_repository_imp.dart';
 import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
+import '../../../report/domain/entities/book_report_data_entity.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../../../core/utility/app_label.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
@@ -31,6 +31,7 @@ abstract class _ViewModel {
   void navigateToCategoryDetailsScreen(
       String categoryNameEn, String categoryNameBn, int id);
   void navigateToLatestBookScreen(List<BookDataEntity> items);
+  void navigateToMostViewedBookScreen(List<BookReportDataEntity> items);
   void navigateToSearchScreen();
 
   // void showVideoPlayerDialog(ELibraryEntity item);
@@ -202,6 +203,11 @@ mixin HomeScreenService<T extends StatefulWidget> on State<T>
   ///On Tap Latest See All
   void onTapLatestSeeAll(List<BookDataEntity> items) {
     _view.navigateToLatestBookScreen(items);
+  }
+
+  ///On Tap Most Viewed See All
+  void onTapMostViewedSeeAll(List<BookReportDataEntity> items) {
+    _view.navigateToMostViewedBookScreen(items);
   }
 
   ///On Tap Category See All

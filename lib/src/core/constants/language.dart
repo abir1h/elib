@@ -30,7 +30,9 @@ class LanguageEn {
 
   String homeText = "Home";
   String latestBookHomeText = "Latest Books";
+  String latestAllBookText = "All Latest Books";
   String mostViewedBookHomeText = "Most Viewed Books";
+  String mostViewedAllBookText = "All Most Viewed Books";
   String homeHeaderText = "Enriching life with knowledge of the world";
   String allCategoriesText = "All Categories";
   String categoriesText = "Categories";
@@ -183,7 +185,9 @@ class LanguageBn {
 
   String homeText = "হোম";
   String latestBookHomeText = "সাম্প্রতিক বই সমূহ";
+  String latestAllBookText = "সাম্প্রতিক সকল বই দেখুন";
   String mostViewedBookHomeText = "সর্বাধিক পঠিত বই";
+  String mostViewedAllBookText = "সকল সর্বাধিক পঠিত বই";
   String homeHeaderText = "বিশ্বের জ্ঞান দিয়ে জীবনকে সমৃদ্ধ করা";
   String allCategoriesText = "সকল ক্যাটেগরি";
   String categoriesText = "ক্যাটেগরি";

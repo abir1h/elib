@@ -1,3 +1,4 @@
+import '../../feature/report/domain/entities/book_report_data_entity.dart';
 import '../../feature/book/domain/entities/tag_data_entity.dart';
 import '../../feature/author/domain/entities/author_data_entity.dart';
 import '../../feature/note/domain/entities/note_data_entity.dart';
@@ -72,4 +73,9 @@ class TagBookScreenArgs {
 class LatestBookScreenArgs {
   final List<BookDataEntity> items;
   LatestBookScreenArgs({required this.items});
+}
+
+class MostViewedBookScreenArgs {
+  final List<BookReportDataEntity> items;
+  MostViewedBookScreenArgs({required this.items});
 }

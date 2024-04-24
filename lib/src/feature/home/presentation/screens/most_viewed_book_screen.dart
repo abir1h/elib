@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/utility/app_label.dart';
+import '../services/most_viewed_book_screen_service.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 import '../../../../core/common_widgets/app_scroll_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
@@ -10,30 +11,29 @@ import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../book/presentation/widgets/book_item_widget.dart';
 import '../../../category/presentation/widgets/book_section_widget.dart';
-import '../services/latest_book_screen_service.dart';
 
-class LatestBookScreen extends StatefulWidget {
+class MostViewedBookScreen extends StatefulWidget {
   final Object? arguments;
-  const LatestBookScreen({super.key, this.arguments});
+  const MostViewedBookScreen({super.key, this.arguments});
 
   @override
-  State<LatestBookScreen> createState() => _LatestBookScreenState();
+  State<MostViewedBookScreen> createState() => _MostViewedBookScreenState();
 }
 
-class _LatestBookScreenState extends State<LatestBookScreen>
-    with AppTheme, Language ,LatestBookScreenService{
-  late LatestBookScreenArgs _screenArgs;
+class _MostViewedBookScreenState extends State<MostViewedBookScreen>
+    with AppTheme, Language, MostViewedBookScreenService {
+  late MostViewedBookScreenArgs _screenArgs;
 
   @override
   void initState() {
-    _screenArgs = widget.arguments as LatestBookScreenArgs;
+    _screenArgs = widget.arguments as MostViewedBookScreenArgs;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: label(e: en.latestBookHomeText, b: bn.latestBookHomeText),
+      title: label(e: en.mostViewedBookHomeText, b: bn.mostViewedBookHomeText),
       child: LayoutBuilder(
         builder: (context, constraints) => AppScrollView(
           padding:
@@ -42,7 +42,7 @@ class _LatestBookScreenState extends State<LatestBookScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                label(e: en.latestAllBookText, b: bn.latestAllBookText),
+                label(e: en.mostViewedAllBookText, b: bn.mostViewedAllBookText),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -59,8 +59,8 @@ class _LatestBookScreenState extends State<LatestBookScreen>
                 buildItem: (BuildContext context, int index, item) {
                   return BookItemWidget(
                     key: Key(item.id.toString()),
-                    item: item,
-                    onSelect: (e)=>onBookContentSelected(e),
+                    item: item.book!,
+                    onSelect: (e) => onBookContentSelected(e),
                     onBookmarkSelect: (e) {},
 
                     // onSelect: onBookContentSelected,

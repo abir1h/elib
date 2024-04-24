@@ -1,6 +1,7 @@
-import 'package:elibrary/src/feature/report/presentation/screens/book_report_list_screen.dart';
-import 'package:elibrary/src/feature/search/presentation/screens/search_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../feature/report/presentation/screens/book_report_list_screen.dart';
+import '../../feature/search/presentation/screens/search_screen.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
 import '../../feature/authentication/presentation/screens/emis_webview_screen.dart';
 import '../../feature/author/presentation/screens/author_books_screen.dart';
@@ -13,6 +14,7 @@ import '../../feature/category/presentation/screens/category_details_screen.dart
 import '../../feature/clms_landing/presentation/screens/landing_screen.dart';
 import '../../feature/base/presentation/screens/base_screen.dart';
 import '../../feature/home/presentation/screens/latest_books_screen.dart';
+import '../../feature/home/presentation/screens/most_viewed_book_screen.dart';
 import '../../feature/note/presentation/screens/note_details_screen.dart';
 import '../../feature/note/presentation/screens/note_screen.dart';
 import '../../feature/note/presentation/screens/note_edit_screen.dart';
@@ -48,6 +50,7 @@ class AppRoute {
   static const String tagBookScreen = 'tagBookScreen';
   static const String readBooksScreen = 'readBooksScreen';
   static const String latestBookScreen = 'latestBookScreen';
+  static const String mostViewedBookScreen = 'mostViewedBookScreen';
   static const String searchScreen = 'searchScreen';
 }
 
@@ -118,6 +121,8 @@ mixin RouteGenerator {
 
         case AppRoute.latestBookScreen:
           return LatestBookScreen(arguments: setting.arguments);
+        case AppRoute.mostViewedBookScreen:
+          return MostViewedBookScreen(arguments: setting.arguments);
         case AppRoute.searchScreen:
           return const BookSearchScreen();
 
