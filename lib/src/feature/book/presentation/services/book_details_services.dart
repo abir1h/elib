@@ -53,6 +53,14 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
     return _bookmarkUseCase.bookmarkUseCase(bookId, eMISUserId);
   }
 
+  Future<ResponseEntity> userBookViewCountAction(int bookId) async {
+    return _bookUseCase.userBookViewCountActionUseCase(bookId);
+  }
+
+  Future<ResponseEntity> userBookDownloadCountAction(int bookId) async {
+    return _bookUseCase.userBookDownloadCountActionUseCase(bookId);
+  }
+
   ///Service configurations
   @override
   void initState() {
@@ -126,6 +134,26 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
         _view.showSuccess(item.bookMark
             ? "বুকমার্ক সফলভাবে যোগ করা হয়েছে !"
             : "বুকমার্ক সফলভাবে মুছে ফেলা হয়েছে !");
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
+  }
+
+  void onUserBookViewCountAction(BookDataEntity item) {
+    userBookViewCountAction(item.id).then((value) {
+      if (value.error == null && value.data != null) {
+        //success
+      } else {
+        _view.showWarning(value.message!);
+      }
+    });
+  }
+
+  void onUserBookDownloadCountAction(BookDataEntity item) {
+    userBookDownloadCountAction(item.id).then((value) {
+      if (value.error == null && value.data != null) {
+        //success
       } else {
         _view.showWarning(value.message!);
       }

@@ -29,7 +29,7 @@ dependencies:
   saf: ^1.0.3+4
   share_plus: ^7.2.1
   rxdart: ^0.27.7
-  webview_flutter: ^4.4.4
+  webview_flutter: ^4.7.0
   lottie: ^3.0.0
   html_editor_enhanced: ^2.5.1
   flutter_quill: ^8.6.4

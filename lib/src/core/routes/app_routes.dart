@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../feature/book/presentation/screens/external_webview_screen.dart';
 import '../../feature/report/presentation/screens/book_report_list_screen.dart';
 import '../../feature/search/presentation/screens/search_screen.dart';
 import '../../feature/authentication/presentation/screens/authentication_screen.dart';
@@ -36,6 +37,7 @@ class AppRoute {
   static const String bookDetailsScreen = 'bookDetailsScreen';
   static const String categoryDetailsScreen = 'categoryDetailsScreen';
   static const String bookViewScreen = 'bookViewScreen';
+  static const String externalBookViewScreen = 'externalBookViewScreen';
   static const String bookViewDownloadCountScreen =
       'bookViewDownloadCountScreen';
   static const String bookViewDownloadCountListScreen =
@@ -85,6 +87,10 @@ mixin RouteGenerator {
         /// Book View Details Screen
         case AppRoute.bookViewScreen:
           return BookViewerScreen(arguments: setting.arguments);
+
+        /// External Book View Screen
+        case AppRoute.externalBookViewScreen:
+          return ExternalWebViewScreen(arguments: setting.arguments);
 
         /// Book Report Details Screen
         case AppRoute.bookViewDownloadCountScreen:

@@ -86,8 +86,10 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     Map<String, dynamic> data = {
       "book_id": bookId,
     };
-    final responseJson = await Server.instance
-        .postRequest(url: ApiCredential.bookCountUser, postData: data);
+    // final responseJson = await Server.instance
+    //     .postRequest(url: ApiCredential.bookCountUser, postData: data);
+    final responseJson = await Server.instance.postRequest(
+        url: "${ApiCredential.bookCountUser}?book_id=$bookId", postData: data);
     ResponseModel responseModel = ResponseModel.fromJson(
         responseJson, (dynamic json) => CountUserResponseModel.fromJson(json));
     return responseModel;

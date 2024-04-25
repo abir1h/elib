@@ -22,7 +22,7 @@ class CountUserResponseModel {
       CountUserResponseModel(
         id: json["id"] ?? -1,
         bookId: json["book_id"] ?? -1,
-        userId: json["user_id"] ?? -1,
+        userId: json["emis_user_id"] ?? -1,
         viewCount: json["view_count"] ?? -1,
         createdAt: json["created_at"] ?? "",
         updatedAt: json["updated_at"] ?? "",
@@ -31,7 +31,7 @@ class CountUserResponseModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "book_id": bookId,
-        "user_id": userId,
+        "emis_user_id": userId,
         "view_count": viewCount,
         "created_at": createdAt,
         "updated_at": updatedAt,

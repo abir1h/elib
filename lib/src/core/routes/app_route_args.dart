@@ -35,6 +35,15 @@ class BookViewerScreenArgs {
       this.timeToReadInSeconds = -1});
 }
 
+class ExternalBookViewScreenArgs {
+  final String url;
+  String title;
+  ExternalBookViewScreenArgs({
+    required this.url,
+    this.title = "",
+  });
+}
+
 class CategoryDetailsScreenArgs {
   final String categoryNameEn;
   final String categoryNameBn;

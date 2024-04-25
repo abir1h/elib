@@ -1,21 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../core/common_widgets/custom_scaffold.dart';
-import 'package:elibrary/src/core/utility/log.dart';
 import '../../../home/presentation/widgets/animated_fab_button.dart';
 import '../../../note/domain/entities/note_data_entity.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/routes/app_route_args.dart';
-import '../../../../core/routes/app_routes.dart';
-import '../../../../core/toasty.dart';
 import '../../../note/presentation/widgets/note_bottom_sheet.dart';
 import '../services/book_view_screen_service.dart';
 
@@ -171,6 +165,7 @@ class _BookViewerScreenState extends State<BookViewerScreen>
                         isDownload: (widget.arguments! as BookViewerScreenArgs).canDownload,
                         onPressed: (e) {
                           if (e == "download") {
+                            onUserBookDownloadCountAction((widget.arguments! as BookViewerScreenArgs).bookId);
                             onSaveFileToLocalStorage(data.file);
                           } else {
                             showCupertinoModalPopup(

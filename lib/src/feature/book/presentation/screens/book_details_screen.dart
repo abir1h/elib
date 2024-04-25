@@ -34,7 +34,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   void initState() {
     super.initState();
 
-    ///Initially load course details
+    ///Initially load book details
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       loadInitialData(widget.arguments as BookDetailsScreenArgs);
     });
@@ -92,7 +92,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         borderRadius:
                                             BorderRadius.circular(size.r4),
                                         child: CachedNetworkImage(
-                                          imageUrl: data.bookDetails.coverImage.isNotEmpty
+                                          imageUrl: data.bookDetails.coverImage
+                                                  .isNotEmpty
                                               ? "http://103.209.40.89:8012/uploads/${data.bookDetails.coverImage}"
                                               : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU",
                                           placeholder: (context, url) => Icon(
@@ -109,7 +110,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               Expanded(
                                 flex: 23,
                                 child: GestureDetector(
-                                  onTap: () => onBookmarkContentSelected(data.bookDetails),
+                                  onTap: () => onBookmarkContentSelected(
+                                      data.bookDetails),
                                   child: SizedBox(
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
@@ -412,12 +414,14 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                           key: const Key(
                                               'expanded'), // Key to differentiate between different children of AnimatedSwitcher
                                           children: [
-                                            if (data.bookDetails.tag!.isNotEmpty)
+                                            if (data
+                                                .bookDetails.tag!.isNotEmpty)
                                               TagWidget(
                                                 firstItem:
                                                     label(e: en.tag, b: bn.tag),
                                                 secondItem: Wrap(
-                                                  children: data.bookDetails.tag!
+                                                  children: data
+                                                      .bookDetails.tag!
                                                       .map((c) =>
                                                           GestureDetector(
                                                             onTap: () =>
@@ -464,37 +468,46 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                       .toList(),
                                                 ),
                                               ),
-                                            if (data.bookDetails.languageEn.isNotEmpty)
+                                            if (data.bookDetails.languageEn
+                                                .isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.bookLanguage,
                                                       b: bn.bookLanguage),
-                                                  secondItem: data.bookDetails.languageEn),
-                                            if (data.bookDetails.editionEn.isNotEmpty)
+                                                  secondItem: data
+                                                      .bookDetails.languageEn),
+                                            if (data.bookDetails.editionEn
+                                                .isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.bookEdition,
                                                       b: bn.bookEdition),
-                                                  secondItem: data.bookDetails.editionEn),
-                                            if (data.bookDetails.publishYearEn.isNotEmpty)
+                                                  secondItem: data
+                                                      .bookDetails.editionEn),
+                                            if (data.bookDetails.publishYearEn
+                                                .isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.bookPublishYear,
                                                       b: bn.bookPublishYear),
-                                                  secondItem:
-                                                      data.bookDetails.publishYearEn),
-                                            if (data.bookDetails.publisherEn.isNotEmpty)
+                                                  secondItem: data.bookDetails
+                                                      .publishYearEn),
+                                            if (data.bookDetails.publisherEn
+                                                .isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.publisher,
                                                       b: bn.publisher),
-                                                  secondItem: data.bookDetails.publisherEn),
-                                            if (data.bookDetails.isbn.isNotEmpty)
+                                                  secondItem: data
+                                                      .bookDetails.publisherEn),
+                                            if (data
+                                                .bookDetails.isbn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.isbnNUmber,
                                                       b: bn.isbnNUmber),
-                                                  secondItem: data.bookDetails.isbn),
+                                                  secondItem:
+                                                      data.bookDetails.isbn),
                                           ],
                                         )
                                       : const SizedBox(), // Use SizedBox to make sure there's no visual artifact when the column is not expanded
@@ -599,9 +612,14 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                         Container(
                           color: clr.whiteColor,
                           child: CustomButton(
-                            onTap: () => onNavigateToBookViewerScreen(
-                                (widget.arguments as BookDetailsScreenArgs)
-                                    .bookData),
+                            onTap: () {
+                              onUserBookViewCountAction(
+                                  (widget.arguments as BookDetailsScreenArgs)
+                                      .bookData);
+                              onNavigateToBookViewerScreen(
+                                  (widget.arguments as BookDetailsScreenArgs)
+                                      .bookData);
+                            },
                             title: "Read Book",
                           ),
                         ),
@@ -609,17 +627,19 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           height: size.h8,
                           color: clr.whiteColor,
                         ),
-                        if (data.bookDetails.isDownload == 1)
+                        if (!data.bookDetails.hasExternalLink &&
+                            data.bookDetails.isDownload == 1)
                           Container(
                             color: clr.whiteColor,
                             child: CustomButton(
                                 onTap: () {
+                                  onUserBookDownloadCountAction(data.bookDetails);
                                   downloadFile(
                                       "http://103.209.40.89:8012/uploads/${data.bookDetails.bookFile}",
                                       filename: data.bookDetails.bookFile
-                                          .substring(
-                                              data.bookDetails.bookFile.lastIndexOf("/") +
-                                                  1)
+                                          .substring(data.bookDetails.bookFile
+                                                  .lastIndexOf("/") +
+                                              1)
                                           .replaceAll("?", "")
                                           .replaceAll("=", ""));
                                 },
@@ -644,16 +664,26 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
 
   @override
   void navigateToBookViewerScreen(BookDataEntity item) {
-    Navigator.of(context).pushNamed(
-      AppRoute.bookViewScreen,
-      arguments: BookViewerScreenArgs(
-        // docId: item.id.toString(),
-        bookId: item.id,
-        title: item.titleEn,
-        canDownload: item.isDownload == 1 ? true : false,
-        url: "http://103.209.40.89:8012/uploads/${item.bookFile}",
-      ),
-    );
+    if (item.hasExternalLink) {
+      Navigator.of(context).pushNamed(
+        AppRoute.externalBookViewScreen,
+        arguments: ExternalBookViewScreenArgs(
+          title: item.titleEn,
+          url: item.externalLink,
+        ),
+      );
+    } else {
+      Navigator.of(context).pushNamed(
+        AppRoute.bookViewScreen,
+        arguments: BookViewerScreenArgs(
+          // docId: item.id.toString(),
+          bookId: item.id,
+          title: item.titleEn,
+          canDownload: item.isDownload == 1 ? true : false,
+          url: "http://103.209.40.89:8012/uploads/${item.bookFile}",
+        ),
+      );
+    }
   }
 
   @override

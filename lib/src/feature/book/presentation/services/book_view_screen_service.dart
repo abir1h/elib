@@ -18,6 +18,10 @@ import '../../../note/data/repositories/note_repository_imp.dart';
 import '../../../note/domain/entities/note_data_entity.dart';
 import '../../../note/domain/use_cases/note_use_case.dart';
 import '../../../shared/domain/entities/response_entity.dart';
+import '../../data/data_sources/remote/book_data_source.dart';
+import '../../data/repositories/book_repository_imp.dart';
+import '../../domain/entities/book_data_entity.dart';
+import '../../domain/use_cases/book_use_case.dart';
 
 abstract class _ViewModel {
   void forceClose();
@@ -38,8 +42,16 @@ mixin BookViewerScreenService<T extends StatefulWidget> on State<T>
       noteRepository:
           NoteRepositoryImp(noteRemoteDataSource: NoteRemoteDataSourceImp()));
 
+  final BookUseCase _bookUseCase = BookUseCase(
+      bookRepository:
+      BookRepositoryImp(bookRemoteDataSource: BookRemoteDataSourceImp()));
+
   Future<ResponseEntity> createNotes(NoteDataEntity noteDataEntity) async {
     return _noteUseCase.createNotesUseCase(noteDataEntity);
+  }
+
+  Future<ResponseEntity> userBookDownloadCountAction(int bookId) async {
+    return _bookUseCase.userBookDownloadCountActionUseCase(bookId);
   }
 
   ///Service configurations
@@ -275,6 +287,16 @@ mixin BookViewerScreenService<T extends StatefulWidget> on State<T>
         _view.showWarning(value.message!);
       }
       return value;
+    });
+  }
+
+  void onUserBookDownloadCountAction(int bookId) {
+    userBookDownloadCountAction(bookId).then((value) {
+      if (value.error == null && value.data != null) {
+        //success
+      } else {
+        _view.showWarning(value.message!);
+      }
     });
   }
 }
