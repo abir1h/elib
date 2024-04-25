@@ -29,7 +29,7 @@ class _HomeDataModelToEntityMapper
         mostViewedBooks: List<BookReportDataEntity>.from(entity.mostViewedBooks)
             .map((entity) => entity.toBookReportDataModel)
             .toList(),
-        categoriesOne: List<CategoryDataEntity>.from(entity.categoriesOne)
+        categories: List<CategoryDataEntity>.from(entity.categories)
             .map((entity) => entity.toCategoryDataModel)
             .toList(),
         categoriesTwo: List<CategoryDataEntity>.from(entity.categoriesTwo)
@@ -49,7 +49,7 @@ class _HomeDataModelToEntityMapper
         mostViewedBooks: List<BookReportDataModel>.from(model.mostViewedBooks)
             .map((model) => model.toBookReportDataEntity)
             .toList(),
-        categoriesOne: List<CategoryDataModel>.from(model.categoriesOne)
+        categories: List<CategoryDataModel>.from(model.categories)
             .map((model) => model.toCategoryDataEntity)
             .toList(),
         categoriesTwo: List<CategoryDataModel>.from(model.categoriesTwo)

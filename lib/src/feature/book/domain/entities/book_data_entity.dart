@@ -14,13 +14,13 @@ class BookDataEntity {
   final String publishYearBn;
   final String publisherEn;
   final String publisherBn;
-  final String isbnEn;
-  final String isbnBn;
+  final String isbn;
   final String slug;
   final String descriptionEn;
   final String descriptionBn;
   final String coverImage;
   final String bookFile;
+  final bool hasExternalLink;
   final String externalLink;
   final int createdBy;
   final int isDownload;
@@ -45,13 +45,13 @@ class BookDataEntity {
     required this.publishYearBn,
     required this.publisherEn,
     required this.publisherBn,
-    required this.isbnEn,
-    required this.isbnBn,
+    required this.isbn,
     required this.slug,
     required this.descriptionEn,
     required this.descriptionBn,
     required this.coverImage,
     required this.bookFile,
+    required this.hasExternalLink,
     required this.externalLink,
     required this.createdBy,
     required this.isDownload,

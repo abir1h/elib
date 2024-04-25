@@ -489,12 +489,12 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                       e: en.publisher,
                                                       b: bn.publisher),
                                                   secondItem: data.bookDetails.publisherEn),
-                                            if (data.bookDetails.isbnEn.isNotEmpty)
+                                            if (data.bookDetails.isbn.isNotEmpty)
                                               BookInfoItemWidget(
                                                   firstItem: label(
                                                       e: en.isbnNUmber,
                                                       b: bn.isbnNUmber),
-                                                  secondItem: data.bookDetails.isbnEn),
+                                                  secondItem: data.bookDetails.isbn),
                                           ],
                                         )
                                       : const SizedBox(), // Use SizedBox to make sure there's no visual artifact when the column is not expanded

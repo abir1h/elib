@@ -333,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                             ///First Category
                             CategorySectionWidget(
-                                items: data.categoriesOne,
+                                items: data.categories,
                                 buildItem: (context, index, item) =>
                                     ItemSectionWidget(
                                       aspectRatio: 1.45,
@@ -357,26 +357,26 @@ class _HomeScreenState extends State<HomeScreen>
                                     )),
 
                             ///Author
-                            ItemSectionWidget(
-                              aspectRatio: 2.5,
-                              title: "জনপ্রিয় লেখক",
-                              contentPaddingSize: size.h24,
-                              items: data.authors,
-                              horizontalPadding: size.w12,
-                              verticalPadding: size.h12,
-                              emptyText: "No Author Found !",
-                              boxDecoration: true,
-                              buildItem: (context, index, item) {
-                                return AspectRatio(
-                                  aspectRatio: .85,
-                                  child: AuthorItemWidget(
-                                    authorDataEntity: item,
-                                    onTap: () => onTapAuthor(item),
-                                  ),
-                                );
-                              },
-                              onTapSeeAll: onTapAuthorSeeAll,
-                            ),
+                            // ItemSectionWidget(
+                            //   aspectRatio: 2.5,
+                            //   title: "জনপ্রিয় লেখক",
+                            //   contentPaddingSize: size.h24,
+                            //   items: data.authors,
+                            //   horizontalPadding: size.w12,
+                            //   verticalPadding: size.h12,
+                            //   emptyText: "No Author Found !",
+                            //   boxDecoration: true,
+                            //   buildItem: (context, index, item) {
+                            //     return AspectRatio(
+                            //       aspectRatio: .85,
+                            //       child: AuthorItemWidget(
+                            //         authorDataEntity: item,
+                            //         onTap: () => onTapAuthor(item),
+                            //       ),
+                            //     );
+                            //   },
+                            //   onTapSeeAll: onTapAuthorSeeAll,
+                            // ),
 
                             SizedBox(height: size.h20),
 

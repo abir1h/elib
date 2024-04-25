@@ -17,13 +17,13 @@ class BookDataModel {
   final String publishYearBn;
   final String publisherEn;
   final String publisherBn;
-  final String isbnEn;
-  final String isbnBn;
+  final String isbn;
   final String slug;
   final String descriptionEn;
   final String descriptionBn;
   final String coverImage;
   final String bookFile;
+  final bool hasExternalLink;
   final String externalLink;
   final int createdBy;
   final int isDownload;
@@ -48,13 +48,13 @@ class BookDataModel {
     required this.publishYearBn,
     required this.publisherEn,
     required this.publisherBn,
-    required this.isbnEn,
-    required this.isbnBn,
+    required this.isbn,
     required this.slug,
     required this.descriptionEn,
     required this.descriptionBn,
     required this.coverImage,
     required this.bookFile,
+    required this.hasExternalLink,
     required this.externalLink,
     required this.createdBy,
     required this.isDownload,
@@ -80,13 +80,13 @@ class BookDataModel {
         publishYearBn: json["publish_year_bn"] ?? "",
         publisherEn: json["publisher_en"] ?? "",
         publisherBn: json["publisher_bn"] ?? "",
-        isbnEn: json["isbn_en"] ?? "",
-        isbnBn: json["isbn_bn"] ?? "",
+        isbn: json["isbn"] ?? "",
         slug: json["slug"] ?? "",
         descriptionEn: json["description_en"] ?? "",
         descriptionBn: json["description_bn"] ?? "",
         coverImage: json["cover_image"] ?? "",
         bookFile: json["book_file"] ?? "",
+        hasExternalLink: json["has_external_link"] ?? false,
         externalLink: json["external_link"] ?? "",
         createdBy: json["created_by"] ?? -1,
         isDownload: json["is_download"] ?? -1,
@@ -121,13 +121,13 @@ class BookDataModel {
         "publish_year_bn": publishYearBn,
         "publisher_en": publisherEn,
         "publisher_bn": publisherBn,
-        "isbn_en": isbnEn,
-        "isbn_bn": isbnBn,
+        "isbn": isbn,
         "slug": slug,
         "description_en": descriptionEn,
         "description_bn": descriptionBn,
         "cover_image": coverImage,
         "book_file": bookFile,
+        "has_external_link": hasExternalLink,
         "external_link": externalLink,
         "created_by": createdBy,
         "is_download": isDownload,
