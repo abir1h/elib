@@ -602,14 +602,14 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           height: size.h32,
                         ),
                         /// Category book
-                        Padding(
+                        data.categoryBook != null && data.categoryBook!.isNotEmpty ? Padding(
                           padding: EdgeInsets.symmetric(horizontal: size.w20),
                           child: CategorySectionWidget(
                               items: data.categoryBook!,
                               buildItem: (context, index, item) =>
-                                  ItemSectionWidget(
+                                  item.books.isNotEmpty ? ItemSectionWidget(
                                     aspectRatio: 1.45,
-                                    title: item.name,
+                                    title: label(e: en.bookCategoryViewAll, b: bn.bookCategoryViewAll),
                                     items: item.books,
                                     emptyText: "No Book Found !",
                                     buildItem: (context, index, item) {
@@ -626,8 +626,33 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     },
                                     onTapSeeAll: () => onTapCategory(
                                         item.nameEn, item.nameBn, item.id),
-                                  )),
-                        ),
+                                  ) : const Offstage()),
+                        ) : Container(),
+
+                        ///Author Book List
+                        data.authorBook != null && data.authorBook!.isNotEmpty ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: size.w20),
+                          child: ItemSectionWidget(
+                              aspectRatio: 1.45,
+                              title: label(
+                                  e: en.bookAuthorViewAll,
+                                  b: bn.bookAuthorViewAll),
+                              items: data.authorBook!,
+                              emptyText: "No Book Found !",
+                              buildItem: (context, index, item) {
+                                return item.authorBook != null ? AspectRatio(
+                                  aspectRatio: .45,
+                                  child: BookItemWidget(
+                                    key: Key(item.id.toString()),
+                                    item: item.authorBook!,
+                                    onSelect: onBookContentSelected,
+                                    onBookmarkSelect:
+                                    onBookmarkContentSelected,
+                                  ),
+                                ) : const Offstage();
+                              },
+                              onTapSeeAll: () => {}),
+                        ) : Container(),
 
                         SizedBox(
                           height: size.h64 * 2 + size.h24,

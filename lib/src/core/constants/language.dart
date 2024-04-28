@@ -157,6 +157,9 @@ class LanguageEn {
   String checkBoxCategory = "Category";
   String bookSearchText = "Search Book";
   String bookDetailsText = "Book Details";
+  String bookCategoryViewAll = "More books in this category";
+  String bookAuthorViewAll = "Books by this author";
+
 
   String categoryViewAll = "View all books in the category";
 }
@@ -313,7 +316,8 @@ class LanguageBn {
   String checkBoxCategory = "ক্যাটেগরি";
   String bookSearchText = "বই সার্চ করুন";
   String bookDetailsText = "বইয়ের বিবরণ";
-
+  String bookCategoryViewAll = "এই ক্যাটেগরির আরো বই সমূহ";
+  String bookAuthorViewAll = "এই লেখকের বই সমূহ";
 
   String categoryViewAll = "ক্যাটেগরির সকল বই দেখুন";
 }

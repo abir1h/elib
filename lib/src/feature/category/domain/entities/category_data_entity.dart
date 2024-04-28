@@ -1,5 +1,4 @@
-import 'package:elibrary/src/feature/book/domain/entities/pivot_data_entity.dart';
-
+import '../../../book/domain/entities/pivot_data_entity.dart';
 import '../../../book/domain/entities/book_data_entity.dart';
 
 class CategoryDataEntity {

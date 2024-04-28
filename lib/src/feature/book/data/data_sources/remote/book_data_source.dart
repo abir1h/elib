@@ -185,7 +185,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.getBookByTags}/$tagId");
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => BookDataModel.listFromJson(json));
+        responseJson, (dynamic json) => BookDataModel.listFromJson(json['original']['book']));
     return responseModel;
   }
 }
