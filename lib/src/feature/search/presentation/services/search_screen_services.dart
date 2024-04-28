@@ -62,11 +62,11 @@ mixin SearchScreenService<T extends StatefulWidget> on State<T>
     bookDataStreamController.add(LoadingState());
     if (value.isNotEmpty) {
       globalSearch(value, _selectedCheckBoxValue).then((value) {
-        if (value.error == null && value.data.bookDataEntity!.isNotEmpty) {
-          _bookData = value.data!.bookDataEntity;
+        if (value.error == null && value.data!.isNotEmpty) {
+          _bookData = value.data;
           bookDataStreamController
               .add(DataLoadedState<List<BookDataEntity>>(_bookData));
-        } else if (value.error == null && value.data.bookDataEntity!.isEmpty) {
+        } else if (value.error == null && value.data!.isEmpty) {
           bookDataStreamController.add(EmptyState(
             message: "No Book found!",
             icon: Icons.search_rounded,

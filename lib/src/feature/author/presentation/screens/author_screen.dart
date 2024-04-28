@@ -58,6 +58,8 @@ class _AuthorScreenState extends State<AuthorScreen>
                             nameEn: "",
                             nameBn: "",
                             slug: "",
+                            shortBioEn: "",
+                            shortBioBn: "",
                             email: "",
                             phone: "",
                             address: "",

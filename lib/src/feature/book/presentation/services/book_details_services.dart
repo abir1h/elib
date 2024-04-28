@@ -30,6 +30,9 @@ abstract class _ViewModel {
   void showWarning(String message);
   void navigateToBookViewerScreen(BookDataEntity bookData);
   void navigateToTagBooksScreen(TagDataEntity tagDataEntity);
+  void navigateToBookDetailsScreen(BookDataEntity data);
+  void navigateToCategoryDetailsScreen(
+      String categoryNameEn, String categoryNameBn, int id);
 }
 
 mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
@@ -166,6 +169,15 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
 
   void onTapTag(TagDataEntity tagDataEntity) {
     _view.navigateToTagBooksScreen(tagDataEntity);
+  }
+
+  void onBookContentSelected(BookDataEntity item) {
+    _view.navigateToBookDetailsScreen(item);
+  }
+
+  ///On Tap Category See All
+  void onTapCategory(String categoryNameEn, String categoryNameBn, int id) {
+    _view.navigateToCategoryDetailsScreen(categoryNameEn, categoryNameBn, id);
   }
 
   void downloadBook(BookDataEntity item) {}

@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/book/data/models/book_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../book/data/models/pivot_data_model.dart';
@@ -10,6 +11,8 @@ class AuthorDataModel {
   final String nameEn;
   final String nameBn;
   final String slug;
+  final String shortBioEn;
+  final String shortBioBn;
   final String email;
   final String phone;
   final String address;
@@ -21,6 +24,7 @@ class AuthorDataModel {
   final String deletedAt;
   final PivotDataModel? pivot;
   final AuthorTypeDataModel? authorType;
+  final BookDataModel? authorBook;
 
   const AuthorDataModel({
     required this.id,
@@ -28,6 +32,8 @@ class AuthorDataModel {
     required this.nameEn,
     required this.nameBn,
     required this.slug,
+    required this.shortBioBn,
+    required this.shortBioEn,
     required this.email,
     required this.phone,
     required this.address,
@@ -39,6 +45,7 @@ class AuthorDataModel {
     required this.deletedAt,
     required this.pivot,
     required this.authorType,
+    required this.authorBook
   });
 
   factory AuthorDataModel.fromJson(Map<String, dynamic> json) =>
@@ -48,6 +55,8 @@ class AuthorDataModel {
         nameEn: json["name_en"] ?? "",
         nameBn: json["name_bn"] ?? "",
         slug: json["slug"] ?? "",
+        shortBioBn: json["short_bio_bn"] ?? "",
+        shortBioEn: json["short_bio_en"] ?? "",
         email: json["email"] ?? "",
         phone: json["phone"] ?? "",
         address: json["address"] ?? "",
@@ -63,6 +72,9 @@ class AuthorDataModel {
         authorType: json["author_type"] != null
             ? AuthorTypeDataModel.fromJson(json["author_type"])
             : null,
+        authorBook: json["book"] != null
+            ? BookDataModel.fromJson(json["book"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,6 +83,8 @@ class AuthorDataModel {
         "name_en": nameEn,
         "name_bn": nameBn,
         "slug": slug,
+        "short_bio_en": shortBioEn,
+        "short_bio_bn": shortBioBn,
         "email": email,
         "phone": phone,
         "address": address,
@@ -82,6 +96,7 @@ class AuthorDataModel {
         "deleted_at": deletedAt,
         "pivot": pivot?.toJson(),
         "author_type": authorType?.toJson(),
+        "book": authorBook?.toJson(),
       };
 
   static List<AuthorDataModel> listFromJson(List<dynamic> json) {

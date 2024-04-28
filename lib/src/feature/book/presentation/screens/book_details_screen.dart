@@ -7,6 +7,7 @@ import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
 import '../../../../core/common_widgets/custom_scaffold.dart';
 import '../../../../core/routes/app_routes.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../../domain/entities/book_data_entity.dart';
 import '../../domain/entities/book_details_data_entity.dart';
 import '../../domain/entities/tag_data_entity.dart';
@@ -16,6 +17,7 @@ import '../../../../core/constants/common_imports.dart';
 import '../../../../core/routes/app_route_args.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../widgets/book_info_item_widget.dart';
+import '../widgets/book_item_widget.dart';
 import '../widgets/tag_widget.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
@@ -45,7 +47,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "বইয়ের বিবরণ",
+      title: label(e: en.bookDetailsText, b: bn.bookDetailsText),
       child: AppStreamBuilder<BookDetailsDataEntity>(
         stream: bookDataStreamController.stream,
         loadingBuilder: (context) {
@@ -596,11 +598,40 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: size.h32,
+                        ),
+                        /// Category book
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: size.w20),
+                          child: CategorySectionWidget(
+                              items: data.categoryBook!,
+                              buildItem: (context, index, item) =>
+                                  ItemSectionWidget(
+                                    aspectRatio: 1.45,
+                                    title: item.name,
+                                    items: item.books,
+                                    emptyText: "No Book Found !",
+                                    buildItem: (context, index, item) {
+                                      return AspectRatio(
+                                        aspectRatio: .47,
+                                        child: BookItemWidget(
+                                          key: Key(item.id.toString()),
+                                          item: item,
+                                          onSelect: onBookContentSelected,
+                                          onBookmarkSelect:
+                                          onBookmarkContentSelected,
+                                        ),
+                                      );
+                                    },
+                                    onTapSeeAll: () => onTapCategory(
+                                        item.nameEn, item.nameBn, item.id),
+                                  )),
+                        ),
 
                         SizedBox(
                           height: size.h64 * 2 + size.h24,
                         ),
-                        // Text("Book Title: ${data.titleEn}"),
                       ],
                     ),
                   ),
@@ -609,20 +640,21 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          color: clr.whiteColor,
-                          child: CustomButton(
-                            onTap: () {
-                              onUserBookViewCountAction(
-                                  (widget.arguments as BookDetailsScreenArgs)
-                                      .bookData);
-                              onNavigateToBookViewerScreen(
-                                  (widget.arguments as BookDetailsScreenArgs)
-                                      .bookData);
-                            },
-                            title: "Read Book",
+                        if (data.bookDetails.bookFile.isNotEmpty)
+                          Container(
+                            color: clr.whiteColor,
+                            child: CustomButton(
+                              onTap: () {
+                                onUserBookViewCountAction(
+                                    (widget.arguments as BookDetailsScreenArgs)
+                                        .bookData);
+                                onNavigateToBookViewerScreen(
+                                    (widget.arguments as BookDetailsScreenArgs)
+                                        .bookData);
+                              },
+                              title: "Read Book",
+                            ),
                           ),
-                        ),
                         Container(
                           height: size.h8,
                           color: clr.whiteColor,
@@ -633,7 +665,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             color: clr.whiteColor,
                             child: CustomButton(
                                 onTap: () {
-                                  onUserBookDownloadCountAction(data.bookDetails);
+                                  onUserBookDownloadCountAction(
+                                      data.bookDetails);
                                   downloadFile(
                                       "http://103.209.40.89:8012/uploads/${data.bookDetails.bookFile}",
                                       filename: data.bookDetails.bookFile
@@ -701,6 +734,25 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
     Navigator.of(context).pushNamed(
       AppRoute.tagBookScreen,
       arguments: TagBookScreenArgs(tagDataEntity: tagDataEntity),
+    );
+  }
+
+  @override
+  void navigateToBookDetailsScreen(BookDataEntity data) {
+    Navigator.of(context).pushNamed(
+      AppRoute.bookDetailsScreen,
+      arguments: BookDetailsScreenArgs(bookData: data),
+    );
+  }
+
+  @override
+  void navigateToCategoryDetailsScreen(String categoryNameEn, String categoryNameBn, int id) {
+    Navigator.of(context).pushNamed(
+      AppRoute.categoryDetailsScreen,
+      arguments: CategoryDetailsScreenArgs(
+          categoryNameEn: categoryNameEn,
+          categoryNameBn: categoryNameBn,
+          categoryId: id),
     );
   }
 }

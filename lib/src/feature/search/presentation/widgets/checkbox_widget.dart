@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_theme.dart';
 import '../../../../core/constants/common_imports.dart';
 import '../../../../core/constants/language.dart';
 import '../../../../core/utility/app_label.dart';
+
 enum CheckBoxSelection { all, book, author, tag, category }
 
 class CheckBoxWidget extends StatefulWidget {
@@ -19,7 +19,7 @@ class CheckBoxWidget extends StatefulWidget {
 
 class _CheckBoxWidgetState extends State<CheckBoxWidget>
     with AppTheme, Language {
-  CheckBoxSelection _selectedValue=CheckBoxSelection.all;
+  CheckBoxSelection _selectedValue = CheckBoxSelection.all;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,14 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget>
           child: RadioListTile<CheckBoxSelection>(
             contentPadding: EdgeInsets.zero,
             activeColor: clr.appSecondaryColorPurple,
-
-            title: Text(label(e: en.checkBoxAll, b: bn.checkBoxAll),style: TextStyle(fontWeight: FontWeight.w500,fontSize: size.textXSmall,fontFamily: StringData.fontFamilyPoppins),),
-            value: CheckBoxSelection.all,
+            title: Text(
+              label(e: en.checkBoxCategory, b: bn.checkBoxCategory),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: size.textXSmall,
+                  fontFamily: StringData.fontFamilyPoppins),
+            ),
+            value: CheckBoxSelection.category,
             groupValue: _selectedValue,
             onChanged: (CheckBoxSelection? value) {
               setState(() {
@@ -45,7 +50,11 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget>
           child: RadioListTile<CheckBoxSelection>(
             contentPadding: EdgeInsets.zero,
             activeColor: clr.appSecondaryColorPurple,
-            title: Text(label(e: en.checkBoxBook, b: bn.checkBoxBook),style: TextStyle(fontWeight: FontWeight.w500,fontSize: size.textXSmall,fontFamily: StringData.fontFamilyPoppins)),
+            title: Text(label(e: en.checkBoxBook, b: bn.checkBoxBook),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: size.textXSmall,
+                    fontFamily: StringData.fontFamilyPoppins)),
             value: CheckBoxSelection.book,
             groupValue: _selectedValue,
             onChanged: (CheckBoxSelection? value) {
@@ -60,7 +69,11 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget>
           child: RadioListTile<CheckBoxSelection>(
             contentPadding: EdgeInsets.zero,
             activeColor: clr.appSecondaryColorPurple,
-            title: Text(label(e: en.checkBoxAuthor, b: bn.checkBoxAuthor),style: TextStyle(fontWeight: FontWeight.w500,fontSize: size.textXSmall,fontFamily: StringData.fontFamilyPoppins)),
+            title: Text(label(e: en.checkBoxAuthor, b: bn.checkBoxAuthor),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: size.textXSmall,
+                    fontFamily: StringData.fontFamilyPoppins)),
             value: CheckBoxSelection.author,
             groupValue: _selectedValue,
             onChanged: (CheckBoxSelection? value) {

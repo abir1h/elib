@@ -32,12 +32,14 @@ mixin NoteEditScreenService<T extends StatefulWidget> on State<T>
 
   void onUpdateNotes(NoteDataEntity noteDataEntity) {
     updateNotes(noteDataEntity).then((value) {
-      if (value.error == null && value.data != null) {
-        _view.showSuccess(value.message!);
-      } else {
-        _view.showWarning(value.message!);
+      if(mounted){
+        if (value.error == null && value.data != null) {
+          _view.showSuccess(value.message!);
+        } else {
+          _view.showWarning(value.message!);
+        }
+        return value;
       }
-      return value;
     });
   }
 }

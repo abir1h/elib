@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/app_scroll_widget.dart';
@@ -31,7 +31,7 @@ class _BookSearchScreenState extends State<BookSearchScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "বই সার্চ করুন",
+      title: label(e: en.bookSearchText, b: bn.bookSearchText),
       child: LayoutBuilder(
         builder: (context, constraints) => AppScrollView(
           padding: EdgeInsets.symmetric(vertical: size.h20),

@@ -111,9 +111,11 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
   Future<ResponseModel> globalSearchAction(
       String searchQuery, String type) async {
     final responseJson = await Server.instance.getRequest(
-        url: "${ApiCredential.globalSearch}$searchQuery&type=$type");
+        url: "${ApiCredential.globalSearch}$searchQuery&lebel=$type");
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
+        responseJson, (dynamic json) => BookDataModel.listFromJson(json));
+    // ResponseModel responseModel = ResponseModel.fromJson(
+    //     responseJson, (dynamic json) => PaginatedBookDataModel.fromJson(json));
     return responseModel;
   }
 

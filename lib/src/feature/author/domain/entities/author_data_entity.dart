@@ -1,3 +1,4 @@
+import 'package:elibrary/src/feature/book/domain/entities/book_data_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../book/domain/entities/pivot_data_entity.dart';
@@ -10,6 +11,8 @@ class AuthorDataEntity {
   final String nameEn;
   final String nameBn;
   final String slug;
+  final String shortBioEn;
+  final String shortBioBn;
   final String email;
   final String phone;
   final String address;
@@ -21,6 +24,7 @@ class AuthorDataEntity {
   final String deletedAt;
   final PivotDataEntity? pivot;
   final AuthorTypeDataEntity? authorType;
+  final BookDataEntity? authorBook;
 
   const AuthorDataEntity({
     required this.id,
@@ -28,6 +32,8 @@ class AuthorDataEntity {
     required this.nameEn,
     required this.nameBn,
     required this.slug,
+    required this.shortBioEn,
+    required this.shortBioBn,
     required this.email,
     required this.phone,
     required this.address,
@@ -39,5 +45,6 @@ class AuthorDataEntity {
     required this.deletedAt,
     this.pivot,
     this.authorType,
+    this.authorBook
   });
 }

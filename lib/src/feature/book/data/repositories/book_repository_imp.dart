@@ -88,10 +88,17 @@ class BookRepositoryImp extends BookRepository {
   Future<ResponseEntity> globalSearch(String searchQuery, String type) async {
     ResponseModel responseModel =
         (await bookRemoteDataSource.globalSearchAction(searchQuery, type));
-    return ResponseModelToEntityMapper<PaginatedBookDataEntity,
-            PaginatedBookDataModel>()
-        .toEntityFromModel(responseModel,
-            (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
+    return ResponseModelToEntityMapper<List<BookDataEntity>,
+        List<BookDataModel>>()
+        .toEntityFromModel(
+        responseModel,
+            (List<BookDataModel> models) => List<BookDataModel>.from(models)
+            .map((e) => e.toBookDataEntity)
+            .toList());
+    // return ResponseModelToEntityMapper<PaginatedBookDataEntity,
+    //         PaginatedBookDataModel>()
+    //     .toEntityFromModel(responseModel,
+    //         (PaginatedBookDataModel model) => model.toPaginatedBookDataEntity);
   }
 
   @override

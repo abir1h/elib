@@ -47,11 +47,11 @@ class _NoteScreenState extends State<NoteScreen>
                   return NoteItemSectionWidget(
                       items: data,
                       buildItem: (context, index, item) {
-                        return NoteItemWidget(
+                        return item.book != null ? NoteItemWidget(
                           noteDataEntity: item,
                           onDelete: () => _onDelete(noteId: item.id!),
                           onPressed: () => onTapNote(item),
-                        );
+                        ) : const Offstage();
                       });
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
@@ -219,7 +219,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                   SizedBox(height: size.h4),
                   Padding(
                     padding: EdgeInsets.only(left: size.w8),
-                    child: Text(
+                    child: noteDataEntity.book != null ? Text(
                       label(
                           e: noteDataEntity.book!.titleEn,
                           b: noteDataEntity.book!.titleEn),
@@ -228,7 +228,7 @@ class NoteItemWidget extends StatelessWidget with AppTheme {
                           fontSize: size.textXSmall,
                           fontFamily: StringData.fontFamilyPoppins,
                           color: clr.appSecondaryColorPurple),
-                    ),
+                    ) : Container(),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

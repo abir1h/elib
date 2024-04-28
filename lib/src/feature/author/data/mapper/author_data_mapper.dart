@@ -1,3 +1,5 @@
+import 'package:elibrary/src/feature/book/data/mapper/book_data_mapper.dart';
+
 import 'author_type_data_mapper.dart';
 import '../../../book/data/mapper/pivot_data.mapper.dart';
 import '../../domain/entities/author_data_entity.dart';
@@ -18,6 +20,8 @@ class _AuthorDataModelToEntityMapper
         nameEn: entity.nameEn,
         nameBn: entity.nameBn,
         slug: entity.slug,
+        shortBioBn: entity.shortBioBn,
+        shortBioEn: entity.shortBioEn,
         email: entity.email,
         phone: entity.phone,
         address: entity.address,
@@ -28,7 +32,8 @@ class _AuthorDataModelToEntityMapper
         updatedAt: entity.updatedAt,
         deletedAt: entity.deletedAt,
         pivot: entity.pivot?.toPivotDataModel,
-        authorType: entity.authorType?.toAuthorTypeDataModel);
+        authorType: entity.authorType?.toAuthorTypeDataModel,
+        authorBook: entity.authorBook?.toBookDataModel);
   }
 
   @override
@@ -39,6 +44,8 @@ class _AuthorDataModelToEntityMapper
         nameEn: model.nameEn,
         nameBn: model.nameBn,
         slug: model.slug,
+        shortBioEn: model.shortBioEn,
+        shortBioBn: model.shortBioBn,
         email: model.email,
         phone: model.phone,
         address: model.address,
@@ -49,7 +56,8 @@ class _AuthorDataModelToEntityMapper
         updatedAt: model.updatedAt,
         deletedAt: model.deletedAt,
         pivot: model.pivot?.toPivotDataEntity,
-        authorType: model.authorType?.toAuthorTypeDataEntity);
+        authorType: model.authorType?.toAuthorTypeDataEntity,
+        authorBook: model.authorBook?.toBookDataEntity);
   }
 }
 
