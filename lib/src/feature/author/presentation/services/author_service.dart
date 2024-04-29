@@ -68,12 +68,12 @@ mixin AuthorService<T extends StatefulWidget> on State<T>
         _view.showWarning(value.message!);
       }
     });
-  }
-
-  ///On Tap Author
+  }  ///On Tap Author
   void onTapAuthor(AuthorDataEntity authorDataEntity) {
     _view.navigateToAuthorBooksScreen(authorDataEntity);
   }
+
+
 
   ///Load more data
   Future<bool> _onLoadMoreItems(int nextPage) async{

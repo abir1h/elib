@@ -1,3 +1,4 @@
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -43,7 +44,7 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        title: _screenArgs.authorDataEntity.nameEn,
+        title: label(e: _screenArgs.authorDataEntity.nameEn, b: _screenArgs.authorDataEntity.nameBn),
         child: LayoutBuilder(
             builder: (context, constraints) => Padding(
                   padding: EdgeInsets.symmetric(
@@ -54,7 +55,7 @@ class _AuthorBooksScreenState extends State<AuthorBooksScreen>
                       children: [
                         AuthorItemWidget(
                           authorDataEntity: _screenArgs.authorDataEntity,
-                          subTitle: "সকল বই সমূহ",
+                          subTitle: label(e: en.allBooksText, b: bn.allBooksText),
                           onTap: () {},
                         ),
                         SizedBox(height: size.h20),

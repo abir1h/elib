@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../../core/common_widgets/custom_toasty.dart';
 import '../../../../core/routes/app_route_args.dart';
+import '../../../author/domain/entities/author_data_entity.dart';
 import '../../../bookmark/data/data_sources/remote/bookmark_data_source.dart';
 import '../../../bookmark/data/repositories/bookmark_repository_imp.dart';
 import '../../../bookmark/domain/use_cases/book_mark_use_case.dart';
@@ -33,6 +34,7 @@ abstract class _ViewModel {
   void navigateToBookDetailsScreen(BookDataEntity data);
   void navigateToCategoryDetailsScreen(
       String categoryNameEn, String categoryNameBn, int id);
+  void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity);
 }
 
 mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
@@ -178,6 +180,11 @@ mixin BookDetailsScreenService<T extends StatefulWidget> on State<T>
   ///On Tap Category See All
   void onTapCategory(String categoryNameEn, String categoryNameBn, int id) {
     _view.navigateToCategoryDetailsScreen(categoryNameEn, categoryNameBn, id);
+  }
+
+  ///On Tap Author
+  void onTapAuthor(AuthorDataEntity authorDataEntity) {
+    _view.navigateToAuthorBooksScreen(authorDataEntity);
   }
 
   void downloadBook(BookDataEntity item) {}

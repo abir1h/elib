@@ -102,13 +102,13 @@ class _BookmarkScreenState extends State<BookmarkScreen>
                   return BookmarkSectionWidget(
                     items: data,
                     buildItem: (BuildContext context, int index, item) {
-                      return BookmarkItemWidget(
+                      return item.book != null ? BookmarkItemWidget(
                         key: Key(item.id.toString()),
                         item: item,
                         onSelect: onBookContentSelected,
                         onBookmarkSelect: onBookmarkContentSelected,
                         onTapTag: (e) {},
-                      );
+                      ) : const Offstage();
                     },
                   );
                   /*     GridView.builder(

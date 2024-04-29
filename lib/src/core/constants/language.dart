@@ -55,10 +55,10 @@ class LanguageEn {
   String seeAllText = "See All";
 
   String learningManagementSystem = "Learning Management System (LMS)";
-  String teachersGuide = "Teachers Guide";
+  String teachersGuide = "Instructional Guide For teachers";
   String eLibrary = "E-Library";
   String formativeAssessment = "Formative Assessment System";
-  String socialLearningPlatform = "Social Learning Platform";
+  String socialLearningPlatform = "Professional Learning Community";
 
   String aboutUs = "About Us";
   String lms = "Learning Management System";
@@ -140,7 +140,7 @@ class LanguageEn {
   String bookPublishYear = "Publish year";
   String publisher = "Publisher";
   String isbnNUmber = "ISBN Number";
-  String seeMoreBookInfo = "See more information about the book";
+  String seeMoreBookInfo = "See more information";
   String type = "Type";
   String description = "Description :";
   String personalInformation = "Personal Info";
@@ -159,7 +159,8 @@ class LanguageEn {
   String bookDetailsText = "Book Details";
   String bookCategoryViewAll = "More books in this category";
   String bookAuthorViewAll = "Books by this author";
-
+  String seeCategoryBook = "View all book categories:";
+  String allBooksText = "All Books";
 
   String categoryViewAll = "View all books in the category";
 }
@@ -216,10 +217,10 @@ class LanguageBn {
   String seeAllText = "সব দেখুন";
 
   String learningManagementSystem = "লার্নিং ম্যানেজমেন্ট সিস্টেম (এলএমএস)";
-  String teachersGuide = "টিচার্স গাইড";
+  String teachersGuide = "ইন্সট্রাকশনাল গাইড ফর টিচার্স";
   String eLibrary = "ই-লাইব্রেরি";
   String formativeAssessment = "ফরম্যাটিভ এসেসমেন্ট সিস্টেম";
-  String socialLearningPlatform = "সোস্যাল লার্নিং প্লাটফর্ম";
+  String socialLearningPlatform = "প্রফেশনাল লার্নিং কমিউনিটি";
 
   String aboutUs = "আমাদের সম্পর্কে";
   String lms = "লার্নিং ম্যানেজমেন্ট সিস্টেম";
@@ -318,6 +319,10 @@ class LanguageBn {
   String bookDetailsText = "বইয়ের বিবরণ";
   String bookCategoryViewAll = "এই ক্যাটেগরির আরো বই সমূহ";
   String bookAuthorViewAll = "এই লেখকের বই সমূহ";
+  String seeCategoryBook = "বইয়ের সকল ক্যাটেগরিগুলো দেখুন:";
+
+  String allBooksText = "সকল বই সমূহ";
+
 
   String categoryViewAll = "ক্যাটেগরির সকল বই দেখুন";
 }

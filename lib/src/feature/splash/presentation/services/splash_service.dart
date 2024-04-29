@@ -30,6 +30,7 @@ mixin SplashService implements _ViewModel {
     //     ?
     _view.navigateToLandingScreen()
         // : _view.navigateToAuthScreen()
+    // _view.navigateToAuthScreen()
     ;
   }
 }

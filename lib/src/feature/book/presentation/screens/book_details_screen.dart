@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/feature/author/domain/entities/author_data_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -651,7 +652,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                   ),
                                 ) : const Offstage();
                               },
-                              onTapSeeAll: () => {}),
+                              onTapSeeAll: () => onTapAuthor(data.authorBook!.first)),
                         ) : Container(),
 
                         SizedBox(
@@ -779,5 +780,11 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
           categoryNameBn: categoryNameBn,
           categoryId: id),
     );
+  }
+
+  @override
+  void navigateToAuthorBooksScreen(AuthorDataEntity authorDataEntity) {
+    Navigator.of(context).pushNamed(AppRoute.authorBooksScreen,
+        arguments: AuthorBookScreenArgs(authorDataEntity: authorDataEntity));
   }
 }

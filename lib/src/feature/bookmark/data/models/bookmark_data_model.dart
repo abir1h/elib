@@ -25,8 +25,8 @@ class BookmarkDataModel {
   factory BookmarkDataModel.fromJson(Map<String, dynamic> json) =>
       BookmarkDataModel(
         id: json["id"] ?? -1,
-        bookId: json["book_id"] ?? -1,
-        emisUserId: json["emis_user_id"] ?? -1,
+        bookId: json["bookId"] ?? -1,
+        emisUserId: json["emisUserId"] ?? -1,
         createdAt: json["created_at"] ?? "",
         updatedAt: json["updated_at"] ?? "",
         deletedAt: json["deleted_at"] ?? "",
@@ -37,8 +37,8 @@ class BookmarkDataModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "book_id": bookId,
-        "emis_user_id": emisUserId,
+        "bookId": bookId,
+        "emisUserId": emisUserId,
         "created_at": createdAt,
         "updated_at": updatedAt,
         "deleted_at": deletedAt,

@@ -43,7 +43,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "বইয়ের সকল ক্যাটেগরিগুলো দেখুন:",
+                      label(e: en.seeCategoryBook, b: bn.seeCategoryBook),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
