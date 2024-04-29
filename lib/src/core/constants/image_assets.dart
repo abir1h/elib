@@ -30,6 +30,10 @@ class ImageAssets {
   static String get icApproval => 'approval_delegation'.svg;
   static String get icProgress => 'progress'.svg;
 
+  static String get icAbout => 'contact_support'.svg;
+  static String get icTutorial => 'Icon_Social'.svg;
+  static String get icMessage => 'Icon_chat'.svg;
+
   static String get animEmpty => 'Animation - 1706009676891'.json;
   static String get filterAnim => 'filter'.json;
 }

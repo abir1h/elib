@@ -106,8 +106,8 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                     ),
                   ),
                   DrawerLinkWidget(
-                    svgIcon: ImageAssets.icBook,
-                    text: label(e: en.eLibrary, b: bn.eLibrary),
+                    svgIcon: ImageAssets.icAbout,
+                    text: label(e: en.aboutUs, b: bn.aboutUs),
                     onTap: () {},
                   ),
                   DrawerLinkWidget(
@@ -122,13 +122,23 @@ class _DrawerWidgetState extends State<DrawerWidget> with AppTheme, Language {
                     onTap: () =>
                         Navigator.of(context).pushNamed(AppRoute.noteScreen),
                   ),
+                  // DrawerLinkWidget(
+                  //   icon: Icons.book,
+                  //   text: label(e: en.bookReportText, b: bn.bookReportText),
+                  //   onTap: () {
+                  //     Navigator.pushNamed(
+                  //         context, AppRoute.bookViewDownloadCountScreen);
+                  //   },
+                  // ),
                   DrawerLinkWidget(
-                    icon: Icons.book,
-                    text: label(e: en.bookReportText, b: bn.bookReportText),
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, AppRoute.bookViewDownloadCountScreen);
-                    },
+                    svgIcon: ImageAssets.icTutorial,
+                    text: label(e: en.tutorial, b: bn.tutorial),
+                    onTap: () {},
+                  ),
+                  DrawerLinkWidget(
+                    svgIcon: ImageAssets.icMessage,
+                    text: label(e: en.messageText, b: bn.messageText),
+                    onTap: () {},
                   ),
                   DrawerLinkWidget(
                     icon: Icons.logout,

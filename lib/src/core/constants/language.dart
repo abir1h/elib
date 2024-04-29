@@ -96,6 +96,8 @@ class LanguageEn {
   String join = "Join";
   String details = "Details";
 
+  String seeAllBookText = "See All Books";
+
   String takeNotes = "Take Notes";
   String transcript = "Transcript";
   String next = "Next";
@@ -202,6 +204,8 @@ class LanguageBn {
   String bookmarkText = "বুকমার্ক";
   String myProfileText = "আমার প্রোফাইল";
   String profileText = "প্রোফাইল";
+
+  String seeAllBookText = "সকল বই দেখুন";
 
   String cancelText = "বাতিল করুন";
   String exitText = "প্রস্থান করুন";
