@@ -24,7 +24,7 @@ class AuthorDataEntity {
   final String deletedAt;
   final PivotDataEntity? pivot;
   final AuthorTypeDataEntity? authorType;
-  final BookDataEntity? authorBook;
+  final List<BookDataEntity>? authorBook;
 
   const AuthorDataEntity({
     required this.id,

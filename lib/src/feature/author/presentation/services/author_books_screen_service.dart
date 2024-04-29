@@ -62,9 +62,9 @@ mixin AuthorBooksScreenService<T extends StatefulWidget> on State<T>
     authorBooksDataStreamController.add(LoadingState());
     getBooksByAuthors(authorId).then((value) {
       if (value.error == null && value.data.isNotEmpty) {
-        _bookList = value.data;
+        _bookList = value.data.first.authorBook!;
         authorBooksDataStreamController
-            .add(DataLoadedState<List<BookDataEntity>>(value.data));
+            .add(DataLoadedState<List<BookDataEntity>>(value.data.first.authorBook!));
       } else if (value.error == null && value.data.isEmpty) {
         authorBooksDataStreamController
             .add(EmptyState(message: 'No Book Found'));

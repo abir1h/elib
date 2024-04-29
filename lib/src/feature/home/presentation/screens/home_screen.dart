@@ -314,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 title: label(
                                     e: en.mostViewedBookHomeText,
                                     b: bn.mostViewedBookHomeText),
-                                items: data.mostViewedBooks,
+                                items: data.mostViewedBooks.where((element) => element.book != null).toList(),
                                 emptyText: "No Book Found !",
                                 buildItem: (context, index, item) {
                                   return item.book != null ? AspectRatio(
@@ -329,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   ) : const Offstage();
                                 },
                                 onTapSeeAll: () =>
-                                    onTapMostViewedSeeAll(data.mostViewedBooks)),
+                                    onTapMostViewedSeeAll(data.mostViewedBooks.where((element) => element.book != null).toList())),
 
                             ///First Category
                             CategorySectionWidget(
@@ -337,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 buildItem: (context, index, item) =>
                                     ItemSectionWidget(
                                       aspectRatio: 1.45,
-                                      title: item.name,
+                                      title: label(e: item.nameEn, b: item.nameBn),
                                       items: item.books,
                                       emptyText: "No Book Found !",
                                       buildItem: (context, index, item) {

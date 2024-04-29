@@ -57,7 +57,7 @@ class _MostViewedBookScreenState extends State<MostViewedBookScreen>
               BookSectionWidget(
                 items: _screenArgs.items,
                 buildItem: (BuildContext context, int index, item) {
-                  return BookItemWidget(
+                  return item.book != null ? BookItemWidget(
                     key: Key(item.id.toString()),
                     item: item.book!,
                     onSelect: (e) => onBookContentSelected(e),
@@ -65,7 +65,7 @@ class _MostViewedBookScreenState extends State<MostViewedBookScreen>
 
                     // onSelect: onBookContentSelected,
                     // onBookmarkSelect: onBookmarkSelected,
-                  );
+                  ) : Container();
                 },
               )
             ],

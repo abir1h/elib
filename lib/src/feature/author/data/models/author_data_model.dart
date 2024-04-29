@@ -1,6 +1,6 @@
-import 'package:elibrary/src/feature/book/data/models/book_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../book/data/models/book_data_model.dart';
 import '../../../book/data/models/pivot_data_model.dart';
 import 'author_type_data_model.dart';
 
@@ -24,29 +24,28 @@ class AuthorDataModel {
   final String deletedAt;
   final PivotDataModel? pivot;
   final AuthorTypeDataModel? authorType;
-  final BookDataModel? authorBook;
+  final List<BookDataModel>? authorBook;
 
-  const AuthorDataModel({
-    required this.id,
-    required this.authorTypeId,
-    required this.nameEn,
-    required this.nameBn,
-    required this.slug,
-    required this.shortBioBn,
-    required this.shortBioEn,
-    required this.email,
-    required this.phone,
-    required this.address,
-    required this.country,
-    required this.photo,
-    required this.status,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
-    required this.pivot,
-    required this.authorType,
-    required this.authorBook
-  });
+  const AuthorDataModel(
+      {required this.id,
+      required this.authorTypeId,
+      required this.nameEn,
+      required this.nameBn,
+      required this.slug,
+      required this.shortBioBn,
+      required this.shortBioEn,
+      required this.email,
+      required this.phone,
+      required this.address,
+      required this.country,
+      required this.photo,
+      required this.status,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.deletedAt,
+      required this.pivot,
+      required this.authorType,
+      required this.authorBook});
 
   factory AuthorDataModel.fromJson(Map<String, dynamic> json) =>
       AuthorDataModel(
@@ -73,8 +72,9 @@ class AuthorDataModel {
             ? AuthorTypeDataModel.fromJson(json["author_type"])
             : null,
         authorBook: json["book"] != null
-            ? BookDataModel.fromJson(json["book"])
-            : null,
+            ? List<BookDataModel>.from(
+                (json["book"]).map((x) => BookDataModel.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -96,7 +96,7 @@ class AuthorDataModel {
         "deleted_at": deletedAt,
         "pivot": pivot?.toJson(),
         "author_type": authorType?.toJson(),
-        "book": authorBook?.toJson(),
+        "book": List<dynamic>.from(authorBook!.map((x) => x.toJson())),
       };
 
   static List<AuthorDataModel> listFromJson(List<dynamic> json) {

@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/core/constants/language.dart';
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/common_imports.dart';
@@ -200,7 +202,7 @@ class BookItemWidget extends StatefulWidget {
   State<BookItemWidget> createState() => _BookItemWidgetState();
 }
 
-class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkWidgetService{
+class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkWidgetService, Language{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -364,7 +366,7 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                       fontWeight: FontWeight.w400,
                       fontFamily: StringData.fontFamilyPoppins),
                   TextSpan(
-                      text: widget.item.author!.isNotEmpty ? "লেখক " : "",
+                      text: widget.item.author!.isNotEmpty ? label(e: en.authorText, b: bn.authorText) : "",
                       children: [
                         TextSpan(
                           text: widget.item.author!
@@ -375,7 +377,7 @@ class _BookItemWidgetState extends State<BookItemWidget> with AppTheme,BookmarkW
                       ])),
             SizedBox(height: size.h4),
             Text(
-              widget.item.titleEn,
+              label(e: widget.item.titleEn, b: widget.item.titleBn),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

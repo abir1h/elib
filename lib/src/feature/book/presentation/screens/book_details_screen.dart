@@ -376,7 +376,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 data.bookDetails.titleEn.isNotEmpty
                                     ? Center(
                                         child: Text(
-                                          data.bookDetails.titleEn,
+                                          label(e: data.bookDetails.titleEn, b: data.bookDetails.titleBn),
                                           style: TextStyle(
                                               color: clr.appPrimaryColorBlack,
                                               fontWeight: FontWeight.w600,
@@ -485,8 +485,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                   firstItem: label(
                                                       e: en.bookEdition,
                                                       b: bn.bookEdition),
-                                                  secondItem: data
-                                                      .bookDetails.editionEn),
+                                                  secondItem: label(e: data.bookDetails.editionEn, b: data.bookDetails.editionBn)),
                                             if (data.bookDetails.publishYearEn
                                                 .isNotEmpty)
                                               BookInfoItemWidget(
@@ -501,8 +500,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                                   firstItem: label(
                                                       e: en.publisher,
                                                       b: bn.publisher),
-                                                  secondItem: data
-                                                      .bookDetails.publisherEn),
+                                                  secondItem: label(e: data.bookDetails.publisherEn, b: data.bookDetails.publisherBn)),
                                             if (data
                                                 .bookDetails.isbn.isNotEmpty)
                                               BookInfoItemWidget(
@@ -582,7 +580,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         padding: EdgeInsets.symmetric(
                                             horizontal: size.h16),
                                         child: Text(
-                                          data.bookDetails.descriptionEn,
+                                          label(e: data.bookDetails.descriptionEn, b: data.bookDetails.descriptionBn),
                                           style: TextStyle(
                                               color: clr.appPrimaryColorBlack,
                                               fontWeight: FontWeight.w400,
@@ -638,14 +636,14 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               title: label(
                                   e: en.bookAuthorViewAll,
                                   b: bn.bookAuthorViewAll),
-                              items: data.authorBook!,
+                              items: data.authorBook!.first.authorBook!,
                               emptyText: "No Book Found !",
                               buildItem: (context, index, item) {
-                                return item.authorBook != null ? AspectRatio(
+                                return data.authorBook!.first.authorBook != null ? AspectRatio(
                                   aspectRatio: .45,
                                   child: BookItemWidget(
                                     key: Key(item.id.toString()),
-                                    item: item.authorBook!,
+                                    item: item,
                                     onSelect: onBookContentSelected,
                                     onBookmarkSelect:
                                     onBookmarkContentSelected,

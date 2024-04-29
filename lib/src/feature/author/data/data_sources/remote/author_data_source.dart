@@ -1,3 +1,4 @@
+import '../../models/author_data_model.dart';
 import '../../../../../core/constants/common_imports.dart';
 import '../../../../../core/network/api_service.dart';
 import '../../../../book/data/models/book_data_model.dart';
@@ -24,7 +25,7 @@ class AuthorRemoteDataSourceImp extends AuthorRemoteDataSource {
     final responseJson = await Server.instance
         .getRequest(url: "${ApiCredential.getBookByAuthors}/$authorId");
     ResponseModel responseModel = ResponseModel.fromJson(
-        responseJson, (dynamic json) => BookDataModel.listFromJson(json));
+        responseJson, (dynamic json) => AuthorDataModel.listFromJson(json));
     return responseModel;
   }
 }

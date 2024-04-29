@@ -164,6 +164,8 @@ class LanguageEn {
   String seeCategoryBook = "View all book categories:";
   String allBooksText = "All Books";
 
+  String authorText = "Author ";
+
   String categoryViewAll = "View all books in the category";
 }
 
@@ -326,7 +328,7 @@ class LanguageBn {
   String seeCategoryBook = "বইয়ের সকল ক্যাটেগরিগুলো দেখুন:";
 
   String allBooksText = "সকল বই সমূহ";
-
+  String authorText = "লেখক ";
 
   String categoryViewAll = "ক্যাটেগরির সকল বই দেখুন";
 }

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elibrary/src/core/utility/app_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -214,7 +215,7 @@ class AuthorItemWidget extends StatelessWidget with AppTheme, Language {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      authorDataEntity.nameEn,
+                      label(e: authorDataEntity.nameEn, b: authorDataEntity.nameBn),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
