@@ -126,7 +126,7 @@ class BookRemoteDataSourceImp extends BookRemoteDataSource {
         ? "${ApiCredential.bookRequest}$enablePagination&page=$pageNumber"
         : "${ApiCredential.bookRequest}$enablePagination";
     final responseJson =
-        await Server.instance.getRequest(url: ApiCredential.bookRequest);
+        await Server.instance.getRequest(url: "${ApiCredential.bookRequest}?page=$pageNumber");
     ResponseModel responseModel =
         // enablePagination
         //     ?

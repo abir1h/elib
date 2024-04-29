@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../core/common_widgets/paginated_list_view.dart';
 import '../../../../core/utility/utility.dart';
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/circuler_widget.dart';
@@ -33,22 +34,46 @@ class _BookRequestListScreenState extends State<BookRequestListScreen>
       child: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [
-            AppStreamBuilder<List<BookRequestDataEntity>>(
-              stream: bookRequestDataStreamController.stream,
+            AppStreamBuilder<PaginatedListViewController<BookRequestDataEntity>>(
+              stream: pageStateStreamController.stream,
               loadingBuilder: (context) {
                 return const Center(child: CircularLoader());
               },
               dataBuilder: (context, data) {
-                return BookRequestItemSectionWidget(
-                    items: data,
-                    buildItem: (context, index, item) {
-                      return BookRequestItemWidget(
-                        bookRequestDataEntity: item,
-                        onDelete: () => _onDelete(bookRequestId: item.id!),
-                        onEdit: () => onTapCreateOrUpdate(
-                            bookRequestDataEntity: item, edit: true),
-                      );
-                    });
+                return PaginatedListView<BookRequestDataEntity>(
+                  controller: paginationController,
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: size.h20,vertical: size.h20),
+                  itemBuilder: (context, item,index) {
+                    return BookRequestItemWidget(
+                      bookRequestDataEntity: item,
+                      onDelete: () => _onDelete(bookRequestId: item.id!),
+                      onEdit: () => onTapCreateOrUpdate(
+                          bookRequestDataEntity: item, edit: true),
+                    );
+                  },
+                  separatorBuilder: (context) {
+                    return SizedBox(
+                      height: size.h16,
+                    );
+                  },
+                  loaderBuilder: (context)=> Padding(
+                    padding: EdgeInsets.all(4.0.w),
+                    child: Center(
+                      child: CircularLoader(loaderSize: 16.w,),
+                    ),
+                  ),
+                );
+                // return BookRequestItemSectionWidget(
+                //     items: data,
+                //     buildItem: (context, index, item) {
+                //       return BookRequestItemWidget(
+                //         bookRequestDataEntity: item,
+                //         onDelete: () => _onDelete(bookRequestId: item.id!),
+                //         onEdit: () => onTapCreateOrUpdate(
+                //             bookRequestDataEntity: item, edit: true),
+                //       );
+                //     });
               },
               emptyBuilder: (context, message, icon) => EmptyWidget(
                 message: message,

@@ -63,7 +63,7 @@ mixin AuthorService<T extends StatefulWidget> on State<T>
         paginationController.addItems(value.data!.authorDataEntity);
         pageStateStreamController.add(DataLoadedState(paginationController));
       } else if (value.error == null && value.data.authorDataEntity.isEmpty) {
-        // authorDataStreamController.add(EmptyState(message: 'No Author Found'));
+        pageStateStreamController.add(EmptyState(message: 'No Author Found'));
       } else {
         _view.showWarning(value.message!);
       }

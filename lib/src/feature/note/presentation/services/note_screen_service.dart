@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/common_widgets/app_stream.dart';
 import '../../../../core/common_widgets/custom_toasty.dart';
+import '../../../../core/common_widgets/paginated_list_view.dart';
 import '../../../shared/domain/entities/response_entity.dart';
 import '../../data/data_sources/remote/note_data_source.dart';
 import '../../data/repositories/note_repository_imp.dart';
@@ -38,28 +41,39 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
     _view = this;
     super.initState();
     loadNotesData(true, pageNumber: 1);
+    paginationController.onLoadMore = _onLoadMoreItems;
   }
 
   @override
   void dispose() {
-    noteDataStreamController.dispose();
+    // noteDataStreamController.dispose();
+    pageStateStreamController.dispose();
     super.dispose();
   }
 
   ///Stream controllers
-  final AppStreamController<List<NoteDataEntity>> noteDataStreamController =
-      AppStreamController();
+  // final AppStreamController<List<NoteDataEntity>> noteDataStreamController =
+  //     AppStreamController();
+
+  ///Stream controllers
+  final AppStreamController<PaginatedListViewController<NoteDataEntity>> pageStateStreamController = AppStreamController();
+  PaginatedListViewController<NoteDataEntity> paginationController = PaginatedListViewController();
 
   ///Load Category list
   void loadNotesData(bool enablePagination, {int? pageNumber}) {
-    if (!mounted) return;
-    noteDataStreamController.add(LoadingState());
+    if(!mounted) return;
+    paginationController.clear();
+    pageStateStreamController.add(LoadingState());
     getNoteList(enablePagination, pageNumber: pageNumber).then((value) {
       if (value.error == null && value.data.noteDataEntity!.isNotEmpty) {
-        noteDataStreamController.add(
-            DataLoadedState<List<NoteDataEntity>>(value.data!.noteDataEntity));
+        // noteDataStreamController.add(
+        //     DataLoadedState<List<NoteDataEntity>>(value.data!.noteDataEntity));
+        paginationController.setTotalItemCount(value.data!.total);
+        paginationController.addItems(value.data!.noteDataEntity);
+        pageStateStreamController.add(DataLoadedState(paginationController));
+
       } else if (value.error == null && value.data.noteDataEntity!.isEmpty) {
-        noteDataStreamController.add(EmptyState(message: 'No Notes Found'));
+        pageStateStreamController.add(EmptyState(message: 'No Notes Found'));
       } else {
         _view.showWarning(value.message!);
       }
@@ -83,4 +97,27 @@ mixin NoteScreenService<T extends StatefulWidget> on State<T>
     CustomToasty.of(context).releaseUI();
     return responseEntity;
   }
+
+  ///Load more data
+  Future<bool> _onLoadMoreItems(int nextPage) async{
+    Completer<bool> completer = Completer();
+    getNoteList(true, pageNumber: nextPage).asStream().listen((value) {
+      if (!mounted) return;
+      ///Data loaded state
+      if(value.error == null && value.data.noteDataEntity.isNotEmpty){
+        paginationController.setTotalItemCount(value.data!.total);
+        paginationController.addItems(value.data!.noteDataEntity);
+        completer.complete(true);
+      }
+      ///Error state
+      else{
+        ///Try reloading
+        // _view.showWarning(value.message);
+        completer.complete(false);
+      }
+    });
+
+    return completer.future;
+  }
+
 }

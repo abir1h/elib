@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/common_widgets/paginated_list_view.dart';
 import '../../../../core/service/notifier/app_events_notifier.dart';
 import '../../../../core/utility/utility.dart';
 import '../../../../core/common_widgets/app_stream.dart';
@@ -38,21 +39,44 @@ class _NoteScreenState extends State<NoteScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: AppStreamBuilder<List<NoteDataEntity>>(
-                stream: noteDataStreamController.stream,
+              child: AppStreamBuilder<PaginatedListViewController<NoteDataEntity>>(
+                stream: pageStateStreamController.stream,
                 loadingBuilder: (context) {
                   return const Center(child: CircularLoader());
                 },
                 dataBuilder: (context, data) {
-                  return NoteItemSectionWidget(
-                      items: data,
-                      buildItem: (context, index, item) {
-                        return item.book != null ? NoteItemWidget(
-                          noteDataEntity: item,
-                          onDelete: () => _onDelete(noteId: item.id!),
-                          onPressed: () => onTapNote(item),
-                        ) : const Offstage();
-                      });
+                  return PaginatedListView<NoteDataEntity>(
+                    controller: paginationController,
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: size.h20,vertical: size.h20),
+                    itemBuilder: (context, item,index) {
+                      return item.book != null ? NoteItemWidget(
+                        noteDataEntity: item,
+                        onDelete: () => _onDelete(noteId: item.id!),
+                        onPressed: () => onTapNote(item),
+                      ) : const Offstage();
+                    },
+                    separatorBuilder: (context) {
+                      return SizedBox(
+                        height: size.h16,
+                      );
+                    },
+                    loaderBuilder: (context)=> Padding(
+                      padding: EdgeInsets.all(4.0.w),
+                      child: Center(
+                        child: CircularLoader(loaderSize: 16.w,),
+                      ),
+                    ),
+                  );
+                  // return NoteItemSectionWidget(
+                  //     items: data,
+                  //     buildItem: (context, index, item) {
+                  //       return item.book != null ? NoteItemWidget(
+                  //         noteDataEntity: item,
+                  //         onDelete: () => _onDelete(noteId: item.id!),
+                  //         onPressed: () => onTapNote(item),
+                  //       ) : const Offstage();
+                  //     });
                 },
                 emptyBuilder: (context, message, icon) => EmptyWidget(
                   message: message,

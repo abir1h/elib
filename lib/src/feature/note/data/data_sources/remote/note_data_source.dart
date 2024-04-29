@@ -20,7 +20,7 @@ class NoteRemoteDataSourceImp extends NoteRemoteDataSource {
         ? "${ApiCredential.getNoteBooks}$enablePagination&page=$pageNumber"
         : "${ApiCredential.getNoteBooks}$enablePagination";
     final responseJson =
-        await Server.instance.getRequest(url: ApiCredential.getNoteBooks);
+        await Server.instance.getRequest(url: "${ApiCredential.getNoteBooks}?page=$pageNumber");
     ResponseModel responseModel = enablePagination
         ? ResponseModel.fromJson(responseJson,
             (dynamic json) => PaginatedNoteDataModel.fromJson(json))
