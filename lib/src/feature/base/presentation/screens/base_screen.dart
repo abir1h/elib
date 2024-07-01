@@ -21,7 +21,7 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen>
-    with AppTheme, BaseScreenService ,AppEventsNotifier{
+    with AppTheme, BaseScreenService, AppEventsNotifier {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
